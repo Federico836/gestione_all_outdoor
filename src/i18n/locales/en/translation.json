@@ -1,3 +1,7 @@
 {
-  
+  "main-container": {
+    "esporta": "EXPORT",
+    "modifica-framework": "Modify Framework",
+    "scrivi-framework": "Write Framework"
+  }
 }

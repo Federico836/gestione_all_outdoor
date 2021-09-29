@@ -1,3 +1,7 @@
 {
-  
+  "main-container": {
+    "esporta": "ESPORTA",
+    "modifica-framework": "Modifica Framewrok",
+    "scrivi-framework": "Scrivi Framework"
+  }
 }
