@@ -27,7 +27,7 @@ const MainContainer = () => {
                     </div>
                 </div> :
             pagina==="scrivi_frame" ?
-                <ContainerFramework /> :
+                <ContainerFramework setPagina={setPagina} /> :
             pagina==="modifica_frame" ?
             console.log(2) :
             console.log(3)}
