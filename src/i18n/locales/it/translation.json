@@ -3,5 +3,17 @@
     "esporta": "ESPORTA",
     "modifica-framework": "Modifica Framewrok",
     "scrivi-framework": "Scrivi Framework"
+  },
+  "scrivi-framework": {
+    "ciclismo": {
+      "zona": "Zona",
+      "ciclismo": "Ciclismo",
+      "data": "Data",
+      "fc": "FC",
+      "serie": "Serie",
+      "ripetizioni": "Ripetizioni",
+      "durata": "Durata",
+      "recupero": "Recupero"
+    }
   }
 }

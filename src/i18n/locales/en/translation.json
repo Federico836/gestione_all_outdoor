@@ -3,5 +3,17 @@
     "esporta": "EXPORT",
     "modifica-framework": "Modify Framework",
     "scrivi-framework": "Write Framework"
+  },
+  "scrivi-framework": {
+    "ciclismo": {
+      "zona": "Zone",
+      "ciclismo": "Cycling",
+      "data": "Date",
+      "fc": "HR",
+      "serie": "Sets",
+      "ripetizioni": "Reps",
+      "durata": "Duration",
+      "recupero": "Recovery"
+    }
   }
 }
