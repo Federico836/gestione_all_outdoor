@@ -8,13 +8,13 @@ const TabCiclismoAddRiga = (props) => {
 
     const { aggiungiRiga } = props
 
-    const [zona, setZona] = useState(1)
-    const [serie, setSerie] = useState(1)
-    const [ripetizioni, setRipetizioni] = useState(1)
-    const [durata, setDurata] = useState(1)
-    const [recupero, setRecupero] = useState(1)
-    const [rpm, setRpm] = useState(1)
-    const [note, setNote] = useState(1)
+    const [zona, setZona] = useState("")
+    const [serie, setSerie] = useState("")
+    const [ripetizioni, setRipetizioni] = useState("")
+    const [durata, setDurata] = useState("")
+    const [recupero, setRecupero] = useState("")
+    const [rpm, setRpm] = useState("")
+    const [note, setNote] = useState("")
 
     const { t, i18n } = useTranslation()
 
@@ -33,12 +33,12 @@ const TabCiclismoAddRiga = (props) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" onChange={(e) => {setZona(e.target.value)}} /></td>
-                            <td><input type="text" onChange={(e) => {setSerie(e.target.value)}} /></td>
-                            <td><input type="text" onChange={(e) => {setRipetizioni(e.target.value)}} /></td>
-                            <td><input type="text" onChange={(e) => {setDurata(e.target.value)}} /></td>
-                            <td><input type="text" onChange={(e) => {setRecupero(e.target.value)}} /></td>
-                            <td><input type="text" onChange={(e) => {setRpm(e.target.value)}} /></td>
+                            <td><input type="number" onChange={(e) => {setZona(e.target.value)}} /></td>
+                            <td><input type="number" onChange={(e) => {setSerie(e.target.value)}} /></td>
+                            <td><input type="number" onChange={(e) => {setRipetizioni(e.target.value)}} /></td>
+                            <td><input type="number" onChange={(e) => {setDurata(e.target.value)}} /></td>
+                            <td><input type="number" onChange={(e) => {setRecupero(e.target.value)}} /></td>
+                            <td><input type="number" onChange={(e) => {setRpm(e.target.value)}} /></td>
                             <td><input type="text" onChange={(e) => {setNote(e.target.value)}} /></td>
                         </tr>
                     </tbody>
