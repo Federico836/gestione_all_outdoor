@@ -1,0 +1,17 @@
+.alignCenter {
+    text-align: center;
+}
+
+.inputRinomina {
+    width: 96%;
+    border: 0px;
+    outline: none;
+}
+
+.inputRinomina:focus {
+    border: 0px;
+}
+
+.cursoreGrafico {
+    cursor: pointer;
+}
