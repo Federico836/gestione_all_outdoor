@@ -10,6 +10,8 @@ import { v4 as uuidv4 } from 'uuid'
 const Ciclismo = () => {
 
     const [listaRighe, setListaRighe] = useState([])
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: "", serie: "", ripetizioni: "", durata: "", recupero: "", rpm: "", note: "" })
+    const [modificaRiga, setModificaRiga] = useState({modifica: false})
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
 
@@ -21,8 +23,9 @@ const Ciclismo = () => {
 
     return (
         <div className={styles.container}>
-            <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} />
-            <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} />
+            <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga} setDatiSingolaRiga={setDatiSingolaRiga} />
+            <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
+            setDatiSingolaRiga={setDatiSingolaRiga} />
         </div>
     )
 }

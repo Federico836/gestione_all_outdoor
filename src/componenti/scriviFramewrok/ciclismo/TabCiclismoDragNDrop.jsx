@@ -7,7 +7,7 @@ import { scambioElementiArray } from '../../../utils/funzioniArray'
 
 const Row = (props) => {
 
-    const { riga, listaRighe, setListaRighe, aggiungiRiga } = props
+    const { riga, listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga } = props
     
     const { t, i18n } = useTranslation()
 
@@ -24,23 +24,24 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>{riga.note}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
                 onClick={() => aggiungiRiga(riga)}>📋</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>✎</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
+                onClick={() => setDatiSingolaRiga(riga)}>✎</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
                 onClick={() => setListaRighe(listaRighe.filter(el => el.idRiga !== riga.idRiga))}>🗑</div>
         </div>
     )
 }
 
-const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga}) => <Row riga={riga} listaRighe={listaRighe}
-    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} />)
+const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga}) => <Row riga={riga} listaRighe={listaRighe}
+    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setDatiSingolaRiga={setDatiSingolaRiga} />)
 
-const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga}) => {
+const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga}) => {
 
     return (
         <div>
             {useMemo(() => items.map((riga, index) => (
                 <SortableItem key={`item-${index}`} index={index} riga={riga} listaRighe={listaRighe}
-                    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} />
+                    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setDatiSingolaRiga={setDatiSingolaRiga} />
             )), [items]) }
         </div>
     )
@@ -48,7 +49,7 @@ const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiu
 
 const Lista = (props) => {
 
-    const { listaRighe, setListaRighe, aggiungiRiga } = props
+    const { listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga } = props
     const { t, i18n } = useTranslation()
 
     const items = listaRighe
@@ -74,7 +75,7 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>Elimina</div>
         </div>
         <SortableList items={items} onSortEnd={onSortEnd} pressDelay={100} axis="y" lockAxis="y"
-            listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} />
+        listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setDatiSingolaRiga={setDatiSingolaRiga} />
       </div>
     )
 }
