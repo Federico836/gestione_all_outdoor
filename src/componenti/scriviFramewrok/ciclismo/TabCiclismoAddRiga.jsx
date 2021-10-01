@@ -1,12 +1,12 @@
 import React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
 import styles from './TabCiclismoAddRiga.module.css'
 
 const TabCiclismoAddRiga = (props) => {
 
-    const { aggiungiRiga, datiSingolaRiga, setDatiSingolaRiga } = props
+    const { aggiungiRiga, datiSingolaRiga, setDatiSingolaRiga, modificaRiga } = props
 
     const { t, i18n } = useTranslation()
 
@@ -38,7 +38,7 @@ const TabCiclismoAddRiga = (props) => {
             </div>
             <div className={styles.bottoneAdd}>
                 <Button variant="contained"
-                onClick={() => aggiungiRiga(datiSingolaRiga)}>➕</Button>
+                onClick={() => aggiungiRiga(datiSingolaRiga)}>{modificaRiga ? "✎" : "➕"}</Button>
             </div>
         </div>
     )

@@ -7,15 +7,15 @@ import { scambioElementiArray } from '../../../utils/funzioniArray'
 
 const Row = (props) => {
 
-    const { riga, listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga } = props
+    const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga } = props
     
     const { t, i18n } = useTranslation()
 
     return (
         <div style={{display: 'flex', flexDirection: 'row'}}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.zona}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.watt}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.fc}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.wattMin}{riga.wattMin ? "-" : ""}{riga.wattMax}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.fcMin}{riga.fcMin ? "-" : ""}{riga.fcMax}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.serie}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.ripetizioni}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.durata}</div>
@@ -25,23 +25,23 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
                 onClick={() => aggiungiRiga(riga)}>📋</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
-                onClick={() => setDatiSingolaRiga(riga)}>✎</div>
+                onClick={() => setModificaRiga(riga)}>✎</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
                 onClick={() => setListaRighe(listaRighe.filter(el => el.idRiga !== riga.idRiga))}>🗑</div>
         </div>
     )
 }
 
-const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga}) => <Row riga={riga} listaRighe={listaRighe}
-    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setDatiSingolaRiga={setDatiSingolaRiga} />)
+const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga}) => <Row riga={riga} listaRighe={listaRighe}
+    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />)
 
-const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga}) => {
+const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga}) => {
 
     return (
         <div>
             {useMemo(() => items.map((riga, index) => (
                 <SortableItem key={`item-${index}`} index={index} riga={riga} listaRighe={listaRighe}
-                    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setDatiSingolaRiga={setDatiSingolaRiga} />
+                    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />
             )), [items]) }
         </div>
     )
@@ -49,7 +49,7 @@ const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiu
 
 const Lista = (props) => {
 
-    const { listaRighe, setListaRighe, aggiungiRiga, setDatiSingolaRiga } = props
+    const { listaRighe, setListaRighe, aggiungiRiga, setModificaRiga } = props
     const { t, i18n } = useTranslation()
 
     const items = listaRighe
@@ -75,7 +75,7 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>Elimina</div>
         </div>
         <SortableList items={items} onSortEnd={onSortEnd} pressDelay={100} axis="y" lockAxis="y"
-        listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setDatiSingolaRiga={setDatiSingolaRiga} />
+        listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />
       </div>
     )
 }

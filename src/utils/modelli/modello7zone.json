@@ -1,0 +1,128 @@
+[
+	{
+		"ZONA": 1,
+		"DESCRIZIONE": "RECUPERO ATTIVO",
+		"SIGLA": "REC",
+		"PERCE": {
+			"FTP_MIN": "55",
+			"FTP_MAX": "55",
+			"FC_MIN": "68",
+			"FC_MAX": "68"
+		},
+		"RPE": "<2",
+		"TEMPO": {
+			"ALLENAMENTO": "30-90 min",
+			"RIPETUTA": "N/A"
+		},
+		"DESCRIPTION": "ACTIVE RECOVERY",
+		"ACRONYM": "ACT REC"
+	},
+	{
+		"ZONA": 2,
+		"DESCRIZIONE": "FONDO LUNGO",
+		"SIGLA": "LNG",
+		"PERCE": {
+			"FTP_MIN": "56",
+			"FTP_MAX": "75",
+			"FC_MIN": "69",
+			"FC_MAX": "83"
+		},
+		"RPE": "2 3 ",
+		"TEMPO": {
+			"ALLENAMENTO": "60 min - 5 h",
+			"RIPETUTA": "N/A"
+		},
+		"DESCRIPTION": "ENDURANCE",
+		"ACRONYM": "END"
+	},
+	{
+		"ZONA": 3,
+		"DESCRIZIONE": "FONDO MEDIO",
+		"SIGLA": "MDO",
+		"PERCE": {
+			"FTP_MIN": "76",
+			"FTP_MAX": "90",
+			"FC_MIN": "84",
+			"FC_MAX": "94"
+		},
+		"RPE": "3 4 ",
+		"TEMPO": {
+			"ALLENAMENTO": "1-3 h",
+			"RIPETUTA": "N/A"
+		},
+		"DESCRIPTION": "TEMPO",
+		"ACRONYM": "TPM"
+	},
+	{
+		"ZONA": 4,
+		"DESCRIZIONE": "SOGLIA",
+		"SIGLA": "SGL",
+		"PERCE": {
+			"FTP_MIN": "91",
+			"FTP_MAX": "105",
+			"FC_MIN": "95",
+			"FC_MAX": "105"
+		},
+		"RPE": "4 5",
+		"TEMPO": {
+			"ALLENAMENTO": "40-60 min",
+			"RIPETUTA": "5-30 min"
+		},
+		"DESCRIPTION": "THRESHOLD",
+		"ACRONYM": "THR"
+	},
+	{
+		"ZONA": 5,
+		"DESCRIZIONE": "VO2MAX",
+		"SIGLA": "VO2",
+		"PERCE": {
+			"FTP_MIN": "106",
+			"FTP_MAX": "120",
+			"FC_MIN": "106",
+			"FC_MAX": "106"
+		},
+		"RPE": "6 7",
+		"TEMPO": {
+			"ALLENAMENTO": "N/A",
+			"RIPETUTA": "3-8 min"
+		},
+		"DESCRIPTION": "VO2MAX",
+		"ACRONYM": "VO2"
+	},
+	{
+		"ZONA": 6,
+		"DESCRIZIONE": "CAPACITÀ ANAEROBICA",
+		"SIGLA": "LAT",
+		"PERCE": {
+			"FTP_MIN": "121",
+			"FTP_MAX": "150",
+			"FC_MIN": "",
+			"FC_MAX": "N/A"
+		},
+		"RPE": ">7",
+		"TEMPO": {
+			"ALLENAMENTO": "N/A",
+			"RIPETUTA": "30 sec- 2 min"
+		},
+		"DESCRIPTION": "ANAEROBIC CAPACITY",
+		"ACRONYM": "ANA"
+	},
+	{
+		"ZONA": 7,
+		"DESCRIZIONE": "POTENZA NEUROMUSCOLARE",
+		"SIGLA": "PNM",
+		"PERCE": {
+			"FTP_MIN": "",
+			"FTP_MAX": "MAX",
+			"FC_MIN": "",
+			"FC_MAX": "N/A"
+		},
+		"RPE": "MAX",
+		"TEMPO": {
+			"ALLENAMENTO": "N/A",
+			"RIPETUTA": "< 30 sec"
+		},
+		"DESCRIPTION": "NEUROMUSCOLAR POWER",
+		"ACRONYM": "NMP"
+	}
+]
