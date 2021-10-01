@@ -14,19 +14,19 @@ const Row = (props) => {
     return (
         <div style={{display: 'flex', flexDirection: 'row'}}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.zona}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.wattMin}{riga.wattMin ? "-" : ""}{riga.wattMax}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.fcMin}{riga.fcMin ? "-" : ""}{riga.fcMax}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.wattMin ? riga.wattMin+"-" : ""}{/* {riga.wattMin ? "-" : ""} */}{riga.wattMax}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.wattMin ? riga.fcMin+"-" : ""}{/* {riga.fcMin ? "-" : ""} */}{riga.fcMax}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.serie}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.ripetizioni}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.durata}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.recupero}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.rpm}</div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>{riga.note}</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer"}}
                 onClick={() => aggiungiRiga(riga)}>📋</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer"}}
                 onClick={() => setModificaRiga(riga)}>✎</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer"}}
                 onClick={() => setListaRighe(listaRighe.filter(el => el.idRiga !== riga.idRiga))}>🗑</div>
         </div>
     )
@@ -70,9 +70,9 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:recupero')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Rpm</div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>Note</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>Clona</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>Modifica</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>Elimina</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:clona')}</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:modifica')}</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:elimina')}</div>
         </div>
         <SortableList items={items} onSortEnd={onSortEnd} pressDelay={100} axis="y" lockAxis="y"
         listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />

@@ -13,16 +13,16 @@ const Intestazione = (props) => {
     return (
         <div className={styles.containerGrid}>
             <div>
-                <span>Ciclismo</span>
+                <span>{t('scrivi-framework:ciclismo:ciclismo')}</span>
             </div>
             <div>
-                Data <input type="date" onChange={(e) => setData(e.target.value)} />
+                {t('scrivi-framework:ciclismo:data')} <input type="date" onChange={(e) => setData(e.target.value)} />
             </div>
             <div>
                 FTP <input type="number" value={ftp} onChange={(e) => setFtp(e.target.value)} />
             </div>
             <div>
-                FC <input type="number" value={fc} onChange={(e) => setFc(e.target.value)} />
+                {t('scrivi-framework:ciclismo:fc')} <input type="number" value={fc} onChange={(e) => setFc(e.target.value)} />
             </div>
         </div>
     )

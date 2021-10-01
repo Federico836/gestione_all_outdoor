@@ -2,7 +2,8 @@
   "main-container": {
     "esporta": "EXPORT",
     "modifica-framework": "Modify Framework",
-    "scrivi-framework": "Write Framework"
+    "scrivi-framework": "Write Framework",
+    "indietro": "Back"
   },
   "scrivi-framework": {
     "ciclismo": {
@@ -13,7 +14,10 @@
       "serie": "Sets",
       "ripetizioni": "Reps",
       "durata": "Duration",
-      "recupero": "Recovery"
+      "recupero": "Recovery",
+      "clona": "Clone",
+      "modifica": "Modify",
+      "elimina": "Delete"
     }
   }
 }

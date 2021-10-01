@@ -2,7 +2,7 @@ import modello7zone from './modelli/modello7zone.json'
 
 const calcola7Zone = (ftp, fc) => {
 
-    if(!ftp || !fc) return null
+    /* if(!ftp || !fc) return null */
 
     return  modello7zone.map(zona => {
 

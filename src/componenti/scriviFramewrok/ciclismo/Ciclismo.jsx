@@ -12,7 +12,7 @@ import Intestazione from "./Intestazione.jsx"
 const Ciclismo = () => {
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: "", serie: "", ripetizioni: "", durata: "00:00:00", recupero: "", rpm: "", note: "" })
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", durata: "00:00:00", recupero: "", rpm: "", note: "" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
@@ -34,10 +34,10 @@ const Ciclismo = () => {
             setModificaRiga(null)
         }
         else {
-            if(riga.zona>=1 && riga.zona<=7) {
+            /* if(riga.zona>=1 && riga.zona<=7) { */
                 setListaRighe([...listaRighe, {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
                     fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max, idRiga: uuidv4()}])
-            }
+            /* } */
         }
     }
 

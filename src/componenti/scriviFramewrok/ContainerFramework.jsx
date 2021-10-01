@@ -7,24 +7,26 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
+import { Link as RouterLink } from 'react-router-dom'
 
 import Ciclismo from "./ciclismo/Ciclismo.jsx"
 import Corsa from "./Corsa.jsx"
 import Nuoto from "./Nuoto.jsx"
 
 import styles from './ContainerFramework.module.css'
+import { useTranslation } from 'react-i18next'
 
-import { Link as RouterLink } from 'react-router-dom'
 
 const ContainerFramework = (props) => {
     const { setPagina } = props
     
     const [open, setOpen] = useState(false)
+    const { t, i18n } = useTranslation()
 
     return (
         <div className={styles.container}>
             <div className={styles.bottoniIndietroMenu}>
-                <Button variant="contained" className={styles.bottoneApriMenu} onClick={() => setPagina("menu_princ")}>Indietro</Button>
+                <Button variant="contained" className={styles.bottoneApriMenu} onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
                 <Button variant="contained" className={styles.bottoneApriMenu} onClick={() => setOpen(!open)}>menu</Button>
             </div>
             <div className={styles.containerTabFramework}>

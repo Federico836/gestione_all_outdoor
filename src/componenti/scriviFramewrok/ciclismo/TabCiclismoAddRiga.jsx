@@ -25,12 +25,20 @@ const TabCiclismoAddRiga = (props) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="number" value={datiSingolaRiga.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}} /></td>
-                            <td><input type="number" value={datiSingolaRiga.serie} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td>
-                            <td><input type="number" value={datiSingolaRiga.ripetizioni} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, ripetizioni: e.target.value})}} /></td>
+                            <td><select onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>{/* <input type="number" min="1" max="7" value={datiSingolaRiga.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}} /> */}</td>
+                            <td><input type="number" min="0" value={datiSingolaRiga.serie} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td>
+                            <td><input type="number" min="0" value={datiSingolaRiga.ripetizioni} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, ripetizioni: e.target.value})}} /></td>
                             <td><input type="time" value={datiSingolaRiga.durata} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} /></td>
-                            <td><input type="number" value={datiSingolaRiga.recupero} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, recupero: e.target.value})}} /></td>
-                            <td><input type="number" value={datiSingolaRiga.rpm} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, rpm: e.target.value})}} /></td>
+                            <td><input type="number" min="0" value={datiSingolaRiga.recupero} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, recupero: e.target.value})}} /></td>
+                            <td><input type="number" min="0" value={datiSingolaRiga.rpm} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, rpm: e.target.value})}} /></td>
                             <td><input type="text" value={datiSingolaRiga.note} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, note: e.target.value})}} /></td>
                         </tr>
                     </tbody>

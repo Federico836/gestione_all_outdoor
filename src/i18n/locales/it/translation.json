@@ -2,7 +2,8 @@
   "main-container": {
     "esporta": "ESPORTA",
     "modifica-framework": "Modifica Framewrok",
-    "scrivi-framework": "Scrivi Framework"
+    "scrivi-framework": "Scrivi Framework",
+    "indietro": "Indietro"
   },
   "scrivi-framework": {
     "ciclismo": {
@@ -13,7 +14,10 @@
       "serie": "Serie",
       "ripetizioni": "Ripetizioni",
       "durata": "Durata",
-      "recupero": "Recupero"
+      "recupero": "Recupero",
+      "clona": "Clona",
+      "modifica": "Modifica",
+      "elimina": "Elimina"
     }
   }
 }
