@@ -1,6 +1,5 @@
 import React, {useMemo, useState, useEffect} from 'react'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
-import { useDispatch, useSelector } from 'react-redux'
 import styles from './TabCiclismoDragNDrop.module.css'
 import { useTranslation } from 'react-i18next'
 import { scambioElementiArray } from '../../../utils/funzioniArray'
@@ -15,7 +14,7 @@ const Row = (props) => {
         <div style={{display: 'flex', flexDirection: 'row'}}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.zona}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.wattMin ? riga.wattMin+"-" : ""}{/* {riga.wattMin ? "-" : ""} */}{riga.wattMax}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.wattMin ? riga.fcMin+"-" : ""}{/* {riga.fcMin ? "-" : ""} */}{riga.fcMax}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.fcMin ? riga.fcMin+"-" : ""}{/* {riga.fcMin ? "-" : ""} */}{riga.fcMax}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.serie}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.ripetizioni}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.durata}</div>

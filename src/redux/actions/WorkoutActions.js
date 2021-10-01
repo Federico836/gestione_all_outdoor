@@ -7,7 +7,7 @@ const getListaWorkouts = () => {
   return {type: 'GET_LISTA_WORKOUTS'}
 }
 
-export default {
+export {
   setListaWorkouts,
   getListaWorkouts
 }

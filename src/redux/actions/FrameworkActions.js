@@ -8,12 +8,10 @@ const getListaFrameworks = () => {
 }
 
 const addFramework = (framework) => {
-  return {type: 'ADD_FRAMEWORK'}
+  return {type: 'ADD_FRAMEWORK', payload: framework}
 }
 
-
-
-export default {
+export {
   setListaFrameworks,
   getListaFrameworks,
   addFramework

@@ -25,7 +25,7 @@ const TabCiclismoAddRiga = (props) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><select onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}}>
+                            <td><select value={datiSingolaRiga.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

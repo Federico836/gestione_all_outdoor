@@ -1,15 +1,21 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useTranslation } from 'react-i18next'
-import styles from './Ciclismo.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
+import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
 import TabCiclismoAddRiga from './TabCiclismoAddRiga.jsx'
 import TabCiclismoDragNDrop from './TabCiclismoDragNDrop.jsx'
-import { v4 as uuidv4 } from 'uuid'
 import { calcola7Zone } from '../../../utils/funzioni'
 import Intestazione from "./Intestazione.jsx"
 
+import { Button } from "@mui/material"
+import styles from './Ciclismo.module.css'
+
 const Ciclismo = () => {
+
+    const dispatch = useDispatch()
 
     const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", durata: "00:00:00", recupero: "", rpm: "", note: "" })
@@ -54,6 +60,8 @@ const Ciclismo = () => {
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
             <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
+            <Button className={styles.bottoneSalva} variant="contained"
+            onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
         </div>
     )
 }
