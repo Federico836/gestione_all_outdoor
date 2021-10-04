@@ -51,6 +51,23 @@ const Ciclismo = () => {
        if(modificaRiga) setDatiSingolaRiga(modificaRiga)
     }, [modificaRiga])
 
+    const cambiaSingolaRigaFtpFc = () => {
+        setDatiSingolaRiga({...datiSingolaRiga, wattMin: zoneCalcolate[datiSingolaRiga.zona-1].watt_min, wattMax: zoneCalcolate[datiSingolaRiga.zona-1].watt_max,
+            fcMin: zoneCalcolate[datiSingolaRiga.zona-1].fc_min, fcMax: zoneCalcolate[datiSingolaRiga.zona-1].fc_max})
+    }
+
+    useEffect(() => {
+        cambiaSingolaRigaFtpFc()
+        setListaRighe(listaRighe.map(riga => {
+            return {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
+                fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max}
+        }))
+    }, [ftp, fc])
+
+    useEffect(() => {
+        cambiaSingolaRigaFtpFc()
+    }, [datiSingolaRiga.zona])
+
     console.log({zoneCalcolate})
 
     return (
