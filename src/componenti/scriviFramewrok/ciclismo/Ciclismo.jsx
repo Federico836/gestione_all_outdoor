@@ -72,13 +72,19 @@ const Ciclismo = () => {
 
     return (
         <div className={styles.container}>
+
             <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} />
+
             <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
+
             <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
+
             <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+            onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", dataDaFare: data,
+            dataCreazione: new Date().toISOString().slice(0, 10), id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+            
         </div>
     )
 }

@@ -11,22 +11,22 @@ const Row = (props) => {
     const { t, i18n } = useTranslation()
 
     return (
-        <div style={{display: 'flex', flexDirection: 'row'}}>    
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.zona}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{(riga.zona>1 && riga.zona<7) ? (riga.wattMin+"-"+riga.wattMax) : riga.wattMax}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{(riga.zona>1 && riga.zona<5) ? (riga.fcMin+"-"+riga.fcMax) : riga.fcMax}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.serie}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.ripetizioni}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.durata}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.recupero}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.rpm}</div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>{riga.note}</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer"}}
-                onClick={() => aggiungiRiga(riga)}>📋</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer"}}
-                onClick={() => setModificaRiga(riga)}>✎</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer"}}
-                onClick={() => setListaRighe(listaRighe.filter(el => el.idRiga !== riga.idRiga))}>🗑</div>
+        <div className={styles.containerTab}>    
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.zona>1 && riga.zona<7) ? (riga.wattMin+"-"+riga.wattMax) : riga.wattMax}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.zona>1 && riga.zona<5) ? (riga.fcMin+"-"+riga.fcMax) : riga.fcMax}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.serie}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.durata}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.rpm}</span></div>
+            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center", wordWrap: "break-word"}}><span>{riga.note}</span></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
+                onClick={() => aggiungiRiga(riga)}><span>📋</span></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
+                onClick={() => setModificaRiga(riga)}><span>✎</span></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
+                onClick={() => setListaRighe(listaRighe.filter(el => el.idRiga !== riga.idRiga))}><span>🗑</span></div>
         </div>
     )
 }
