@@ -13,8 +13,8 @@ const Row = (props) => {
     return (
         <div style={{display: 'flex', flexDirection: 'row'}}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.zona}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.wattMin ? riga.wattMin+"-" : ""}{/* {riga.wattMin ? "-" : ""} */}{riga.wattMax}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.fcMin ? riga.fcMin+"-" : ""}{/* {riga.fcMin ? "-" : ""} */}{riga.fcMax}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{(riga.zona>1 && riga.zona<7) ? (riga.wattMin+"-"+riga.wattMax) : riga.wattMax}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{(riga.zona>1 && riga.zona<5) ? (riga.fcMin+"-"+riga.fcMax) : riga.fcMax}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.serie}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.ripetizioni}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{riga.durata}</div>
