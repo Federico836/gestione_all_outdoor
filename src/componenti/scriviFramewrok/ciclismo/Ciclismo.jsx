@@ -18,11 +18,13 @@ const Ciclismo = () => {
     const dispatch = useDispatch()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", durata: "00:00:00", recupero: "", rpm: "", note: "" })
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", recupero: "0:00", rpm: "", note: "", durata: "0:00" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
     const [data, setData] = useState("")
+
+    console.log(datiSingolaRiga.durata)
 
     const { t, i18n } = useTranslation()
 
@@ -67,8 +69,6 @@ const Ciclismo = () => {
     useEffect(() => {
         cambiaSingolaRigaFtpFc()
     }, [datiSingolaRiga.zona])
-
-    console.log({zoneCalcolate})
 
     return (
         <div className={styles.container}>

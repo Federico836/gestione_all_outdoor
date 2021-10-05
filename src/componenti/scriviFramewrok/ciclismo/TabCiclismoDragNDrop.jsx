@@ -3,6 +3,7 @@ import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import styles from './TabCiclismoDragNDrop.module.css'
 import { useTranslation } from 'react-i18next'
 import { scambioElementiArray } from '../../../utils/funzioniArray'
+import { getSecondsFromHHMMSS, toHHMMSS } from '../../../utils/funzioni'
 
 const Row = (props) => {
 
@@ -20,7 +21,7 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.durata}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.rpm}</span></div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center", wordWrap: "break-word"}}><span>{riga.note}</span></div>
+            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
                 onClick={() => aggiungiRiga(riga)}><span>📋</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
@@ -57,6 +58,13 @@ const Lista = (props) => {
         setListaRighe(scambioElementiArray(listaRighe, oldIndex, newIndex))
     }
 
+    let totDurata = 0
+    let totRecupero = 0
+    for(let c=0;c<listaRighe.length;c++) {
+        totDurata += getSecondsFromHHMMSS(listaRighe[c].durata)
+        totRecupero += getSecondsFromHHMMSS(listaRighe[c].recupero)
+    }
+
     return (
       <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}> 
@@ -75,6 +83,20 @@ const Lista = (props) => {
         </div>
         <SortableList items={items} onSortEnd={onSortEnd} pressDelay={100} axis="y" lockAxis="y"
         listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />
+        <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totDurata)}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totRecupero)}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
+        </div>
       </div>
     )
 }
