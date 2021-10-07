@@ -1,6 +1,4 @@
 import React from "react"
-import { useState, useEffect } from "react"
-import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
 import styles from './Intestazione.module.css'
 

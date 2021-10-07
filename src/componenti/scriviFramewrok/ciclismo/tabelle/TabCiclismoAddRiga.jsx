@@ -1,8 +1,7 @@
 import React from "react"
-import { useState, useEffect } from "react"
 import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
-import { getSecondsFromHHMMSS, toHHMMSS } from "../../../utils/funzioni.js"
+import { getSecondsFromHHMMSS, toHHMMSS } from "../../../../utils/funzioni.js"
 import styles from './TabCiclismoAddRiga.module.css'
 
 const TabCiclismoAddRiga = (props) => {

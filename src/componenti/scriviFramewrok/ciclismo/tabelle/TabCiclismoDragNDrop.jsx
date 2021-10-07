@@ -1,9 +1,9 @@
-import React, {useMemo, useState, useEffect} from 'react'
+import React, {useMemo} from 'react'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import styles from './TabCiclismoDragNDrop.module.css'
 import { useTranslation } from 'react-i18next'
-import { scambioElementiArray } from '../../../utils/funzioniArray'
-import { getSecondsFromHHMMSS, toHHMMSS } from '../../../utils/funzioni'
+import { scambioElementiArray } from '../../../../utils/funzioniArray'
+import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
 
 const Row = (props) => {
 

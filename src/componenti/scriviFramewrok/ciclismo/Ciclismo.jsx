@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
-import TabCiclismoAddRiga from './TabCiclismoAddRiga.jsx'
-import TabCiclismoDragNDrop from './TabCiclismoDragNDrop.jsx'
+import TabCiclismoAddRiga from './tabelle/TabCiclismoAddRiga.jsx'
+import TabCiclismoDragNDrop from './tabelle/TabCiclismoDragNDrop.jsx'
 import { calcola7Zone } from '../../../utils/funzioni'
-import Intestazione from "./Intestazione.jsx"
+import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
 import styles from './Ciclismo.module.css'
