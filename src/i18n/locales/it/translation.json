@@ -19,6 +19,20 @@
       "modifica": "Modifica",
       "elimina": "Elimina"
     },
-    "salva": "Salva Framework"
+    "salva": "Salva Framework",
+    "corsa": {
+      "zona": "Zona",
+      "data": "Data",
+      "serie": "Serie",
+      "ripetizioni": "Ripetizioni",
+      "durata": "Durata",
+      "recupero": "Recupero",
+      "clona": "Clona",
+      "modifica": "Modifica",
+      "elimina": "Elimina",
+      "corsa": "Corsa",
+      "distanza": "Distanza",
+      "passo": "Passo"
+    }
   }
 }

@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText'
 import { Link as RouterLink } from 'react-router-dom'
 
 import Ciclismo from "./ciclismo/Ciclismo.jsx"
-import Corsa from "./Corsa.jsx"
+import Corsa from "./corsa/Corsa.jsx"
 import Nuoto from "./Nuoto.jsx"
 
 import styles from './ContainerFramework.module.css'

@@ -5,20 +5,20 @@ import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
-import TabCiclismoAddRiga from './tabelle/TabCiclismoAddRiga.jsx'
-import TabCiclismoDragNDrop from './tabelle/TabCiclismoDragNDrop.jsx'
+import TabCorsaAddRiga from './tabelle/TabCorsaAddRiga.jsx'
+import TabCorsaDragNDrop from './tabelle/TabCorsaDragNDrop.jsx'
 import { calcola7Zone } from '../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
-import styles from './Ciclismo.module.css'
+import styles from './Corsa.module.css'
 
-const Ciclismo = () => {
+const Corsa = () => {
 
     const dispatch = useDispatch()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", recupero: "0:00", rpm: "", note: "", durata: "0:00" })
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", distanza: "", recupero: "0:00", passo: "", note: "", durata: "0:00", distanza: "" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
@@ -75,10 +75,10 @@ const Ciclismo = () => {
 
             <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} />
 
-            <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
+            <TabCorsaAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
 
-            <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
+            <TabCorsaDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
             <Button className={styles.bottoneSalva} variant="contained"
@@ -89,4 +89,4 @@ const Ciclismo = () => {
     )
 }
 
-export default Ciclismo
+export default Corsa

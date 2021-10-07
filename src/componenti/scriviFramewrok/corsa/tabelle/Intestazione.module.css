@@ -1,0 +1,10 @@
+.containerGrid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-around;
+    margin-bottom: 3vh;
+}
+
+.containerGrid span:nth-child(1) {
+    font-size: 3vh;
+}

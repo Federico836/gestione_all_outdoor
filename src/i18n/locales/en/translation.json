@@ -19,6 +19,20 @@
       "modifica": "Modify",
       "elimina": "Delete"
     },
-    "salva": "Save Framework"
+    "salva": "Save Framework",
+    "corsa": {
+      "zona": "Zone",
+      "data": "Date",
+      "serie": "Sets",
+      "ripetizioni": "Reps",
+      "durata": "Duration",
+      "recupero": "Recovery",
+      "clona": "Clone",
+      "modifica": "Modify",
+      "elimina": "Delete",
+      "corsa": "Running",
+      "distanza": "Distance",
+      "passo": "Pace"
+    }
   }
 }
