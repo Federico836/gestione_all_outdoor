@@ -17,7 +17,8 @@
       "recupero": "Recupero",
       "clona": "Clona",
       "modifica": "Modifica",
-      "elimina": "Elimina"
+      "elimina": "Elimina",
+      "nome-framework": "Nome"
     },
     "salva": "Salva Framework",
     "corsa": {
@@ -32,7 +33,16 @@
       "elimina": "Elimina",
       "corsa": "Corsa",
       "distanza": "Distanza",
-      "passo": "Passo"
+      "passo": "Passo",
+      "nome-framework": "Nome",
+      "tempo": "Tempo",
+      "zone": {
+        "recupero-attivo": "Recupero Attivo",
+        "fondo-lungo": "Fondo Lungo",
+        "fondo-medio": "Fondo Medio",
+        "fondo-veloce": "Fondo Veloce",
+        "soglia": "Soglia"
+      }
     }
   }
 }

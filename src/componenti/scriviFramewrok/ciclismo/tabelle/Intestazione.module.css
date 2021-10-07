@@ -1,6 +1,6 @@
 .containerGrid {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     justify-content: space-around;
     margin-bottom: 3vh;
 }

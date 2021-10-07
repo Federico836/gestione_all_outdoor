@@ -23,6 +23,7 @@ const Ciclismo = () => {
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
     const [data, setData] = useState("")
+    const [nomeFramework, setNomeFramework] = useState("")
 
     console.log(datiSingolaRiga.durata)
 
@@ -73,7 +74,7 @@ const Ciclismo = () => {
     return (
         <div className={styles.container}>
 
-            <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} />
+            <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} setNomeFramework={setNomeFramework} />
 
             <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
@@ -83,7 +84,7 @@ const Ciclismo = () => {
 
             <Button className={styles.bottoneSalva} variant="contained"
             onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", dataDaFare: data,
-            dataCreazione: new Date().toISOString().slice(0, 10), id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+            dataCreazione: new Date().toISOString().slice(0, 10), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
         </div>
     )

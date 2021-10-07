@@ -7,7 +7,7 @@ import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
 import TabCorsaAddRiga from './tabelle/TabCorsaAddRiga.jsx'
 import TabCorsaDragNDrop from './tabelle/TabCorsaDragNDrop.jsx'
-import { calcola7Zone } from '../../../utils/funzioni'
+import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
@@ -16,36 +16,42 @@ import styles from './Corsa.module.css'
 const Corsa = () => {
 
     const dispatch = useDispatch()
-
-    const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", distanza: "", recupero: "0:00", passo: "", note: "", durata: "0:00", distanza: "" })
-    const [modificaRiga, setModificaRiga] = useState(null)
-    const [ftp, setFtp] = useState(0)
-    const [fc, setFc] = useState(0)
-    const [data, setData] = useState("")
-
-    console.log(datiSingolaRiga.durata)
-
     const { t, i18n } = useTranslation()
 
-    const zoneCalcolate = calcola7Zone(ftp, fc)
+    const [listaRighe, setListaRighe] = useState([])
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
+        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passo: "", note: ""})
+    const [modificaRiga, setModificaRiga] = useState(null)
+    const [distanza, setDistanza] = useState(0)
+    const [tempo, setTempo] = useState(0)
+    const [data, setData] = useState("")
+    const [nomeFramework, setNomeFramework] = useState("")
 
-    const aggiungiRiga = (riga) => {
+    const velocita = distanza/tempo
+
+    const zoneCalcolate = calcolaZoneCorsa(velocita)
+    zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone:recupero-attivo')
+    zoneCalcolate[1].descrizione = t('scrivi-framework:corsa:zone:fondo-lungo')
+    zoneCalcolate[2].descrizione = t('scrivi-framework:corsa:zone:fondo-medio')
+    zoneCalcolate[3].descrizione = t('scrivi-framework:corsa:zone:fondo-veloce')
+    zoneCalcolate[4].descrizione = t('scrivi-framework:corsa:zone:soglia')
+    zoneCalcolate[5].descrizione = "VO2MAX"
+    console.log(zoneCalcolate)
+
+    const aggiungiRiga = riga => {
         if(modificaRiga) {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
-                    return {...el, ...datiSingolaRiga, wattMin: zoneCalcolate[datiSingolaRiga.zona-1].watt_min, wattMax: zoneCalcolate[datiSingolaRiga.zona-1].watt_max,
-                        fcMin: zoneCalcolate[datiSingolaRiga.zona-1].fc_min, fcMax: zoneCalcolate[datiSingolaRiga.zona-1].fc_max}
+                    return {...el, ...datiSingolaRiga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
+                        max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max}
                 }
                 return {...el}
             }))
             setModificaRiga(null)
         }
         else {
-            /* if(riga.zona>=1 && riga.zona<=7) { */
-                setListaRighe([...listaRighe, {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
-                    fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max, idRiga: uuidv4()}])
-            /* } */
+            setListaRighe([...listaRighe, {...riga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
+                max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max, idRiga: uuidv4()}])
         }
     }
 
@@ -53,37 +59,37 @@ const Corsa = () => {
        if(modificaRiga) setDatiSingolaRiga(modificaRiga)
     }, [modificaRiga])
 
-    const cambiaSingolaRigaFtpFc = () => {
-        setDatiSingolaRiga({...datiSingolaRiga, wattMin: zoneCalcolate[datiSingolaRiga.zona-1].watt_min, wattMax: zoneCalcolate[datiSingolaRiga.zona-1].watt_max,
-            fcMin: zoneCalcolate[datiSingolaRiga.zona-1].fc_min, fcMax: zoneCalcolate[datiSingolaRiga.zona-1].fc_max})
+    const cambiaSingolaRigaDistTempo = () => {
+        setDatiSingolaRiga({...datiSingolaRiga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
+            max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max})
     }
 
     useEffect(() => {
-        cambiaSingolaRigaFtpFc()
-        setListaRighe(listaRighe.map(riga => {
-            return {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
-                fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max}
+            cambiaSingolaRigaDistTempo()
+            setListaRighe(listaRighe.map(riga => {
+                return {...riga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
+                    max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max}
         }))
-    }, [ftp, fc])
+    }, [distanza, tempo])
 
     useEffect(() => {
-        cambiaSingolaRigaFtpFc()
+        cambiaSingolaRigaDistTempo()
     }, [datiSingolaRiga.zona])
 
     return (
         <div className={styles.container}>
 
-            <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} />
+            <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData} setNomeFramework={setNomeFramework} />
 
             <TabCorsaAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
-            setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
+            setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />
 
             <TabCorsaDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
             <Button className={styles.bottoneSalva} variant="contained"
             onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", dataDaFare: data,
-            dataCreazione: new Date().toISOString().slice(0, 10), id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+            dataCreazione: new Date().toISOString().slice(0, 10), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
         </div>
     )

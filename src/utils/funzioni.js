@@ -1,10 +1,11 @@
 import modello7zone from './modelli/modello7zone.json'
+import modelloCorsa from './modelli/modelloCorsa.json'
 
 const calcola7Zone = (ftp, fc) => {
 
     /* if(!ftp || !fc) return null */
 
-    return  modello7zone.map(zona => {
+    return modello7zone.map(zona => {
 
         return {
             zona: zona.ZONA,
@@ -16,6 +17,16 @@ const calcola7Zone = (ftp, fc) => {
 
     })
 
+}
+
+const calcolaZoneCorsa = velocita => {
+  return modelloCorsa.map(zona => {
+    return {
+      zona: zona.zona,
+      min: zona.perce.min*velocita,
+      max: zona.perce.max*velocita,
+    }
+  })
 }
 
 const getSecondsFromHHMMSS = (value) => {
@@ -56,4 +67,4 @@ const toHHMMSS = (secs) => {
       .replace(/^0/, "");
 }
 
-export { calcola7Zone, getSecondsFromHHMMSS, toHHMMSS }
+export { calcola7Zone, calcolaZoneCorsa, getSecondsFromHHMMSS, toHHMMSS }

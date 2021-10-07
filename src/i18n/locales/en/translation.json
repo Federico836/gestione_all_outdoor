@@ -17,7 +17,8 @@
       "recupero": "Recovery",
       "clona": "Clone",
       "modifica": "Modify",
-      "elimina": "Delete"
+      "elimina": "Delete",
+      "nome-framework": "Name"
     },
     "salva": "Save Framework",
     "corsa": {
@@ -32,7 +33,16 @@
       "elimina": "Delete",
       "corsa": "Running",
       "distanza": "Distance",
-      "passo": "Pace"
+      "passo": "Pace",
+      "nome-framework": "Name",
+      "tempo": "Time",
+      "zone": {
+        "recupero-attivo": "Active Recovery",
+        "fondo-lungo": "Endurance",
+        "fondo-medio": "Tempo",
+        "fondo-veloce": "Sweet Spot",
+        "soglia": "Threshold"
+      }
     }
   }
 }

@@ -13,13 +13,14 @@ const Row = (props) => {
 
     return (
         <div className={styles.containerTab}>    
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona.descrizione}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.serie}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.durata}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.tempo}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.passo}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
                 onClick={() => aggiungiRiga(riga)}><span>📋</span></div>
@@ -57,10 +58,10 @@ const Lista = (props) => {
         setListaRighe(scambioElementiArray(listaRighe, oldIndex, newIndex))
     }
 
-    let totDurata = 0
+    let totTempo = 0
     let totRecupero = 0
     for(let c=0;c<listaRighe.length;c++) {
-        totDurata += getSecondsFromHHMMSS(listaRighe[c].durata)
+        totTempo += getSecondsFromHHMMSS(listaRighe[c].tempo)
         totRecupero += getSecondsFromHHMMSS(listaRighe[c].recupero)
     }
 
@@ -72,8 +73,9 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:ripetizioni')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:distanza')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:recupero')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:durata')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:tempo')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:passo')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot {t('scrivi-framework:corsa:distanza')}</div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>Note</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:corsa:clona')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:corsa:modifica')}</div>
@@ -87,7 +89,8 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totRecupero)}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totDurata)}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totTempo)}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>

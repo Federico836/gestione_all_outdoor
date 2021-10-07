@@ -4,7 +4,7 @@ import styles from './Intestazione.module.css'
 
 const Intestazione = (props) => {
 
-    const { ftp, setFtp, fc, setFc, setData } = props
+    const { ftp, setFtp, fc, setFc, setData, setNomeFramework } = props
 
     const { t, i18n } = useTranslation()
 
@@ -21,6 +21,9 @@ const Intestazione = (props) => {
             </div>
             <div>
                 {t('scrivi-framework:ciclismo:fc')} <input type="number" value={fc} onChange={(e) => setFc(e.target.value)} />
+            </div>
+            <div>
+                {t('scrivi-framework:ciclismo:nome-framework')} <input type="text" defaultValue={""} onChange={(e) => setNomeFramework(e.target.value)} />
             </div>
         </div>
     )
