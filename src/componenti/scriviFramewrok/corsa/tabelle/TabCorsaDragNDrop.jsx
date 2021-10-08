@@ -23,7 +23,8 @@ const Row = (props) => {
     }
 
     const calcolaTempo = () => {
-        let tempo = riga.passoMedia
+        let tempo = riga.passoMedia*riga.distanza/1000
+        console.log(riga.distanza)
         let recupero = getSecondsFromHHMMSS(riga.recupero)
         if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
             tempo *= riga.serie
