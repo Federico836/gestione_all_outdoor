@@ -7,7 +7,7 @@ import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
 import TabCorsaAddRiga from './tabelle/TabCorsaAddRiga.jsx'
 import TabCorsaDragNDrop from './tabelle/TabCorsaDragNDrop.jsx'
-import { calcolaZoneCorsa } from '../../../utils/funzioni'
+import { calcolaZoneCorsa, getSecondsFromHHMMSS, toHHMMSS } from '../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"

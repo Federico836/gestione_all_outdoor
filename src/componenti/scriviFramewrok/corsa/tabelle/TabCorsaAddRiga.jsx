@@ -43,7 +43,7 @@ const TabCorsaAddRiga = (props) => {
                             </td>
                             <td><input type="number" min="0" value={datiSingolaRiga.serie} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td>
                             <td><input type="number" min="0" value={datiSingolaRiga.ripetizioni} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, ripetizioni: e.target.value})}} /></td>
-                            <td><input type="number" min="0" value={datiSingolaRiga.distanza} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, distanza: e.target.value})}} /></td>
+                            <td><input type="number" min="0" value={datiSingolaRiga.distanza/1000} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, distanza: e.target.value*1000})}} /></td>
                             <td><input type="text" onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, recupero: e.target.value})}} onBlur={onBlurRecupero} value={datiSingolaRiga.recupero} /></td>
                             <td><input type="text" value={datiSingolaRiga.note} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, note: e.target.value})}} /></td>
                         </tr>

@@ -11,17 +11,42 @@ const Row = (props) => {
     
     const { t, i18n } = useTranslation()
 
+    const calcolaDistanzaTot = () => {
+        let distanzaTot = riga.distanza
+        if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
+            distanzaTot *= riga.serie
+        }
+        if(isFinite(riga.ripetizioni) && riga.ripetizioni!=="" && riga.ripetizioni!==0) {
+            distanzaTot *= riga.ripetizioni
+        }
+        return distanzaTot/1000
+    }
+
+    const calcolaTempo = () => {
+        let tempo = riga.passoMedia
+        let recupero = getSecondsFromHHMMSS(riga.recupero)
+        if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
+            tempo *= riga.serie
+            recupero *= riga.serie
+        }
+        if(isFinite(riga.ripetizioni) && riga.ripetizioni!=="" && riga.ripetizioni!==0) {
+            tempo *= riga.ripetizioni
+            recupero *= riga.ripetizioni
+        }
+        return toHHMMSS(tempo+recupero)
+    }
+
     return (
         <div className={styles.containerTab}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona.descrizione}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.serie}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza/1000}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.tempo}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempo()}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}>
-                <span>{riga.zona.zona>1 && riga.zona.zona<6 ? riga.passoMin+"-"+riga.passoMax : riga.passoMax}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
+                <span>{riga.zona.zona>1 && riga.zona.zona<6 ? toHHMMSS(riga.passoMin)+"-"+toHHMMSS(riga.passoMax) : toHHMMSS(riga.passoMax)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaDistanzaTot()}</span></div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
                 onClick={() => aggiungiRiga(riga)}><span>📋</span></div>
