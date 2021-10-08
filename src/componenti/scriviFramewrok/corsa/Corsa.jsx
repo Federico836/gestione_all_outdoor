@@ -22,16 +22,27 @@ const Corsa = () => {
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
         serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
-    const [distanza, setDistanza] = useState(0)
+    const [distanza, setDistanza] = useState("")
     const [tempo, setTempo] = useState("")
+    const [tempoPer1000m, setTempoPer1000m] = useState("")
+    const [velocita, setVelocita] = useState("")
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
 
-    
+    let velocitaKmh = velocita*3.6
 
-    const velocita = distanza/getSecondsFromHHMMSS(tempo)
-    const velocitaKmh = velocita*3.6
-    const tempoPer1000m = 1000/velocita
+    useEffect(() => {
+        if(distanza!=="" && tempo!=="0:00") {
+            setVelocita(distanza/getSecondsFromHHMMSS(tempo))
+            setTempoPer1000m(toHHMMSS(1000/velocita))
+        }
+    }, [distanza, tempo])
+
+    useEffect(() => {
+        if(tempoPer1000m && distanza==="" && (tempo==="0:00" || tempo==="")) {
+            setVelocita(1000/getSecondsFromHHMMSS(tempoPer1000m))
+        }
+    }, [tempoPer1000m])
 
     const zoneCalcolate = calcolaZoneCorsa(velocita)
     zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone:recupero-attivo')
@@ -86,8 +97,9 @@ const Corsa = () => {
     return (
         <div className={styles.container}>
 
-            <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo}
-            setData={setData} setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh} tempoPer1000m={tempoPer1000m} />
+            <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData}
+            setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh} tempoPer1000m={tempoPer1000m}
+            setTempoPer1000m={setTempoPer1000m} />
 
             <TabCorsaAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />
