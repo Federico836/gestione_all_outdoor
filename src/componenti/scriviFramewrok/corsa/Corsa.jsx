@@ -27,6 +27,8 @@ const Corsa = () => {
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
 
+    
+
     const velocita = distanza/getSecondsFromHHMMSS(tempo)
     const velocitaKmh = velocita*3.6
     const tempoPer1000m = 1000/velocita
@@ -84,7 +86,8 @@ const Corsa = () => {
     return (
         <div className={styles.container}>
 
-            <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData} setNomeFramework={setNomeFramework} />
+            <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo}
+            setData={setData} setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh} tempoPer1000m={tempoPer1000m} />
 
             <TabCorsaAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />

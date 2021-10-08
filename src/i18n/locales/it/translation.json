@@ -42,7 +42,8 @@
         "fondo-medio": "Fondo Medio",
         "fondo-veloce": "Fondo Veloce",
         "soglia": "Soglia"
-      }
+      },
+      "velocita": "Velocita"
     }
   }
 }

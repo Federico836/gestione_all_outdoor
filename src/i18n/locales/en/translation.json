@@ -42,7 +42,8 @@
         "fondo-medio": "Tempo",
         "fondo-veloce": "Sweet Spot",
         "soglia": "Threshold"
-      }
+      },
+      "velocita": "Speed"
     }
   }
 }

@@ -5,7 +5,7 @@ import styles from './Intestazione.module.css'
 
 const Intestazione = (props) => {
 
-    const { distanza, setDistanza, tempo, setTempo, setData, setNomeFramework } = props
+    const { distanza, setDistanza, tempo, setTempo, setData, setNomeFramework, velocitaKmh, tempoPer1000m } = props
 
     const { t, i18n } = useTranslation()
 
@@ -29,6 +29,12 @@ const Intestazione = (props) => {
             </div>
             <div>
                 {t('scrivi-framework:corsa:tempo')} <input type="text" value={tempo} onChange={e => setTempo(e.target.value)} onBlur={modifica} />
+            </div>
+            <div>
+                {t('scrivi-framework:corsa:passo')} 1000 <input type="text" value={toHHMMSS(tempoPer1000m)} onChange={e => setTempo(e.target.value)} onBlur={modifica} />
+            </div>
+            <div>
+                {t('scrivi-framework:corsa:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
             </div>
             <div>
                 {t('scrivi-framework:corsa:nome-framework')} <input type="text" defaultValue={""} onChange={e => setNomeFramework(e.target.value)} />
