@@ -44,11 +44,11 @@
     border-bottom: 1px solid black;
 }
 .tabella th:first-child {
-    width: 5%
+    width: 14%
 }
 .tabella th:last-child {
     border-right: 0;
-    width: 26%
+    width: 28%
 }
 
 .tabella tbody tr td input {

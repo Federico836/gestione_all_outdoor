@@ -3,42 +3,48 @@
         "zona" : 1,
         "perce" : {
             "min": 0.72,
-            "max": 0.72
+            "max": 0.72,
+            "media": 0.72
         }
     },
     {
         "zona" : 2,
         "perce" : {
             "min": 0.73,
-            "max": 0.83
+            "max": 0.83,
+            "media": 0.78
         }
     },
     {
         "zona" : 3,
         "perce" : {
             "min": 0.84,
-            "max": 0.92
+            "max": 0.92,
+            "media": 0.88
         }
     },
     {
         "zona" : 4,
         "perce" : {
             "min": 0.94,
-            "max": 0.98
+            "max": 0.98,
+            "media": 0.96
         }
     },
     {
         "zona" : 5,
         "perce" : {
             "min": 0.99,
-            "max": 1.02
+            "max": 1.02,
+            "media": 1
         }
     },
     {
         "zona" : 6,
         "perce" : {
             "min": 1.03,
-            "max": 1.03
+            "max": 1.03,
+            "media": 1.03
         }
     }
 ]

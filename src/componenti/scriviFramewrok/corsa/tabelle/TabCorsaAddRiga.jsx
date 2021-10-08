@@ -33,12 +33,12 @@ const TabCorsaAddRiga = (props) => {
                         <tr>
                             <td>
                                 <select value={datiSingolaRiga.zona.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: zoneCalcolate[e.target.value-1]})}}>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
+                                    <option value="1">{t('scrivi-framework:corsa:zone:recupero-attivo')}</option>
+                                    <option value="2">{t('scrivi-framework:corsa:zone:fondo-lungo')}</option>
+                                    <option value="3">{t('scrivi-framework:corsa:zone:fondo-medio')}</option>
+                                    <option value="4">{t('scrivi-framework:corsa:zone:fondo-veloce')}</option>
+                                    <option value="5">{t('scrivi-framework:corsa:zone:soglia')}</option>
+                                    <option value="6">{"VO2MAX"}</option>
                                 </select>
                             </td>
                             <td><input type="number" min="0" value={datiSingolaRiga.serie} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td>

@@ -25,6 +25,7 @@ const calcolaZoneCorsa = velocita => {
       zona: zona.zona,
       min: zona.perce.min*velocita,
       max: zona.perce.max*velocita,
+      media: zona.perce.media*velocita,
     }
   })
 }

@@ -31,7 +31,7 @@ const Intestazione = (props) => {
                 {t('scrivi-framework:corsa:tempo')} <input type="text" value={tempo} onChange={e => setTempo(e.target.value)} onBlur={modifica} />
             </div>
             <div>
-                {t('scrivi-framework:corsa:nome-framework')} <input type="text" value={""} onChange={e => setNomeFramework(e.target.value)} />
+                {t('scrivi-framework:corsa:nome-framework')} <input type="text" defaultValue={""} onChange={e => setNomeFramework(e.target.value)} />
             </div>
         </div>
     )

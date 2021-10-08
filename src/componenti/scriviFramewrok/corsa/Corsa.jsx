@@ -20,7 +20,7 @@ const Corsa = () => {
 
     const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
-        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passo: "", note: ""})
+        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)
@@ -28,6 +28,8 @@ const Corsa = () => {
     const [nomeFramework, setNomeFramework] = useState("")
 
     const velocita = distanza/tempo
+    const velocitaKmh = velocita*3.6
+    const tempoPer1000m = 1000/velocita
 
     const zoneCalcolate = calcolaZoneCorsa(velocita)
     zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone:recupero-attivo')
@@ -36,22 +38,23 @@ const Corsa = () => {
     zoneCalcolate[3].descrizione = t('scrivi-framework:corsa:zone:fondo-veloce')
     zoneCalcolate[4].descrizione = t('scrivi-framework:corsa:zone:soglia')
     zoneCalcolate[5].descrizione = "VO2MAX"
-    console.log(zoneCalcolate)
 
     const aggiungiRiga = riga => {
         if(modificaRiga) {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
-                    return {...el, ...datiSingolaRiga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-                        max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max}
+                    return {...el, ...datiSingolaRiga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
+                        passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
+                        passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media}
                 }
                 return {...el}
             }))
             setModificaRiga(null)
         }
         else {
-            setListaRighe([...listaRighe, {...riga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-                max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max, idRiga: uuidv4()}])
+            setListaRighe([...listaRighe, {...riga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
+                passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
+                passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media, idRiga: uuidv4()}])
         }
     }
 
@@ -60,15 +63,17 @@ const Corsa = () => {
     }, [modificaRiga])
 
     const cambiaSingolaRigaDistTempo = () => {
-        setDatiSingolaRiga({...datiSingolaRiga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-            max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max})
+        setDatiSingolaRiga({...datiSingolaRiga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
+            passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
+            passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media})
     }
 
     useEffect(() => {
             cambiaSingolaRigaDistTempo()
             setListaRighe(listaRighe.map(riga => {
-                return {...riga, min: zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-                    max: zoneCalcolate[datiSingolaRiga.zona.zona-1].max}
+                return {...riga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
+                    passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
+                    passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media}
         }))
     }, [distanza, tempo])
 
