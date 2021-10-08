@@ -23,11 +23,11 @@ const Corsa = () => {
         serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
-    const [tempo, setTempo] = useState(0)
+    const [tempo, setTempo] = useState("")
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
 
-    const velocita = distanza/tempo
+    const velocita = distanza/getSecondsFromHHMMSS(tempo)
     const velocitaKmh = velocita*3.6
     const tempoPer1000m = 1000/velocita
 
@@ -71,9 +71,9 @@ const Corsa = () => {
     useEffect(() => {
             cambiaSingolaRigaDistTempo()
             setListaRighe(listaRighe.map(riga => {
-                return {...riga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
-                    passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
-                    passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media}
+                return {...riga, passoMin: (1000/zoneCalcolate[riga.zona.zona-1].min).toFixed(2),
+                    passoMax: (1000/zoneCalcolate[riga.zona.zona-1].max).toFixed(2),
+                    passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media}
         }))
     }, [distanza, tempo])
 

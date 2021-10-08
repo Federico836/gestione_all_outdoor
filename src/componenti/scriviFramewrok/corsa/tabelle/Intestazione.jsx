@@ -12,8 +12,8 @@ const Intestazione = (props) => {
     const modifica = event => {
         const value = event.target.value;
         const seconds = Math.max(0, getSecondsFromHHMMSS(value))
-        /* const time = toHHMMSS(seconds) */
-        setTempo(seconds)
+        const time = toHHMMSS(seconds)
+        setTempo(time)
     }
 
     return (
