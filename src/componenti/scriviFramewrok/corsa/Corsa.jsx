@@ -22,19 +22,48 @@ const Corsa = () => {
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
         serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
-    const [distanza, setDistanza] = useState("")
-    const [tempo, setTempo] = useState("")
-    const [tempoPer1000m, setTempoPer1000m] = useState("")
-    const [velocita, setVelocita] = useState("")
+    const [distanza, setDistanza] = useState(0)
+    const [tempo, setTempo] = useState(0)
+    const [tempoPer1000m, setTempoPer1000m] = useState(0)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
 
+    const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
 
-    useEffect(() => {
+   
+    
+   /*  useEffect(() => {
+
+
+        const v = Number(distanza)/tempo
+        const p = 1000/v
+
+        if(distanza > 0 && tempo > 0) {
+            setTempoPer1000m(p)
+            setVelocita(v)
+        }
+
+
+    },[distanza, tempo]) */
+
+
+
+    
+
+
+   /*  useEffect(() => {
         if(distanza!=="" && tempo!=="0:00") {
-            setVelocita(distanza/getSecondsFromHHMMSS(tempo))
-            setTempoPer1000m(toHHMMSS(1000/velocita))
+
+            const t = getSecondsFromHHMMSS(tempo)
+            const v = Number(distanza)/getSecondsFromHHMMSS(tempo)
+            const p = 1000/velocita
+            const pHHMMSS = toHHMMSS(p)
+
+            console.log({t,v,p,distanza,velocita})
+
+            setVelocita(v)
+            setTempoPer1000m(pHHMMSS)
         }
     }, [distanza, tempo])
 
@@ -42,7 +71,7 @@ const Corsa = () => {
         if(tempoPer1000m && distanza==="" && (tempo==="0:00" || tempo==="")) {
             setVelocita(1000/getSecondsFromHHMMSS(tempoPer1000m))
         }
-    }, [tempoPer1000m])
+    }, [tempoPer1000m]) */
 
     const zoneCalcolate = calcolaZoneCorsa(velocita)
     zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone:recupero-attivo')
@@ -56,8 +85,8 @@ const Corsa = () => {
         if(modificaRiga) {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
-                    return {...el, ...datiSingolaRiga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
-                        passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
+                    return {...el, ...datiSingolaRiga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
+                        passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
                         passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media}
                 }
                 return {...el}
@@ -65,8 +94,8 @@ const Corsa = () => {
             setModificaRiga(null)
         }
         else {
-            setListaRighe([...listaRighe, {...riga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
-                passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
+            setListaRighe([...listaRighe, {...riga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
+                passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
                 passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media, idRiga: uuidv4()}])
         }
     }
@@ -76,19 +105,19 @@ const Corsa = () => {
     }, [modificaRiga])
 
     const cambiaSingolaRigaDistTempo = () => {
-        setDatiSingolaRiga({...datiSingolaRiga, passoMin: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min).toFixed(2),
-            passoMax: (1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max).toFixed(2),
+        setDatiSingolaRiga({...datiSingolaRiga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
+            passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
             passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media})
     }
 
     useEffect(() => {
             cambiaSingolaRigaDistTempo()
             setListaRighe(listaRighe.map(riga => {
-                return {...riga, passoMin: (1000/zoneCalcolate[riga.zona.zona-1].min).toFixed(2),
-                    passoMax: (1000/zoneCalcolate[riga.zona.zona-1].max).toFixed(2),
+                return {...riga, passoMin: 1000/zoneCalcolate[riga.zona.zona-1].min,
+                    passoMax: 1000/zoneCalcolate[riga.zona.zona-1].max,
                     passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media}
         }))
-    }, [distanza, tempo])
+    }, [tempoPer1000m])
 
     useEffect(() => {
         cambiaSingolaRigaDistTempo()
