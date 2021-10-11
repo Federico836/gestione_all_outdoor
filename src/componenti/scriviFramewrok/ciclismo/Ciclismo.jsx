@@ -25,8 +25,6 @@ const Ciclismo = () => {
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
 
-    console.log(datiSingolaRiga.durata)
-
     const { t, i18n } = useTranslation()
 
     const zoneCalcolate = calcola7Zone(ftp, fc)
