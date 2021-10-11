@@ -8,6 +8,9 @@ const calcolaDistanzaTot = riga => {
     if(isFinite(riga.ripetizioni) && riga.ripetizioni!=="" && riga.ripetizioni!==0) {
         distanzaTot *= riga.ripetizioni
     }
+
+    console.log({riga})
+    window.riga = riga
     return distanzaTot
 }
 

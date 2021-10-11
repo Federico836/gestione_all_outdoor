@@ -8,7 +8,7 @@ const Intestazione = (props) => {
     const { distanza, setDistanza, tempo, setTempo, setData, setNomeFramework, velocitaKmh, tempoPer1000m,
         setTempoPer1000m } = props
 
-    const calcPassoPer1000 = (distanza,tempo) => {
+    const calcPassoPer1000 = (distanza, tempo) => {
 
         if(!distanza || !tempo) return 0
 
@@ -20,7 +20,6 @@ const Intestazione = (props) => {
 
     /* useEffect(() => {
 
-
         const v = Number(distanza)/tempo
         const p = 1000/v
 
@@ -28,7 +27,6 @@ const Intestazione = (props) => {
             setTempoPer1000m(p)
             setVelocita(v)
         }
-
 
     },[distanza, tempo]) */
 
@@ -45,7 +43,6 @@ const Intestazione = (props) => {
 
         if(!value) return
 
-
         const seconds = Math.max(0, getSecondsFromHHMMSS(value))
         const time = toHHMMSS(seconds)
         setTempoPer1000m(seconds)
@@ -60,7 +57,7 @@ const Intestazione = (props) => {
                 {t('scrivi-framework:corsa:data')} <input type="date" onChange={e => setData(e.target.value)} />
             </div>
             <div>
-                {t('scrivi-framework:corsa:distanza')} <input type="number" value={distanza} onChange={e => setDistanza(e.target.value)} />
+                {t('scrivi-framework:corsa:distanza')} <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
             </div>
             <div>
                 {t('scrivi-framework:corsa:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />

@@ -30,11 +30,8 @@ const Corsa = () => {
 
     const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
-
-   
     
    /*  useEffect(() => {
-
 
         const v = Number(distanza)/tempo
         const p = 1000/v
@@ -44,13 +41,7 @@ const Corsa = () => {
             setVelocita(v)
         }
 
-
     },[distanza, tempo]) */
-
-
-
-    
-
 
    /*  useEffect(() => {
         if(distanza!=="" && tempo!=="0:00") {

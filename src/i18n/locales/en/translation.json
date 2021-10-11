@@ -43,7 +43,8 @@
         "fondo-veloce": "Sweet Spot",
         "soglia": "Threshold"
       },
-      "velocita": "Speed"
+      "velocita": "Speed",
+      "passo-medio": "Avg. Pace"
     }
   }
 }
