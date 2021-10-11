@@ -9,3 +9,15 @@
     margin-bottom: 16vh;
     float: left;
 }
+.container .bottoneReset {
+    margin-top: 3vh;
+    margin-bottom: 16vh;
+    margin-left: 1vw;
+    float: right;
+}
+
+.container .bottoneInutile {
+    margin-top: 3vh;
+    margin-bottom: 16vh;
+    float: right;
+}

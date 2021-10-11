@@ -13,12 +13,12 @@
       "fc": "HR",
       "serie": "Sets",
       "ripetizioni": "Reps",
-      "durata": "Duration",
       "recupero": "Recovery",
       "clona": "Clone",
       "modifica": "Modify",
       "elimina": "Delete",
-      "nome-framework": "Name"
+      "nome-framework": "Name",
+      "tempo": "Time"
     },
     "salva": "Save Framework",
     "corsa": {
@@ -44,7 +44,9 @@
         "soglia": "Threshold"
       },
       "velocita": "Speed",
-      "passo-medio": "Avg. Pace"
-    }
+      "tempo-medio": "Avg. Time"
+    },
+    "reset-framework": "Are you sure to delete this framework?",
+    "calcola": "COMPUTE"
   }
 }

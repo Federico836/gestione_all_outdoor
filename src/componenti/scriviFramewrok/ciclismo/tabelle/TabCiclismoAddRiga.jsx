@@ -34,7 +34,7 @@ const TabCiclismoAddRiga = (props) => {
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:fc')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:serie')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:ripetizioni')}</th>
-                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:durata')}</th>
+                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:tempo')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:recupero')}</th>
                         <th style={{textAlign: 'center'}}>Rpm</th>
                         <th style={{textAlign: 'center'}}>Note</th>

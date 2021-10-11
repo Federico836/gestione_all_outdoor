@@ -7,7 +7,7 @@ import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
 import TabCorsaAddRiga from './tabelle/TabCorsaAddRiga.jsx'
 import TabCorsaDragNDrop from './tabelle/TabCorsaDragNDrop.jsx'
-import { calcolaZoneCorsa, getSecondsFromHHMMSS, toHHMMSS } from '../../../utils/funzioni'
+import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
@@ -90,6 +90,12 @@ const Corsa = () => {
         }
     }
 
+    const reset = () => {
+        if(window.confirm(t('scrivi-framework:reset-framework'))) {
+            setListaRighe([])
+        }
+    }
+
     useEffect(() => {
        if(modificaRiga) setDatiSingolaRiga(modificaRiga)
     }, [modificaRiga])
@@ -129,6 +135,11 @@ const Corsa = () => {
             <Button className={styles.bottoneSalva} variant="contained"
             onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", dataDaFare: data,
             dataCreazione: new Date().toISOString().slice(0, 10), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+            
+            <Button className={styles.bottoneReset} variant="contained"
+            onClick={reset}>RESET</Button>
+
+            <Button className={styles.bottoneInutile} variant="contained">{t('scrivi-framework:calcola')}</Button>
             
         </div>
     )

@@ -48,6 +48,12 @@ const Ciclismo = () => {
         }
     }
 
+    const reset = () => {
+        if(window.confirm(t('scrivi-framework:reset-framework'))) {
+            setListaRighe([])
+        }
+    }
+
     useEffect(() => {
        if(modificaRiga) setDatiSingolaRiga(modificaRiga)
     }, [modificaRiga])
@@ -84,6 +90,8 @@ const Ciclismo = () => {
             onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", dataDaFare: data,
             dataCreazione: new Date().toISOString().slice(0, 10), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
+            <Button className={styles.bottoneReset} variant="contained"
+            onClick={reset}>RESET</Button>
         </div>
     )
 }

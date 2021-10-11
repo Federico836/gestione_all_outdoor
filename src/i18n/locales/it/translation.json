@@ -13,12 +13,12 @@
       "fc": "FC",
       "serie": "Serie",
       "ripetizioni": "Ripetizioni",
-      "durata": "Durata",
       "recupero": "Recupero",
       "clona": "Clona",
       "modifica": "Modifica",
       "elimina": "Elimina",
-      "nome-framework": "Nome"
+      "nome-framework": "Nome",
+      "tempo": "Tempo"
     },
     "salva": "Salva Framework",
     "corsa": {
@@ -43,8 +43,10 @@
         "fondo-veloce": "Fondo Veloce",
         "soglia": "Soglia"
       },
-      "velocita": "Velocita",
-      "passo-medio": "Passo Medio"
-    }
+      "velocita": "Velocità",
+      "tempo-medio": "Tempo Medio"
+    },
+    "reset-framework": "Sei sicuro di eliminare questo framework?",
+    "calcola": "CALCOLA"
   }
 }

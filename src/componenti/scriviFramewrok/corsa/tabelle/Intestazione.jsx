@@ -61,10 +61,10 @@ const Intestazione = (props) => {
             </div>
             <div>
                 {t('scrivi-framework:corsa:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
-                <br/><span><small>{t('scrivi-framework:corsa:passo')} 1000:  {calcPassoPer1000(distanza,tempo)}</small></span>
+                <br/><span><small>{t('scrivi-framework:corsa:passo')} Km/Mi:  {calcPassoPer1000(distanza, tempo)}</small></span>
             </div>
             <div>
-                {t('scrivi-framework:corsa:passo')} 1000 ({toHHMMSS(tempoPer1000m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo1000m} />
+                {t('scrivi-framework:corsa:passo')} Km/Mi ({toHHMMSS(tempoPer1000m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo1000m} />
             </div>
             <div>
                 {t('scrivi-framework:corsa:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
