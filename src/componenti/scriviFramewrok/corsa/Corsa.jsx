@@ -76,18 +76,17 @@ const Corsa = () => {
         if(modificaRiga) {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
-                    return {...el, ...datiSingolaRiga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-                        passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
-                        passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media}
+                    return {...el, ...riga, passoMin: 1000/zoneCalcolate[riga.zona.zona-1].min,
+                        passoMax: 1000/zoneCalcolate[riga.zona.zona-1].max,
+                        passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media}
                 }
                 return {...el}
             }))
             setModificaRiga(null)
-        }
-        else {
-            setListaRighe([...listaRighe, {...riga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-                passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
-                passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media, idRiga: uuidv4()}])
+        } else {
+            setListaRighe([...listaRighe, {...riga, passoMin: 1000/zoneCalcolate[riga.zona.zona-1].min,
+                passoMax: 1000/zoneCalcolate[riga.zona.zona-1].max,
+                passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media, idRiga: uuidv4()}])
         }
     }
 
