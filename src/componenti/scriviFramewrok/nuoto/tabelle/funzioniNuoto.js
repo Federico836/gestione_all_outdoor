@@ -1,7 +1,7 @@
 import { getSecondsFromHHMMSS, toHHMMSS } from "../../../../utils/funzioni"
 
 const calcolaDistanzaTot = riga => {
-    let distanzaTot = riga.distanza/1000
+    let distanzaTot = Number(riga.distanza)
     if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
         distanzaTot *= riga.serie
     }
@@ -13,18 +13,14 @@ const calcolaDistanzaTot = riga => {
 }
 
 const calcolaTempoPercor = riga => {
-    let tempo = riga.passo*riga.distanza/1000
-/*     if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
-        tempo *= riga.serie
-    }
-    if(isFinite(riga.ripetizioni) && riga.ripetizioni!=="" && riga.ripetizioni!==0) {
-        tempo *= riga.ripetizioni
-    } */
+    console.log(riga.passo)
+    let tempo = riga.passo*riga.distanza/100
+
     return toHHMMSS(tempo)
 }
 
 const calcolaRipartenza = riga => {
-    let tempo = riga.passo*riga.distanza/1000
+    let tempo = riga.passo*riga.distanza/100
     tempo += getSecondsFromHHMMSS(riga.recupero)
 
     return toHHMMSS(Math.ceil(tempo/5)*5)

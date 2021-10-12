@@ -24,11 +24,11 @@ const Nuoto = () => {
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)
-    const [tempoPer1000m, setTempoPer1000m] = useState(0)
+    const [tempoPer100m, setTempoPer100m] = useState(0)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
 
-    const velocita = 1000/tempoPer1000m
+    const velocita = 100/tempoPer100m
     let velocitaKmh = velocita*3.6
 
     const zoneCalcolate = calcolaZoneNuoto(velocita)
@@ -37,13 +37,13 @@ const Nuoto = () => {
         if(modificaRiga) {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
-                    return {...el, ...datiSingolaRiga, passo: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].perce}
+                    return {...el, ...datiSingolaRiga, passo: 100/zoneCalcolate[datiSingolaRiga.zona.zona-1].perce}
                 }
                 return {...el}
             }))
             setModificaRiga(null)
         } else {
-            setListaRighe([...listaRighe, {...riga, passo: 1000/zoneCalcolate[riga.zona.zona-1].perce, idRiga: uuidv4()}])
+            setListaRighe([...listaRighe, {...riga, passo: 100/zoneCalcolate[riga.zona.zona-1].perce, idRiga: uuidv4()}])
         }
     }
 
@@ -58,15 +58,15 @@ const Nuoto = () => {
     }, [modificaRiga])
 
     const cambiaSingolaRigaDistTempo = () => {
-        setDatiSingolaRiga({...datiSingolaRiga, passo: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].perce})
+        setDatiSingolaRiga({...datiSingolaRiga, passo: 100/zoneCalcolate[datiSingolaRiga.zona.zona-1].perce})
     }
 
     useEffect(() => {
             cambiaSingolaRigaDistTempo()
             setListaRighe(listaRighe.map(riga => {
-                return {...riga, passo: 1000/zoneCalcolate[riga.zona.zona-1].perce}
+                return {...riga, passo: 100/zoneCalcolate[riga.zona.zona-1].perce}
         }))
-    }, [tempoPer1000m])
+    }, [tempoPer100m])
 
     useEffect(() => {
         cambiaSingolaRigaDistTempo()
@@ -76,8 +76,8 @@ const Nuoto = () => {
         <div className={styles.container}>
 
             <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData}
-            setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh} tempoPer1000m={tempoPer1000m}
-            setTempoPer1000m={setTempoPer1000m} />
+            setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh} tempoPer100m={tempoPer100m}
+            setTempoPer100m={setTempoPer100m} />
 
             <TabNuotoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />

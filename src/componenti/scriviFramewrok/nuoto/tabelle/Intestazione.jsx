@@ -5,15 +5,15 @@ import styles from './Intestazione.module.css'
 
 const Intestazione = (props) => {
 
-    const { distanza, setDistanza, tempo, setTempo, setData, setNomeFramework, velocitaKmh, tempoPer1000m,
-        setTempoPer1000m } = props
+    const { distanza, setDistanza, tempo, setTempo, setData, setNomeFramework, velocitaKmh, tempoPer100m,
+        setTempoPer100m } = props
 
-    const calcPassoPer1000 = (distanza, tempo) => {
+    const calcPassoPer100 = (distanza, tempo) => {
 
         if(!distanza || !tempo) return 0
 
         const v = Number(distanza)/tempo
-        const p = 1000/v
+        const p = 100/v
 
         return toHHMMSS(p)
     }
@@ -38,14 +38,14 @@ const Intestazione = (props) => {
         const time = toHHMMSS(seconds)
         setTempo(seconds)
     }
-    const onBlurTempo1000m = event => {
+    const onBlurTempo100m = event => {
         const value = event.target.value;
 
         if(!value) return
 
         const seconds = Math.max(0, getSecondsFromHHMMSS(value))
         const time = toHHMMSS(seconds)
-        setTempoPer1000m(seconds)
+        setTempoPer100m(seconds)
     }
 
     return (
@@ -57,14 +57,14 @@ const Intestazione = (props) => {
                 {t('scrivi-framework:nuoto:data')} <input type="date" onChange={e => setData(e.target.value)} />
             </div>
             <div>
-                {t('scrivi-framework:nuoto:distanza')} <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
+                {t('scrivi-framework:nuoto:distanza')} <input type="number" value={distanza} onChange={e => setDistanza(e.target.value)} />
             </div>
             <div>
                 {t('scrivi-framework:nuoto:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
-                <br/><span><small>{t('scrivi-framework:nuoto:passo')} Km/Mi:  {calcPassoPer1000(distanza, tempo)}</small></span>
+                <br/><span><small>{t('scrivi-framework:nuoto:passo')} 100 m/yd:  {calcPassoPer100(distanza, tempo)}</small></span>
             </div>
             <div>
-                {t('scrivi-framework:nuoto:passo')} Km/Mi ({toHHMMSS(tempoPer1000m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo1000m} />
+                {t('scrivi-framework:nuoto:passo')} 100 m/yd ({toHHMMSS(tempoPer100m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo100m} />
             </div>
             <div>
                 {t('scrivi-framework:nuoto:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />

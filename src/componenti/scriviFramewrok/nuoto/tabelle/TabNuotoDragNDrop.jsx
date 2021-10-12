@@ -17,12 +17,12 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona.descrizione}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.serie}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
             <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempoPercor(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaRipartenza(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempoTot(riga)}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaDistanzaTot(riga).toFixed(3)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaDistanzaTot(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
                 onClick={() => aggiungiRiga(riga)}><span>📋</span></div>
@@ -95,7 +95,7 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totTempo)}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {totDistanza.toFixed(3)}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {totDistanza}</div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
