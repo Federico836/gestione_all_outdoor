@@ -15,14 +15,15 @@ const Row = (props) => {
     return (
         <div className={styles.containerTab}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona.descrizione}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.serie}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.serie}</span></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
             <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempoPercor(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaRipartenza(riga)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempoTot(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaDistanzaTot(riga).toFixed(3)}</span></div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
                 onClick={() => aggiungiRiga(riga)}><span>📋</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
@@ -70,14 +71,15 @@ const Lista = (props) => {
       <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}> 
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:zona')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:serie')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:ripetizioni')}</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:serie')}</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:ripetizioni')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:distanza')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:recupero')}</div>
             <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:tempo-percorrenza')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:ripartenza')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot {t('scrivi-framework:nuoto:tempo')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot {t('scrivi-framework:nuoto:distanza')}</div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>Note</div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center'}}>Note</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:clona')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:modifica')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:elimina')}</div>
@@ -86,14 +88,15 @@ const Lista = (props) => {
         listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}>Tot: {toHHMMSS(totTempo)}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totTempo)}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {totDistanza.toFixed(3)}</div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
