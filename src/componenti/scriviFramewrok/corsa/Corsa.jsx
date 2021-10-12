@@ -132,10 +132,7 @@ const Corsa = () => {
             <TabCorsaDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
-            <div className={styles.scrittaRac}>
-                I tempi forniti sono indicativi, fornire i tempi esatti all'atleta,<br />
-                il calcolo del tempo totale è in funzione ad un calcolo sul passo medio della zona selezionata.
-            </div>
+            <div className={styles.scrittaRac} dangerouslySetInnerHTML={{ __html: t('scrivi-framework:corsa:scritta-rac') }}></div>
 
             <Button className={styles.bottoneSalva} variant="contained"
             onClick={() => {dispatch(addFramework({listaRighe, tipo: "ciclismo", dataDaFare: data,

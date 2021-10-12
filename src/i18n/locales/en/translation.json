@@ -44,7 +44,8 @@
         "soglia": "Threshold"
       },
       "velocita": "Speed",
-      "tempo-medio": "Avg. Time"
+      "tempo-medio": "Avg. Time",
+      "scritta-rac": "The given times are only indicative, give the correct times to the athlete,<br />\nthe calculation of the total time is based on a calculation on the average pace of the selected zone."
     },
     "reset-framework": "Are you sure to delete this framework?",
     "calcola": "COMPUTE"
