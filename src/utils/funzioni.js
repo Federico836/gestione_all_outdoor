@@ -1,5 +1,6 @@
 import modello7zone from './modelli/modello7zone.json'
 import modelloCorsa from './modelli/modelloCorsa.json'
+import modelloNuoto from './modelli/modelloNuoto.json'
 
 const calcola7Zone = (ftp, fc) => {
 
@@ -30,7 +31,17 @@ const calcolaZoneCorsa = velocita => {
   })
 }
 
-const getSecondsFromHHMMSS = (value) => {
+const calcolaZoneNuoto = velocita => {
+  return modelloNuoto.map(zona => {
+    return {
+      zona: zona.zona,
+      perce: zona.perce*velocita,
+      descrizione: zona.descrizione
+    }
+  })
+}
+
+const getSecondsFromHHMMSS = value => {
     const [str1, str2, str3] = value.split(":");
 
     const val1 = Number(str1);
@@ -55,7 +66,7 @@ const getSecondsFromHHMMSS = (value) => {
     return 0;
 }
 
-const toHHMMSS = (secs) => {
+const toHHMMSS = secs => {
     const secNum = parseInt(secs.toString(), 10);
     const hours = Math.floor(secNum / 3600);
     const minutes = Math.floor(secNum / 60) % 60;
@@ -68,4 +79,4 @@ const toHHMMSS = (secs) => {
       .replace(/^0/, "");
 }
 
-export { calcola7Zone, calcolaZoneCorsa, getSecondsFromHHMMSS, toHHMMSS }
+export { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto, getSecondsFromHHMMSS, toHHMMSS }

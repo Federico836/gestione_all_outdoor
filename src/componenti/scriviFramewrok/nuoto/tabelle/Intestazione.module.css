@@ -1,0 +1,22 @@
+.containerGrid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    justify-content: space-around;
+    margin-bottom: 3vh;
+}
+
+.containerGrid span:nth-child(1) {
+    font-size: 3vh;
+}
+.containerGrid div input {
+    display: inline-block;
+}
+.containerGrid div input[type=text] {
+    width: 5vw;
+}
+.containerGrid div input[type=number] {
+    width: 5vw;
+}
+.containerGrid div input[type=date] {
+    width: 9vw;
+}

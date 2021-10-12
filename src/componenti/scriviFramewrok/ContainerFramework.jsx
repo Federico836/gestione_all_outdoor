@@ -11,7 +11,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import Ciclismo from "./ciclismo/Ciclismo.jsx"
 import Corsa from "./corsa/Corsa.jsx"
-import Nuoto from "./Nuoto.jsx"
+import Nuoto from "./nuoto/Nuoto.jsx"
 
 import styles from './ContainerFramework.module.css'
 import { useTranslation } from 'react-i18next'

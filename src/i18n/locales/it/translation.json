@@ -48,6 +48,31 @@
       "scritta-rac": "I tempi forniti sono indicativi, fornire i tempi esatti all'atleta,<br />\nil calcolo del tempo totale è in funzione ad un calcolo sul passo medio della zona selezionata."
     },
     "reset-framework": "Sei sicuro di eliminare questo framework?",
-    "calcola": "CALCOLA"
+    "calcola": "CALCOLA",
+    "nuoto": {
+      "zona": "Zona",
+      "data": "Data",
+      "serie": "Serie",
+      "ripetizioni": "Ripetizioni",
+      "recupero": "Recupero",
+      "clona": "Clona",
+      "modifica": "Modifica",
+      "elimina": "Elimina",
+      "distanza": "Distanza",
+      "passo": "Passo",
+      "nome-framework": "Nome",
+      "tempo": "Tempo",
+      "zone": {
+        "recupero-attivo": "Recupero Attivo",
+        "fondo-lungo": "Fondo Lungo",
+        "fondo-medio": "Fondo Medio",
+        "fondo-veloce": "Fondo Veloce",
+        "soglia": "Soglia"
+      },
+      "velocita": "Velocità",
+      "tempo-medio": "Tempo Medio",
+      "scritta-rac": "I tempi forniti possono essere imprecisi in base alla distanza effettuata,<br />\nil tempo totale dell'allenamento è un funzione delle pause totali ",
+      "nuoto": "Nuoto"
+    }
   }
 }

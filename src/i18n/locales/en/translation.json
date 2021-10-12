@@ -48,6 +48,31 @@
       "scritta-rac": "The given times are only indicative, give the correct times to the athlete,<br />\nthe calculation of the total time is based on a calculation on the average pace of the selected zone."
     },
     "reset-framework": "Are you sure to delete this framework?",
-    "calcola": "COMPUTE"
+    "calcola": "COMPUTE",
+    "nuoto": {
+      "zona": "Zone",
+      "data": "Date",
+      "serie": "Sets",
+      "ripetizioni": "Reps",
+      "recupero": "Recovery",
+      "clona": "Clone",
+      "modifica": "Modify",
+      "elimina": "Delete",
+      "distanza": "Distance",
+      "passo": "Pace",
+      "nome-framework": "Name",
+      "tempo": "Time",
+      "zone": {
+        "recupero-attivo": "Active Recovery",
+        "fondo-lungo": "Endurance",
+        "fondo-medio": "Tempo",
+        "fondo-veloce": "Sweet Spot",
+        "soglia": "Threshold"
+      },
+      "velocita": "Speed",
+      "tempo-medio": "Avg. Time",
+      "scritta-rac": "The given times can be inaccurate based on the distance travelled,<br />\nthe total time of the training is based on the total pauses.",
+      "nuoto": "Swimming"
+    }
   }
 }
