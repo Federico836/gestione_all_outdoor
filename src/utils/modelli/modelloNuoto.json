@@ -1,12 +1,12 @@
 [
     {
         "zona" : 1,
-        "perce" : 1.2,
+        "perce" : 0.8,
         "descrizione" : "A1"
     },
     {
         "zona" : 2,
-        "perce" : 1.1,
+        "perce" : 0.9,
         "descrizione" : "A2"
     },
     {
@@ -16,27 +16,27 @@
     },
     {
         "zona" : 4,
-        "perce" : 0.95,
+        "perce" : 1.05,
         "descrizione" : "B2"
     },
     {
         "zona" : 5,
-        "perce" : 0.925,
+        "perce" : 1.075,
         "descrizione" : "C1"
     },
     {
         "zona" : 6,
-        "perce" : 0.9,
+        "perce" : 1.1,
         "descrizione" : "C2"
     },
     {
         "zona" : 7,
-        "perce" : 0.875,
+        "perce" : 1.125,
         "descrizione" : "C3"
     },
     {
         "zona" : 8,
-        "perce" : 0.99,
+        "perce" : 1.01,
         "descrizione" : "D"
     }
 ]

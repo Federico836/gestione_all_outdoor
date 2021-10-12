@@ -62,17 +62,11 @@
       "passo": "Pace",
       "nome-framework": "Name",
       "tempo": "Time",
-      "zone": {
-        "recupero-attivo": "Active Recovery",
-        "fondo-lungo": "Endurance",
-        "fondo-medio": "Tempo",
-        "fondo-veloce": "Sweet Spot",
-        "soglia": "Threshold"
-      },
       "velocita": "Speed",
-      "tempo-medio": "Avg. Time",
       "scritta-rac": "The given times can be inaccurate based on the distance travelled,<br />\nthe total time of the training is based on the total pauses.",
-      "nuoto": "Swimming"
+      "nuoto": "Swimming",
+      "tempo-percorrenza": "Travel Time",
+      "ripartenza": "Ripartenza"
     }
   }
 }

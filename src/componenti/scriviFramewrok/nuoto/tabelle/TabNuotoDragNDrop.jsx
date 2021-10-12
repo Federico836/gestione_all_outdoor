@@ -4,7 +4,7 @@ import styles from './TabNuotoDragNDrop.module.css'
 import { useTranslation } from 'react-i18next'
 import { scambioElementiArray } from '../../../../utils/funzioniArray'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
-import { calcolaDistanzaTot, calcolaTempo } from './funzioniCorsa.js'
+import { calcolaDistanzaTot, calcolaTempoPercor, calcolaRipartenza, calcolaTempoTot } from './funzioniNuoto.js'
 
 const Row = (props) => {
 
@@ -19,9 +19,8 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
-            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempo(riga)}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}>
-                <span>{riga.zona.zona>1 && riga.zona.zona<6 ? toHHMMSS(riga.passoMin)+"-"+toHHMMSS(riga.passoMax) : toHHMMSS(riga.passoMax)}</span></div>
+            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempoPercor(riga)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaRipartenza(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaDistanzaTot(riga).toFixed(3)}</span></div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
@@ -64,24 +63,24 @@ const Lista = (props) => {
     let totTempo = 0
     for(let c=0;c<listaRighe.length;c++) {
         totDistanza += calcolaDistanzaTot(listaRighe[c])
-        totTempo += getSecondsFromHHMMSS(calcolaTempo(listaRighe[c]))
+        totTempo += getSecondsFromHHMMSS(calcolaTempoTot(listaRighe[c]))
     }
 
     return (
       <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}> 
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:zona')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:serie')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:ripetizioni')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:distanza')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:recupero')}</div>
-            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}>{t('scrivi-framework:corsa:tempo-medio')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:corsa:passo')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot {t('scrivi-framework:corsa:distanza')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:zona')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:serie')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:ripetizioni')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:distanza')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:recupero')}</div>
+            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:tempo-percorrenza')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:ripartenza')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot {t('scrivi-framework:nuoto:distanza')}</div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>Note</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:corsa:clona')}</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:corsa:modifica')}</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:corsa:elimina')}</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:clona')}</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:modifica')}</div>
+            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:nuoto:elimina')}</div>
         </div>
         <SortableList items={items} onSortEnd={onSortEnd} pressDelay={100} axis="y" lockAxis="y"
         listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />

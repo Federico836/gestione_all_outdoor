@@ -62,17 +62,11 @@
       "passo": "Passo",
       "nome-framework": "Nome",
       "tempo": "Tempo",
-      "zone": {
-        "recupero-attivo": "Recupero Attivo",
-        "fondo-lungo": "Fondo Lungo",
-        "fondo-medio": "Fondo Medio",
-        "fondo-veloce": "Fondo Veloce",
-        "soglia": "Soglia"
-      },
       "velocita": "Velocità",
-      "tempo-medio": "Tempo Medio",
       "scritta-rac": "I tempi forniti possono essere imprecisi in base alla distanza effettuata,<br />\nil tempo totale dell'allenamento è un funzione delle pause totali ",
-      "nuoto": "Nuoto"
+      "nuoto": "Nuoto",
+      "tempo-percorrenza": "Tempo Percorrenza",
+      "ripartenza": "Ripartenza"
     }
   }
 }

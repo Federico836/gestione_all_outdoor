@@ -51,26 +51,26 @@ const Intestazione = (props) => {
     return (
         <div className={styles.containerGrid}>
             <div>
-                <span>{t('scrivi-framework:corsa:corsa')}</span>
+                <span>{t('scrivi-framework:nuoto:nuoto')}</span>
             </div>
             <div>
-                {t('scrivi-framework:corsa:data')} <input type="date" onChange={e => setData(e.target.value)} />
+                {t('scrivi-framework:nuoto:data')} <input type="date" onChange={e => setData(e.target.value)} />
             </div>
             <div>
-                {t('scrivi-framework:corsa:distanza')} <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
+                {t('scrivi-framework:nuoto:distanza')} <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
             </div>
             <div>
-                {t('scrivi-framework:corsa:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
-                <br/><span><small>{t('scrivi-framework:corsa:passo')} Km/Mi:  {calcPassoPer1000(distanza, tempo)}</small></span>
+                {t('scrivi-framework:nuoto:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
+                <br/><span><small>{t('scrivi-framework:nuoto:passo')} Km/Mi:  {calcPassoPer1000(distanza, tempo)}</small></span>
             </div>
             <div>
-                {t('scrivi-framework:corsa:passo')} Km/Mi ({toHHMMSS(tempoPer1000m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo1000m} />
+                {t('scrivi-framework:nuoto:passo')} Km/Mi ({toHHMMSS(tempoPer1000m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo1000m} />
             </div>
             <div>
-                {t('scrivi-framework:corsa:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
+                {t('scrivi-framework:nuoto:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
             </div>
             <div>
-                {t('scrivi-framework:corsa:nome-framework')} <input type="text" defaultValue={""} onChange={e => setNomeFramework(e.target.value)} />
+                {t('scrivi-framework:nuoto:nome-framework')} <input type="text" defaultValue={""} onChange={e => setNomeFramework(e.target.value)} />
             </div>
         </div>
     )

@@ -20,7 +20,7 @@ const Nuoto = () => {
 
     const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: "A1", min: 0, max: 0},
-        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: ""})
+        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passo: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)
@@ -37,17 +37,13 @@ const Nuoto = () => {
         if(modificaRiga) {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
-                    return {...el, ...datiSingolaRiga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-                        passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
-                        passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media}
+                    return {...el, ...datiSingolaRiga, passo: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].perce}
                 }
                 return {...el}
             }))
             setModificaRiga(null)
         } else {
-            setListaRighe([...listaRighe, {...riga, passoMin: 1000/zoneCalcolate[riga.zona.zona-1].min,
-                passoMax: 1000/zoneCalcolate[riga.zona.zona-1].max,
-                passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media, idRiga: uuidv4()}])
+            setListaRighe([...listaRighe, {...riga, passo: 1000/zoneCalcolate[riga.zona.zona-1].perce, idRiga: uuidv4()}])
         }
     }
 
@@ -62,17 +58,13 @@ const Nuoto = () => {
     }, [modificaRiga])
 
     const cambiaSingolaRigaDistTempo = () => {
-        setDatiSingolaRiga({...datiSingolaRiga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
-            passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
-            passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media})
+        setDatiSingolaRiga({...datiSingolaRiga, passo: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].perce})
     }
 
     useEffect(() => {
             cambiaSingolaRigaDistTempo()
             setListaRighe(listaRighe.map(riga => {
-                return {...riga, passoMin: 1000/zoneCalcolate[riga.zona.zona-1].min,
-                    passoMax: 1000/zoneCalcolate[riga.zona.zona-1].max,
-                    passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media}
+                return {...riga, passo: 1000/zoneCalcolate[riga.zona.zona-1].perce}
         }))
     }, [tempoPer1000m])
 
