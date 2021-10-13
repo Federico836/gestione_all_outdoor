@@ -16,12 +16,15 @@ const Intestazione = (props) => {
             <div>
                 {t('scrivi-framework:ciclismo:data')} <input type="date" onChange={(e) => setData(e.target.value)} />
             </div>
-            <div>
-                FTP <input type="number" value={ftp} onChange={(e) => setFtp(e.target.value)} />
-            </div>
-            <div>
-                {t('scrivi-framework:ciclismo:fc')} <input type="number" value={fc} onChange={(e) => setFc(e.target.value)} />
-            </div>
+            <fieldset className={styles.riquadroTest}>
+                <legend>{t('scrivi-framework:ciclismo:riferimento')}</legend>
+                <div>
+                    FTP <input type="number" value={ftp} onChange={(e) => setFtp(e.target.value)} />
+                </div>
+                <div>
+                    {t('scrivi-framework:ciclismo:fc')} <input type="number" value={fc} onChange={(e) => setFc(e.target.value)} />
+                </div>
+            </fieldset>
             <div>
                 {t('scrivi-framework:ciclismo:nome-framework')} <input type="text" defaultValue={""} onChange={(e) => setNomeFramework(e.target.value)} />
             </div>

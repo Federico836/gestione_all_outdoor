@@ -18,7 +18,8 @@
       "modifica": "Modify",
       "elimina": "Delete",
       "nome-framework": "Name",
-      "tempo": "Time"
+      "tempo": "Time",
+      "riferimento": "Riferimenti"
     },
     "salva": "Save Framework",
     "corsa": {
