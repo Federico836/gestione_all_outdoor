@@ -67,7 +67,7 @@ const Lista = (props) => {
 
     return (
       <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
-        <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}> 
+        <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center', backgroundColor: "#bee5b0"}}> 
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:zona')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Watt</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:fc')}</div>
