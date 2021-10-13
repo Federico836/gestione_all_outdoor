@@ -56,19 +56,25 @@ const Intestazione = (props) => {
             <div>
                 {t('scrivi-framework:corsa:data')} <input type="date" onChange={e => setData(e.target.value)} />
             </div>
-            <div>
-                {t('scrivi-framework:corsa:distanza')} <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
-            </div>
-            <div>
-                {t('scrivi-framework:corsa:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
-                <br/><span><small>{t('scrivi-framework:corsa:passo')} Km/Mi:  {calcPassoPer1000(distanza, tempo)}</small></span>
-            </div>
-            <div>
-                {t('scrivi-framework:corsa:passo')} Km/Mi ({toHHMMSS(tempoPer1000m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo1000m} />
-            </div>
-            <div>
-                {t('scrivi-framework:corsa:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
-            </div>
+            <fieldset className={styles.riquadroTest}>
+                <legend>Test</legend>
+                <div>
+                    {t('scrivi-framework:corsa:distanza')} <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
+                </div>
+                <div>
+                    {t('scrivi-framework:corsa:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
+                    <br/><span><small>{t('scrivi-framework:corsa:passo')} Km/Mi:  {calcPassoPer1000(distanza, tempo)}</small></span>
+                </div>
+            </fieldset>
+            <fieldset className={styles.riquadroTest}>
+                <legend>{t('scrivi-framework:corsa:riferimento')}</legend>
+                <div>
+                    {t('scrivi-framework:corsa:passo')} Km/Mi ({toHHMMSS(tempoPer1000m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo1000m} />
+                </div>
+                <div>
+                    {t('scrivi-framework:corsa:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
+                </div>
+            </fieldset>
             <div>
                 {t('scrivi-framework:corsa:nome-framework')} <input type="text" defaultValue={""} onChange={e => setNomeFramework(e.target.value)} />
             </div>

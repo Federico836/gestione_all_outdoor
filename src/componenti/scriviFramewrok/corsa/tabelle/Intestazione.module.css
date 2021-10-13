@@ -20,3 +20,22 @@
 .containerGrid div input[type=date] {
     width: 9vw;
 }
+
+.containerGrid .riquadroTest {
+    display: flex;
+    border-radius: 20px;
+}
+
+.containerGrid .riquadroTest div:nth-child(3) {
+    margin-left: 0.5vw;
+}
+
+.containerGrid>div:nth-child(1) {
+    margin-top: 1.2vh;
+}
+.containerGrid>div:nth-child(2) {
+    margin-top: 1.2vh;
+}
+.containerGrid>div:nth-child(5) {
+    margin-top: 1.2vh;
+}
