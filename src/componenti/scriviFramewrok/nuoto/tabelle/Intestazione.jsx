@@ -18,18 +18,6 @@ const Intestazione = (props) => {
         return toHHMMSS(p)
     }
 
-    /* useEffect(() => {
-
-        const v = Number(distanza)/tempo
-        const p = 1000/v
-
-        if(distanza > 0 && tempo > 0) {
-            setTempoPer1000m(p)
-            setVelocita(v)
-        }
-
-    },[distanza, tempo]) */
-
     const { t, i18n } = useTranslation()
 
     const onBlurTempo = event => {
@@ -56,19 +44,25 @@ const Intestazione = (props) => {
             <div>
                 {t('scrivi-framework:nuoto:data')} <input type="date" onChange={e => setData(e.target.value)} />
             </div>
-            <div>
-                {t('scrivi-framework:nuoto:distanza')} <input type="number" value={distanza} onChange={e => setDistanza(e.target.value)} />
-            </div>
-            <div>
-                {t('scrivi-framework:nuoto:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
-                <br/><span><small>{t('scrivi-framework:nuoto:passo')} 100 m/yd:  {calcPassoPer100(distanza, tempo)}</small></span>
-            </div>
-            <div>
-                {t('scrivi-framework:nuoto:passo')} 100 m/yd ({toHHMMSS(tempoPer100m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo100m} />
-            </div>
-            <div>
-                {t('scrivi-framework:nuoto:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
-            </div>
+            <fieldset className={styles.riquadroTest}>
+                <legend>Test</legend>
+                <div>
+                    {t('scrivi-framework:nuoto:distanza')} <input type="number" value={distanza} onChange={e => setDistanza(e.target.value)} />
+                </div>
+                <div>
+                    {t('scrivi-framework:nuoto:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
+                    <br/><span><small>{t('scrivi-framework:nuoto:passo')} 100 m/yd:  {calcPassoPer100(distanza, tempo)}</small></span>
+                </div>
+            </fieldset>
+            <fieldset className={styles.riquadroTest}>
+                <legend>{t('scrivi-framework:nuoto:riferimento')}</legend>
+                <div>
+                    {t('scrivi-framework:nuoto:passo')} 100 m/yd ({toHHMMSS(tempoPer100m)}) <input type="text" /* value={toHHMMSS(tempoPer1000m)} */ /* onChange={e => setTempoPer1000m(e.target.value)} */ onBlur={onBlurTempo100m} />
+                </div>
+                <div>
+                    {t('scrivi-framework:nuoto:velocita')} <input type="text" value={isFinite(velocitaKmh) ? Math.round(velocitaKmh*100)/100 : ""} />
+                </div>
+            </fieldset>
             <div>
                 {t('scrivi-framework:nuoto:nome-framework')} <input type="text" defaultValue={""} onChange={e => setNomeFramework(e.target.value)} />
             </div>

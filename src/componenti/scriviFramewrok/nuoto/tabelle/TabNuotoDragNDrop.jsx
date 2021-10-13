@@ -34,8 +34,15 @@ const Row = (props) => {
     )
 }
 
-const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga}) => <Row riga={riga} listaRighe={listaRighe}
-    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />)
+const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, index}) => {
+    
+    console.log(index)
+
+    return (
+        <Row riga={riga} listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
+        setModificaRiga={setModificaRiga} />
+    )
+})
 
 const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga}) => {
 
