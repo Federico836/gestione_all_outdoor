@@ -13,7 +13,7 @@ const Row = (props) => {
     const { t, i18n } = useTranslation()
 
     let coloreRiga = "white"
-    if(indice%2 === 0) {
+    if(indice%2 !== 0) {
         coloreRiga = "#d3d3d3"
     }
 

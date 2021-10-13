@@ -7,12 +7,17 @@ import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
 
 const Row = (props) => {
 
-    const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga } = props
+    const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice } = props
     
     const { t, i18n } = useTranslation()
 
+    let coloreRiga = "white"
+    if(indice%2 !== 0) {
+        coloreRiga = "#d3d3d3"
+    }
+
     return (
-        <div className={styles.containerTab}>    
+        <div className={styles.containerTab} style={{backgroundColor: coloreRiga}}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.zona>1 && riga.zona<7) ? (riga.wattMin+"-"+riga.wattMax) : riga.wattMax}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.zona>1 && riga.zona<5) ? (riga.fcMin+"-"+riga.fcMax) : riga.fcMax}</span></div>
@@ -32,15 +37,15 @@ const Row = (props) => {
     )
 }
 
-const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga}) => <Row riga={riga} listaRighe={listaRighe}
-    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />)
+const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice}) => <Row riga={riga} listaRighe={listaRighe}
+    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} indice={indice} />)
 
 const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga}) => {
 
     return (
         <div>
             {useMemo(() => items.map((riga, index) => (
-                <SortableItem key={`item-${index}`} index={index} riga={riga} listaRighe={listaRighe}
+                <SortableItem key={`item-${index}`} index={index} indice={index} riga={riga} listaRighe={listaRighe}
                     setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />
             )), [items]) }
         </div>
