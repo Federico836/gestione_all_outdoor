@@ -72,9 +72,7 @@
       "riferimento": "Reference"
     },
     "palestra": {
-      "zona": "Zone",
       "data": "Date",
-      "fc": "HR",
       "serie": "Sets",
       "ripetizioni": "Reps",
       "recupero": "Recovery",
@@ -82,9 +80,9 @@
       "modifica": "Modify",
       "elimina": "Delete",
       "nome-framework": "Name",
-      "tempo": "Time",
-      "riferimento": "Reference",
-      "palestra": "Gym"
+      "palestra": "Gym",
+      "esercizio": "Exercise",
+      "peso": "Weight"
     }
   }
 }

@@ -72,9 +72,7 @@
       "riferimento": "Riferimento"
     },
     "palestra": {
-      "zona": "Zona",
       "data": "Data",
-      "fc": "FC",
       "serie": "Serie",
       "ripetizioni": "Ripetizioni",
       "recupero": "Recupero",
@@ -82,9 +80,9 @@
       "modifica": "Modifica",
       "elimina": "Elimina",
       "nome-framework": "Nome",
-      "tempo": "Tempo",
-      "riferimento": "Riferimento",
-      "palestra": "Palestra"
+      "palestra": "Palestra",
+      "esercizio": "Esercizio",
+      "peso": "Peso"
     }
   }
 }
