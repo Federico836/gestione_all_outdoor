@@ -83,6 +83,20 @@
       "palestra": "Gym",
       "esercizio": "Exercise",
       "peso": "Weight"
+    },
+    "combinati-tri": {
+      "data": "Date",
+      "serie": "Sets",
+      "ripetizioni": "Reps",
+      "recupero": "Recovery",
+      "clona": "Clone",
+      "modifica": "Modify",
+      "elimina": "Delete",
+      "nome-framework": "Name",
+      "combinati-tri": "Triathlon Combined",
+      "zona": "Zone",
+      "passo": "Pace",
+      "tempo-dist": "Time Dist."
     }
   }
 }

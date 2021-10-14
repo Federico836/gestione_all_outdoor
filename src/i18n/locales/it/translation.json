@@ -83,6 +83,20 @@
       "palestra": "Palestra",
       "esercizio": "Esercizio",
       "peso": "Peso"
+    },
+    "combinati-tri": {
+      "data": "Data",
+      "serie": "Serie",
+      "ripetizioni": "Ripetizioni",
+      "recupero": "Recupero",
+      "clona": "Clona",
+      "modifica": "Modifica",
+      "elimina": "Elimina",
+      "nome-framework": "Nome",
+      "combinati-tri": "Combinati Triathlon",
+      "zona": "Zona",
+      "passo": "Passo",
+      "tempo-dist": "Tempo Dist."
     }
   }
 }
