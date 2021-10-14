@@ -68,8 +68,23 @@
       "scritta-rac": "The given times can be inaccurate based on the distance travelled,<br />\nthe total time of the training is based on the total pauses.",
       "nuoto": "Swimming",
       "tempo-percorrenza": "Travel Time",
-      "ripartenza": "Ripartenza",
+      "ripartenza": "Restart",
       "riferimento": "Reference"
+    },
+    "palestra": {
+      "zona": "Zone",
+      "data": "Date",
+      "fc": "HR",
+      "serie": "Sets",
+      "ripetizioni": "Reps",
+      "recupero": "Recovery",
+      "clona": "Clone",
+      "modifica": "Modify",
+      "elimina": "Delete",
+      "nome-framework": "Name",
+      "tempo": "Time",
+      "riferimento": "Reference",
+      "palestra": "Gym"
     }
   }
 }

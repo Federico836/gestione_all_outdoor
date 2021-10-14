@@ -70,6 +70,21 @@
       "tempo-percorrenza": "Tempo Percorrenza",
       "ripartenza": "Ripartenza",
       "riferimento": "Riferimento"
+    },
+    "palestra": {
+      "zona": "Zona",
+      "data": "Data",
+      "fc": "FC",
+      "serie": "Serie",
+      "ripetizioni": "Ripetizioni",
+      "recupero": "Recupero",
+      "clona": "Clona",
+      "modifica": "Modifica",
+      "elimina": "Elimina",
+      "nome-framework": "Nome",
+      "tempo": "Tempo",
+      "riferimento": "Riferimento",
+      "palestra": "Palestra"
     }
   }
 }

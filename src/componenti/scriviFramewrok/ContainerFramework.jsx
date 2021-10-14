@@ -12,6 +12,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import Ciclismo from "./ciclismo/Ciclismo.jsx"
 import Corsa from "./corsa/Corsa.jsx"
 import Nuoto from "./nuoto/Nuoto.jsx"
+import Palestra from "./palestra/Palestra.jsx"
 
 import styles from './ContainerFramework.module.css'
 import { useTranslation } from 'react-i18next'
@@ -51,6 +52,12 @@ const ContainerFramework = (props) => {
                                         <ListItemText primary={"Nuoto"} />
                                     </ListItemIcon>
                                 </ListItem>
+
+                                <ListItem button component={RouterLink} to='/palestra' key={"Palestra"}>
+                                    <ListItemIcon>
+                                        <ListItemText primary={"Palestra"} />
+                                    </ListItemIcon>
+                                </ListItem>
                             </List>
                         </Drawer>
 
@@ -63,6 +70,9 @@ const ContainerFramework = (props) => {
                             </Route>
                             <Route path="/nuoto">
                                 <Nuoto />
+                            </Route>
+                            <Route path="/palestra">
+                                <Palestra />
                             </Route>
                         </Switch>
                     </div>
