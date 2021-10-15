@@ -96,7 +96,8 @@
       "combinati-tri": "Triathlon Combined",
       "zona": "Zone",
       "passo": "Pace",
-      "tempo-dist": "Time Dist."
+      "tempo-dist": "Time Dist.",
+      "combinati": "Combined"
     },
     "sport": {
       "data": "Date",

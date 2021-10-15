@@ -39,31 +39,31 @@ const ContainerFramework = (props) => {
                             <List className={styles.linkLista}>
                                 <ListItem button component={RouterLink} to='/' key={"Ciclismo"}>
                                     <ListItemIcon>
-                                        <ListItemText primary={"Ciclismo"} />
+                                        <ListItemText primary={t('scrivi-framework:ciclismo:ciclismo')} />
                                     </ListItemIcon>
                                 </ListItem>
 
                                 <ListItem button component={RouterLink} to='/corsa' key={"Corsa"}>
                                     <ListItemIcon>
-                                        <ListItemText primary={"Corsa"} /> 
+                                        <ListItemText primary={t('scrivi-framework:corsa:corsa')} /> 
                                     </ListItemIcon>
                                 </ListItem>
 
                                 <ListItem button component={RouterLink} to='/nuoto' key={"Nuoto"}>
                                     <ListItemIcon>
-                                        <ListItemText primary={"Nuoto"} />
+                                        <ListItemText primary={t('scrivi-framework:nuoto:nuoto')} />
                                     </ListItemIcon>
                                 </ListItem>
 
                                 <ListItem button component={RouterLink} to='/palestra' key={"Palestra"}>
                                     <ListItemIcon>
-                                        <ListItemText primary={"Palestra"} />
+                                        <ListItemText primary={t('scrivi-framework:palestra:palestra')} />
                                     </ListItemIcon>
                                 </ListItem>
 
                                 <ListItem button component={RouterLink} to='/combinatiTriathlon' key={"Combinati"}>
                                     <ListItemIcon>
-                                        <ListItemText primary={"Combinati"} />
+                                        <ListItemText primary={t('scrivi-framework:combinati-tri:combinati')} />
                                     </ListItemIcon>
                                 </ListItem>
 
