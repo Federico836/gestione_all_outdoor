@@ -96,8 +96,7 @@
       "combinati-tri": "Combinati Triathlon",
       "zona": "Zona",
       "passo": "Passo",
-      "tempo-dist": "Tempo Dist.",
-      "combinati": "Combinati"
+      "tempo-dist": "Tempo Dist."
     },
     "sport": {
       "data": "Data",
@@ -113,5 +112,8 @@
       "tempo-dist": "Tempo Dist.",
       "nome-sport": "Nome Sport"
     }
+  },
+  "modifica-framework": {
+    "cerca-per-sport": "Cerca Per Sport"
   }
 }

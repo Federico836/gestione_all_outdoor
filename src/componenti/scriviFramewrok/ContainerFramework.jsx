@@ -20,7 +20,7 @@ import styles from './ContainerFramework.module.css'
 import { useTranslation } from 'react-i18next'
 
 
-const ContainerFramework = (props) => {
+const ContainerFramework = props => {
     const { setPagina } = props
     
     const [open, setOpen] = useState(false)
@@ -63,7 +63,7 @@ const ContainerFramework = (props) => {
 
                                 <ListItem button component={RouterLink} to='/combinatiTriathlon' key={"Combinati"}>
                                     <ListItemIcon>
-                                        <ListItemText primary={t('scrivi-framework:combinati-tri:combinati')} />
+                                        <ListItemText primary={t('scrivi-framework:combinati-tri:combinati-tri')} />
                                     </ListItemIcon>
                                 </ListItem>
 

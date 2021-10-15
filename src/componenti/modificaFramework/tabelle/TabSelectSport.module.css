@@ -1,0 +1,20 @@
+.tabSelectSport{
+    width: 100%;
+}
+
+.tabSelectSport tr th {
+    width: 100%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+.tabSelectSport tr td {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    border-radius: 10px;
+}
+
+.tabSelectSport tr td:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}

@@ -93,11 +93,10 @@
       "modifica": "Modify",
       "elimina": "Delete",
       "nome-framework": "Name",
-      "combinati-tri": "Triathlon Combined",
+      "combinati-tri": "Triathlon Brick Session",
       "zona": "Zone",
       "passo": "Pace",
-      "tempo-dist": "Time Dist.",
-      "combinati": "Combined"
+      "tempo-dist": "Time Dist."
     },
     "sport": {
       "data": "Date",
@@ -113,5 +112,8 @@
       "tempo-dist": "Time Dist.",
       "nome-sport": "Sport Name"
     }
+  },
+  "modifica-framework": {
+    "cerca-per-sport": "Search Per Sport"
   }
 }

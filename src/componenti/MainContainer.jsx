@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import styles from './MainContainer.module.css'
 import { useTranslation } from 'react-i18next'
 import ContainerFramework from "./scriviFramewrok/ContainerFramework"
+import ContainerModFrame from "./modificaFramework/ContainerModFrame"
 
 const MainContainer = () => {
 
@@ -29,7 +30,7 @@ const MainContainer = () => {
             pagina==="scrivi_frame" ?
                 <ContainerFramework setPagina={setPagina} /> :
             pagina==="modifica_frame" ?
-            console.log(2) :
+                <ContainerModFrame setPagina={setPagina} /> :
             console.log(3)}
         </div>
     )
