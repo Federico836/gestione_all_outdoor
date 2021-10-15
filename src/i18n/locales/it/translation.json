@@ -97,6 +97,20 @@
       "zona": "Zona",
       "passo": "Passo",
       "tempo-dist": "Tempo Dist."
+    },
+    "sport": {
+      "data": "Data",
+      "serie": "Serie",
+      "ripetizioni": "Ripetizioni",
+      "recupero": "Recupero",
+      "clona": "Clona",
+      "modifica": "Modifica",
+      "elimina": "Elimina",
+      "nome-framework": "Nome",
+      "zona": "Zona",
+      "passo": "Passo",
+      "tempo-dist": "Tempo Dist.",
+      "nome-sport": "Nome Sport"
     }
   }
 }

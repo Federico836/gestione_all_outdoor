@@ -5,22 +5,23 @@ import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
-import TabCombinatiTriAddRiga from './tabelle/TabCombinatiTriAddRiga.jsx'
-import TabCombinatiTriDragNDrop from './tabelle/TabCombinatiTriDragNDrop.jsx'
+import TabSportAddRiga from './tabelle/TabSportAddRiga.jsx'
+import TabSportDragNDrop from './tabelle/TabSportDragNDrop.jsx'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
-import styles from './CombinatiTri.module.css'
+import styles from './Sport.module.css'
 
-const CombinatiTri = () => {
+const Sport = () => {
 
     const dispatch = useDispatch()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({sport: "", zona: "", serie: "", ripetizioni: "", tempoDist: "", passo: "", recupero: "0:00", note: "" })
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: "", serie: "", ripetizioni: "", tempoDist: "", recupero: "0:00", note: "" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
+    const [nomeSport, setNomeSport] = useState("")
 
     const { t, i18n } = useTranslation()
 
@@ -52,22 +53,21 @@ const CombinatiTri = () => {
     return (
         <div className={styles.container}>
 
-            <Intestazione setData={setData} setNomeFramework={setNomeFramework} />
+            <Intestazione setData={setData} setNomeFramework={setNomeFramework} nomeSport={nomeSport} setNomeSport={setNomeSport} />
 
-            <TabCombinatiTriAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
+            <TabSportAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
 
-            <TabCombinatiTriDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
+            <TabSportDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
             <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe, tipo: "combinati-triathlon", dataDaFare: data,
+            onClick={() => {dispatch(addFramework({listaRighe, tipo: nomeSport, dataDaFare: data,
             dataCreazione: new Date().toISOString().slice(0, 10), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
-            <Button className={styles.bottoneReset} variant="contained"
-            onClick={reset}>RESET</Button>
+            <Button className={styles.bottoneReset} variant="contained" onClick={reset}>RESET</Button>
         </div>
     )
 }
 
-export default CombinatiTri
+export default Sport

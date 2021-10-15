@@ -14,6 +14,7 @@ import Corsa from "./corsa/Corsa.jsx"
 import Nuoto from "./nuoto/Nuoto.jsx"
 import Palestra from "./palestra/Palestra.jsx"
 import CombinatiTri from "./combinatiTri/CombinatiTri.jsx"
+import Sport from "./sport/Sport.jsx"
 
 import styles from './ContainerFramework.module.css'
 import { useTranslation } from 'react-i18next'
@@ -65,6 +66,12 @@ const ContainerFramework = (props) => {
                                         <ListItemText primary={"Combinati"} />
                                     </ListItemIcon>
                                 </ListItem>
+
+                                <ListItem button component={RouterLink} to='/sport' key={"Sport"}>
+                                    <ListItemIcon>
+                                        <ListItemText primary={"Sport"} />
+                                    </ListItemIcon>
+                                </ListItem>
                             </List>
                         </Drawer>
 
@@ -83,6 +90,9 @@ const ContainerFramework = (props) => {
                             </Route>
                             <Route path="/combinatiTriathlon">
                                 <CombinatiTri />
+                            </Route>
+                            <Route path="/sport">
+                                <Sport />
                             </Route>
                         </Switch>
                     </div>
