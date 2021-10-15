@@ -114,6 +114,12 @@
     }
   },
   "modifica-framework": {
-    "cerca-per-sport": "Search Per Sport"
+    "cerca-per-sport": "Search Per Sport",
+    "nome-framework": "Framework Name",
+    "data-salvataggio": "Save Date",
+    "modifica": "Modify",
+    "tutti": "All",
+    "cerca": "Search",
+    "modifica-framework": "Modify Framework"
   }
 }

@@ -29,6 +29,9 @@ const TabSelectSport = () => {
                 <tr>
                     <td>{t('scrivi-framework:combinati-tri:combinati-tri')}</td>
                 </tr>
+                <tr>
+                    <td>{t('modifica-framework:tutti')}</td>
+                </tr>
             </tbody>
         </table>
     )
