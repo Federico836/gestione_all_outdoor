@@ -18,10 +18,15 @@ const TabListaFramework =props => {
 
     const lista = []
     for(let c=0;c<listaFiltrataNome.length;c++) {
-        lista.push(<tr>
+        let coloreRiga = "white"
+        if(c%2===0) {
+            coloreRiga = "lightgray"
+        }
+
+        lista.push(<tr style={{backgroundColor: coloreRiga}}>
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
-            <td>{listaFiltrataNome[c].dataCreazione}</td>
+            <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
             <td>🖉</td>
         </tr>)
     }

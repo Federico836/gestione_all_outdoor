@@ -89,7 +89,7 @@ const Nuoto = () => {
 
             <Button className={styles.bottoneSalva} variant="contained"
             onClick={() => {dispatch(addFramework({listaRighe, tipo: "nuoto", tipoPerSelect: "nuoto", dataDaFare: data,
-            dataCreazione: new Date().toISOString().slice(0, 10), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+            dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
             <Button className={styles.bottoneReset} variant="contained"
             onClick={reset}>RESET</Button>
