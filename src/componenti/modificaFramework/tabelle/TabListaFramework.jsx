@@ -1,17 +1,27 @@
 import React from "react"
+import { useState } from "react"
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import styles from './TabListaFramework.module.css'
 
-const TabListaFramework = () => {
+const TabListaFramework =props => {
+    const { tipoSport } = props
+
+    const [ricercaNome, setRicercaNome] = useState("")
+
     const { t, i18n } = useTranslation()
 
+    const listaFramework = useSelector(state => state.frameworks.lista)
+    const listaFiltrataTipo = tipoSport==="tutti" ? listaFramework : listaFramework.filter(frame => frame.tipoPerSelect===tipoSport)
+    const listaFiltrataNome = ricercaNome==="" ? listaFiltrataTipo : listaFiltrataTipo.filter(frame => frame.nomeFramework.includes(ricercaNome))
+
     const lista = []
-    for(let c=0;c<100;c++) {
+    for(let c=0;c<listaFiltrataNome.length;c++) {
         lista.push(<tr>
-            <td>hstdfht</td>
-            <td>hstdfht</td>
-            <td>hstdfht</td>
+            <td>{listaFiltrataNome[c].tipo}</td>
+            <td>{listaFiltrataNome[c].nomeFramework}</td>
+            <td>{listaFiltrataNome[c].dataCreazione}</td>
             <td>🖉</td>
         </tr>)
     }
@@ -19,7 +29,7 @@ const TabListaFramework = () => {
     return (
         <div>
             <div className={styles.cerca}>
-                {t('modifica-framework:cerca')}: <input type="text" />
+                {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
             </div>
             <div className={styles.containerIntestTab}>
                 <table className={styles.intestazioneTab}>

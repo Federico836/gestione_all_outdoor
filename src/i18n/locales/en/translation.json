@@ -110,7 +110,8 @@
       "zona": "Zone",
       "passo": "Pace",
       "tempo-dist": "Time Dist.",
-      "nome-sport": "Sport Name"
+      "nome-sport": "Sport Name",
+      "altri": "Others"
     }
   },
   "modifica-framework": {

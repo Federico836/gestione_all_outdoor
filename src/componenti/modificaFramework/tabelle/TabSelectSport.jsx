@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import styles from './TabSelectSport.module.css'
 
-const TabSelectSport = () => {
+const TabSelectSport = props => {
+    const { setTipoSport } = props
+
     const { t, i18n } = useTranslation()
 
     return (
@@ -15,22 +17,25 @@ const TabSelectSport = () => {
             </thead>
             <tbody>
                 <tr>
-                    <td>{t('scrivi-framework:ciclismo:ciclismo')}</td>
+                    <td onClick={() => setTipoSport("ciclismo")}>{t('scrivi-framework:ciclismo:ciclismo')}</td>
                 </tr>
                 <tr>
-                    <td>{t('scrivi-framework:corsa:corsa')}</td>
+                    <td onClick={() => setTipoSport("corsa")}>{t('scrivi-framework:corsa:corsa')}</td>
                 </tr>
                 <tr>
-                    <td>{t('scrivi-framework:nuoto:nuoto')}</td>
+                    <td onClick={() => setTipoSport("nuoto")}>{t('scrivi-framework:nuoto:nuoto')}</td>
                 </tr>
                 <tr>
-                    <td>{t('scrivi-framework:palestra:palestra')}</td>
+                    <td onClick={() => setTipoSport("palestra")}>{t('scrivi-framework:palestra:palestra')}</td>
                 </tr>
                 <tr>
-                    <td>{t('scrivi-framework:combinati-tri:combinati-tri')}</td>
+                    <td onClick={() => setTipoSport("combinati_tri")}>{t('scrivi-framework:combinati-tri:combinati-tri')}</td>
                 </tr>
                 <tr>
-                    <td>{t('modifica-framework:tutti')}</td>
+                    <td onClick={() => setTipoSport("altri")}>{t('scrivi-framework:sport:altri')}</td>
+                </tr>
+                <tr>
+                    <td onClick={() => setTipoSport("tutti")}>{t('modifica-framework:tutti')}</td>
                 </tr>
             </tbody>
         </table>

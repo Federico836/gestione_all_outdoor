@@ -1,4 +1,5 @@
 import React from "react"
+import { useState } from "react"
 import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
 import TabSelectSport from './tabelle/TabSelectSport'
@@ -8,6 +9,8 @@ import styles from './ContainerModFrame.module.css'
 
 const ContainerModFrame = props => {
     const { setPagina } = props
+
+    const [tipoSport, setTipoSport] = useState("tutti")
 
     const { t, i18n } = useTranslation()
 
@@ -21,10 +24,10 @@ const ContainerModFrame = props => {
             </div>
             <div className={styles.containerGrid}>
                 <div>
-                    <TabSelectSport />
+                    <TabSelectSport setTipoSport={setTipoSport} />
                 </div>
                 <div>
-                    <TabListaFramework />
+                    <TabListaFramework tipoSport={tipoSport} />
                 </div>
             </div>
         </div>
