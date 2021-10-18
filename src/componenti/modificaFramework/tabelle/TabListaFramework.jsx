@@ -21,8 +21,8 @@ const TabListaFramework = () => {
             <div className={styles.cerca}>
                 {t('modifica-framework:cerca')}: <input type="text" />
             </div>
-            <div className={styles.containerTab}>
-                <table className={styles.tabListaFramework}>
+            <div className={styles.containerIntestTab}>
+                <table className={styles.intestazioneTab}>
                     <thead>
                         <tr>
                             <th>Sport</th>
@@ -31,6 +31,10 @@ const TabListaFramework = () => {
                             <th>{t('modifica-framework:modifica')}</th>
                         </tr>
                     </thead>
+                </table>
+            </div>
+            <div className={styles.containerTab}>
+                <table className={styles.tabListaFramework}>
                     <tbody>
                         {lista}
                     </tbody>
