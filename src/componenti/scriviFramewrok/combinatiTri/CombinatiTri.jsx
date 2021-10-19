@@ -61,7 +61,7 @@ const CombinatiTri = () => {
             setModificaRiga={setModificaRiga} />
 
             <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe, tipo: "combinati triathlon", tipoPerSelect: "combinati_tri", dataDaFare: data,
+            onClick={() => {dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:combinati-tri:combinati-tri'), tipoPerSelect: "combinati_tri", dataDaFare: data,
             dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
             <Button className={styles.bottoneReset} variant="contained"

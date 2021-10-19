@@ -88,7 +88,7 @@ const Nuoto = () => {
             <div className={styles.scrittaRac} dangerouslySetInnerHTML={{ __html: t('scrivi-framework:nuoto:scritta-rac') }}></div>
 
             <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe, tipo: "nuoto", tipoPerSelect: "nuoto", dataDaFare: data,
+            onClick={() => {dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:nuoto:nuoto'), tipoPerSelect: "nuoto", dataDaFare: data,
             dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
             <Button className={styles.bottoneReset} variant="contained"

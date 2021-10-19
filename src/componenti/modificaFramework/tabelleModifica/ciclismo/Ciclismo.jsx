@@ -3,27 +3,28 @@ import { useState, useEffect } from "react"
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
-import { addFramework } from '../../../redux/actions/FrameworkActions.js'
+import { addFramework } from '../../../../redux/actions/FrameworkActions.js'
 
 import TabCiclismoAddRiga from './tabelle/TabCiclismoAddRiga.jsx'
 import TabCiclismoDragNDrop from './tabelle/TabCiclismoDragNDrop.jsx'
-import { calcola7Zone } from '../../../utils/funzioni'
+import { calcola7Zone } from '../../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
 import styles from './Ciclismo.module.css'
 
-const Ciclismo = () => {
+const Ciclismo = props => {
+    const { modificaFrame, setModificaFrame } = props
 
     const dispatch = useDispatch()
 
-    const [listaRighe, setListaRighe] = useState([])
+    const [listaRighe, setListaRighe] = useState(modificaFrame.listaRighe.map(riga => { return {...riga}}))
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, serie: "", ripetizioni: "", recupero: "0:00", rpm: "", note: "", durata: "0:00" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
     const [data, setData] = useState("")
-    const [nomeFramework, setNomeFramework] = useState("")
+    const [nomeFramework, setNomeFramework] = useState(modificaFrame.nomeFramework)
 
     const { t, i18n } = useTranslation()
 
@@ -41,10 +42,8 @@ const Ciclismo = () => {
             setModificaRiga(null)
         }
         else {
-            /* if(riga.zona>=1 && riga.zona<=7) { */
-                setListaRighe([...listaRighe, {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
-                    fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max, idRiga: uuidv4()}])
-            /* } */
+            setListaRighe([...listaRighe, {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
+                fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max, idRiga: uuidv4()}])
         }
     }
 
@@ -78,7 +77,8 @@ const Ciclismo = () => {
     return (
         <div className={styles.container}>
 
-            <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} setNomeFramework={setNomeFramework} />
+            <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} nomeFramework={nomeFramework}
+            setNomeFramework={setNomeFramework} />
 
             <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />

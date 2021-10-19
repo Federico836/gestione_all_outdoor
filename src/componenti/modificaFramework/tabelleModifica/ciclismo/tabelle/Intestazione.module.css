@@ -1,0 +1,32 @@
+.containerGrid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    justify-content: space-around;
+    margin-bottom: 3vh;
+}
+
+.containerGrid span:nth-child(1) {
+    font-size: 3vh;
+}
+
+.containerGrid .riquadroTest {
+    display: flex;
+    border-radius: 20px;
+}
+
+.containerGrid .riquadroTest div:nth-child(3) {
+    margin-left: 0.5vw;
+}
+.containerGrid .riquadroTest input {
+    width: 6vw;
+}
+
+.containerGrid>div:nth-child(1) {
+    margin-top: 1.2vh;
+}
+.containerGrid>div:nth-child(2) {
+    margin-top: 1.2vh;
+}
+.containerGrid>div:nth-child(4) {
+    margin-top: 1.2vh;
+}

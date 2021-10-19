@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import styles from './TabListaFramework.module.css'
 
 const TabListaFramework =props => {
-    const { tipoSport } = props
+    const { tipoSport, setModificaFrame } = props
 
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("tipo")
@@ -36,9 +36,9 @@ const TabListaFramework =props => {
         }
     } else if(tipoOrd === "data") {
         if(secClickOrd) {
-            listaFiltrataNome.sort((a, b) => a - b)
+            listaFiltrataNome.sort((a, b) => a.dataCreazione - b.dataCreazione)
         } else {
-            listaFiltrataNome.sort((a, b) => b - a)
+            listaFiltrataNome.sort((a, b) => b.dataCreazione - a.dataCreazione)
         }
     }
 
@@ -53,7 +53,7 @@ const TabListaFramework =props => {
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
-            <td>🖉</td>
+            <td onClick={() => setModificaFrame(listaFiltrataNome[c])}>🖉</td>
         </tr>)
     }
 

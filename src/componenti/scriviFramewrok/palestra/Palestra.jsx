@@ -61,7 +61,7 @@ const Palestra = () => {
             setModificaRiga={setModificaRiga} />
 
             <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe, tipo: "palestra", tipoPerSelect: "palestra", dataDaFare: data,
+            onClick={() => {dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:palestra:palestra'), tipoPerSelect: "palestra", dataDaFare: data,
             dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
             
             <Button className={styles.bottoneReset} variant="contained"
