@@ -4,6 +4,12 @@
     margin-right: auto;
 }
 
+.containerBottoniTop {
+    display: flex;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+}
+
 .container .bottoneSalva {
     margin-top: 3vh;
     margin-bottom: 16vh;

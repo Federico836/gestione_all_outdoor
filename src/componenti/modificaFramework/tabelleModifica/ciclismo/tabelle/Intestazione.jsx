@@ -4,7 +4,7 @@ import styles from './Intestazione.module.css'
 
 const Intestazione = (props) => {
 
-    const { ftp, setFtp, fc, setFc, setData, nomeFramework, setNomeFramework } = props
+    const { ftp, setFtp, fc, setFc, data, setData, nomeFramework, setNomeFramework } = props
 
     const { t, i18n } = useTranslation()
 
@@ -14,7 +14,7 @@ const Intestazione = (props) => {
                 <span>{t('scrivi-framework:ciclismo:ciclismo')}</span>
             </div>
             <div>
-                {t('scrivi-framework:ciclismo:data')} <input type="date" onChange={e => setData(e.target.value)} />
+                {t('scrivi-framework:ciclismo:data')} <input type="date" value={data} onChange={e => setData(e.target.value)} />
             </div>
             <fieldset className={styles.riquadroTest}>
                 <legend>{t('scrivi-framework:ciclismo:riferimento')}</legend>

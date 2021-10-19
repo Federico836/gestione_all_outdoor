@@ -121,6 +121,9 @@
     "modifica": "Modifica",
     "tutti": "Tutti",
     "cerca": "Cerca",
-    "modifica-framework": "Modifica Framework"
+    "modifica-framework": "Modifica Framework",
+    "pagina-modifica": {
+      "alert-cambiamenti": "Ci sono dei cambiamenti non salvati, sei sicuro di uscire ?"
+    }
   }
 }

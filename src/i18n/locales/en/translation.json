@@ -121,6 +121,9 @@
     "modifica": "Modify",
     "tutti": "All",
     "cerca": "Search",
-    "modifica-framework": "Modify Framework"
+    "modifica-framework": "Modify Framework",
+    "pagina-modifica": {
+      "alert-cambiamenti": "There are some unsaved changes, are you sure to exit ?"
+    }
   }
 }
