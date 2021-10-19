@@ -26,7 +26,7 @@ const Intestazione = (props) => {
                 </div>
             </fieldset>
             <div>
-                {t('scrivi-framework:ciclismo:nome-framework')} <input type="text" value={nomeFramework} onChange={e => setNomeFramework(e.target.value)} />
+                {t('scrivi-framework:ciclismo:nome-framework')} <input type="text" value={nomeFramework} onChange={e => {setNomeFramework(e.target.value)}} />
             </div>
         </div>
     )

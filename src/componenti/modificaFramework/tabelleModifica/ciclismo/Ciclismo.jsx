@@ -15,19 +15,34 @@ import styles from './Ciclismo.module.css'
 
 const Ciclismo = props => {
     const { modificaFrame, setModificaFrame } = props
-
+    const [frame, setFrame] = useState({}) // andrea
     const dispatch = useDispatch()
 
     const frameworkSalvato = useSelector(state => state.frameworks.lista).find(frame => frame.id===modificaFrame.id)
-    const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
     
-    const [listaRighe, setListaRighe] = useState(listaRigheCopia)
+    const [listaRigheCopia, setListaRigheCopia] = useState([])
+    const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: "1", serie: "", ripetizioni: "", recupero: "0:00", rpm: "", note: "", durata: "0:00" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
     const [data, setData] = useState(frameworkSalvato.dataDaFare)
     const [nomeFramework, setNomeFramework] = useState(frameworkSalvato.nomeFramework)
+
+    // andrea
+    useEffect(() => {
+
+        setFrame(frameworkSalvato)
+        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
+
+        console.log({listaRigheCopia})
+
+        setListaRighe([...listaRigheCopia])
+        setListaRigheCopia([...listaRigheCopia])
+
+    },[frameworkSalvato])
+    // andrea
+
 
     const { t, i18n } = useTranslation()
 
@@ -57,19 +72,30 @@ const Ciclismo = props => {
     }
 
     const salvaFramework = () => {
-        if(nomeFramework!==frameworkSalvato.nomeFramework) {
-            dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
-            dataDaFare: data, dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))
+        
+        if(nomeFramework!==frame.nomeFramework) {
+           
+            const f = {listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
+            dataDaFare: data, dataCreazione: Date.now(), nomeFramework, id: uuidv4()}
+           
+            dispatch(addFramework(f))
+            setFrame(f)// andrea
+        
         } else {
-            dispatch(replaceFramework({listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
-            dataDaFare: data, dataCreazione: Date.now(), nomeFramework: frameworkSalvato.nomeFramework, id: frameworkSalvato.id}))
+            const ff = {listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
+            dataDaFare: data, dataCreazione: Date.now(), nomeFramework: frame.nomeFramework, id: frame.id}
+            
+            dispatch(replaceFramework(ff))
+            setFrame(ff)// andrea
+
+
         }
     }
 
     const esci = () => {
         const isFrameworkUguale = () => {
-            if(data!==frameworkSalvato.dataDaFare) return false
-            if(nomeFramework!==frameworkSalvato.nomeFramework) return false
+            if(data!==frame.dataDaFare) return false
+            if(nomeFramework!==frame.nomeFramework) return false
             if(listaRighe.length!==listaRigheCopia.length) return false
 
             for(let c=0;c<listaRighe.length;c++) {
@@ -103,8 +129,9 @@ const Ciclismo = props => {
     }
 
     useEffect(() => {
+        // andrea   if(listaRighe.length > 0)
         cambiaSingolaRigaFtpFc()
-        setListaRighe(listaRighe.map(riga => {
+        if(listaRighe.length > 0) setListaRighe(listaRighe.map(riga => {
             return {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
                 fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max}
         }))
@@ -121,12 +148,12 @@ const Ciclismo = props => {
             </div>
 
             <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} data={data} setData={setData}
-            nomeFramework={nomeFramework} setNomeFramework={setNomeFramework} />
+            nomeFramework={nomeFramework} setNomeFramework={setNomeFramework}/>
 
             <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
 
-            <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
+            <TabCiclismoDragNDrop listaRighe={[...listaRighe]} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
             <Button className={styles.bottoneSalva} variant="contained"

@@ -57,6 +57,8 @@ const Lista = (props) => {
     const { listaRighe, setListaRighe, aggiungiRiga, setModificaRiga } = props
     const { t, i18n } = useTranslation()
 
+    console.log(listaRighe)
+
     const items = listaRighe
    
     const onSortEnd = ({oldIndex, newIndex}) => {
