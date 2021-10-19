@@ -74,7 +74,7 @@ const Ciclismo = props => {
     const salvaFramework = () => {
         
         if(nomeFramework!==frame.nomeFramework) {
-           
+            
             const f = {listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
             dataDaFare: data, dataCreazione: Date.now(), nomeFramework, id: uuidv4()}
            
@@ -87,7 +87,6 @@ const Ciclismo = props => {
             
             dispatch(replaceFramework(ff))
             setFrame(ff)// andrea
-
 
         }
     }

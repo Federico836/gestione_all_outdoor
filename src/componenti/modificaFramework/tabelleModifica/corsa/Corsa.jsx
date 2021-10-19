@@ -19,7 +19,7 @@ const Corsa = () => {
     const { t, i18n } = useTranslation()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: "1", descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
         serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
@@ -30,39 +30,6 @@ const Corsa = () => {
 
     const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
-    
-   /*  useEffect(() => {
-
-        const v = Number(distanza)/tempo
-        const p = 1000/v
-
-        if(distanza > 0 && tempo > 0) {
-            setTempoPer1000m(p)
-            setVelocita(v)
-        }
-
-    },[distanza, tempo]) */
-
-   /*  useEffect(() => {
-        if(distanza!=="" && tempo!=="0:00") {
-
-            const t = getSecondsFromHHMMSS(tempo)
-            const v = Number(distanza)/getSecondsFromHHMMSS(tempo)
-            const p = 1000/velocita
-            const pHHMMSS = toHHMMSS(p)
-
-            console.log({t,v,p,distanza,velocita})
-
-            setVelocita(v)
-            setTempoPer1000m(pHHMMSS)
-        }
-    }, [distanza, tempo])
-
-    useEffect(() => {
-        if(tempoPer1000m && distanza==="" && (tempo==="0:00" || tempo==="")) {
-            setVelocita(1000/getSecondsFromHHMMSS(tempoPer1000m))
-        }
-    }, [tempoPer1000m]) */
 
     const zoneCalcolate = calcolaZoneCorsa(velocita)
     zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone:recupero-attivo')
@@ -96,6 +63,33 @@ const Corsa = () => {
         }
     }
 
+    /* const esci = () => {
+        const isFrameworkUguale = () => {
+            if(data!==frame.dataDaFare) return false
+            if(nomeFramework!==frame.nomeFramework) return false
+            if(listaRighe.length!==listaRigheCopia.length) return false
+
+            for(let c=0;c<listaRighe.length;c++) {
+                if(listaRighe[c].zona!==listaRigheCopia[c].zona) return false
+                if(listaRighe[c].serie!==listaRigheCopia[c].serie) return false
+                if(listaRighe[c].ripetizioni!==listaRigheCopia[c].ripetizioni) return false
+                if(listaRighe[c].recupero!==listaRigheCopia[c].recupero) return false
+                if(listaRighe[c].rpm!==listaRigheCopia[c].rpm) return false
+                if(listaRighe[c].note!==listaRigheCopia[c].note) return false
+                if(listaRighe[c].durata!==listaRigheCopia[c].durata) return false
+            }
+            return true
+        }
+
+        if(isFrameworkUguale()) {
+            setModificaFrame({})
+        } else {
+            if(window.confirm(t('modifica-framework:pagina-modifica:alert-cambiamenti'))) {
+                setModificaFrame({})
+            }
+        }
+    } */
+
     useEffect(() => {
        if(modificaRiga) setDatiSingolaRiga(modificaRiga)
     }, [modificaRiga])
@@ -121,6 +115,9 @@ const Corsa = () => {
 
     return (
         <div className={styles.container}>
+            <div className={styles.containerBottoniTop}>
+                <Button variant="contained"/*  onClick={esci} */>{t('main-container:indietro')}</Button>
+            </div>
 
             <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData}
             setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh} tempoPer1000m={tempoPer1000m}
