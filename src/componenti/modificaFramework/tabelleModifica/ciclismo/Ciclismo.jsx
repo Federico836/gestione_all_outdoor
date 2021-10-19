@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { addFramework, replaceFramework } from '../../../../redux/actions/FrameworkActions.js'
 
@@ -18,13 +18,16 @@ const Ciclismo = props => {
 
     const dispatch = useDispatch()
 
-    const [listaRighe, setListaRighe] = useState(modificaFrame.listaRighe.map(riga => { return {...riga}}))
+    const frameworkSalvato = useSelector(state => state.frameworks.lista).find(frame => frame.id===modificaFrame.id)
+    const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
+    
+    const [listaRighe, setListaRighe] = useState(listaRigheCopia)
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: "1", serie: "", ripetizioni: "", recupero: "0:00", rpm: "", note: "", durata: "0:00" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
-    const [data, setData] = useState(modificaFrame.dataDaFare)
-    const [nomeFramework, setNomeFramework] = useState(modificaFrame.nomeFramework)
+    const [data, setData] = useState(frameworkSalvato.dataDaFare)
+    const [nomeFramework, setNomeFramework] = useState(frameworkSalvato.nomeFramework)
 
     const { t, i18n } = useTranslation()
 
@@ -54,30 +57,29 @@ const Ciclismo = props => {
     }
 
     const salvaFramework = () => {
-        if(nomeFramework!==modificaFrame.nomeFramework) {
+        if(nomeFramework!==frameworkSalvato.nomeFramework) {
             dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
             dataDaFare: data, dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))
         } else {
             dispatch(replaceFramework({listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
-            dataDaFare: data, dataCreazione: Date.now(), nomeFramework: modificaFrame.nomeFramework, id: modificaFrame.id}))
+            dataDaFare: data, dataCreazione: Date.now(), nomeFramework: frameworkSalvato.nomeFramework, id: frameworkSalvato.id}))
         }
     }
 
     const esci = () => {
         const isFrameworkUguale = () => {
-            if(data!==modificaFrame.dataDaFare) return false
-            if(nomeFramework!==modificaFrame.nomeFramework) return false
-            if(listaRighe.length!==modificaFrame.listaRighe.length) return false
+            if(data!==frameworkSalvato.dataDaFare) return false
+            if(nomeFramework!==frameworkSalvato.nomeFramework) return false
+            if(listaRighe.length!==listaRigheCopia.length) return false
 
-            const listaRigheModFrame = modificaFrame.listaRighe
             for(let c=0;c<listaRighe.length;c++) {
-                if(listaRighe.zona!==listaRigheModFrame.zona) return false
-                if(listaRighe.serie!==listaRigheModFrame.serie) return false
-                if(listaRighe.ripetizioni!==listaRigheModFrame.ripetizioni) return false
-                if(listaRighe.recupero!==listaRigheModFrame.recupero) return false
-                if(listaRighe.rpm!==listaRigheModFrame.rpm) return false
-                if(listaRighe.note!==listaRigheModFrame.note) return false
-                if(listaRighe.durata!==listaRigheModFrame.durata) return false
+                if(listaRighe[c].zona!==listaRigheCopia[c].zona) return false
+                if(listaRighe[c].serie!==listaRigheCopia[c].serie) return false
+                if(listaRighe[c].ripetizioni!==listaRigheCopia[c].ripetizioni) return false
+                if(listaRighe[c].recupero!==listaRigheCopia[c].recupero) return false
+                if(listaRighe[c].rpm!==listaRigheCopia[c].rpm) return false
+                if(listaRighe[c].note!==listaRigheCopia[c].note) return false
+                if(listaRighe[c].durata!==listaRigheCopia[c].durata) return false
             }
             return true
         }
@@ -130,8 +132,7 @@ const Ciclismo = props => {
             <Button className={styles.bottoneSalva} variant="contained"
             onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
             
-            <Button className={styles.bottoneReset} variant="contained"
-            onClick={reset}>RESET</Button>
+            <Button className={styles.bottoneReset} variant="contained" onClick={reset}>RESET</Button>
         </div>
     )
 }
