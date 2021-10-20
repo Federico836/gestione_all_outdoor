@@ -1,7 +1,9 @@
 import React from "react"
 import { useDispatch, useSelector } from 'react-redux'
+
 import Ciclismo from "./ciclismo/Ciclismo"
 import Corsa from "./corsa/Corsa"
+import Nuoto from './nuoto/Nuoto'
 
 const ContainerTabModifica = props => {
     const { modificaFrame, setModificaFrame } = props
@@ -11,6 +13,8 @@ const ContainerTabModifica = props => {
             <Ciclismo modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
             modificaFrame.tipoPerSelect==="corsa" ?
             <Corsa modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
+            modificaFrame.tipoPerSelect==="nuoto" ?
+            <Nuoto modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
             console.log(1)} 
         </div>
     )
