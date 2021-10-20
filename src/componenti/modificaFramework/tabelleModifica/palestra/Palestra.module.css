@@ -1,0 +1,23 @@
+.container {
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.containerBottoniTop {
+    display: flex;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+}
+
+.container .bottoneSalva {
+    margin-top: 3vh;
+    margin-bottom: 16vh;
+    float: left;
+}
+
+.container .bottoneReset {
+    margin-top: 3vh;
+    margin-bottom: 16vh;
+    float: right;
+}
