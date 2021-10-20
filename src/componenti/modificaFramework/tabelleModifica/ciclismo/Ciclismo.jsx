@@ -40,7 +40,7 @@ const Ciclismo = props => {
         setListaRighe([...listaRigheCopia])
         setListaRigheCopia([...listaRigheCopia])
 
-    },[frameworkSalvato])
+    }, [frameworkSalvato])
     // andrea
 
 
@@ -72,22 +72,18 @@ const Ciclismo = props => {
     }
 
     const salvaFramework = () => {
-        
         if(nomeFramework!==frame.nomeFramework) {
-            
             const f = {listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
             dataDaFare: data, dataCreazione: Date.now(), nomeFramework, id: uuidv4()}
            
             dispatch(addFramework(f))
             setFrame(f)// andrea
-        
         } else {
             const ff = {listaRighe, tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo",
             dataDaFare: data, dataCreazione: Date.now(), nomeFramework: frame.nomeFramework, id: frame.id}
             
             dispatch(replaceFramework(ff))
             setFrame(ff)// andrea
-
         }
     }
 

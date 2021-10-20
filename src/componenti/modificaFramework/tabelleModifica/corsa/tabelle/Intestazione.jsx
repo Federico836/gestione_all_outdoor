@@ -5,7 +5,7 @@ import styles from './Intestazione.module.css'
 
 const Intestazione = (props) => {
 
-    const { distanza, setDistanza, tempo, setTempo, setData, setNomeFramework, velocitaKmh, tempoPer1000m,
+    const { distanza, setDistanza, tempo, setTempo, setData, nomeFramework, setNomeFramework, velocitaKmh, tempoPer1000m,
         setTempoPer1000m } = props
 
     const calcPassoPer1000 = (distanza, tempo) => {
@@ -76,7 +76,7 @@ const Intestazione = (props) => {
                 </div>
             </fieldset>
             <div>
-                {t('scrivi-framework:corsa:nome-framework')} <input type="text" defaultValue={""} onChange={e => setNomeFramework(e.target.value)} />
+                {t('scrivi-framework:corsa:nome-framework')} <input type="text" value={nomeFramework} onChange={e => setNomeFramework(e.target.value)} />
             </div>
         </div>
     )

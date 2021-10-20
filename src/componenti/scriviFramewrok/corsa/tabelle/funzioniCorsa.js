@@ -9,8 +9,6 @@ const calcolaDistanzaTot = riga => {
         distanzaTot *= riga.ripetizioni
     }
 
-    console.log({riga})
-    window.riga = riga
     return distanzaTot
 }
 
