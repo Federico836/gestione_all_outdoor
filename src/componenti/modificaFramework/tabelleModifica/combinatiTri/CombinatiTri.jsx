@@ -16,9 +16,10 @@ const CombinatiTri = props => {
     const { modificaFrame, setModificaFrame } = props
 
     const [frame, setFrame] = useState({})
-
     const dispatch = useDispatch()
-    const frameworkSalvato = useSelector(state => state.frameworks.lista).find(frame => frame.id===modificaFrame.id)
+
+    let trova = frame.hasOwnProperty("id") ? frame.id : modificaFrame.id
+    const frameworkSalvato = useSelector(state => state.frameworks.lista).find(frame => frame.id===trova)
 
     const [listaRigheCopia, setListaRigheCopia] = useState([])
     const [listaRighe, setListaRighe] = useState([])

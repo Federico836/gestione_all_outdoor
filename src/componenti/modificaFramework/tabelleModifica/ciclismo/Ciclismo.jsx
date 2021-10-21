@@ -18,7 +18,8 @@ const Ciclismo = props => {
     const [frame, setFrame] = useState({}) // andrea
     const dispatch = useDispatch()
 
-    const frameworkSalvato = useSelector(state => state.frameworks.lista).find(frame => frame.id===modificaFrame.id)
+    let trova = frame.hasOwnProperty("id") ? frame.id : modificaFrame.id
+    const frameworkSalvato = useSelector(state => state.frameworks.lista).find(frame => frame.id===trova)
     
     const [listaRigheCopia, setListaRigheCopia] = useState([])
     const [listaRighe, setListaRighe] = useState([])
@@ -35,14 +36,11 @@ const Ciclismo = props => {
         setFrame(frameworkSalvato)
         const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
 
-        console.log({listaRigheCopia})
-
         setListaRighe([...listaRigheCopia])
         setListaRigheCopia([...listaRigheCopia])
 
     }, [frameworkSalvato])
     // andrea
-
 
     const { t, i18n } = useTranslation()
 
