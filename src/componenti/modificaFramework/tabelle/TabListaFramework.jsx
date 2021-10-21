@@ -58,7 +58,7 @@ const TabListaFramework =props => {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <div className={styles.cerca}>
                 {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
             </div>
