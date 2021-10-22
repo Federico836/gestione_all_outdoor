@@ -12,6 +12,6 @@
 
 .containerGrid {
     display: grid;
-    grid-column-gap: 1vw;
+    grid-column-gap: 2vw;
     grid-template-columns: 50% 50%;
 }

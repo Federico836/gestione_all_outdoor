@@ -2,6 +2,11 @@
     min-width: fit-content;
 }
 
+.containerCerca {
+    display: flex;
+    justify-content: space-between;
+}
+
 .containerTab {
     border: 1px dashed black;
     border-top: 0px;

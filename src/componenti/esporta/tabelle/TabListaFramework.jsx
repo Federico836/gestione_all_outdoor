@@ -2,13 +2,14 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { Draggable } from '@fullcalendar/interaction'
 
 import styles from './TabListaFramework.module.css'
 
-const TabListaFramework =props => {
+const TabListaFramework = props => {
     const {  } = props
-    const tipoSport = "tutti"
 
+    const [tipoSport, setTipoSport] = useState("tutti")
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("tipo")
     const [secClickOrd, setSecClickOrd] = useState(false)
@@ -50,18 +51,33 @@ const TabListaFramework =props => {
             coloreRiga = "lightgray"
         }
 
-        lista.push(<tr style={{backgroundColor: coloreRiga}}>
+        lista.push(<tr /* id="draggable" */ style={{backgroundColor: coloreRiga}}>
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
             <td>{listaFiltrataNome[c].dataDaFare}</td>
         </tr>)
+
+        /* new Draggable(document.getElementById("draggable")) */
     }
 
     return (
         <div className={styles.container}>
-            <div className={styles.cerca}>
-                {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
+            <div className={styles.containerCerca}>
+                <div>
+                    <select onChange={e => setTipoSport(e.target.value)}>
+                        <option value="ciclismo">{t('scrivi-framework:ciclismo:ciclismo')}</option>
+                        <option value="corsa">{t('scrivi-framework:corsa:corsa')}</option>
+                        <option value="nuoto">{t('scrivi-framework:nuoto:nuoto')}</option>
+                        <option value="palestra">{t('scrivi-framework:palestra:palestra')}</option>
+                        <option value="combinati_tri">{t('scrivi-framework:combinati-tri:combinati-tri')}</option>
+                        <option value="altri">{t('scrivi-framework:sport:altri')}</option>
+                        <option value="tutti">{t('modifica-framework:tutti')}</option>
+                    </select>
+                </div>
+                <div className={styles.cerca}>
+                    {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
+                </div>
             </div>
             <div className={styles.containerIntestTab}>
                 <table className={styles.intestazioneTab}>

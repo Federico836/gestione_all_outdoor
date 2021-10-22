@@ -6,6 +6,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@fullcalendar/daygrid": "^5.10.0",
+    "@fullcalendar/interaction": "^5.10.0",
     "@fullcalendar/react": "^5.10.0",
     "@mui/material": "^5.0.1",
     "@reduxjs/toolkit": "^1.6.1",
