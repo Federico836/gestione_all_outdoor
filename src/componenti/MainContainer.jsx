@@ -5,6 +5,7 @@ import styles from './MainContainer.module.css'
 import { useTranslation } from 'react-i18next'
 import ContainerFramework from "./scriviFramewrok/ContainerFramework"
 import ContainerModFrame from "./modificaFramework/ContainerModFrame"
+import ContainerEsporta from "./esporta/ContainerEsporta"
 
 const MainContainer = () => {
 
@@ -31,7 +32,7 @@ const MainContainer = () => {
                 <ContainerFramework setPagina={setPagina} /> :
             pagina==="modifica_frame" ?
                 <ContainerModFrame setPagina={setPagina} /> :
-            console.log(3)}
+                <ContainerEsporta setPagina={setPagina} />}
         </div>
     )
 }

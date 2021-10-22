@@ -1,0 +1,105 @@
+.container {
+    min-width: fit-content;
+}
+
+.containerTab {
+    border: 1px dashed black;
+    border-top: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    min-width: fit-content;
+    height: fit-content;
+    max-height: 72vh;
+    overflow-y: scroll;
+}
+.containerTab::-webkit-scrollbar {
+    width: 0.8vw;
+}
+.containerTab::-webkit-scrollbar-thumb {
+    background: lightgray; 
+    border-radius: 20px;
+}
+
+.tabListaFramework {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* .tabListaFramework tr th {
+    border: 1px solid black;
+}
+.tabListaFramework thead tr th {
+    border-top: 0px;
+}
+.tabListaFramework tr th:first-child {
+    border-left: 0px;
+}
+.tabListaFramework tr th:last-child {
+    border-right: 0px;
+    width: 5vw;
+} */
+
+.tabListaFramework tr td {
+    border: 1px solid black;
+}
+.tabListaFramework tr td:first-child {
+    border-left: 0px;
+    width: 10vw;
+}
+.tabListaFramework tr td:nth-child(2) {
+    width: 10vw;
+}
+.tabListaFramework tr td:nth-child(3) {
+    width: 10vw;
+}
+.tabListaFramework tr td:last-child {
+    border-right: 0px;
+    width: 8vw;
+}
+.tabListaFramework tr td:last-child:hover {
+    cursor: pointer;
+}
+.tabListaFramework tr:last-child td {
+    border-bottom: 0px;
+}
+
+.cerca {
+    text-align: right;
+    margin-bottom: 1vh;
+}
+
+
+
+.containerIntestTab {
+    border: 1px dashed black;
+    border-bottom: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2)/* , 0 -6px 20px 0 rgba(0, 0, 0, 0.19) */;
+    /* min-width: fit-content; */
+}
+.intestazioneTab {
+    border-collapse: collapse;
+    /* border-spacing: 0px; */
+    width: 100%;
+}
+.intestazioneTab tr th:first-child {
+    width: 10vw;
+    border-right: 1px solid black;
+}
+.intestazioneTab tr th {
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+.intestazioneTab tr th:nth-child(2) {
+    width: 10vw;
+    border-right: 1px solid black;
+}
+.intestazioneTab tr th:nth-child(3) {
+    width: 10vw;
+    border-right: 1px solid black;
+}
+.intestazioneTab tr th:last-child {
+    width: 8.77vw;
+}

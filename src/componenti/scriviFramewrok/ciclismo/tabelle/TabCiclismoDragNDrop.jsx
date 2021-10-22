@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { scambioElementiArray } from '../../../../utils/funzioniArray'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
 
-const Row = (props) => {
+const Row = props => {
 
     const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice } = props
     
@@ -52,7 +52,7 @@ const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiu
     )
 })
 
-const Lista = (props) => {
+const Lista = props => {
 
     const { listaRighe, setListaRighe, aggiungiRiga, setModificaRiga } = props
     const { t, i18n } = useTranslation()
@@ -68,6 +68,14 @@ const Lista = (props) => {
     for(let c=0;c<listaRighe.length;c++) {
         totDurata += getSecondsFromHHMMSS(listaRighe[c].durata)
         totRecupero += getSecondsFromHHMMSS(listaRighe[c].recupero)
+        if(listaRighe[c].ripetizioni>0) {
+            totDurata*=listaRighe[c].ripetizioni
+            totRecupero*=listaRighe[c].ripetizioni
+        }
+        if(listaRighe[c].serie>0) {
+            totDurata*=listaRighe[c].serie
+            totRecupero*=listaRighe[c].serie
+        }
     }
 
     return (
