@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import Calendario from './tabelle/Calendario'
 import TabListaFramework from './tabelle/TabListaFramework'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +9,8 @@ import styles from './ContainerEsporta.module.css'
 
 const ContainerEsporta = props => {
     const { setPagina } = props
+
+    const [listaEventi, setListaEventi] = useState([])
 
     const { t, i18n } = useTranslation()
 
@@ -19,7 +22,7 @@ const ContainerEsporta = props => {
 
             <div className={styles.containerGrid}>
                 <div>
-                    <Calendario />
+                    <Calendario listaEventi={listaEventi} setListaEventi={setListaEventi} />
                 </div>
                 <div>
                     <TabListaFramework />

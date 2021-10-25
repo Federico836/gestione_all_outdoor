@@ -2,6 +2,8 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { v4 as uuidv4 } from 'uuid'
+
 import { Draggable } from '@fullcalendar/interaction'
 
 import styles from './TabListaFramework.module.css'
@@ -13,6 +15,7 @@ const TabListaFramework = props => {
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("tipo")
     const [secClickOrd, setSecClickOrd] = useState(false)
+    const [drag,setDrag] = useState([])
 
     const { t, i18n } = useTranslation()
 
@@ -22,7 +25,7 @@ const TabListaFramework = props => {
 
     const listaFramework = useSelector(state => state.frameworks.lista)
     const listaFiltrataTipo = tipoSport==="tutti" ? listaFramework : listaFramework.filter(frame => frame.tipoPerSelect===tipoSport)
-    const listaFiltrataNome = ricercaNome==="" ? listaFiltrataTipo : listaFiltrataTipo.filter(frame => frame.nomeFramework.includes(ricercaNome))
+    const listaFiltrataNome = ricercaNome ==="" ? listaFiltrataTipo : listaFiltrataTipo.filter(frame => frame.nomeFramework.includes(ricercaNome))
 
     if(tipoOrd === "tipo") {
         if(secClickOrd) {
@@ -51,15 +54,40 @@ const TabListaFramework = props => {
             coloreRiga = "lightgray"
         }
 
-        lista.push(<tr /* id="draggable" */ style={{backgroundColor: coloreRiga}}>
+        lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
+        tipoSport={listaFiltrataNome[c].tipoPerSelect}>
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
             <td>{listaFiltrataNome[c].dataDaFare}</td>
         </tr>)
-
-        /* new Draggable(document.getElementById("draggable")) */
     }
+
+    useEffect(function addDragNDrop() {
+        new Draggable(document.getElementById("tabDrag"), {
+            itemSelector: '.rigaDrag',
+            eventData: function(eventEl) {
+
+            console.log(eventEl.innerText)
+            //const name = eventEl.getElementById('nome-frame')
+            
+              return {
+                title: (function nomeSport() {
+                    if(eventEl.getAttribute('tipoSport')==="ciclismo") {
+                        return "🚲 "+eventEl.getAttribute('title')
+                    } else if(eventEl.getAttribute('tipoSport')==="nuoto") {
+                        return "🏊 "+eventEl.getAttribute('title')
+                    } else if(eventEl.getAttribute('tipoSport')==="corsa") {
+                        return "🏃 "+eventEl.getAttribute('title')
+                    }
+                })(),
+                duration: '01:00',
+                create: true,
+                id: uuidv4()
+              }
+            }
+        })
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -101,7 +129,7 @@ const TabListaFramework = props => {
             </div>
             <div className={styles.containerTab}>
                 <table className={styles.tabListaFramework}>
-                    <tbody>
+                    <tbody id="tabDrag">
                         {lista}
                     </tbody>
                 </table>
