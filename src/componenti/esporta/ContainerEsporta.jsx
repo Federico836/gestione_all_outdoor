@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import Calendario from './tabelle/Calendario'
 import TabListaFramework from './tabelle/TabListaFramework'
+import TabValori from './tabelle/TabValori'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from "@mui/material"
@@ -11,6 +12,10 @@ const ContainerEsporta = props => {
     const { setPagina } = props
 
     const [listaEventi, setListaEventi] = useState([])
+    const [ftp, setFtp] = useState(0)
+    const [fc, setFc] = useState(0)
+    const [passoNuoto, setPassoNuoto] = useState(0)
+    const [passoCorsa, setPassoCorsa] = useState(0)
 
     const { t, i18n } = useTranslation()
 
@@ -28,6 +33,8 @@ const ContainerEsporta = props => {
                     <TabListaFramework />
                 </div>
             </div>
+            <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
+            passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
         </div>
     )
 }

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 
 import { Draggable } from '@fullcalendar/interaction'
 
@@ -15,7 +17,6 @@ const TabListaFramework = props => {
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("tipo")
     const [secClickOrd, setSecClickOrd] = useState(false)
-    const [drag,setDrag] = useState([])
 
     const { t, i18n } = useTranslation()
 
@@ -72,16 +73,29 @@ const TabListaFramework = props => {
             //const name = eventEl.getElementById('nome-frame')
             
               return {
-                title: (function nomeSport() {
+                title: (function iconaSport() {
                     if(eventEl.getAttribute('tipoSport')==="ciclismo") {
                         return "🚲 "+eventEl.getAttribute('title')
                     } else if(eventEl.getAttribute('tipoSport')==="nuoto") {
                         return "🏊 "+eventEl.getAttribute('title')
                     } else if(eventEl.getAttribute('tipoSport')==="corsa") {
                         return "🏃 "+eventEl.getAttribute('title')
-                    }
+                    } else if(eventEl.getAttribute('tipoSport')==="palestra") {
+                        return <FontAwesomeIcon icon={faDumbbell} />
+                    } else return eventEl.getAttribute('title')
                 })(),
                 duration: '01:00',
+                color: (function iconaSport() {
+                    if(eventEl.getAttribute('tipoSport')==="ciclismo") {
+                        return "green"
+                    } else if(eventEl.getAttribute('tipoSport')==="nuoto") {
+                        return "blue"
+                    } else if(eventEl.getAttribute('tipoSport')==="corsa") {
+                        return "red"
+                    } else if(eventEl.getAttribute('tipoSport')==="palestra") {
+                        return "black"
+                    } else return "lightgray"
+                })(),
                 create: true,
                 id: uuidv4()
               }

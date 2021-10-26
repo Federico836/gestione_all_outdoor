@@ -40,15 +40,16 @@ const Calendario = props => {
                 setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id))
                 Alert.fire("Deleted!", "Your Event has been deleted.", "success");
             }
-        });
-    };
+        })
+    }
 
     return (
         <div className="fc-toolbar-chunk">
-            <FullCalendar plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin ]} 
-            headerToolbar={{left: 'dayGridMonth timeGridWeek timeGridDay', center: "title"}}
-            eventReceive={info => setListaEventi([...listaEventi, info.event])} initialView="dayGridMonth"
-            droppable={true} events={listaEventi} editable={true} eventClick={eventClick} />
+            <FullCalendar plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} initialView="dayGridMonth"
+            headerToolbar={{left: 'dayGridMonth,timeGridWeek,timeGridDay', center: "title"}}
+            eventReceive={info => setListaEventi([...listaEventi, info.event])} 
+            droppable={true} events={listaEventi} editable={true} eventClick={eventClick}
+            eventResize={() => 1} /* defaultAllDay={true} */ />
         </div>
     )
 }

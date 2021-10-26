@@ -37,7 +37,7 @@ const Nuoto = props => {
     useEffect(() => {
 
         setFrame(frameworkSalvato)
-        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga, passo: 0}})
+        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
 
         setListaRighe([...listaRigheCopia])
         setListaRigheCopia([...listaRigheCopia])

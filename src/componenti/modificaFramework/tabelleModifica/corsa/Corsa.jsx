@@ -37,7 +37,7 @@ const Corsa = props => {
     useEffect(() => {
 
         setFrame(frameworkSalvato)
-        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga, passoMin: 0, passoMax: 0, passoMedia: 0}})
+        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
 
         setListaRighe([...listaRigheCopia])
         setListaRigheCopia([...listaRigheCopia])
