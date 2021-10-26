@@ -2,6 +2,7 @@ import React from "react"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
 /* import resourceTimelinePlugin from '@fullcalendar/resource-timeline' */
 
@@ -49,9 +50,10 @@ const Calendario = props => {
 
     return (
         <div>
-            <FullCalendar eventDurationEditable={true} eventStartEditable={true} plugins={[ dayGridPlugin, interactionPlugin/* resourceTimelinePlugin */  ]}
-            initialView="dayGridMonth"/* "resourceTimeline" */ droppable={true} events={listaEventi} editable={true} eventResizableFromStart={true}
-            eventReceive={info => setListaEventi([...listaEventi, info.event])} eventClick={eventClick} />
+            <FullCalendar eventDurationEditable={true} eventStartEditable={true} plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin ]}
+            initialView="dayGridMonth" droppable={true} events={listaEventi} editable={true} eventResizableFromStart={true}
+            eventReceive={info => setListaEventi([...listaEventi, info.event])} eventClick={eventClick}
+            eventDurationEditable={true} eventStartEditable={true} headerToolbar={{left: 'dayGridMonth timeGridWeek timeGridDay'}} />
         </div>
     )
 }
