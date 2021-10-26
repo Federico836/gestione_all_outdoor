@@ -4,7 +4,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
-/* import resourceTimelinePlugin from '@fullcalendar/resource-timeline' */
+
+import './Calendario.css'
 
 const Calendario = props => {
     const { listaEventi, setListaEventi } = props
@@ -17,13 +18,7 @@ const Calendario = props => {
                 <table class="table">
                 <tbody>
                 <tr >
-                <td>Title</td>
-                <td><strong>` +
-                    eventClick.event.title +
-                    `</strong></td>
-                </tr>
-                <tr >
-                <td>Start Time</td>
+                <td><nobr>Start Time</nobr></td>
                 <td><strong>
                 ` +
                     eventClick.event.start +
@@ -49,11 +44,11 @@ const Calendario = props => {
     };
 
     return (
-        <div>
-            <FullCalendar eventDurationEditable={true} eventStartEditable={true} plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin ]}
-            initialView="dayGridMonth" droppable={true} events={listaEventi} editable={true} eventResizableFromStart={true}
-            eventReceive={info => setListaEventi([...listaEventi, info.event])} eventClick={eventClick}
-            eventDurationEditable={true} eventStartEditable={true} headerToolbar={{left: 'dayGridMonth timeGridWeek timeGridDay'}} />
+        <div className="fc-toolbar-chunk">
+            <FullCalendar plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin ]} 
+            headerToolbar={{left: 'dayGridMonth timeGridWeek timeGridDay', center: "title"}}
+            eventReceive={info => setListaEventi([...listaEventi, info.event])} initialView="dayGridMonth"
+            droppable={true} events={listaEventi} editable={true} eventClick={eventClick} />
         </div>
     )
 }
