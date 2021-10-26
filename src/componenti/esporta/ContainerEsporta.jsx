@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Calendario from './tabelle/Calendario'
 import TabListaFramework from './tabelle/TabListaFramework'
 import TabValori from './tabelle/TabValori'
+import Report from './tabelle/Report'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from "@mui/material"
@@ -16,25 +17,35 @@ const ContainerEsporta = props => {
     const [fc, setFc] = useState(0)
     const [passoNuoto, setPassoNuoto] = useState(0)
     const [passoCorsa, setPassoCorsa] = useState(0)
+    const [report, setReport] = useState(false)
 
     const { t, i18n } = useTranslation()
 
     return (
         <div className={styles.container}>
-            <div className={styles.containerBottoniTop}>
-                <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
-            </div>
+            {report ? 
+            <Report /> :
+            <>
+                <div className={styles.containerBottoniTop}>
+                    <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
+                </div>
 
-            <div className={styles.containerGrid}>
-                <div>
-                    <Calendario listaEventi={listaEventi} setListaEventi={setListaEventi} />
+                <div className={styles.containerGrid}>
+                    <div>
+                        <Calendario listaEventi={listaEventi} setListaEventi={setListaEventi} />
+                    </div>
+                    <div>
+                        <TabListaFramework />
+                    </div>
                 </div>
-                <div>
-                    <TabListaFramework />
+
+                <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
+                passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
+
+                <div className={styles.containerBottoniBottom}>
+                    <Button variant="contained" onClick={() => setReport(true)}>REPORT</Button>
                 </div>
-            </div>
-            <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
-            passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
+            </>}
         </div>
     )
 }

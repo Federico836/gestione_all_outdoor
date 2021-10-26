@@ -15,3 +15,9 @@
     grid-column-gap: 2vw;
     grid-template-columns: 50% 50%;
 }
+
+.containerBottoniBottom {
+    display: flex;
+    margin-top: 3vh;
+    margin-bottom: 6vh;
+}

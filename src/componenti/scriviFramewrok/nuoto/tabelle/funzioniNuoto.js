@@ -13,7 +13,6 @@ const calcolaDistanzaTot = riga => {
 }
 
 const calcolaTempoPercor = riga => {
-    console.log(riga.passo)
     let tempo = riga.passo*riga.distanza/100
 
     return toHHMMSS(tempo)

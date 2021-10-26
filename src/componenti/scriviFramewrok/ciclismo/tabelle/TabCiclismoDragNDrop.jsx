@@ -4,6 +4,7 @@ import styles from './TabCiclismoDragNDrop.module.css'
 import { useTranslation } from 'react-i18next'
 import { scambioElementiArray } from '../../../../utils/funzioniArray'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
+import { calcTempoRiga } from './funzioniCiclismo'
 
 const Row = props => {
 
@@ -66,16 +67,9 @@ const Lista = props => {
     let totDurata = 0
     let totRecupero = 0
     for(let c=0;c<listaRighe.length;c++) {
-        totDurata += getSecondsFromHHMMSS(listaRighe[c].durata)
-        totRecupero += getSecondsFromHHMMSS(listaRighe[c].recupero)
-        if(listaRighe[c].ripetizioni>0) {
-            totDurata*=listaRighe[c].ripetizioni
-            totRecupero*=listaRighe[c].ripetizioni
-        }
-        if(listaRighe[c].serie>0) {
-            totDurata*=listaRighe[c].serie
-            totRecupero*=listaRighe[c].serie
-        }
+        const riga = listaRighe[c]
+        totDurata += calcTempoRiga(riga, riga => riga.durata)
+        totRecupero += calcTempoRiga(riga, riga => riga.recupero)
     }
 
     return (
