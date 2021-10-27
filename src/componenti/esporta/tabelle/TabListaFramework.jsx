@@ -56,7 +56,7 @@ const TabListaFramework = props => {
         }
 
         lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
-        tipoSport={listaFiltrataNome[c].tipoPerSelect}>
+        tipoSport={listaFiltrataNome[c].tipoPerSelect} sourceId={listaFiltrataNome[c].id}>
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
@@ -94,9 +94,10 @@ const TabListaFramework = props => {
                         return "red"
                     } else if(eventEl.getAttribute('tipoSport')==="palestra") {
                         return "black"
-                    } else return "lightgray"
+                    } else return "gray"
                 })(),
                 create: true,
+                sourceId: eventEl.getAttribute('sourceId'),
                 id: uuidv4()
               }
             }

@@ -19,12 +19,14 @@ const ContainerEsporta = props => {
     const [passoCorsa, setPassoCorsa] = useState(0)
     const [report, setReport] = useState(false)
 
+    console.log(listaEventi)
+
     const { t, i18n } = useTranslation()
 
     return (
         <div className={styles.container}>
             {report ? 
-            <Report /> :
+            <Report listaEventi={listaEventi} /> :
             <>
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>

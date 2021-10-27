@@ -1,12 +1,20 @@
 import React from 'react'
 import { useRef } from 'react'
 import { Button } from "@mui/material"
+import { useSelector } from 'react-redux'
+
+import TabCiclismoDragNDrop from './tabSport/TabCiclismoDragNDrop'
+
+import styles from './Report.module.css'
 
 const Report = props => {
-    const {  } = props
+    const { listaEventi } = props
 
     const paginaDaStampare = useRef(null)
     const frameStampa = useRef(null)
+
+    const lista = useSelector(state => state.frameworks.lista)
+    console.log(lista)
 
     const stampa = () => {
         const contenuto = paginaDaStampare.current
@@ -20,7 +28,8 @@ const Report = props => {
 
     return (
         <div ref={paginaDaStampare}>
-            <Button variant="contained" onClick={stampa}>STAMPA</Button>
+            <Button variant="contained" onClick={stampa} className={styles.bottoneStampa}>STAMPA</Button>
+            <TabCiclismoDragNDrop listaRighe={lista} />
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
         </div>
     )

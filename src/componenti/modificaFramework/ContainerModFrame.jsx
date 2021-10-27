@@ -49,4 +49,3 @@ const ContainerModFrame = props => {
 }
 
 export default ContainerModFrame
-
