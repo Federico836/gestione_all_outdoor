@@ -8,13 +8,15 @@ import TabCiclismoDragNDrop from './tabSport/TabCiclismoDragNDrop'
 import styles from './Report.module.css'
 
 const Report = props => {
-    const { listaEventi } = props
+    const { listaEventi, rangeDateSelect } = props
 
     const paginaDaStampare = useRef(null)
     const frameStampa = useRef(null)
 
+    const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
+        evento.start.getTime()<=rangeDateSelect.end.getTime())
+
     const lista = useSelector(state => state.frameworks.lista)
-    console.log(lista)
 
     const stampa = () => {
         const contenuto = paginaDaStampare.current

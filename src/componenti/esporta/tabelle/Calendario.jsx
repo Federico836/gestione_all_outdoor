@@ -8,7 +8,7 @@ import Alert from "sweetalert2"
 import './Calendario.css'
 
 const Calendario = props => {
-    const { listaEventi, setListaEventi } = props
+    const { listaEventi, setListaEventi, setRangeDateSelect } = props
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -49,7 +49,7 @@ const Calendario = props => {
             headerToolbar={{left: 'dayGridMonth,timeGridWeek,timeGridDay', center: "title"}}
             eventReceive={info => setListaEventi([...listaEventi, info.event])} 
             droppable={true} events={listaEventi} editable={true} eventClick={eventClick}
-            eventResize={() => 1} /* defaultAllDay={true} */ />
+            eventResize={() => 1} selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)} />
         </div>
     )
 }

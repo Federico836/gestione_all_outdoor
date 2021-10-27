@@ -13,20 +13,19 @@ const ContainerEsporta = props => {
     const { setPagina } = props
 
     const [listaEventi, setListaEventi] = useState([])
+    const [rangeDateSelect, setRangeDateSelect] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
     const [passoNuoto, setPassoNuoto] = useState(0)
     const [passoCorsa, setPassoCorsa] = useState(0)
     const [report, setReport] = useState(false)
 
-    console.log(listaEventi)
-
     const { t, i18n } = useTranslation()
 
     return (
         <div className={styles.container}>
             {report ? 
-            <Report listaEventi={listaEventi} /> :
+            <Report listaEventi={listaEventi} rangeDateSelect={rangeDateSelect} /> :
             <>
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
@@ -34,7 +33,7 @@ const ContainerEsporta = props => {
 
                 <div className={styles.containerGrid}>
                     <div>
-                        <Calendario listaEventi={listaEventi} setListaEventi={setListaEventi} />
+                        <Calendario listaEventi={listaEventi} setListaEventi={setListaEventi} setRangeDateSelect={setRangeDateSelect} />
                     </div>
                     <div>
                         <TabListaFramework />
