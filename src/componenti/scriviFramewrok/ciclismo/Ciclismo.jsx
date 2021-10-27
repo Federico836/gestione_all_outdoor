@@ -29,7 +29,7 @@ const Ciclismo = () => {
 
     const zoneCalcolate = calcola7Zone(ftp, fc)
 
-    const aggiungiRiga = (riga) => {
+    const aggiungiRiga = riga => {
         if(modificaRiga) {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
