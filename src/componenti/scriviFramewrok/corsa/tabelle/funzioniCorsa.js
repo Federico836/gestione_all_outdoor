@@ -12,7 +12,7 @@ const calcolaDistanzaTot = riga => {
     return distanzaTot
 }
 
-const calcolaTempo = riga => {
+const calcTempoRiga = riga => {
     let tempo = riga.passoMedia*riga.distanza/1000
     let recupero = getSecondsFromHHMMSS(riga.recupero)
     if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
@@ -26,4 +26,18 @@ const calcolaTempo = riga => {
     return toHHMMSS(tempo+recupero)
 }
 
-export { calcolaDistanzaTot, calcolaTempo }
+/* const calcTempoRiga = riga => {
+    let tempo = riga.passoMedia*riga.distanza/1000
+    let recupero = getSecondsFromHHMMSS(riga.recupero)
+    if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
+        tempo *= riga.serie
+        recupero *= riga.serie
+    }
+    if(isFinite(riga.ripetizioni) && riga.ripetizioni!=="" && riga.ripetizioni!==0) {
+        tempo *= riga.ripetizioni
+        recupero *= riga.ripetizioni
+    }
+    return toHHMMSS(tempo+recupero)
+} */
+
+export { calcolaDistanzaTot, calcTempoRiga }

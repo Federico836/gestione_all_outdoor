@@ -75,7 +75,6 @@ const Ciclismo = () => {
 
     return (
         <div className={styles.container}>
-
             <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} setNomeFramework={setNomeFramework} />
 
             <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}

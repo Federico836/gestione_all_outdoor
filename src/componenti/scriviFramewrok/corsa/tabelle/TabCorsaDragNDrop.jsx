@@ -4,9 +4,9 @@ import styles from './TabCorsaDragNDrop.module.css'
 import { useTranslation } from 'react-i18next'
 import { scambioElementiArray } from '../../../../utils/funzioniArray'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
-import { calcolaDistanzaTot, calcolaTempo } from './funzioniCorsa.js'
+import { calcolaDistanzaTot, calcTempoRiga } from './funzioniCorsa.js'
 
-const Row = (props) => {
+const Row = props => {
 
     const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice } = props
     
@@ -24,7 +24,7 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
-            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaTempo(riga)}</span></div>
+            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcTempoRiga(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}>
                 <span>{riga.zona.zona>1 && riga.zona.zona<6 ? toHHMMSS(riga.passoMin)+"-"+toHHMMSS(riga.passoMax) : toHHMMSS(riga.passoMax)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{calcolaDistanzaTot(riga).toFixed(3)}</span></div>
@@ -60,16 +60,18 @@ const Lista = (props) => {
     const { t, i18n } = useTranslation()
 
     const items = listaRighe
-   
+
     const onSortEnd = ({oldIndex, newIndex}) => {
         setListaRighe(scambioElementiArray(listaRighe, oldIndex, newIndex))
     }
 
     let totDistanza = 0
     let totTempo = 0
+    let totRecupero = 0
     for(let c=0;c<listaRighe.length;c++) {
+        const riga = listaRighe[c]
         totDistanza += calcolaDistanzaTot(listaRighe[c])
-        totTempo += getSecondsFromHHMMSS(calcolaTempo(listaRighe[c]))
+        totTempo += getSecondsFromHHMMSS(calcTempoRiga(listaRighe[c]))
     }
 
     return (
