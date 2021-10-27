@@ -37,6 +37,18 @@ const calcolaTempoTot = riga => {
     return toHHMMSS(tempo)
 }
 
+const calcolaRecuperoTot = riga => {
+    let tempo = getSecondsFromHHMMSS(riga.recupero)
+    if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
+        tempo *= riga.serie
+    }
+    if(isFinite(riga.ripetizioni) && riga.ripetizioni!=="" && riga.ripetizioni!==0) {
+        tempo *= riga.ripetizioni
+    }
+
+    return toHHMMSS(tempo)
+}
+
 /* const calcolaTempo = riga => {
     let tempo = riga.passo*riga.distanza/1000
     let recupero = getSecondsFromHHMMSS(riga.recupero)
@@ -51,4 +63,4 @@ const calcolaTempoTot = riga => {
     return toHHMMSS(tempo+recupero)
 } */
 
-export { calcolaDistanzaTot, calcolaTempoPercor, calcolaRipartenza, calcolaTempoTot}
+export { calcolaDistanzaTot, calcolaTempoPercor, calcolaRipartenza, calcolaTempoTot, calcolaRecuperoTot }
