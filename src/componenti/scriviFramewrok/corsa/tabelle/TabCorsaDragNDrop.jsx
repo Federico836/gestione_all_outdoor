@@ -4,7 +4,7 @@ import styles from './TabCorsaDragNDrop.module.css'
 import { useTranslation } from 'react-i18next'
 import { scambioElementiArray } from '../../../../utils/funzioniArray'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
-import { calcolaDistanzaTot, calcTempoRiga } from './funzioniCorsa.js'
+import { calcolaDistanzaTot, calcTempoRiga, calcRecuperoRiga } from './funzioniCorsa.js'
 
 const Row = props => {
 
@@ -70,8 +70,9 @@ const Lista = (props) => {
     let totRecupero = 0
     for(let c=0;c<listaRighe.length;c++) {
         const riga = listaRighe[c]
-        totDistanza += calcolaDistanzaTot(listaRighe[c])
-        totTempo += getSecondsFromHHMMSS(calcTempoRiga(listaRighe[c]))
+        totDistanza += calcolaDistanzaTot(riga)
+        totTempo += getSecondsFromHHMMSS(calcTempoRiga(riga))
+        totRecupero += getSecondsFromHHMMSS(calcRecuperoRiga(riga))
     }
 
     return (
@@ -97,7 +98,7 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totRecupero)}</div>
             <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}>Tot: {toHHMMSS(totTempo)}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {totDistanza.toFixed(3)}</div>

@@ -26,18 +26,15 @@ const calcTempoRiga = riga => {
     return toHHMMSS(tempo+recupero)
 }
 
-/* const calcTempoRiga = riga => {
-    let tempo = riga.passoMedia*riga.distanza/1000
+const calcRecuperoRiga = riga => {
     let recupero = getSecondsFromHHMMSS(riga.recupero)
     if(isFinite(riga.serie) && riga.serie!=="" && riga.serie!==0) {
-        tempo *= riga.serie
         recupero *= riga.serie
     }
     if(isFinite(riga.ripetizioni) && riga.ripetizioni!=="" && riga.ripetizioni!==0) {
-        tempo *= riga.ripetizioni
         recupero *= riga.ripetizioni
     }
-    return toHHMMSS(tempo+recupero)
-} */
+    return toHHMMSS(recupero)
+}
 
-export { calcolaDistanzaTot, calcTempoRiga }
+export { calcolaDistanzaTot, calcTempoRiga, calcRecuperoRiga }
