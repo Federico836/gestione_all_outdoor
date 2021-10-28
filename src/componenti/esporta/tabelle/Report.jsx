@@ -27,16 +27,14 @@ const Report = props => {
     for(let c=0;c<eventiSelezionati.length;c++) {
         const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
         const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
-        if(c<eventiSelezionati.length-1) {
-            if(eventiSelezionati[c].start.getDay()!==eventiSelezionati[c+1].start.getDay()) {
-                listaStampaWorkouts.push(<h3>{eventiSelezionati[c+1].start.toISOString()}</h3>)
+        if(c>0) {
+            if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
+                listaStampaWorkouts.push(<h3>{eventiSelezionati[c].start.toISOString()}</h3>)
             } else {
                 listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}></div>)
             }
         } else {
-            if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
-                listaStampaWorkouts.push(<h3>{eventiSelezionati[c].start.toISOString()}</h3>)
-            }
+            listaStampaWorkouts.push(<h3>{eventiSelezionati[c].start.toISOString()}</h3>)
         }
 
         let listaRigheFrameCalc = []
