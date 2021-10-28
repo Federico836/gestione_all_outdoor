@@ -16,16 +16,28 @@ const Report = props => {
     const listaFramework = useSelector(state => state.frameworks.lista)
 
     const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() && evento.start.getTime()<=rangeDateSelect.end.getTime())
+    .sort((a, b) => a.start.getTime()-b.start.getTime())
 
     const zoneCalcCiclismo = calcola7Zone(ftp, fc)
     const zoneCalcCorsa = calcolaZoneCorsa(1000/passoCorsa)
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
 
-    const listaWorkouts = []
+    const listaStampaWorkouts = []
 
     for(let c=0;c<eventiSelezionati.length;c++) {
         const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
         const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
+        if(c<eventiSelezionati.length-1) {
+            if(eventiSelezionati[c].start.getDay()!==eventiSelezionati[c+1].start.getDay()) {
+                listaStampaWorkouts.push(<h3>{eventiSelezionati[c+1].start.toISOString()}</h3>)
+            } else {
+                listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}></div>)
+            }
+        } else {
+            if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
+                listaStampaWorkouts.push(<h3>{eventiSelezionati[c].start.toISOString()}</h3>)
+            }
+        }
 
         let listaRigheFrameCalc = []
         if(framework.tipoPerSelect==="ciclismo") {
@@ -34,8 +46,9 @@ const Report = props => {
                     fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
             })
 
-            listaWorkouts.push({evento: eventiSelezionati[c], listaRighe: listaRigheFrameCalc})
-            
+            listaStampaWorkouts.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
+            /* listaStampaWorkouts.push({evento: eventiSelezionati[c], listaRighe: listaRigheFrameCalc}) */
+
         } else if(framework.tipoPerSelect==="corsa") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
                 return {...riga, passoMin: 1000/zoneCalcCorsa[riga.zona.zona-1].min,
@@ -62,30 +75,27 @@ const Report = props => {
                 /* body {
                     margin: 1.6cm;
                 } */
+            }
 
-                .containerTab {
-                    display: flex;
-                }
-                
-                .containerTab div span {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-                
-                .alignCenter {
-                    text-align: center;
-                }
-                
-                .inputRinomina {
-                    width: 96%;
-                    border: 0px;
-                    outline: none;
-                }
-                
-                .inputRinomina:focus {
-                    border: 0px;
-                }
+            .containerTab {
+                display: flex;
+            }
+            
+            .containerTab div span {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                break-inside: avoid;
+            }
+            
+            .inputRinomina {
+                width: 96%;
+                border: 0px;
+                outline: none;
+            }
+            
+            .inputRinomina:focus {
+                border: 0px;
             }
           </style>`+contenuto.innerHTML)
         pagina.document.close()
@@ -98,7 +108,7 @@ const Report = props => {
         <div>
             <Button variant="contained" onClick={stampa}>STAMPA</Button>
             <div ref={paginaDaStampare}>
-                <TabCiclismoDragNDrop listaRighe={listaWorkouts[0].listaRighe} />
+                {listaStampaWorkouts}
             </div>
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
         </div>
