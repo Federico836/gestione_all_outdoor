@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
-import styles from './TabCiclismoDragNDrop.module.css'
+import './TabCiclismoDragNDrop.css'
 import { useTranslation } from 'react-i18next'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
 import { calcTempoRiga } from '../../../scriviFramewrok/ciclismo/tabelle/funzioniCiclismo'
@@ -17,7 +17,7 @@ const Row = props => {
     }
 
     return (
-        <div className={styles.containerTab} style={{backgroundColor: coloreRiga}}>    
+        <div className={'containerTab'} style={{backgroundColor: coloreRiga}}>    
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.zona>1 && riga.zona<7) ? (riga.wattMin+"-"+riga.wattMax) : riga.wattMax}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.zona>1 && riga.zona<5) ? (riga.fcMin+"-"+riga.fcMax) : riga.fcMax}</span></div>

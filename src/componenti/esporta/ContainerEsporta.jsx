@@ -16,8 +16,8 @@ const ContainerEsporta = props => {
     const [rangeDateSelect, setRangeDateSelect] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
-    const [passoNuoto, setPassoNuoto] = useState(0)
     const [passoCorsa, setPassoCorsa] = useState(0)
+    const [passoNuoto, setPassoNuoto] = useState(0)
     const [report, setReport] = useState(false)
 
     const { t, i18n } = useTranslation()
@@ -25,7 +25,8 @@ const ContainerEsporta = props => {
     return (
         <div className={styles.container}>
             {report ? 
-            <Report listaEventi={listaEventi} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} /> :
+            <Report listaEventi={listaEventi} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
+            passoNuoto={passoNuoto} /> :
             <>
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>

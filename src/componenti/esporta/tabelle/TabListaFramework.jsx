@@ -72,7 +72,7 @@ const TabListaFramework = props => {
             console.log(eventEl.innerText)
             //const name = eventEl.getElementById('nome-frame')
             
-              return {
+            return {
                 title: (function iconaSport() {
                     if(eventEl.getAttribute('tipoSport')==="ciclismo") {
                         return "🚲 "+eventEl.getAttribute('title')
@@ -99,7 +99,7 @@ const TabListaFramework = props => {
                 create: true,
                 sourceId: eventEl.getAttribute('sourceId'),
                 id: uuidv4()
-              }
+                }
             }
         })
     }, [])
