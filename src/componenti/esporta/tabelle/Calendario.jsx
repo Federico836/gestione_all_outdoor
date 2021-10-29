@@ -43,13 +43,31 @@ const Calendario = props => {
         })
     }
 
+    const rimpiazzaEvento = eventChange => {
+        console.log(eventChange)
+        console.log(listaEventi)
+        setListaEventi([...listaEventi.map(evento => {
+            if(eventChange.oldEvent.id!==evento.id) {
+                return {...evento}
+            } else {
+                return {...eventChange.event}
+            }
+        })])
+    }
+
     return (
         <div className="fc-toolbar-chunk">
-            <FullCalendar plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} initialView="dayGridMonth"
+            <FullCalendar
+            // generali calendario
+            plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} initialView="dayGridMonth"
             headerToolbar={{left: 'dayGridMonth,timeGridWeek,timeGridDay', center: "title"}}
-            eventReceive={info => setListaEventi([...listaEventi, info.event])} 
+            // evento drag and drop dalla tabella a lato
+            eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: new Date(info.event.start.getTime()+43200000),
+                end: new Date(info.event.end.getTime()+46800000)}]); console.log(info.event)}}
+                //
             droppable={true} events={listaEventi} editable={true} eventClick={eventClick}
-            eventResize={() => 1} selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)} />
+            eventResize={() => 1} selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
+            eventChange={rimpiazzaEvento} />
         </div>
     )
 }

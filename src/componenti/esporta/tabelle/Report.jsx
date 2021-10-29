@@ -93,7 +93,11 @@ const Report = props => {
             }
             
             .inputRinomina {
-                width: 96%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                width: 90%;
                 border: 0px;
                 outline: none;
             }
