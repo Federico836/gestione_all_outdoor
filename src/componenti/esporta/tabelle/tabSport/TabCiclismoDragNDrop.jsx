@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
-import './TabCiclismoDragNDrop.css'
+import './TabDragNDrop.css'
 import { useTranslation } from 'react-i18next'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
 import { calcTempoRiga } from '../../../scriviFramewrok/ciclismo/tabelle/funzioniCiclismo'

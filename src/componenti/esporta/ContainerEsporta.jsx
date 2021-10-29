@@ -26,7 +26,7 @@ const ContainerEsporta = props => {
         <div className={styles.container}>
             {report ? 
             <Report listaEventi={listaEventi} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
-            passoNuoto={passoNuoto} /> :
+            passoNuoto={passoNuoto} report={report} setReport={setReport} /> :
             <>
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>

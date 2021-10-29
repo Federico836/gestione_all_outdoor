@@ -1,0 +1,8 @@
+.containerBottoni {
+    display: flex;
+    margin-top: 2vh;
+}
+
+.containerBottoni button:last-child {
+    margin-left: 1vw;
+}

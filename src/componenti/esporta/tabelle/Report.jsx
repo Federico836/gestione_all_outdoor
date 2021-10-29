@@ -3,20 +3,24 @@ import { useRef } from 'react'
 import { Button } from "@mui/material"
 import { useSelector } from 'react-redux'
 import TabCiclismoDragNDrop from './tabSport/TabCiclismoDragNDrop'
+import TabCorsaDragNDrop from './tabSport/TabCorsaDragNDrop'
+
 import { calcola7Zone } from '../../../utils/funzioni'
 import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import { calcolaZoneNuoto } from '../../../utils/funzioni'
 
+import styles from './Report.module.css'
+
 const Report = props => {
-    const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto } = props
+    const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport } = props
 
     const paginaDaStampare = useRef(null)
     const frameStampa = useRef(null)
 
     const listaFramework = useSelector(state => state.frameworks.lista)
 
-    const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() && evento.start.getTime()<=rangeDateSelect.end.getTime())
-    .sort((a, b) => a.start.getTime()-b.start.getTime())
+    const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
+    evento.start.getTime()<=rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
 
     const zoneCalcCiclismo = calcola7Zone(ftp, fc)
     const zoneCalcCorsa = calcolaZoneCorsa(1000/passoCorsa)
@@ -45,7 +49,6 @@ const Report = props => {
             })
 
             listaStampaWorkouts.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
-            /* listaStampaWorkouts.push({evento: eventiSelezionati[c], listaRighe: listaRigheFrameCalc}) */
 
         } else if(framework.tipoPerSelect==="corsa") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
@@ -53,6 +56,9 @@ const Report = props => {
                     passoMax: 1000/zoneCalcCorsa[riga.zona.zona-1].max,
                     passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media}
             })
+
+            listaStampaWorkouts.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
+
         } else if(framework.tipoPerSelect==="nuoto") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
                 return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
@@ -104,7 +110,11 @@ const Report = props => {
 
     return (
         <div>
-            <Button variant="contained" onClick={stampa}>STAMPA</Button>
+            <div className={styles.containerBottoni}>
+                <Button variant="contained" onClick={() => setReport(!report)}>INDIETRO</Button>
+                <Button variant="contained" onClick={stampa}>STAMPA</Button>
+            </div>
+            
             <div ref={paginaDaStampare}>
                 {listaStampaWorkouts}
             </div>
