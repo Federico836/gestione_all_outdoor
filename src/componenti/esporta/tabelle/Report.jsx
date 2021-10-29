@@ -9,6 +9,8 @@ import { calcola7Zone } from '../../../utils/funzioni'
 import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import { calcolaZoneNuoto } from '../../../utils/funzioni'
 
+import { calcTempoTotCicl, calcRecTotCicl } from './tabSport/funzioniTotaliCicl'
+
 import styles from './Report.module.css'
 
 const Report = props => {
@@ -27,6 +29,13 @@ const Report = props => {
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
 
     const listaStampaWorkouts = []
+    let tempoTotNuoto = 0
+    let tempoTotCiclismo = 0
+    let tempoTotCorsa = 0
+
+    let recTotNuoto = 0
+    let recTotCiclismo = 0
+    let recTotCorsa = 0
 
     for(let c=0;c<eventiSelezionati.length;c++) {
         const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
@@ -64,7 +73,7 @@ const Report = props => {
                 return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
             })
         }
-        
+
     }
 
     const stampa = () => {
