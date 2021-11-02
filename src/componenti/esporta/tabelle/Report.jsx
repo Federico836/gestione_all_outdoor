@@ -43,6 +43,17 @@ const Report = props => {
     let distanzaTotCorsa = 0
     let distanzaTotNuoto = 0
 
+    const tempoTotCiclismoWeek = []
+    const tempoTotCorsaWeek = []
+    const tempoTotNuotoWeek = []
+
+    const recTotCiclismoWeek = []
+    const recTotCorsaWeek = []
+    const recTotNuotoWeek = []
+
+    const distanzaTotCorsaWeek = []
+    const distanzaTotNuotoWeek = []
+
     const tempoZoneCicl = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
     const tempoZoneCorsa = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}
     const tempoZoneNuoto = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}
@@ -79,6 +90,18 @@ const Report = props => {
             tempoZoneCicl.zona7 += tempoZone.zona7
             listaStampaWorkouts.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
 
+            if(c>0) {
+                if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
+                    tempoTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcTempoTotCicl(listaRigheFrameCalc)})
+                    recTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcRecTotCicl(listaRigheFrameCalc)})
+                } else {
+                    tempoTotCiclismoWeek[tempoTotCiclismoWeek.length-1].num += calcTempoTotCicl(listaRigheFrameCalc)
+                    recTotCiclismoWeek[recTotCiclismoWeek.length-1].num += calcRecTotCicl(listaRigheFrameCalc)
+                }
+            } else {
+                tempoTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcTempoTotCicl(listaRigheFrameCalc)})
+                recTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcRecTotCicl(listaRigheFrameCalc)})
+            }
         } else if(framework.tipoPerSelect==="corsa") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
                 return {...riga, passoMin: 1000/zoneCalcCorsa[riga.zona.zona-1].min,
@@ -97,6 +120,19 @@ const Report = props => {
             tempoZoneCorsa.zona5 += tempoZone.zona5
             tempoZoneCorsa.zona6 += tempoZone.zona6
             listaStampaWorkouts.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
+
+            if(c>0) {
+                if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
+                    tempoTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
+                    recTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
+                } else {
+                    tempoTotCorsaWeek[tempoTotCorsaWeek.length-1].num += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)
+                    recTotCorsaWeek[recTotCorsaWeek.length-1].num += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
+                }
+            } else {
+                tempoTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
+                recTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
+            }
 
         } else if(framework.tipoPerSelect==="nuoto") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
@@ -120,7 +156,7 @@ const Report = props => {
 
     }
 
-    
+    console.log({tempoTotCiclismoWeek, recTotCiclismoWeek})
 
     const stampa = () => {
         const contenuto = paginaDaStampare.current
@@ -168,6 +204,8 @@ const Report = props => {
         console.log(contenuto)
     }
 
+    console.log(tempoTotCiclismoWeek, recTotCiclismoWeek)
+
     return (
         <div>
             <div className={styles.containerBottoni}>
@@ -184,3 +222,14 @@ const Report = props => {
 }
 
 export default Report
+
+Date.prototype.getWeek = function() {
+    var date = new Date(this.getTime());
+    date.setHours(0, 0, 0, 0);
+    // Thursday in current week decides the year.
+    date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+    // January 4 is always in week 1.
+    var week1 = new Date(date.getFullYear(), 0, 4);
+    // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+    return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+}
