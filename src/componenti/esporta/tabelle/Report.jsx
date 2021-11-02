@@ -10,7 +10,7 @@ import { calcola7Zone } from '../../../utils/funzioni'
 import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import { calcolaZoneNuoto } from '../../../utils/funzioni'
 
-import { calcTempoTotCicl, calcRecTotCicl } from './tabSport/funzioniTotaliCicl'
+import { calcTempoTotCicl, calcRecTotCicl, calcTempoZoneCicl } from './tabSport/funzioniTotaliCicl'
 import * as funzioniCorsa from './tabSport/funzioniTotaliCorsa'
 import * as funzioniNuoto from './tabSport/funzioniTotaliNuoto'
 
@@ -43,6 +43,10 @@ const Report = props => {
     let distanzaTotCorsa = 0
     let distanzaTotNuoto = 0
 
+    const tempoZoneCicl = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
+    const tempoZoneCorsa = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}
+    const tempoZoneNuoto = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}
+
     for(let c=0;c<eventiSelezionati.length;c++) {
         const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
         const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
@@ -65,6 +69,14 @@ const Report = props => {
 
             tempoTotCiclismo += calcTempoTotCicl(listaRigheFrameCalc)+calcRecTotCicl(listaRigheFrameCalc)
             recTotCiclismo += calcRecTotCicl(listaRigheFrameCalc)
+            const tempoZone = calcTempoZoneCicl(listaRigheFrameCalc)
+            tempoZoneCicl.zona1 += tempoZone.zona1
+            tempoZoneCicl.zona2 += tempoZone.zona2
+            tempoZoneCicl.zona3 += tempoZone.zona3
+            tempoZoneCicl.zona4 += tempoZone.zona4
+            tempoZoneCicl.zona5 += tempoZone.zona5
+            tempoZoneCicl.zona6 += tempoZone.zona6
+            tempoZoneCicl.zona7 += tempoZone.zona7
             listaStampaWorkouts.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
 
         } else if(framework.tipoPerSelect==="corsa") {
@@ -77,6 +89,13 @@ const Report = props => {
             tempoTotCorsa += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)+funzioniCorsa.calcRecTot(listaRigheFrameCalc)
             recTotCorsa += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
             distanzaTotCorsa += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)
+            const tempoZone = funzioniCorsa.calcTempoZone(listaRigheFrameCalc)
+            tempoZoneCorsa.zona1 += tempoZone.zona1
+            tempoZoneCorsa.zona2 += tempoZone.zona2
+            tempoZoneCorsa.zona3 += tempoZone.zona3
+            tempoZoneCorsa.zona4 += tempoZone.zona4
+            tempoZoneCorsa.zona5 += tempoZone.zona5
+            tempoZoneCorsa.zona6 += tempoZone.zona6
             listaStampaWorkouts.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
 
         } else if(framework.tipoPerSelect==="nuoto") {
@@ -87,11 +106,21 @@ const Report = props => {
             tempoTotNuoto += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)+funzioniNuoto.calcRecTot(listaRigheFrameCalc)
             recTotNuoto += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
             distanzaTotNuoto += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
-            console.log({tempoTotNuoto, recTotNuoto, distanzaTotNuoto})
+            const tempoZone = funzioniNuoto.calcTempoZone(listaRigheFrameCalc)
+            tempoZoneNuoto.zona1 += tempoZone.zona1
+            tempoZoneNuoto.zona2 += tempoZone.zona2
+            tempoZoneNuoto.zona3 += tempoZone.zona3
+            tempoZoneNuoto.zona4 += tempoZone.zona4
+            tempoZoneNuoto.zona5 += tempoZone.zona5
+            tempoZoneNuoto.zona6 += tempoZone.zona6
+            tempoZoneNuoto.zona7 += tempoZone.zona7
+            tempoZoneNuoto.zona8 += tempoZone.zona8
             listaStampaWorkouts.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
         }
 
     }
+
+    
 
     const stampa = () => {
         const contenuto = paginaDaStampare.current

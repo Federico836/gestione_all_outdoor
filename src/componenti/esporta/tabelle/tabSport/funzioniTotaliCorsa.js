@@ -61,4 +61,35 @@ const calcDistanzaTot = listaRighe => {
     return distanzaTot
 }
 
-export { calcTempoTot, calcRecTot, calcDistanzaTot }
+const calcTempoZone = listaRighe => {
+    const zone = {
+        zona1: 0,
+        zona2: 0,
+        zona3: 0,
+        zona4: 0,
+        zona5: 0,
+        zona6: 0
+    }
+
+    listaRighe.map(riga => {
+        const tempoRiga = calcTempoRiga(riga)
+
+        if(riga.zona.zona==1) {
+            zone.zona1 += tempoRiga
+        } else if(riga.zona.zona==2) {
+            zone.zona2 += tempoRiga
+        } else if(riga.zona.zona==3) {
+            zone.zona3 += tempoRiga
+        } else if(riga.zona.zona==4) {
+            zone.zona4 += tempoRiga
+        } else if(riga.zona.zona==5) {
+            zone.zona5 += tempoRiga
+        } else if(riga.zona.zona==6) {
+            zone.zona6 += tempoRiga
+        }
+    })
+
+    return zone
+}
+
+export { calcTempoTot, calcRecTot, calcDistanzaTot, calcTempoZone }
