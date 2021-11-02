@@ -4,12 +4,15 @@ import { Button } from "@mui/material"
 import { useSelector } from 'react-redux'
 import TabCiclismoDragNDrop from './tabSport/TabCiclismoDragNDrop'
 import TabCorsaDragNDrop from './tabSport/TabCorsaDragNDrop'
+import TabNuotoDragNDrop from './tabSport/TabNuotoDragNDrop'
 
 import { calcola7Zone } from '../../../utils/funzioni'
 import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import { calcolaZoneNuoto } from '../../../utils/funzioni'
 
 import { calcTempoTotCicl, calcRecTotCicl } from './tabSport/funzioniTotaliCicl'
+import * as funzioniCorsa from './tabSport/funzioniTotaliCorsa'
+import * as funzioniNuoto from './tabSport/funzioniTotaliNuoto'
 
 import styles from './Report.module.css'
 
@@ -29,13 +32,16 @@ const Report = props => {
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
 
     const listaStampaWorkouts = []
-    let tempoTotNuoto = 0
     let tempoTotCiclismo = 0
     let tempoTotCorsa = 0
+    let tempoTotNuoto = 0
 
-    let recTotNuoto = 0
     let recTotCiclismo = 0
     let recTotCorsa = 0
+    let recTotNuoto = 0
+
+    let distanzaTotCorsa = 0
+    let distanzaTotNuoto = 0
 
     for(let c=0;c<eventiSelezionati.length;c++) {
         const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
@@ -57,6 +63,8 @@ const Report = props => {
                     fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
             })
 
+            tempoTotCiclismo += calcTempoTotCicl(listaRigheFrameCalc)+calcRecTotCicl(listaRigheFrameCalc)
+            recTotCiclismo += calcRecTotCicl(listaRigheFrameCalc)
             listaStampaWorkouts.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
 
         } else if(framework.tipoPerSelect==="corsa") {
@@ -66,12 +74,21 @@ const Report = props => {
                     passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media}
             })
 
+            tempoTotCorsa += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)+funzioniCorsa.calcRecTot(listaRigheFrameCalc)
+            recTotCorsa += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
+            distanzaTotCorsa += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)
             listaStampaWorkouts.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
 
         } else if(framework.tipoPerSelect==="nuoto") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
                 return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
             })
+
+            tempoTotNuoto += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)+funzioniNuoto.calcRecTot(listaRigheFrameCalc)
+            recTotNuoto += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
+            distanzaTotNuoto += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
+            console.log({tempoTotNuoto, recTotNuoto, distanzaTotNuoto})
+            listaStampaWorkouts.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
         }
 
     }
