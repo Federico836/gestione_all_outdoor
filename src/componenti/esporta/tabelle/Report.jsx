@@ -199,14 +199,12 @@ const Report = props => {
 
             .containerTab {
                 display: flex;
-                
             }
             
             .containerTab div span {
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
-                
             }
             
             .inputRinomina {
