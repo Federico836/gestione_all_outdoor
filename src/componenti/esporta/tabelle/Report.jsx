@@ -67,15 +67,7 @@ const Report = props => {
     for(let c=0;c<eventiSelezionati.length;c++) {
         const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
         const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
-        if(c>0) {
-            if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
-                listaStampaWorkouts.push(<h3>{eventiSelezionati[c].start.toISOString()}</h3>)
-            } else {
-                listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}></div>)
-            }
-        } else {
-            listaStampaWorkouts.push(<h3>{eventiSelezionati[c].start.toISOString()}</h3>)
-        }
+        
 
         let listaRigheFrameCalc = []
         if(framework.tipoPerSelect==="ciclismo") {
@@ -94,7 +86,24 @@ const Report = props => {
             tempoZoneCicl.zona5 += tempoZone.zona5
             tempoZoneCicl.zona6 += tempoZone.zona6
             tempoZoneCicl.zona7 += tempoZone.zona7
-            listaStampaWorkouts.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
+            
+            if(c>0) {
+                if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
+                    listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
+                        <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                        <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
+                    </div>)
+                } else {
+                    listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}>
+                        <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
+                        </div>)
+                }
+            } else {
+                listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
+                    <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                    <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
+                </div>)
+            }
 
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
@@ -125,7 +134,24 @@ const Report = props => {
             tempoZoneCorsa.zona4 += tempoZone.zona4
             tempoZoneCorsa.zona5 += tempoZone.zona5
             tempoZoneCorsa.zona6 += tempoZone.zona6
-            listaStampaWorkouts.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
+
+            if(c>0) {
+                if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
+                    listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
+                        <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                        <TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />
+                    </div>)
+                } else {
+                    listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}>
+                        <TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />
+                    </div>)
+                }
+            } else {
+                listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
+                    <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                    <TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />
+                </div>)
+            }
 
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
@@ -160,7 +186,24 @@ const Report = props => {
             tempoZoneNuoto.zona6 += tempoZone.zona6
             tempoZoneNuoto.zona7 += tempoZone.zona7
             tempoZoneNuoto.zona8 += tempoZone.zona8
-            listaStampaWorkouts.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
+
+            if(c>0) {
+                if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
+                    listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
+                        <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                        <TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />
+                    </div>)
+                } else {
+                    listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}>
+                        <TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />
+                    </div>)
+                }
+            } else {
+                listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
+                    <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                    <TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />
+                </div>)
+            }
 
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {

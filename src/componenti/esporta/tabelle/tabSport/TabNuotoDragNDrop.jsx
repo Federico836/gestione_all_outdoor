@@ -76,7 +76,7 @@ const Lista = props => {
     }
 
     return (
-      <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%', breakInside: "avoid"}}>
+      <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center', backgroundColor: "#add8e6"}}> 
             <div style={{border: '1px solid gray', width: '6%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:nuoto:zona')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:nuoto:serie')}</div>
