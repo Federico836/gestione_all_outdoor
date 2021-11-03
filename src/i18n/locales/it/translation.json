@@ -126,5 +126,16 @@
       "alert-cambiamenti": "Ci sono dei cambiamenti non salvati, sei sicuro di uscire ?"
     },
     "data-da-fare": "Data Da Fare"
+  },
+  "esporta": {
+    "calendario": {
+      "eliminato": "Eliminato!",
+      "scritta-eliminato": "Il tuo Evento è stato eliminato.",
+      "data-inizio": "Data Inizio"
+    },
+    "report": {
+      "stampa": "STAMPA",
+      "indietro": "INDIETRO"
+    }
   }
 }

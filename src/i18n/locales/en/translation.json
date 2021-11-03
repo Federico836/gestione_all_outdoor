@@ -126,5 +126,16 @@
       "alert-cambiamenti": "There are some unsaved changes, are you sure to exit ?"
     },
     "data-da-fare": "Date To Do"
+  },
+  "esporta": {
+    "calendario": {
+      "eliminato": "Deleted!",
+      "scritta-eliminato": "Your Event has been deleted.",
+      "data-inizio": "Start Time"
+    },
+    "report": {
+      "stampa": "PRINT",
+      "indietro": "BACK"
+    }
   }
 }

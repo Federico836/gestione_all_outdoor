@@ -13,7 +13,7 @@ const ContainerEsporta = props => {
     const { setPagina } = props
 
     const [listaEventi, setListaEventi] = useState([])
-    const [rangeDateSelect, setRangeDateSelect] = useState(null)
+    const [rangeDateSelect, setRangeDateSelect] = useState([])
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
     const [passoCorsa, setPassoCorsa] = useState(0)
@@ -45,7 +45,8 @@ const ContainerEsporta = props => {
                 passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
 
                 <div className={styles.containerBottoniBottom}>
-                    <Button variant="contained" onClick={() => setReport(true)}>REPORT</Button>
+                    <Button variant="contained" onClick={() => setReport(true)}
+                    disabled={rangeDateSelect.length<1 ? true : false}>REPORT</Button>
                 </div>
             </>}
         </div>

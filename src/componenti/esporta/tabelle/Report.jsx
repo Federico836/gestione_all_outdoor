@@ -2,6 +2,7 @@ import React from 'react'
 import { useRef } from 'react'
 import { Button } from "@mui/material"
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import TabCiclismoDragNDrop from './tabSport/TabCiclismoDragNDrop'
 import TabCorsaDragNDrop from './tabSport/TabCorsaDragNDrop'
 import TabNuotoDragNDrop from './tabSport/TabNuotoDragNDrop'
@@ -19,13 +20,15 @@ import styles from './Report.module.css'
 const Report = props => {
     const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport } = props
 
+    const { t, i18n } = useTranslation()
+
     const paginaDaStampare = useRef(null)
     const frameStampa = useRef(null)
 
-    const listaFramework = useSelector(state => state.frameworks.lista)
-
     const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
     evento.start.getTime()<=rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
+
+    const listaFramework = useSelector(state => state.frameworks.lista)
 
     const zoneCalcCiclismo = calcola7Zone(ftp, fc)
     const zoneCalcCorsa = calcolaZoneCorsa(1000/passoCorsa)
@@ -160,16 +163,16 @@ const Report = props => {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                     tempoTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
                     recTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-                    distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)})
+                    distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
                 } else {
                     tempoTotNuotoWeek[tempoTotNuotoWeek.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
                     recTotNuotoWeek[recTotNuotoWeek.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-                    distanzaTotNuotoWeek[distanzaTotNuotoWeek.length-1].num = funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
+                    distanzaTotNuotoWeek[distanzaTotNuotoWeek.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10
                 }
             } else {
                 tempoTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
                 recTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-                distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)})
+                distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
             }
         }
 
@@ -228,8 +231,8 @@ const Report = props => {
     return (
         <div>
             <div className={styles.containerBottoni}>
-                <Button variant="contained" onClick={() => setReport(!report)}>INDIETRO</Button>
-                <Button variant="contained" onClick={stampa}>STAMPA</Button>
+                <Button variant="contained" onClick={() => setReport(!report)}>{t('esporta:report:indietro')}</Button>
+                <Button variant="contained" onClick={stampa}>{t('esporta:report:stampa')}</Button>
             </div>
             
             <div ref={paginaDaStampare}>

@@ -4,11 +4,14 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
+import { useTranslation } from 'react-i18next'
 
 import './Calendario.css'
 
 const Calendario = props => {
     const { listaEventi, setListaEventi, setRangeDateSelect } = props
+
+    const { t, i18n } = useTranslation()
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -18,7 +21,7 @@ const Calendario = props => {
                 <table class="table">
                 <tbody>
                 <tr >
-                <td><nobr>Start Time</nobr></td>
+                <td><nobr>${t('esporta:calendario:data-inizio')}</nobr></td>
                 <td><strong>
                 ` +
                     eventClick.event.start +
@@ -38,7 +41,7 @@ const Calendario = props => {
         }).then(result => {
             if (result.value) {
                 setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id))
-                Alert.fire("Deleted!", "Your Event has been deleted.", "success");
+                Alert.fire(t('esporta:calendario:eliminato'), t('esporta:calendario:scritta-eliminato'), "success");
             }
         })
     }
