@@ -136,6 +136,32 @@
     "report": {
       "stampa": "PRINT",
       "indietro": "BACK"
+    },
+    "tab-zone": {
+      "ciclismo": {
+        "potenza": "POWER",
+        "fc": "HEART RATE",
+        "durata-continuativa": "LONG RIDE",
+        "durata-intervallata": "INTERVAL TRAINING",
+        "zona": "ZONE",
+        "descrizione": "DESCRIPTION",
+        "sigla": "ACRONYM",
+        "fc-percentuale": "% HR",
+        "tempo-allenamento": "TRAINING TIME",
+        "tempo-ripetuta": "INTERVAL TIME",
+        "recupero-attivo": "ACTIVE RECOVERY",
+        "sigla-z1": "ACT REC",
+        "fondo-lungo": "ENDURANCE",
+        "sigla-z2": "END",
+        "fondo-medio": "TEMPO",
+        "sigla-z3": "TPM",
+        "soglia-anaerobica": "ANAEROBIC THRESHOLD",
+        "sigla-z5": "THR",
+        "capacita-anaerobica": "ANAEROBIC CAPACITY",
+        "sigla-z7": "ANA",
+        "potenza-neuromuscolare": "NEUROMUSCOLAR POWER",
+        "sigla-z8": "NMP"
+      }
     }
   }
 }

@@ -84,7 +84,7 @@ const TabListaFramework = props => {
                         return <FontAwesomeIcon icon={faDumbbell} />
                     } else return eventEl.getAttribute('title')
                 })(),
-                duration: '01:00',
+                /* duration: '01:00', */
                 color: (function iconaSport() {
                     if(eventEl.getAttribute('tipoSport')==="ciclismo") {
                         return "green"
@@ -98,7 +98,7 @@ const TabListaFramework = props => {
                 })(),
                 create: true,
                 sourceId: eventEl.getAttribute('sourceId'),
-                start: 'T10:30:00',
+               /*  start: 'T10:30:00', */
                 id: uuidv4()
                 }
             }

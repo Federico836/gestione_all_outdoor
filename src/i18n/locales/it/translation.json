@@ -136,6 +136,32 @@
     "report": {
       "stampa": "STAMPA",
       "indietro": "INDIETRO"
+    },
+    "tab-zone": {
+      "ciclismo": {
+        "potenza": "POTENZA",
+        "fc": "FREQUENZA CARDIACA",
+        "durata-continuativa": "DURATA CONTINUATIVA",
+        "durata-intervallata": "DURATA INTERVALLATA",
+        "zona": "ZONA",
+        "descrizione": "DESCRIZIONE",
+        "sigla": "SIGLA",
+        "fc-percentuale": "% FC",
+        "tempo-allenamento": "TEMPO ALLENAMENTO",
+        "tempo-ripetuta": "TEMPO RIPETUTA",
+        "recupero-attivo": "RECUPERO ATTIVO",
+        "sigla-z1": "REC",
+        "fondo-lungo": "FONDO LUNGO",
+        "sigla-z2": "LNG",
+        "fondo-medio": "FONDO MEDIO",
+        "sigla-z3": "MDO",
+        "soglia-anaerobica": "SOGLIA ANAEROBICA",
+        "sigla-z5": "SGL",
+        "capacita-anaerobica": "CAPACITÀ ANAEROBICA",
+        "sigla-z7": "LAT",
+        "potenza-neuromuscolare": "POTENZA NEUROMUSCOLARE",
+        "sigla-z8": "PNM"
+      }
     }
   }
 }

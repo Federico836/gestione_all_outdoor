@@ -15,6 +15,8 @@ import { calcTempoTotCicl, calcRecTotCicl, calcTempoZoneCicl } from './tabSport/
 import * as funzioniCorsa from './tabSport/funzioniTotaliCorsa'
 import * as funzioniNuoto from './tabSport/funzioniTotaliNuoto'
 
+import ZoneCiclismo7 from './tabZone/ZoneCiclismo7'
+
 import styles from './Report.module.css'
 
 const Report = props => {
@@ -219,14 +221,24 @@ const Report = props => {
             .inputRinomina:focus {
                 border: 0px;
             }
+
+            .zone-ciclismo7 table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            
+            .zone-ciclismo7 table tr td {
+                border: 1px solid black;
+                text-align: center;
+                font-size: 11px;
+                padding: 2px;
+            }
+
           </style>`+contenuto.innerHTML)
         pagina.document.close()
         pagina.focus()
         pagina.print()
-        console.log(contenuto)
     }
-
-    console.log(tempoTotCiclismoWeek, recTotCiclismoWeek)
 
     return (
         <div>
@@ -237,6 +249,7 @@ const Report = props => {
             
             <div ref={paginaDaStampare}>
                 {listaStampaWorkouts}
+                <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
             </div>
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
         </div>

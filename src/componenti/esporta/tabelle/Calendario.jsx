@@ -67,10 +67,10 @@ const Calendario = props => {
             // evento drag and drop dalla tabella a lato
             /* eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: new Date(info.event.start.getTime()+43200000),
                 end: new Date(info.event.end.getTime()+46800000)}]); console.log(info.event)}} */
-            eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: new Date(info.event.start.getTime()),
-                end: new Date(info.event.end.getTime())}]); console.log(info.event)}}
+            eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: (info.event.start) ? new Date(info.event.start.getTime()) : null,
+                end: (info.event.end) ? new Date(info.event.end.getTime()) : null}]); console.log(info.event)}}
             // selezione e modifica eventi
-            droppable={true} events={listaEventi} editable={true} eventClick={eventClick}
+            droppable={true} /* events={listaEventi} */ editable={true} eventClick={eventClick}
             /* eventResize={() => 1} */ selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
             eventChange={rimpiazzaEvento} />
         </div>

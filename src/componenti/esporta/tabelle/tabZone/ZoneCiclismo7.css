@@ -1,0 +1,11 @@
+.zone-ciclismo7 table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.zone-ciclismo7 table tr td {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 11px;
+    padding: 2px;
+}
