@@ -16,6 +16,7 @@ import * as funzioniCorsa from './tabSport/funzioniTotaliCorsa'
 import * as funzioniNuoto from './tabSport/funzioniTotaliNuoto'
 
 import ZoneCiclismo7 from './tabZone/ZoneCiclismo7'
+import ZoneCorsa from './tabZone/ZoneCorsa'
 
 import styles from './Report.module.css'
 
@@ -249,7 +250,12 @@ const Report = props => {
             
             <div ref={paginaDaStampare}>
                 {listaStampaWorkouts}
+                <div style={{pageBreakAfter: "always"}}></div>
+                <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
                 <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
+                <h3>{t('scrivi-framework:corsa:corsa')}</h3>
+                <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
+                <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
             </div>
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
         </div>

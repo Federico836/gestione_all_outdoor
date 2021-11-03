@@ -161,6 +161,12 @@
         "sigla-z7": "ANA",
         "potenza-neuromuscolare": "NEUROMUSCOLAR POWER",
         "sigla-z8": "NMP"
+      },
+      "corsa": {
+        "tipo-lavoro": "WORK TYPE",
+        "soglia": "THRESHOLD",
+        "da": "FROM",
+        "a": "TO"
       }
     }
   }

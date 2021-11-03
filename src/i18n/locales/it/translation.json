@@ -161,6 +161,12 @@
         "sigla-z7": "LAT",
         "potenza-neuromuscolare": "POTENZA NEUROMUSCOLARE",
         "sigla-z8": "PNM"
+      },
+      "corsa": {
+        "tipo-lavoro": "TIPO LAVORO",
+        "soglia": "SOGLIA",
+        "da": "DA",
+        "a": "A"
       }
     }
   }
