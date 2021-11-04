@@ -21,7 +21,7 @@ import ZoneCorsa from './tabZone/ZoneCorsa'
 import styles from './Report.module.css'
 
 const Report = props => {
-    const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport } = props
+    const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone } = props
 
     const { t, i18n } = useTranslation()
 
@@ -293,12 +293,15 @@ const Report = props => {
             
             <div ref={paginaDaStampare}>
                 {listaStampaWorkouts}
-                <div style={{pageBreakAfter: "always"}}></div>
-                <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
-                <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
-                <h3>{t('scrivi-framework:corsa:corsa')}</h3>
-                <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
-                <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
+                {tabellone ? 
+                <>
+                    <div style={{pageBreakAfter: "always"}}></div>
+                    <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
+                    <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
+                    <h3>{t('scrivi-framework:corsa:corsa')}</h3>
+                    <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
+                    <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
+                </> : null}
             </div>
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
         </div>

@@ -18,6 +18,7 @@
 
 .containerBottoniBottom {
     display: flex;
+    align-items: center;
     margin-top: 3vh;
     margin-bottom: 6vh;
 }
