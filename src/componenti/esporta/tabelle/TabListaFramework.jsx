@@ -99,6 +99,7 @@ const TabListaFramework = props => {
                 create: true,
                 sourceId: eventEl.getAttribute('sourceId'),
                /*  start: 'T10:30:00', */
+                mdId: eventEl.getAttribute('sourceId'),
                 id: uuidv4()
                 }
             }

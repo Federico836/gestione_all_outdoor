@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -12,6 +12,34 @@ const Calendario = props => {
     const { listaEventi, setListaEventi, setRangeDateSelect } = props
 
     const { t, i18n } = useTranslation()
+    
+    const [events, setEvents] = useState(null)
+
+    const getEventPropsFromCalendarEvent = (calEvent) => {
+
+        return {
+                ...calEvent,
+                extendedProps: calEvent.extendedProps,
+                allDay: calEvent.allDay, 
+                backgroundColor: calEvent.backgroundColor,
+                borderColor: calEvent.borderColor,
+                display: calEvent.display,
+                id: calEvent.id,
+                title: calEvent.title,
+                start: (calEvent.start) ? new Date(calEvent.start.getTime()) : null,
+                end: (calEvent.end) ? new Date(calEvent.end.getTime()) : null
+        }
+
+    }
+
+    useEffect(() => {
+
+        if(!events) {
+            setEvents(listaEventi)
+            console.log({listaEventi})
+        }
+
+    },[listaEventi])
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -41,6 +69,7 @@ const Calendario = props => {
         }).then(result => {
             if (result.value) {
                 setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id))
+                eventClick.event.remove();
                 Alert.fire(t('esporta:calendario:eliminato'), t('esporta:calendario:scritta-eliminato'), "success");
             }
         })
@@ -53,7 +82,7 @@ const Calendario = props => {
             if(eventChange.oldEvent.id!==evento.id) {
                 return {...evento}
             } else {
-                return {...eventChange.event}
+                return {...getEventPropsFromCalendarEvent(eventChange.event)}
             }
         })])
     }
@@ -67,10 +96,11 @@ const Calendario = props => {
             // evento drag and drop dalla tabella a lato
             /* eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: new Date(info.event.start.getTime()+43200000),
                 end: new Date(info.event.end.getTime()+46800000)}]); console.log(info.event)}} */
-            eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: (info.event.start) ? new Date(info.event.start.getTime()) : null,
-                end: (info.event.end) ? new Date(info.event.end.getTime()) : null}]); console.log(info.event)}}
+            eventReceive={info => {
+                setListaEventi([...listaEventi, getEventPropsFromCalendarEvent(info.event)]);
+            }}
             // selezione e modifica eventi
-            droppable={true} /* events={listaEventi} */ editable={true} eventClick={eventClick}
+            droppable={true} /* events={listaEventi} */ events={events}  editable={true} eventClick={eventClick}
             /* eventResize={() => 1} */ selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
             eventChange={rimpiazzaEvento} />
         </div>

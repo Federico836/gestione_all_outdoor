@@ -29,7 +29,7 @@ const Report = props => {
     const frameStampa = useRef(null)
 
     const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
-    evento.start.getTime()<=rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
+    evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
 
     const listaFramework = useSelector(state => state.frameworks.lista)
 
@@ -65,11 +65,16 @@ const Report = props => {
     const tempoZoneNuoto = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}
 
     for(let c=0;c<eventiSelezionati.length;c++) {
-        const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
+        //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
+
+        const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c].extendedProps.mdId)
+        if(!framework) continue;
+        
         const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
         
 
         let listaRigheFrameCalc = []
+        let tabDaAggiungere = []
         if(framework.tipoPerSelect==="ciclismo") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
                 return {...riga, wattMin: zoneCalcCiclismo[riga.zona-1].watt_min, wattMax: zoneCalcCiclismo[riga.zona-1].watt_max,
@@ -87,6 +92,7 @@ const Report = props => {
             tempoZoneCicl.zona6 += tempoZone.zona6
             tempoZoneCicl.zona7 += tempoZone.zona7
             
+            tabDaAggiungere = <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
                     listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
@@ -135,6 +141,7 @@ const Report = props => {
             tempoZoneCorsa.zona5 += tempoZone.zona5
             tempoZoneCorsa.zona6 += tempoZone.zona6
 
+            tabDaAggiungere = <TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
                     listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
@@ -187,6 +194,7 @@ const Report = props => {
             tempoZoneNuoto.zona7 += tempoZone.zona7
             tempoZoneNuoto.zona8 += tempoZone.zona8
 
+            tabDaAggiungere = <TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
                     listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
