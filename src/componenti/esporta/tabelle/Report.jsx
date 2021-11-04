@@ -94,22 +94,24 @@ const Report = props => {
             
             tabDaAggiungere = <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
 
+            const aggiungiTempoTot = () => tempoTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcTempoTotCicl(listaRigheFrameCalc)})
+            const aggiungiRecTot = () => recTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcRecTotCicl(listaRigheFrameCalc)})
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                    tempoTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcTempoTotCicl(listaRigheFrameCalc)})
-                    recTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcRecTotCicl(listaRigheFrameCalc)})
+                    aggiungiTempoTot()
+                    aggiungiRecTot()
                 } else {
                     if(tempoTotCiclismoWeek.length<1) {
-                        tempoTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcTempoTotCicl(listaRigheFrameCalc)})
-                        recTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcRecTotCicl(listaRigheFrameCalc)})
+                        aggiungiTempoTot()
+                        aggiungiRecTot()
                     } else {
                         tempoTotCiclismoWeek[tempoTotCiclismoWeek.length-1].num += calcTempoTotCicl(listaRigheFrameCalc)
                         recTotCiclismoWeek[recTotCiclismoWeek.length-1].num += calcRecTotCicl(listaRigheFrameCalc)
                     }
                 }
             } else {
-                tempoTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcTempoTotCicl(listaRigheFrameCalc)})
-                recTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcRecTotCicl(listaRigheFrameCalc)})
+                aggiungiTempoTot()
+                aggiungiRecTot()
             }
         } else if(framework.tipoPerSelect==="corsa") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
@@ -131,16 +133,19 @@ const Report = props => {
 
             tabDaAggiungere = <TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />
 
+            const aggiungiTempoTot = () => tempoTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
+            const aggiungiRecTot = () => recTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
+            const aggiungiDistanzaTot = () => distanzaTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)})
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                    tempoTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
-                    recTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
-                    distanzaTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)})
+                    aggiungiTempoTot()
+                    aggiungiRecTot()
+                    aggiungiDistanzaTot()
                 } else {
                     if(tempoTotCorsaWeek.length<1) {
-                        tempoTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
-                        recTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
-                        distanzaTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)})
+                        aggiungiTempoTot()
+                        aggiungiRecTot()
+                        aggiungiDistanzaTot()
                     } else {
                         tempoTotCorsaWeek[tempoTotCorsaWeek.length-1].num += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)
                         recTotCorsaWeek[recTotCorsaWeek.length-1].num += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
@@ -148,9 +153,9 @@ const Report = props => {
                     }
                 }
             } else {
-                tempoTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
-                recTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
-                distanzaTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)})
+                aggiungiTempoTot()
+                aggiungiRecTot()
+                aggiungiDistanzaTot()
             }
 
         } else if(framework.tipoPerSelect==="nuoto") {
@@ -173,26 +178,31 @@ const Report = props => {
 
             tabDaAggiungere = <TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />
 
+            const aggiungiTempoTot = () => tempoTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
+            const aggiungiRecTot = () => recTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
+            const aggiungiDistanzaTot = () => distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                    tempoTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
-                    recTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-                    distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
+                    aggiungiTempoTot()
+                    aggiungiRecTot()
+                    aggiungiDistanzaTot()
                 } else {
                     if(tempoTotNuotoWeek.lengh<1) {
-                        tempoTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
-                        recTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-                        distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
+                        aggiungiTempoTot()
+                        aggiungiRecTot()
+                        aggiungiDistanzaTot()
                     } else {
-                        tempoTotNuotoWeek[tempoTotNuotoWeek.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
-                        recTotNuotoWeek[recTotNuotoWeek.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-                        distanzaTotNuotoWeek[distanzaTotNuotoWeek.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10
+                        if(tempoTotNuotoWeek.lengh>0) {
+                            tempoTotNuotoWeek[tempoTotNuotoWeek.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
+                            recTotNuotoWeek[recTotNuotoWeek.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
+                            distanzaTotNuotoWeek[distanzaTotNuotoWeek.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10
+                        }
                     }
                 }
             } else {
-                tempoTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
-                recTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-                distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
+                aggiungiTempoTot()
+                aggiungiRecTot()
+                aggiungiDistanzaTot()
             }
         }
 

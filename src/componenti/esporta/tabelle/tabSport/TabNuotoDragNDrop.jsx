@@ -29,12 +29,6 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{calcolaTempoTot(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{calcolaDistanzaTot(riga)}</span></div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.note}</span></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
-                onClick={() => aggiungiRiga(riga)} contentEditable={true}><span>📋</span></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
-                onClick={() => setModificaRiga(riga)} contentEditable={true}><span>✎</span></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
-                onClick={() => setListaRighe(listaRighe.filter(el => el.idRiga !== riga.idRiga))} contentEditable={true}><span>🗑</span></div>
         </div>
     )
 }
@@ -88,9 +82,6 @@ const Lista = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Tot {t('scrivi-framework:nuoto:tempo')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Tot {t('scrivi-framework:nuoto:distanza')}</div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Note</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:nuoto:clona')}</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:nuoto:modifica')}</div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:nuoto:elimina')}</div>
         </div>
         <SortableList items={items} pressDelay={100} axis="y" lockAxis="y" />
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
@@ -104,9 +95,6 @@ const Lista = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totTempo)}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {totDistanza}</div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
         </div>
       </div>
     )
