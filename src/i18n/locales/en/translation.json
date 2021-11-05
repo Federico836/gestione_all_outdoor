@@ -168,6 +168,10 @@
         "soglia": "THRESHOLD",
         "da": "FROM",
         "a": "TO"
+      },
+      "nuoto": {
+        "tipo-lavoro": "WORK TYPE",
+        "tempo": "TIME"
       }
     }
   }

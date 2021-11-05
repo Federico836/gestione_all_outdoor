@@ -17,6 +17,7 @@ import * as funzioniNuoto from './tabSport/funzioniTotaliNuoto'
 
 import ZoneCiclismo7 from './tabZone/ZoneCiclismo7'
 import ZoneCorsa from './tabZone/ZoneCorsa'
+import ZoneNuoto from './tabZone/ZoneNuoto'
 
 import styles from './Report.module.css'
 
@@ -301,6 +302,7 @@ const Report = props => {
                     <h3>{t('scrivi-framework:corsa:corsa')}</h3>
                     <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
                     <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
+                    <ZoneNuoto zoneCalcNuoto={zoneCalcNuoto} />
                 </> : null}
             </div>
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
