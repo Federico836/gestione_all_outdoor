@@ -50,9 +50,9 @@ const TabListaFramework = props => {
 
     const lista = []
     for(let c=0;c<listaFiltrataNome.length;c++) {
-        let coloreRiga = "white"
+        let coloreRiga = "lightgray"
         if(c%2===0) {
-            coloreRiga = "lightgray"
+            coloreRiga = "white"
         }
 
         lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
@@ -63,6 +63,14 @@ const TabListaFramework = props => {
             <td>{listaFiltrataNome[c].dataDaFare}</td>
         </tr>)
     }
+
+    lista.unshift(<tr style={{backgroundColor: "lightgray"}} className="rigaDrag" title="MagneticDays"
+    tipoSport={"rullo"} sourceId={999}>
+        <td>{"MagneticDays"}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>)
 
     useEffect(function addDragNDrop() {
         new Draggable(document.getElementById("tabDrag"), {
