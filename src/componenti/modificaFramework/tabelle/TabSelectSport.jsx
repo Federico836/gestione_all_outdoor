@@ -35,6 +35,9 @@ const TabSelectSport = props => {
                     <td onClick={() => setTipoSport("altri")}>{t('scrivi-framework:sport:altri')}</td>
                 </tr>
                 <tr>
+                    <td onClick={() => setTipoSport("gara")}>{t('scrivi-framework:gara:gara')}</td>
+                </tr>
+                <tr>
                     <td onClick={() => setTipoSport("tutti")}>{t('modifica-framework:tutti')}</td>
                 </tr>
             </tbody>

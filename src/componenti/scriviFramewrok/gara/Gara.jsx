@@ -33,7 +33,7 @@ const Gara = () => {
             <Intestazione setData={setData} setNomeFramework={setNomeFramework} nomeGara={nomeGara} setNomeGara={setNomeGara} />
 
             <div>
-                <textarea style={{width: "100%", height: "50vh"}} onChange={e => setTesto(e.target.value)} />
+                <textarea style={{width: "100%", height: "50vh"}} value={testo} onChange={e => setTesto(e.target.value)} />
             </div>
 
             <Button className={styles.bottoneSalva} variant="contained"

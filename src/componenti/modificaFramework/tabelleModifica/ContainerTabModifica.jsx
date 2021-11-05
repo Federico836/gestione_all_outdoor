@@ -7,6 +7,7 @@ import Nuoto from './nuoto/Nuoto'
 import Palestra from './palestra/Palestra'
 import CombinatiTri from './combinatiTri/CombinatiTri'
 import Sport from './sport/Sport'
+import Gara from './gara/Gara'
 
 const ContainerTabModifica = props => {
     const { modificaFrame, setModificaFrame } = props
@@ -22,6 +23,8 @@ const ContainerTabModifica = props => {
             <Palestra modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
             modificaFrame.tipoPerSelect==="combinati_tri" ?
             <CombinatiTri modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
+            modificaFrame.tipoPerSelect==="gara" ?
+            <Gara modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
             <Sport modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} />} 
         </div>
     )

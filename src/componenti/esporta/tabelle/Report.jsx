@@ -73,7 +73,6 @@ const Report = props => {
         
         const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
         
-
         let listaRigheFrameCalc = []
         let tabDaAggiungere = []
         if(framework.tipoPerSelect==="ciclismo") {
