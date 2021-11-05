@@ -113,6 +113,12 @@
       "tempo-dist": "Tempo Dist.",
       "nome-sport": "Nome Sport",
       "altri": "Altri"
+    },
+    "gara": {
+      "gara": "Gara",
+      "nome-gara": "Nome Gara",
+      "data": "Data",
+      "nome-framework": "Nome"
     }
   },
   "modifica-framework": {
