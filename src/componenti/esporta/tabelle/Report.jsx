@@ -285,12 +285,18 @@ const Report = props => {
                 {tabellone ? 
                 <>
                     <div style={{pageBreakAfter: "always"}}></div>
-                    <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
-                    <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
-                    <h3>{t('scrivi-framework:corsa:corsa')}</h3>
-                    <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
-                    <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
-                    <ZoneNuoto zoneCalcNuoto={zoneCalcNuoto} />
+                    {fc!==0 && ftp!==0  ? <div>
+                        <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
+                        <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
+                    </div> : null}
+                    {passoCorsa!==0 ? <div>
+                        <h3>{t('scrivi-framework:corsa:corsa')}</h3>
+                        <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
+                    </div> : null}
+                    {passoNuoto!==0 ? <div>
+                        <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
+                        <ZoneNuoto zoneCalcNuoto={zoneCalcNuoto} />
+                    </div> : null}
                 </> : null}
             </div>
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
