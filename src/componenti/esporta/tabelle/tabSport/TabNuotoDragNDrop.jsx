@@ -6,9 +6,9 @@ import { scambioElementiArray } from '../../../../utils/funzioniArray'
 import { getSecondsFromHHMMSS, toHHMMSS } from '../../../../utils/funzioni'
 import { calcolaDistanzaTot, calcolaTempoPercor, calcolaRipartenza, calcolaTempoTot, calcolaRecuperoTot } from '../../../scriviFramewrok/nuoto/tabelle/funzioniNuoto'
 
-const Row = (props) => {
+const Row = props => {
 
-    const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice } = props
+    const { riga, indice } = props
     
     const { t, i18n } = useTranslation()
 

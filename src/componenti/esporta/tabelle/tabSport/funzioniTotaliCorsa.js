@@ -92,4 +92,15 @@ const calcTempoZone = listaRighe => {
     return zone
 }
 
-export { calcTempoTot, calcRecTot, calcDistanzaTot, calcTempoZone }
+const sommaZone = (sommaZone, tempoZone) => {
+    sommaZone.zona1 += tempoZone.zona1
+    sommaZone.zona2 += tempoZone.zona2
+    sommaZone.zona3 += tempoZone.zona3
+    sommaZone.zona4 += tempoZone.zona4
+    sommaZone.zona5 += tempoZone.zona5
+    sommaZone.zona6 += tempoZone.zona6
+
+    return sommaZone
+}
+
+export { calcTempoTot, calcRecTot, calcDistanzaTot, calcTempoZone, sommaZone }
