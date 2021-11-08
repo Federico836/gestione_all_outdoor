@@ -50,7 +50,7 @@ const Report = props => {
     let distTotCorsa = []
     let distTotNuoto = []
 
-    const tempoZoneCicl = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
+    const tempoZoneCicl = []
     const tempoZoneCorsa = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}
     const tempoZoneNuoto = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}
 
@@ -71,34 +71,34 @@ const Report = props => {
             })
 
             const tempoZone = funzioniCicl.calcTempoZone(listaRigheFrameCalc)
-            tempoZoneCicl.zona1 += tempoZone.zona1
-            tempoZoneCicl.zona2 += tempoZone.zona2
-            tempoZoneCicl.zona3 += tempoZone.zona3
-            tempoZoneCicl.zona4 += tempoZone.zona4
-            tempoZoneCicl.zona5 += tempoZone.zona5
-            tempoZoneCicl.zona6 += tempoZone.zona6
-            tempoZoneCicl.zona7 += tempoZone.zona7
-            
+
             tabDaAggiungere = <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
 
             const aggiungiTempoTot = () => tempoTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcTempoTot(listaRigheFrameCalc)})
             const aggiungiRecTot = () => recTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcRecTot(listaRigheFrameCalc)})
+
+            const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}}
+            const aggiungiTempoZone = () => tempoZoneCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.sommaZone(addOggettoZone(), tempoZone)})
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                     aggiungiTempoTot()
                     aggiungiRecTot()
+                    aggiungiTempoZone()
                 } else {
                     if(tempoTotCicl.length<1) {
                         aggiungiTempoTot()
                         aggiungiRecTot()
+                        aggiungiTempoZone()
                     } else {
                         tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
                         recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
+                        funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
                     }
                 }
             } else {
                 aggiungiTempoTot()
                 aggiungiRecTot()
+                aggiungiTempoZone()
             }
         } else if(framework.tipoPerSelect==="corsa") {
             listaRigheFrameCalc = listaRigheFrame.map(riga => {
@@ -188,7 +188,8 @@ const Report = props => {
         }
 
         if(c>0) {
-            if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()) {
+            if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()
+            || eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                 listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
                     <h3>{eventiSelezionati[c].start.toISOString()}</h3>
                     {tabDaAggiungere}
@@ -206,6 +207,8 @@ const Report = props => {
         }
 
     }
+
+    console.log(tempoZoneCicl)
 
     const stampa = () => {
         const contenuto = paginaDaStampare.current
