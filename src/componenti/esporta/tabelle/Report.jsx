@@ -11,7 +11,7 @@ import { calcola7Zone } from '../../../utils/funzioni'
 import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import { calcolaZoneNuoto } from '../../../utils/funzioni'
 
-import { calcTempoTotCicl, calcRecTotCicl, calcTempoZoneCicl } from './tabSport/funzioniTotaliCicl'
+import * as funzioniCicl from './tabSport/funzioniTotaliCicl'
 import * as funzioniCorsa from './tabSport/funzioniTotaliCorsa'
 import * as funzioniNuoto from './tabSport/funzioniTotaliNuoto'
 
@@ -39,27 +39,16 @@ const Report = props => {
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
 
     const listaStampaWorkouts = []
-    let tempoTotCiclismo = 0
-    let tempoTotCorsa = 0
-    let tempoTotNuoto = 0
+    let tempoTotCicl = []
+    let tempoTotCorsa = []
+    let tempoTotNuoto = []
 
-    let recTotCiclismo = 0
-    let recTotCorsa = 0
-    let recTotNuoto = 0
+    let recTotCicl = []
+    let recTotCorsa = []
+    let recTotNuoto = []
 
-    let distanzaTotCorsa = 0
-    let distanzaTotNuoto = 0
-
-    const tempoTotCiclismoWeek = []
-    const tempoTotCorsaWeek = []
-    const tempoTotNuotoWeek = []
-
-    const recTotCiclismoWeek = []
-    const recTotCorsaWeek = []
-    const recTotNuotoWeek = []
-
-    const distanzaTotCorsaWeek = []
-    const distanzaTotNuotoWeek = []
+    let distTotCorsa = []
+    let distTotNuoto = []
 
     const tempoZoneCicl = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
     const tempoZoneCorsa = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}
@@ -81,9 +70,7 @@ const Report = props => {
                     fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
             })
 
-            tempoTotCiclismo += calcTempoTotCicl(listaRigheFrameCalc)+calcRecTotCicl(listaRigheFrameCalc)
-            recTotCiclismo += calcRecTotCicl(listaRigheFrameCalc)
-            const tempoZone = calcTempoZoneCicl(listaRigheFrameCalc)
+            const tempoZone = funzioniCicl.calcTempoZone(listaRigheFrameCalc)
             tempoZoneCicl.zona1 += tempoZone.zona1
             tempoZoneCicl.zona2 += tempoZone.zona2
             tempoZoneCicl.zona3 += tempoZone.zona3
@@ -94,19 +81,19 @@ const Report = props => {
             
             tabDaAggiungere = <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
 
-            const aggiungiTempoTot = () => tempoTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcTempoTotCicl(listaRigheFrameCalc)})
-            const aggiungiRecTot = () => recTotCiclismoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: calcRecTotCicl(listaRigheFrameCalc)})
+            const aggiungiTempoTot = () => tempoTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcTempoTot(listaRigheFrameCalc)})
+            const aggiungiRecTot = () => recTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcRecTot(listaRigheFrameCalc)})
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                     aggiungiTempoTot()
                     aggiungiRecTot()
                 } else {
-                    if(tempoTotCiclismoWeek.length<1) {
+                    if(tempoTotCicl.length<1) {
                         aggiungiTempoTot()
                         aggiungiRecTot()
                     } else {
-                        tempoTotCiclismoWeek[tempoTotCiclismoWeek.length-1].num += calcTempoTotCicl(listaRigheFrameCalc)
-                        recTotCiclismoWeek[recTotCiclismoWeek.length-1].num += calcRecTotCicl(listaRigheFrameCalc)
+                        tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
+                        recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
                     }
                 }
             } else {
@@ -120,9 +107,6 @@ const Report = props => {
                     passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media}
             })
 
-            tempoTotCorsa += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)+funzioniCorsa.calcRecTot(listaRigheFrameCalc)
-            recTotCorsa += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
-            distanzaTotCorsa += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)
             const tempoZone = funzioniCorsa.calcTempoZone(listaRigheFrameCalc)
             tempoZoneCorsa.zona1 += tempoZone.zona1
             tempoZoneCorsa.zona2 += tempoZone.zona2
@@ -133,23 +117,23 @@ const Report = props => {
 
             tabDaAggiungere = <TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />
 
-            const aggiungiTempoTot = () => tempoTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
-            const aggiungiRecTot = () => recTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
-            const aggiungiDistanzaTot = () => distanzaTotCorsaWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)})
+            const aggiungiTempoTot = () => tempoTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
+            const aggiungiRecTot = () => recTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
+            const aggiungiDistanzaTot = () => distTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)})
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                     aggiungiTempoTot()
                     aggiungiRecTot()
                     aggiungiDistanzaTot()
                 } else {
-                    if(tempoTotCorsaWeek.length<1) {
+                    if(tempoTotCorsa.length<1) {
                         aggiungiTempoTot()
                         aggiungiRecTot()
                         aggiungiDistanzaTot()
                     } else {
-                        tempoTotCorsaWeek[tempoTotCorsaWeek.length-1].num += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)
-                        recTotCorsaWeek[recTotCorsaWeek.length-1].num += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
-                        distanzaTotCorsaWeek[distanzaTotCorsaWeek.length-1].num += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)
+                        tempoTotCorsa[tempoTotCorsa.length-1].num += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)
+                        recTotCorsa[recTotCorsa.length-1].num += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
+                        distTotCorsa[distTotCorsa.length-1].num += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)
                     }
                 }
             } else {
@@ -163,9 +147,6 @@ const Report = props => {
                 return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
             })
 
-            tempoTotNuoto += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)+funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-            recTotNuoto += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-            distanzaTotNuoto += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
             const tempoZone = funzioniNuoto.calcTempoZone(listaRigheFrameCalc)
             tempoZoneNuoto.zona1 += tempoZone.zona1
             tempoZoneNuoto.zona2 += tempoZone.zona2
@@ -178,24 +159,24 @@ const Report = props => {
 
             tabDaAggiungere = <TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />
 
-            const aggiungiTempoTot = () => tempoTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
-            const aggiungiRecTot = () => recTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-            const aggiungiDistanzaTot = () => distanzaTotNuotoWeek.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
+            const aggiungiTempoTot = () => tempoTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
+            const aggiungiRecTot = () => recTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
+            const aggiungiDistanzaTot = () => distTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                     aggiungiTempoTot()
                     aggiungiRecTot()
                     aggiungiDistanzaTot()
                 } else {
-                    if(tempoTotNuotoWeek.lengh<1) {
+                    if(tempoTotNuoto.lengh<1) {
                         aggiungiTempoTot()
                         aggiungiRecTot()
                         aggiungiDistanzaTot()
                     } else {
-                        if(tempoTotNuotoWeek.lengh>0) {
-                            tempoTotNuotoWeek[tempoTotNuotoWeek.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
-                            recTotNuotoWeek[recTotNuotoWeek.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-                            distanzaTotNuotoWeek[distanzaTotNuotoWeek.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10
+                        if(tempoTotNuoto.lengh>0) {
+                            tempoTotNuoto[tempoTotNuoto.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
+                            recTotNuoto[recTotNuoto.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
+                            distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10
                         }
                     }
                 }
@@ -225,8 +206,6 @@ const Report = props => {
         }
 
     }
-
-    console.log({tempoTotCiclismoWeek, recTotCiclismoWeek})
 
     const stampa = () => {
         const contenuto = paginaDaStampare.current

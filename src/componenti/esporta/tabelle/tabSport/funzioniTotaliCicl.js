@@ -11,7 +11,7 @@ const calcTempoRiga = (riga, proprieta) => {
     return tempo
 }
 
-const calcTempoTotCicl = listaRighe => {
+const calcTempoTot = listaRighe => {
     let tempoTot = 0
 
     listaRighe.map(riga => {
@@ -21,7 +21,7 @@ const calcTempoTotCicl = listaRighe => {
     return tempoTot
 }
 
-const calcRecTotCicl = listaRighe => {
+const calcRecTot = listaRighe => {
     let tempoTot = 0
 
     listaRighe.map(riga => {
@@ -31,7 +31,7 @@ const calcRecTotCicl = listaRighe => {
     return tempoTot
 }
 
-const calcTempoZoneCicl = listaRighe => {
+const calcTempoZone = listaRighe => {
     const zone = {
         zona1: 0,
         zona2: 0,
@@ -65,4 +65,4 @@ const calcTempoZoneCicl = listaRighe => {
     return zone
 }
 
-export { calcTempoTotCicl, calcRecTotCicl, calcTempoZoneCicl }
+export { calcTempoTot, calcRecTot, calcTempoZone }
