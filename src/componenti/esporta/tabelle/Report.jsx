@@ -73,7 +73,8 @@ const Report = props => {
                     fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
             })
 
-            tabDaAggiungere = <TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />
+            tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
+            tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
 
             const aggiungiTempoTot = () => tempoTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcTempoTot(listaRigheFrameCalc)})
             const aggiungiRecTot = () => recTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcRecTot(listaRigheFrameCalc)})
@@ -109,7 +110,8 @@ const Report = props => {
                     passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media}
             })
 
-            tabDaAggiungere = <TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />
+            tabDaAggiungere.push(<h4>{t('scrivi-framework:corsa:corsa')}</h4>)
+            tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
 
             const aggiungiTempoTot = () => tempoTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
             const aggiungiRecTot = () => recTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
@@ -149,7 +151,8 @@ const Report = props => {
                 return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
             })
 
-            tabDaAggiungere = <TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />
+            tabDaAggiungere.push(<h4>{t('scrivi-framework:nuoto:nuoto')}</h4>)
+            tabDaAggiungere.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
 
             const aggiungiTempoTot = () => tempoTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
             const aggiungiRecTot = () => recTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
@@ -187,11 +190,14 @@ const Report = props => {
                 aggiungiTempoZone()
             }
         } else if(framework.tipoPerSelect==="palestra") {
-            tabDaAggiungere = <TabPalestraDragNDrop listaRighe={listaRigheFrame} />
+            tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
+            tabDaAggiungere.push(<TabPalestraDragNDrop listaRighe={listaRigheFrame} />)
         } else if(framework.tipoPerSelect==="combinati_tri") {
-            tabDaAggiungere = <TabCombinatiTriDragNDrop listaRighe={listaRigheFrame} />
+            tabDaAggiungere.push(<h4>{t('scrivi-framework:palestra:palestra')}</h4>)
+            tabDaAggiungere.push(<TabCombinatiTriDragNDrop listaRighe={listaRigheFrame} />)
         } else if(framework.tipoPerSelect==="altri") {
-            tabDaAggiungere = <TabSportDragNDrop listaRighe={listaRigheFrame} />
+            tabDaAggiungere.push(<h4>{t('scrivi-framework:sport:altri')}</h4>)
+            tabDaAggiungere.push(<TabSportDragNDrop listaRighe={listaRigheFrame} />)
         }
 
         if(c>0) {
@@ -316,3 +322,4 @@ Date.prototype.getWeek = function() {
     // Adjust to Thursday in week 1 and count number of weeks from date to week1.
     return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 }
+
