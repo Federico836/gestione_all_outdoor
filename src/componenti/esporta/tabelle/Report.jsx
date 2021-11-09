@@ -41,226 +41,286 @@ const Report = props => {
     const zoneCalcCorsa = calcolaZoneCorsa(1000/passoCorsa)
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
 
-    const listaStampaWorkouts = []
-    let tempoTotCicl = []
-    let tempoTotCorsa = []
-    let tempoTotNuoto = []
+    const stampaTabelleReport = () => {
 
-    let recTotCicl = []
-    let recTotCorsa = []
-    let recTotNuoto = []
-
-    let distTotCorsa = []
-    let distTotNuoto = []
-
-    const tempoZoneCicl = []
-    const tempoZoneCorsa = []
-    const tempoZoneNuoto = []
-
-    for(let c=0;c<eventiSelezionati.length;c++) {
-        //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
-
-        const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c].extendedProps.mdId)
-        if(!framework) continue;
-        
-        const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
-        
-        let listaRigheFrameCalc = []
-        let tabDaAggiungere = []
-        if(framework.tipoPerSelect==="ciclismo") {
-            listaRigheFrameCalc = listaRigheFrame.map(riga => {
-                return {...riga, wattMin: zoneCalcCiclismo[riga.zona-1].watt_min, wattMax: zoneCalcCiclismo[riga.zona-1].watt_max,
-                    fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
-            })
-
-            tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
-            tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
-
-            const aggiungiTempoTot = () => tempoTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcTempoTot(listaRigheFrameCalc)})
-            const aggiungiRecTot = () => recTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcRecTot(listaRigheFrameCalc)})
-
-            const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}}
-            const tempoZone = funzioniCicl.calcTempoZone(listaRigheFrameCalc)
-            const aggiungiTempoZone = () => tempoZoneCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.sommaZone(addOggettoZone(), tempoZone)})
-            if(c>0) {
-                if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                    aggiungiTempoTot()
-                    aggiungiRecTot()
-                    aggiungiTempoZone()
-                } else {
-                    if(tempoTotCicl.length<1) {
+        const listaStampaWorkouts = []
+        let tempoTotCicl = []
+        let tempoTotCorsa = []
+        let tempoTotNuoto = []
+    
+        let recTotCicl = []
+        let recTotCorsa = []
+        let recTotNuoto = []
+    
+        let distTotCorsa = []
+        let distTotNuoto = []
+    
+        const tempoZoneCicl = []
+        const tempoZoneCorsa = []
+        const tempoZoneNuoto = []
+    
+        for(let c=0;c<eventiSelezionati.length;c++) {
+            //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
+    
+            const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c].extendedProps.mdId)
+            if(!framework) continue;
+            
+            const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
+            
+            let listaRigheFrameCalc = []
+            let tabDaAggiungere = []
+            if(framework.tipoPerSelect==="ciclismo") {
+                listaRigheFrameCalc = listaRigheFrame.map(riga => {
+                    return {...riga, wattMin: zoneCalcCiclismo[riga.zona-1].watt_min, wattMax: zoneCalcCiclismo[riga.zona-1].watt_max,
+                        fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
+                })
+    
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
+                tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
+    
+                const aggiungiTempoTot = () => tempoTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcTempoTot(listaRigheFrameCalc)})
+                const aggiungiRecTot = () => recTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcRecTot(listaRigheFrameCalc)})
+    
+                const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}}
+                const tempoZone = funzioniCicl.calcTempoZone(listaRigheFrameCalc)
+                const aggiungiTempoZone = () => tempoZoneCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.sommaZone(addOggettoZone(), tempoZone)})
+                if(c>0) {
+                    if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                         aggiungiTempoTot()
                         aggiungiRecTot()
                         aggiungiTempoZone()
                     } else {
-                        tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
-                        recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
-                        funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
-                    }
-                }
-            } else {
-                aggiungiTempoTot()
-                aggiungiRecTot()
-                aggiungiTempoZone()
-            }
-        } else if(framework.tipoPerSelect==="corsa") {
-            listaRigheFrameCalc = listaRigheFrame.map(riga => {
-                return {...riga, passoMin: 1000/zoneCalcCorsa[riga.zona.zona-1].min,
-                    passoMax: 1000/zoneCalcCorsa[riga.zona.zona-1].max,
-                    passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media}
-            })
-
-            tabDaAggiungere.push(<h4>{t('scrivi-framework:corsa:corsa')}</h4>)
-            tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
-
-            const aggiungiTempoTot = () => tempoTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
-            const aggiungiRecTot = () => recTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
-            const aggiungiDistanzaTot = () => distTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)})
-
-            const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}}
-            const tempoZone = funzioniCorsa.calcTempoZone(listaRigheFrameCalc)
-            const aggiungiTempoZone = () => tempoZoneCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.sommaZone(addOggettoZone(), tempoZone)})
-            if(c>0) {
-                if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                    aggiungiTempoTot()
-                    aggiungiRecTot()
-                    aggiungiDistanzaTot()
-                    aggiungiTempoZone()
-                } else {
-                    if(tempoTotCorsa.length<1) {
-                        aggiungiTempoTot()
-                        aggiungiRecTot()
-                        aggiungiDistanzaTot()
-                        aggiungiTempoZone()
-                    } else {
-                        tempoTotCorsa[tempoTotCorsa.length-1].num += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)
-                        recTotCorsa[recTotCorsa.length-1].num += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
-                        distTotCorsa[distTotCorsa.length-1].num += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)
-                        funzioniCorsa.sommaZone(tempoZoneCorsa[tempoZoneCorsa.length-1].num, tempoZone)
-                    }
-                }
-            } else {
-                aggiungiTempoTot()
-                aggiungiRecTot()
-                aggiungiDistanzaTot()
-                aggiungiTempoZone()
-            }
-
-        } else if(framework.tipoPerSelect==="nuoto") {
-            listaRigheFrameCalc = listaRigheFrame.map(riga => {
-                return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
-            })
-
-            tabDaAggiungere.push(<h4>{t('scrivi-framework:nuoto:nuoto')}</h4>)
-            tabDaAggiungere.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
-
-            const aggiungiTempoTot = () => tempoTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
-            const aggiungiRecTot = () => recTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-            const aggiungiDistanzaTot = () => distTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)})
-
-            const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}}
-            const tempoZone = funzioniNuoto.calcTempoZone(listaRigheFrameCalc)
-            const aggiungiTempoZone = () => tempoZoneNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.sommaZone(addOggettoZone(), tempoZone)})
-            if(c>0) {
-                if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                    aggiungiTempoTot()
-                    aggiungiRecTot()
-                    aggiungiDistanzaTot()
-                    aggiungiTempoZone()
-                } else {
-                    if(tempoTotNuoto.lengh<1) {
-                        aggiungiTempoTot()
-                        aggiungiRecTot()
-                        aggiungiDistanzaTot()
-                        aggiungiTempoZone()
-                    } else {
-                        if(tempoTotNuoto.lengh>0) {
-                            tempoTotNuoto[tempoTotNuoto.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
-                            recTotNuoto[recTotNuoto.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-                            distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
-                            funzioniNuoto.sommaZone(tempoZoneNuoto[tempoZoneNuoto.length-1].num, tempoZone)
+                        if(tempoTotCicl.length<1) {
+                            aggiungiTempoTot()
+                            aggiungiRecTot()
+                            aggiungiTempoZone()
+                        } else {
+                            tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
+                            recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
+                            funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
                         }
                     }
+                } else {
+                    aggiungiTempoTot()
+                    aggiungiRecTot()
+                    aggiungiTempoZone()
+                }
+            } else if(framework.tipoPerSelect==="corsa") {
+                listaRigheFrameCalc = listaRigheFrame.map(riga => {
+                    return {...riga, passoMin: 1000/zoneCalcCorsa[riga.zona.zona-1].min,
+                        passoMax: 1000/zoneCalcCorsa[riga.zona.zona-1].max,
+                        passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media}
+                })
+    
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:corsa:corsa')}</h4>)
+                tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
+    
+                const aggiungiTempoTot = () => tempoTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
+                const aggiungiRecTot = () => recTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
+                const aggiungiDistanzaTot = () => distTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)*1000})
+    
+                const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}}
+                const tempoZone = funzioniCorsa.calcTempoZone(listaRigheFrameCalc)
+                const aggiungiTempoZone = () => tempoZoneCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.sommaZone(addOggettoZone(), tempoZone)})
+                if(c>0) {
+                    if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
+                        aggiungiTempoTot()
+                        aggiungiRecTot()
+                        aggiungiDistanzaTot()
+                        aggiungiTempoZone()
+                    } else {
+                        if(tempoTotCorsa.length<1) {
+                            aggiungiTempoTot()
+                            aggiungiRecTot()
+                            aggiungiDistanzaTot()
+                            aggiungiTempoZone()
+                        } else {
+                            tempoTotCorsa[tempoTotCorsa.length-1].num += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)
+                            recTotCorsa[recTotCorsa.length-1].num += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
+                            distTotCorsa[distTotCorsa.length-1].num += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)*1000
+                            funzioniCorsa.sommaZone(tempoZoneCorsa[tempoZoneCorsa.length-1].num, tempoZone)
+                        }
+                    }
+                } else {
+                    aggiungiTempoTot()
+                    aggiungiRecTot()
+                    aggiungiDistanzaTot()
+                    aggiungiTempoZone()
+                }
+    
+            } else if(framework.tipoPerSelect==="nuoto") {
+                listaRigheFrameCalc = listaRigheFrame.map(riga => {
+                    return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
+                })
+    
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:nuoto:nuoto')}</h4>)
+                tabDaAggiungere.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
+    
+                const aggiungiTempoTot = () => tempoTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
+                const aggiungiRecTot = () => recTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
+                const aggiungiDistanzaTot = () => distTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)})
+    
+                const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}}
+                const tempoZone = funzioniNuoto.calcTempoZone(listaRigheFrameCalc)
+                const aggiungiTempoZone = () => tempoZoneNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.sommaZone(addOggettoZone(), tempoZone)})
+                if(c>0) {
+                    if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
+                        aggiungiTempoTot()
+                        aggiungiRecTot()
+                        aggiungiDistanzaTot()
+                        aggiungiTempoZone()
+                    } else {
+                        if(tempoTotNuoto.lengh<1) {
+                            aggiungiTempoTot()
+                            aggiungiRecTot()
+                            aggiungiDistanzaTot()
+                            aggiungiTempoZone()
+                        } else {
+                            if(tempoTotNuoto.lengh>0) {
+                                tempoTotNuoto[tempoTotNuoto.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
+                                recTotNuoto[recTotNuoto.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
+                                distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
+                                funzioniNuoto.sommaZone(tempoZoneNuoto[tempoZoneNuoto.length-1].num, tempoZone)
+                            }
+                        }
+                    }
+                } else {
+                    aggiungiTempoTot()
+                    aggiungiRecTot()
+                    aggiungiDistanzaTot()
+                    aggiungiTempoZone()
+                }
+                console.log(distTotNuoto)
+    
+            } else if(framework.tipoPerSelect==="palestra") {
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
+                tabDaAggiungere.push(<TabPalestraDragNDrop listaRighe={listaRigheFrame} />)
+            } else if(framework.tipoPerSelect==="combinati_tri") {
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:palestra:palestra')}</h4>)
+                tabDaAggiungere.push(<TabCombinatiTriDragNDrop listaRighe={listaRigheFrame} />)
+            } else if(framework.tipoPerSelect==="altri") {
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:sport:altri')}</h4>)
+                tabDaAggiungere.push(<TabSportDragNDrop listaRighe={listaRigheFrame} />)
+            }
+    
+            if(c>0) {
+                if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()
+                || eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
+                    listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
+                        <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                        {tabDaAggiungere}
+                    </div>)
+                } else {
+                    listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}>
+                        {tabDaAggiungere}
+                    </div>)
                 }
             } else {
-                aggiungiTempoTot()
-                aggiungiRecTot()
-                aggiungiDistanzaTot()
-                aggiungiTempoZone()
-            }
-        } else if(framework.tipoPerSelect==="palestra") {
-            tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
-            tabDaAggiungere.push(<TabPalestraDragNDrop listaRighe={listaRigheFrame} />)
-        } else if(framework.tipoPerSelect==="combinati_tri") {
-            tabDaAggiungere.push(<h4>{t('scrivi-framework:palestra:palestra')}</h4>)
-            tabDaAggiungere.push(<TabCombinatiTriDragNDrop listaRighe={listaRigheFrame} />)
-        } else if(framework.tipoPerSelect==="altri") {
-            tabDaAggiungere.push(<h4>{t('scrivi-framework:sport:altri')}</h4>)
-            tabDaAggiungere.push(<TabSportDragNDrop listaRighe={listaRigheFrame} />)
-        }
-
-        if(c>0) {
-            if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()
-            || eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                 listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
                     <h3>{eventiSelezionati[c].start.toISOString()}</h3>
                     {tabDaAggiungere}
                 </div>)
-            } else {
-                listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}>
-                    {tabDaAggiungere}
-                </div>)
             }
-        } else {
-            listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
-                <h3>{eventiSelezionati[c].start.toISOString()}</h3>
-                {tabDaAggiungere}
-            </div>)
+    
+        }
+    
+        const densitaCicl = []
+        const tempoTotCiclConRec = []
+        const wltCicl = []
+        const wlsCicl = []
+    
+        const trimpCiclAerobic = []
+        const trimpCiclMixed = []
+        const trimpCiclAnaerobic = []
+        const trimpCiclTotal = []
+        const trimpCiclMin = []
+        for(let c=0;c<tempoTotCicl.length;c++) {
+            densitaCicl.push(recTotCicl[c]/tempoTotCicl[c].num*100)
+            tempoTotCiclConRec.push(tempoTotCicl[c].num+recTotCicl[c])
+            wltCicl.push()
+            wlsCicl.push()
+    
+            trimpCiclAerobic.push((tempoZoneCicl[c].num.zona1+tempoZoneCicl[c].num.zona2)/60)
+            trimpCiclMixed.push((tempoZoneCicl[c].num.zona3+tempoZoneCicl[c].num.zona4)/60*2)
+            trimpCiclAnaerobic.push((tempoZoneCicl[c].num.zona5+tempoZoneCicl[c].num.zona6+tempoZoneCicl[c].num.zona7)/60*3)
+            trimpCiclTotal.push(trimpCiclAerobic[trimpCiclAerobic.length-1]+trimpCiclMixed[trimpCiclMixed.length-1]
+                +trimpCiclAnaerobic[trimpCiclAnaerobic.length-1])
+            trimpCiclMin.push(trimpCiclTotal[trimpCiclTotal.length-1]/tempoTotCicl[c].num/60)
+        }
+    
+        const velMediaCorsa = []
+        const passoMedioCorsa = []
+        const densitaCorsa = []
+        const tempoTotCorsaConRec = []
+        const wltCorsa = []
+        const wlsCorsa = []
+    
+        const trimpCorsaAerobic = []
+        const trimpCorsaMixed = []
+        const trimpCorsaAnaerobic = []
+        const trimpCorsaTotal = []
+        const trimpCorsaMin = []
+        for(let c=0;c<tempoTotCorsa.length;c++) {
+            const velMedia = distTotCorsa[c].num/tempoTotCorsa[c].num
+            velMediaCorsa.push(velMedia)
+            passoMedioCorsa.push(1000/velMedia)
+            densitaCorsa.push(recTotCorsa[c]/tempoTotCorsa[c]*100)
+            tempoTotCorsaConRec.push(tempoTotCorsa[c]+recTotCorsa[c])
+            wltCorsa.push(passoCorsa/passoMedioCorsa[passoMedioCorsa.length-1])
+            wlsCorsa.push(Math.pow(wltCorsa[wltCorsa.length-1], 3)*tempoTotCorsa[c].num/3600*100)
+    
+            trimpCorsaAerobic.push((tempoZoneCorsa[c].num.zona1+tempoZoneCorsa[c].num.zona2)/60)
+            trimpCorsaMixed.push((tempoZoneCorsa[c].num.zona3+tempoZoneCorsa[c].num.zona4)/60*2)
+            trimpCorsaAnaerobic.push((tempoZoneCorsa[c].num.zona5+tempoZoneCorsa[c].num.zona6)/60*3)
+            trimpCorsaTotal.push(trimpCorsaAerobic[trimpCorsaAerobic.length-1]+trimpCorsaMixed[trimpCorsaMixed.length-1]
+                +trimpCorsaAnaerobic[trimpCorsaAnaerobic.length-1])
+            trimpCorsaMin.push(trimpCorsaTotal[trimpCorsaTotal.length-1]/tempoTotCorsa[c].num/60)
+        }
+    
+        const velMediaNuoto = []
+        const passoMedioNuoto = []
+        const densitaNuoto = []
+        const tempoTotNuotoConRec = []
+        const wltNuoto = []
+        const wlsNuoto = []
+    
+        const trimpNuotoAerobic = []
+        const trimpNuotoMixed = []
+        const trimpNuotoAnaerobic = []
+        const trimpNuotoTotal = []
+        const trimpNuotoMin = []
+        for(let c=0;c<tempoTotNuoto.length;c++) {
+            const velMedia = distTotNuoto[c].num/tempoTotNuoto[c].num
+            velMediaNuoto.push(velMedia)
+            passoMedioNuoto.push(100/velMedia)
+            densitaNuoto.push(recTotNuoto/tempoTotNuoto*100)
+            tempoTotNuotoConRec.push(tempoTotNuoto[c]+recTotNuoto[c])
+            wltNuoto.push(passoNuoto/passoMedioNuoto[passoMedioNuoto.length-1])
+            wlsNuoto.push(Math.pow(wltNuoto[wltNuoto.length-1], 3)*tempoTotNuoto[c].num/3600*100)
+    
+            trimpNuotoAerobic.push((tempoZoneNuoto[c].num.zona1+tempoZoneNuoto[c].num.zona2)/60)
+            trimpNuotoMixed.push((tempoZoneNuoto[c].num.zona3+tempoZoneNuoto[c].num.zona4)/60*2)
+            trimpNuotoAnaerobic.push((tempoZoneNuoto[c].num.zona5+tempoZoneNuoto[c].num.zona6)/60*3)
+            trimpNuotoTotal.push(trimpNuotoAerobic[trimpNuotoAerobic.length-1]+trimpNuotoMixed[trimpNuotoMixed.length-1]
+                +trimpNuotoAnaerobic[trimpNuotoAnaerobic.length-1])
+            trimpNuotoMin.push(trimpNuotoTotal[trimpNuotoTotal.length-1]/tempoTotNuoto[c].num/60)
         }
 
-    }
+        const ciclTotaloneTempo = 0
+        const ciclTotaloneRec = 0
+        for(let c=0;c<tempoTotCicl.length;c++) {
+            ciclTotaloneTempo += tempoTotCicl[c].num
+            ciclTotaloneRec += recTotCicl[c].num
+        }
+        const ciclTotaloneTempoConRec = ciclTotaloneTempo+ciclTotaloneRec
+        const ciclTotaloneDensita = ciclTotaloneRec/ciclTotaloneTempo*100
 
-    const densitaCicl = []
-    const tempoTotCiclConRec = []
-    const wltCicl = []
-    for(let c=0;c<tempoTotCicl.length;c++) {
-        densitaCicl.push(recTotCicl[c]/tempoTotCicl[c]*100)
-        tempoTotCiclConRec.push(tempoTotCicl[c]+recTotCicl[c])
-        wltCicl.push()
-    }
+        return listaStampaWorkouts
 
-    const velMediaCorsa = []
-    const passoMedioCorsa = []
-    const densitaCorsa = []
-    const tempoTotCorsaConRec = []
-    const wltCorsa = []
-    const wlsCorsa = []
-    for(let c=0;c<tempoTotCorsa.length;c++) {
-        const velMedia = distTotCorsa[c].num/tempoTotCorsa[c].num
-        velMediaCorsa.push(velMedia)
-        passoMedioCorsa.push(1000/velMedia)
-        densitaCorsa.push(recTotCorsa[c]/tempoTotCorsa[c]*100)
-        tempoTotCorsaConRec.push(tempoTotCorsa[c]+recTotCorsa[c])
-        wltCorsa.push(passoCorsa/passoMedioCorsa[passoMedioCorsa.length-1])
-        wlsCorsa.push(Math.pow(wltCorsa[wltCorsa.length-1], 3)*tempoTotCorsa[c].num/3600*100)
-    }
-
-    const velMediaNuoto = []
-    const passoMedioNuoto = []
-    const densitaNuoto = []
-    const tempoTotNuotoConRec = []
-    const wltNuoto = []
-    const wlsNuoto = []
-    for(let c=0;c<tempoTotNuoto.length;c++) {
-        const velMedia = distTotNuoto[c].num/tempoTotNuoto[c].num
-        velMediaNuoto.push(velMedia)
-        passoMedioNuoto.push(100/velMedia)
-        densitaNuoto.push(recTotNuoto/tempoTotNuoto*100)
-        tempoTotNuotoConRec.push(tempoTotNuoto[c]+recTotNuoto[c])
-        wltNuoto.push(passoNuoto/passoMedioNuoto[passoMedioNuoto.length-1])
-        wlsNuoto.push(Math.pow(wltNuoto[wltNuoto.length-1], 3)*tempoTotNuoto[c].num/3600*100)
     }
     
+
+
     const stampa = () => {
         const contenuto = paginaDaStampare.current
         const pagina = frameStampa.current.contentWindow
@@ -325,7 +385,7 @@ const Report = props => {
             </div>
             
             <div ref={paginaDaStampare}>
-                {listaStampaWorkouts}
+                {stampaTabelleReport()}
                 {tabellone ? 
                 <>
                     <div style={{pageBreakAfter: "always"}}></div>
