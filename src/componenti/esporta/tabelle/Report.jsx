@@ -156,7 +156,7 @@ const Report = props => {
 
             const aggiungiTempoTot = () => tempoTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
             const aggiungiRecTot = () => recTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-            const aggiungiDistanzaTot = () => distTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10})
+            const aggiungiDistanzaTot = () => distTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)})
 
             const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}}
             const tempoZone = funzioniNuoto.calcTempoZone(listaRigheFrameCalc)
@@ -167,7 +167,6 @@ const Report = props => {
                     aggiungiRecTot()
                     aggiungiDistanzaTot()
                     aggiungiTempoZone()
-                    console.log(tempoTotNuoto)
                 } else {
                     if(tempoTotNuoto.lengh<1) {
                         aggiungiTempoTot()
@@ -178,7 +177,7 @@ const Report = props => {
                         if(tempoTotNuoto.lengh>0) {
                             tempoTotNuoto[tempoTotNuoto.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
                             recTotNuoto[recTotNuoto.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-                            distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)/10
+                            distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
                             funzioniNuoto.sommaZone(tempoZoneNuoto[tempoZoneNuoto.length-1].num, tempoZone)
                         }
                     }
@@ -221,8 +220,47 @@ const Report = props => {
 
     }
 
-    console.log(tempoZoneNuoto)
+    const densitaCicl = []
+    const tempoTotCiclConRec = []
+    const wltCicl = []
+    for(let c=0;c<tempoTotCicl.length;c++) {
+        densitaCicl.push(recTotCicl[c]/tempoTotCicl[c]*100)
+        tempoTotCiclConRec.push(tempoTotCicl[c]+recTotCicl[c])
+        wltCicl.push()
+    }
 
+    const velMediaCorsa = []
+    const passoMedioCorsa = []
+    const densitaCorsa = []
+    const tempoTotCorsaConRec = []
+    const wltCorsa = []
+    const wlsCorsa = []
+    for(let c=0;c<tempoTotCorsa.length;c++) {
+        const velMedia = distTotCorsa[c].num/tempoTotCorsa[c].num
+        velMediaCorsa.push(velMedia)
+        passoMedioCorsa.push(1000/velMedia)
+        densitaCorsa.push(recTotCorsa[c]/tempoTotCorsa[c]*100)
+        tempoTotCorsaConRec.push(tempoTotCorsa[c]+recTotCorsa[c])
+        wltCorsa.push(passoCorsa/passoMedioCorsa[passoMedioCorsa.length-1])
+        wlsCorsa.push(Math.pow(wltCorsa[wltCorsa.length-1], 3)*tempoTotCorsa[c].num/3600*100)
+    }
+
+    const velMediaNuoto = []
+    const passoMedioNuoto = []
+    const densitaNuoto = []
+    const tempoTotNuotoConRec = []
+    const wltNuoto = []
+    const wlsNuoto = []
+    for(let c=0;c<tempoTotNuoto.length;c++) {
+        const velMedia = distTotNuoto[c].num/tempoTotNuoto[c].num
+        velMediaNuoto.push(velMedia)
+        passoMedioNuoto.push(100/velMedia)
+        densitaNuoto.push(recTotNuoto/tempoTotNuoto*100)
+        tempoTotNuotoConRec.push(tempoTotNuoto[c]+recTotNuoto[c])
+        wltNuoto.push(passoNuoto/passoMedioNuoto[passoMedioNuoto.length-1])
+        wlsNuoto.push(Math.pow(wltNuoto[wltNuoto.length-1], 3)*tempoTotNuoto[c].num/3600*100)
+    }
+    
     const stampa = () => {
         const contenuto = paginaDaStampare.current
         const pagina = frameStampa.current.contentWindow
