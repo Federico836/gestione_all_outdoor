@@ -142,7 +142,17 @@
     },
     "report": {
       "stampa": "STAMPA",
-      "indietro": "INDIETRO"
+      "indietro": "INDIETRO",
+      "tab-dati-week": {
+        "settimana": "SETTIMANA",
+        "passo-medio": "PASSO MEDIO",
+        "tempo-tot-lavoro": "TEMPO TOT LAVORO",
+        "tempo-tot-recupero": "TEMPO TOT RECUPERO",
+        "tempo-tot-allenamento": "TEMPO TOT ALLENAMENTO",
+        "volume-totale": "VOLUME TOTALE",
+        "densita": "DENSITA",
+        "tempo-zone": "TEMPO NELLE ZONE"
+      }
     },
     "tab-zone": {
       "ciclismo": {

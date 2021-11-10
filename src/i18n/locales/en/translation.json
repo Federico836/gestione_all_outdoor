@@ -142,7 +142,17 @@
     },
     "report": {
       "stampa": "PRINT",
-      "indietro": "BACK"
+      "indietro": "BACK",
+      "tab-dati-week": {
+        "settimana": "WEEK",
+        "passo-medio": "AVERAGE PACE",
+        "tempo-tot-lavoro": "TOT WORKOUT TIME",
+        "tempo-tot-recupero": "TOT RECOVERY TIME",
+        "tempo-tot-allenamento": "TOT TRAINING TIME",
+        "volume-totale": "TOTAL VOLUME",
+        "densita": "DENSITY",
+        "tempo-zone": "TIME IN ZONES"
+      }
     },
     "tab-zone": {
       "ciclismo": {

@@ -10,6 +10,8 @@ import TabPalestraDragNDrop from './tabSport/TabPalestraDragNDrop'
 import TabCombinatiTriDragNDrop from './tabSport/TabCombinatiTriDragNDrop'
 import TabSportDragNDrop from './tabSport/TabSportDragNDrop'
 
+import TabDatiWeek from './tabDatiWeek/TabDatiWeek'
+
 import { calcola7Zone } from '../../../utils/funzioni'
 import { calcolaZoneCorsa } from '../../../utils/funzioni'
 import { calcolaZoneNuoto } from '../../../utils/funzioni'
@@ -101,7 +103,7 @@ const Report = props => {
                 const tempoZone = funzioniCicl.calcTempoZone(listaRigheFrameCalc)
                 const aggiungiTempoZone = () => tempoZoneCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.sommaZone(addOggettoZone(), tempoZone)})
                 const aggiungiSommaWlt = () => sommaWltCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: wltWorkout})
-                const aggiungiSommaWls = () => sommaWlsCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: wltWorkout})
+                const aggiungiSommaWls = () => sommaWlsCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: wlsWorkout})
                 const aggiungiContaWorkout = () => contaWorkoutCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: 1})
 
                 if(c>0) {
@@ -121,12 +123,14 @@ const Report = props => {
                             aggiungiSommaWls()
                             aggiungiContaWorkout()
                         } else {
-                            tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
-                            recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
-                            funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
-                            sommaWltCicl[sommaWltCicl.length-1].num += wltWorkout
-                            sommaWlsCicl[sommaWlsCicl.length-1].num += wlsWorkout
-                            [contaWorkoutCicl.length-1].num += 1
+                            if(tempoTotCicl.length>0) {
+                                tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
+                                recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
+                                funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
+                                sommaWltCicl[sommaWltCicl.length-1].num += wltWorkout
+                                sommaWlsCicl[sommaWlsCicl.length-1].num += wlsWorkout
+                                [contaWorkoutCicl.length-1].num += 1
+                            }
                         }
                     }
                 } else {
@@ -408,7 +412,31 @@ const Report = props => {
         const nuotoTotaloneTrimpTotal = nuotoTotaloneTrimpAerobic+nuotoTotaloneTrimpMixed+nuotoTotaloneTrimpAnaerobic
         const nuotoTotaloneTrimpMin = nuotoTotaloneTrimpTotal/nuotoTotaloneTempo/60
 
-        return listaStampaWorkouts
+        let settimanaIniziale = tempoTotCicl[0].settimana
+        if(tempoTotCorsa[0].settimana>tempoTotCicl[0].settimana) {
+            settimanaIniziale = tempoTotCorsa[0].settimana
+        }
+        if(tempoTotNuoto[0].settimana>tempoTotCorsa[0].settimana) {
+            settimanaIniziale = tempoTotNuoto[0].settimana
+        }
+
+        let listaPiuLunga = tempoTotCicl.length
+        if(tempoTotCorsa.length>tempoTotCicl.length) {
+            listaPiuLunga = tempoTotCorsa.length
+        }
+        if(tempoTotNuoto.length>tempoTotCorsa.length) {
+            listaPiuLunga = tempoTotNuoto.length
+        }
+        
+        const listaTabDatiWeek = []
+        for(let c=0;c<listaPiuLunga;c++) {
+            listaTabDatiWeek.push(<div style={{display: "flex"}}>
+                <TabDatiWeek />
+                <TabDatiWeek />
+            </div>)
+        }
+
+        return {listaStampaWorkouts, listaTabDatiWeek}
 
     }
 
@@ -469,6 +497,8 @@ const Report = props => {
         pagina.print()
     }
 
+    const tabelleReport = stampaTabelleReport()
+
     return (
         <div>
             <div className={styles.containerBottoni}>
@@ -477,7 +507,8 @@ const Report = props => {
             </div>
             
             <div ref={paginaDaStampare}>
-                {stampaTabelleReport()}
+                {tabelleReport.listaStampaWorkouts}
+                {tabelleReport.listaTabDatiWeek}
                 {tabellone ? 
                 <>
                     <div style={{pageBreakAfter: "always"}}></div>
