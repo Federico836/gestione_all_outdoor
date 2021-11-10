@@ -306,20 +306,74 @@ const Report = props => {
             trimpNuotoMin.push(trimpNuotoTotal[trimpNuotoTotal.length-1]/tempoTotNuoto[c].num/60)
         }
 
-        const ciclTotaloneTempo = 0
-        const ciclTotaloneRec = 0
+        // totaloni
+
+        // ciclismo
+        let ciclTotaloneTempo = 0
+        let ciclTotaloneRec = 0
+        const ciclTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
         for(let c=0;c<tempoTotCicl.length;c++) {
             ciclTotaloneTempo += tempoTotCicl[c].num
             ciclTotaloneRec += recTotCicl[c].num
+            funzioniCicl.sommaZone(ciclTotaloneTempoZone, tempoZoneCicl[c].num)
         }
         const ciclTotaloneTempoConRec = ciclTotaloneTempo+ciclTotaloneRec
         const ciclTotaloneDensita = ciclTotaloneRec/ciclTotaloneTempo*100
+        const ciclTotaloneTrimpAerobic = (ciclTotaloneTempoZone.zona1+ciclTotaloneTempoZone.zona2)/60
+        const ciclTotaloneTrimpMixed = (ciclTotaloneTempoZone.zona3+ciclTotaloneTempoZone.zona4)/60*2
+        const ciclTotaloneTrimpAnaerobic = (ciclTotaloneTempoZone.zona5+ciclTotaloneTempoZone.zona6+ciclTotaloneTempoZone.zona7)/60*3
+        const ciclTotaloneTrimpTotal = ciclTotaloneTrimpAerobic+ciclTotaloneTrimpMixed+ciclTotaloneTrimpAnaerobic
+        const ciclTotaloneTrimpMin = ciclTotaloneTrimpTotal/ciclTotaloneTempo/60
+
+        // corsa
+        let corsaTotaloneTempo = 0
+        let corsaTotaloneRec = 0
+        let corsaTotaloneDistanza = 0
+        const corsaTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}
+        for(let c=0;c<tempoTotCorsa.length;c++) {
+            corsaTotaloneTempo += tempoTotCorsa[c].num
+            corsaTotaloneRec += recTotCorsa[c].num
+            corsaTotaloneDistanza += distTotCorsa[c].num
+            funzioniCorsa.sommaZone(corsaTotaloneTempoZone, tempoZoneCorsa[c].num)
+        }
+        const corsaTotaloneTempoConRec = corsaTotaloneTempo+corsaTotaloneRec
+        const corsaTotaloneVelMedia = corsaTotaloneDistanza/corsaTotaloneTempo
+        const corsaTotalonePassoMedio = 1000/corsaTotaloneVelMedia
+        const corsaTotaloneWlt = passoCorsa/corsaTotalonePassoMedio
+        const corsaTotaloneWls = Math.pow(corsaTotaloneWlt, 3)*corsaTotaloneTempo/3600*1100
+        const corsaTotaloneDensita = corsaTotaloneRec/corsaTotaloneTempo*100
+        const corsaTotaloneTrimpAerobic = (corsaTotaloneTempoZone.zona1+corsaTotaloneTempoZone.zona2)/60
+        const corsaTotaloneTrimpMixed = (corsaTotaloneTempoZone.zona3+corsaTotaloneTempoZone.zona4)/60*2
+        const corsaTotaloneTrimpAnaerobic = (corsaTotaloneTempoZone.zona5+corsaTotaloneTempoZone.zona6)/60*3
+        const corsaTotaloneTrimpTotal = corsaTotaloneTrimpAerobic+corsaTotaloneTrimpMixed+corsaTotaloneTrimpAnaerobic
+        const corsaTotaloneTrimpMin = corsaTotaloneTrimpTotal/corsaTotaloneTempo/60
+
+        // nuoto
+        let nuotoTotaloneTempo = 0
+        let nuotoTotaloneRec = 0
+        let nuotoTotaloneDistanza = 0
+        const nuotoTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}
+        for(let c=0;c<tempoTotNuoto.length;c++) {
+            nuotoTotaloneTempo += tempoTotNuoto[c].num
+            nuotoTotaloneRec += recTotNuoto[c].num
+            nuotoTotaloneDistanza += distTotNuoto[c].num
+            funzioniNuoto.sommaZone(nuotoTotaloneTempoZone, tempoZoneNuoto[c].num)
+        }
+        const nuotoTotaloneTempoConRec = nuotoTotaloneTempo+nuotoTotaloneRec
+        const nuotoTotaloneVelMedia = nuotoTotaloneDistanza/nuotoTotaloneTempo
+        const nuotoTotalonePassoMedio = 1000/nuotoTotaloneVelMedia
+        const nuotoTotaloneWlt = passoNuoto/nuotoTotalonePassoMedio
+        const nuotoTotaloneWls = Math.pow(nuotoTotaloneWlt, 3)*nuotoTotaloneTempo/3600*1100
+        const nuotoTotaloneDensita = nuotoTotaloneRec/nuotoTotaloneTempo*100
+        const nuotoTotaloneTrimpAerobic = (nuotoTotaloneTempoZone.zona1+nuotoTotaloneTempoZone.zona2)/60
+        const nuotoTotaloneTrimpMixed = (nuotoTotaloneTempoZone.zona3+nuotoTotaloneTempoZone.zona4)/60*2
+        const nuotoTotaloneTrimpAnaerobic = (nuotoTotaloneTempoZone.zona5+nuotoTotaloneTempoZone.zona6)/60*3
+        const nuotoTotaloneTrimpTotal = nuotoTotaloneTrimpAerobic+nuotoTotaloneTrimpMixed+nuotoTotaloneTrimpAnaerobic
+        const nuotoTotaloneTrimpMin = nuotoTotaloneTrimpTotal/nuotoTotaloneTempo/60
 
         return listaStampaWorkouts
 
     }
-    
-
 
     const stampa = () => {
         const contenuto = paginaDaStampare.current
@@ -329,6 +383,7 @@ const Report = props => {
             @media print {
                 @page {
                     margin: 1cm;
+                    size: landscape;
                 }
                 /* body {
                     margin: 1.6cm;
