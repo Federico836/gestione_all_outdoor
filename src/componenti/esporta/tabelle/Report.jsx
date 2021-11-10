@@ -123,14 +123,12 @@ const Report = props => {
                             aggiungiSommaWls()
                             aggiungiContaWorkout()
                         } else {
-                            if(tempoTotCicl.length>0) {
-                                tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
-                                recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
-                                funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
-                                sommaWltCicl[sommaWltCicl.length-1].num += wltWorkout
-                                sommaWlsCicl[sommaWlsCicl.length-1].num += wlsWorkout
-                                [contaWorkoutCicl.length-1].num += 1
-                            }
+                            tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
+                            recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
+                            funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
+                            sommaWltCicl[sommaWltCicl.length-1].num += wltWorkout
+                            sommaWlsCicl[sommaWlsCicl.length-1].num += wlsWorkout
+                            contaWorkoutCicl[contaWorkoutCicl.length-1].num += 1
                         }
                     }
                 } else {
@@ -348,8 +346,8 @@ const Report = props => {
         let ciclTotaloneTempo = 0
         let ciclTotaloneRec = 0
         const ciclTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
-        const ciclTotaloneSommaWlt = 0
-        const ciclTotaloneWls = 0
+        let ciclTotaloneSommaWlt = 0
+        let ciclTotaloneWls = 0
         for(let c=0;c<tempoTotCicl.length;c++) {
             ciclTotaloneTempo += tempoTotCicl[c].num
             ciclTotaloneRec += recTotCicl[c].num
@@ -413,11 +411,13 @@ const Report = props => {
         const nuotoTotaloneTrimpMin = nuotoTotaloneTrimpTotal/nuotoTotaloneTempo/60
 
         let settimanaIniziale = tempoTotCicl[0].settimana
-        if(tempoTotCorsa[0].settimana>tempoTotCicl[0].settimana) {
-            settimanaIniziale = tempoTotCorsa[0].settimana
-        }
-        if(tempoTotNuoto[0].settimana>tempoTotCorsa[0].settimana) {
-            settimanaIniziale = tempoTotNuoto[0].settimana
+        if(tempoTotCorsa.length>0) {
+            if(tempoTotCorsa[0].settimana>tempoTotCicl[0].settimana) {
+                settimanaIniziale = tempoTotCorsa[0].settimana
+            }
+            if(tempoTotNuoto[0].settimana>tempoTotCorsa[0].settimana) {
+                settimanaIniziale = tempoTotNuoto[0].settimana
+            }
         }
 
         let listaPiuLunga = tempoTotCicl.length
@@ -430,7 +430,7 @@ const Report = props => {
         
         const listaTabDatiWeek = []
         for(let c=0;c<listaPiuLunga;c++) {
-            listaTabDatiWeek.push(<div style={{display: "flex"}}>
+            listaTabDatiWeek.push(<div style={{display: "flex", alignItems: "center", pageBreakBefore: "always"}}>
                 <TabDatiWeek />
                 <TabDatiWeek />
             </div>)
