@@ -58,6 +58,11 @@ const Report = props => {
         const tempoZoneCicl = []
         const tempoZoneCorsa = []
         const tempoZoneNuoto = []
+
+        const sommaWltCicl = []
+        const sommaWlsCicl = []
+
+        const contaWorkoutCicl = []
     
         for(let c=0;c<eventiSelezionati.length;c++) {
             //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
@@ -71,9 +76,20 @@ const Report = props => {
             let tabDaAggiungere = []
             if(framework.tipoPerSelect==="ciclismo") {
                 listaRigheFrameCalc = listaRigheFrame.map(riga => {
-                    return {...riga, wattMin: zoneCalcCiclismo[riga.zona-1].watt_min, wattMax: zoneCalcCiclismo[riga.zona-1].watt_max,
+                    const wattMedia = (zoneCalcCiclismo[riga.zona-1].watt_min+zoneCalcCiclismo[riga.zona-1].watt_max)/2
+
+                    return {...riga, wattMin: zoneCalcCiclismo[riga.zona-1].watt_min, wattMax: zoneCalcCiclismo[riga.zona-1].watt_max, wattMedia,
                         fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
                 })
+
+                let mediaPonderata = 0
+                listaRigheFrameCalc.forEach(riga => {
+                    mediaPonderata += Math.pow(riga.wattMedia, 4)
+                })
+                
+                mediaPonderata = Math.pow(mediaPonderata, 0.25)
+                const wltWorkout = mediaPonderata/ftp
+                const wlsWorkout = funzioniCicl.calcTempoTot(listaRigheFrameCalc)*mediaPonderata*wltWorkout/ftp*3600*100
     
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
                 tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
@@ -84,26 +100,42 @@ const Report = props => {
                 const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}}
                 const tempoZone = funzioniCicl.calcTempoZone(listaRigheFrameCalc)
                 const aggiungiTempoZone = () => tempoZoneCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.sommaZone(addOggettoZone(), tempoZone)})
+                const aggiungiSommaWlt = () => sommaWltCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: wltWorkout})
+                const aggiungiSommaWls = () => sommaWlsCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: wltWorkout})
+                const aggiungiContaWorkout = () => contaWorkoutCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: 1})
+
                 if(c>0) {
                     if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                         aggiungiTempoTot()
                         aggiungiRecTot()
                         aggiungiTempoZone()
+                        aggiungiSommaWlt()
+                        aggiungiSommaWls()
+                        aggiungiContaWorkout()
                     } else {
                         if(tempoTotCicl.length<1) {
                             aggiungiTempoTot()
                             aggiungiRecTot()
                             aggiungiTempoZone()
+                            aggiungiSommaWlt()
+                            aggiungiSommaWls()
+                            aggiungiContaWorkout()
                         } else {
                             tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
                             recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
                             funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
+                            sommaWltCicl[sommaWltCicl.length-1].num += wltWorkout
+                            sommaWlsCicl[sommaWlsCicl.length-1].num += wlsWorkout
+                            [contaWorkoutCicl.length-1].num += 1
                         }
                     }
                 } else {
                     aggiungiTempoTot()
                     aggiungiRecTot()
                     aggiungiTempoZone()
+                    aggiungiSommaWlt()
+                    aggiungiSommaWls()
+                    aggiungiContaWorkout()
                 }
             } else if(framework.tipoPerSelect==="corsa") {
                 listaRigheFrameCalc = listaRigheFrame.map(riga => {
@@ -190,7 +222,6 @@ const Report = props => {
                     aggiungiDistanzaTot()
                     aggiungiTempoZone()
                 }
-                console.log(distTotNuoto)
     
             } else if(framework.tipoPerSelect==="palestra") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
@@ -224,10 +255,10 @@ const Report = props => {
     
         }
     
+        // ciclismo
         const densitaCicl = []
         const tempoTotCiclConRec = []
         const wltCicl = []
-        const wlsCicl = []
     
         const trimpCiclAerobic = []
         const trimpCiclMixed = []
@@ -237,8 +268,7 @@ const Report = props => {
         for(let c=0;c<tempoTotCicl.length;c++) {
             densitaCicl.push(recTotCicl[c]/tempoTotCicl[c].num*100)
             tempoTotCiclConRec.push(tempoTotCicl[c].num+recTotCicl[c])
-            wltCicl.push()
-            wlsCicl.push()
+            wltCicl.push(sommaWltCicl[c].num/contaWorkoutCicl[c].num)
     
             trimpCiclAerobic.push((tempoZoneCicl[c].num.zona1+tempoZoneCicl[c].num.zona2)/60)
             trimpCiclMixed.push((tempoZoneCicl[c].num.zona3+tempoZoneCicl[c].num.zona4)/60*2)
@@ -248,6 +278,7 @@ const Report = props => {
             trimpCiclMin.push(trimpCiclTotal[trimpCiclTotal.length-1]/tempoTotCicl[c].num/60)
         }
     
+        // corsa
         const velMediaCorsa = []
         const passoMedioCorsa = []
         const densitaCorsa = []
@@ -277,6 +308,7 @@ const Report = props => {
             trimpCorsaMin.push(trimpCorsaTotal[trimpCorsaTotal.length-1]/tempoTotCorsa[c].num/60)
         }
     
+        // nuoto
         const velMediaNuoto = []
         const passoMedioNuoto = []
         const densitaNuoto = []
@@ -312,10 +344,14 @@ const Report = props => {
         let ciclTotaloneTempo = 0
         let ciclTotaloneRec = 0
         const ciclTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
+        const ciclTotaloneSommaWlt = 0
+        const ciclTotaloneWls = 0
         for(let c=0;c<tempoTotCicl.length;c++) {
             ciclTotaloneTempo += tempoTotCicl[c].num
             ciclTotaloneRec += recTotCicl[c].num
             funzioniCicl.sommaZone(ciclTotaloneTempoZone, tempoZoneCicl[c].num)
+            ciclTotaloneSommaWlt += wltCicl[c]
+            ciclTotaloneWls += sommaWlsCicl[c].num
         }
         const ciclTotaloneTempoConRec = ciclTotaloneTempo+ciclTotaloneRec
         const ciclTotaloneDensita = ciclTotaloneRec/ciclTotaloneTempo*100
@@ -324,6 +360,7 @@ const Report = props => {
         const ciclTotaloneTrimpAnaerobic = (ciclTotaloneTempoZone.zona5+ciclTotaloneTempoZone.zona6+ciclTotaloneTempoZone.zona7)/60*3
         const ciclTotaloneTrimpTotal = ciclTotaloneTrimpAerobic+ciclTotaloneTrimpMixed+ciclTotaloneTrimpAnaerobic
         const ciclTotaloneTrimpMin = ciclTotaloneTrimpTotal/ciclTotaloneTempo/60
+        const ciclTotaloneWlt = ciclTotaloneSommaWlt/wltCicl.length
 
         // corsa
         let corsaTotaloneTempo = 0
