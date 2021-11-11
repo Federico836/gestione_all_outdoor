@@ -410,7 +410,7 @@ const Report = props => {
         const nuotoTotaloneTrimpTotal = nuotoTotaloneTrimpAerobic+nuotoTotaloneTrimpMixed+nuotoTotaloneTrimpAnaerobic
         const nuotoTotaloneTrimpMin = nuotoTotaloneTrimpTotal/nuotoTotaloneTempo/60
 
-        let settimanaIniziale = tempoTotCicl[0].settimana
+        /* let settimanaIniziale = tempoTotCicl[0].settimana
         if(tempoTotCorsa.length>0) {
             if(tempoTotCorsa[0].settimana>tempoTotCicl[0].settimana) {
                 settimanaIniziale = tempoTotCorsa[0].settimana
@@ -418,22 +418,31 @@ const Report = props => {
             if(tempoTotNuoto[0].settimana>tempoTotCorsa[0].settimana) {
                 settimanaIniziale = tempoTotNuoto[0].settimana
             }
-        }
+        } */
 
-        let listaPiuLunga = tempoTotCicl.length
+        let listaPiuLunga = {lung: tempoTotCicl.length, settimana: tempoTotCicl.length>0 ? tempoTotCicl[0].settimana : 0}
         if(tempoTotCorsa.length>tempoTotCicl.length) {
-            listaPiuLunga = tempoTotCorsa.length
+            listaPiuLunga = {lung: tempoTotCorsa.length, settimana: tempoTotCorsa.length>0 ? tempoTotCorsa[0].settimana : 0}
         }
         if(tempoTotNuoto.length>tempoTotCorsa.length) {
-            listaPiuLunga = tempoTotNuoto.length
+            listaPiuLunga = {lung: tempoTotNuoto.length, settimana: tempoTotNuoto.length>0 ? tempoTotNuoto[0].settimana : 0}
         }
         
         const listaTabDatiWeek = []
-        for(let c=0;c<listaPiuLunga;c++) {
-            listaTabDatiWeek.push(<div style={{display: "flex", alignItems: "center", pageBreakBefore: "always"}}>
-                <TabDatiWeek />
-                <TabDatiWeek />
-            </div>)
+        let tabella = []
+        for(let c=0;c<listaPiuLunga.lung;c++) {
+            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "center", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
+            const tabellaSingola = <TabDatiWeek settimana={listaPiuLunga.settimana-(listaPiuLunga.settimana-1-c)} />
+            
+            if(c%2===0 && c!==0) {
+                aggiungiPagina()
+                tabella = [tabellaSingola]
+            } else {
+                tabella.push(tabellaSingola)
+            }
+            if(c===listaPiuLunga.lung-1) {
+                aggiungiPagina()
+            }
         }
 
         return {listaStampaWorkouts, listaTabDatiWeek}
