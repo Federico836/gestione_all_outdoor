@@ -3,7 +3,7 @@ import styles from './TabDatiWeek.module.css'
 import { useTranslation } from 'react-i18next'
 
 const TabDatiWeek = props => {
-    const { settimana } = props
+    const { settimana, wltCicl } = props
 
     const { t, i18n } = useTranslation()
 
@@ -25,7 +25,7 @@ const TabDatiWeek = props => {
                     <tr>
                         <td>WLT</td>
                         <td></td>
-                        <td></td>
+                        <td>{wltCicl}</td>
                         <td></td>
                         <td></td>
                         <td></td>

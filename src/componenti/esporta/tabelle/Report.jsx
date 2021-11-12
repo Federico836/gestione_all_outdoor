@@ -427,11 +427,28 @@ const Report = props => {
         if(tempoTotNuoto.length>tempoTotCorsa.length) {
             listaPiuLunga = {lung: tempoTotNuoto.length, settimana: tempoTotNuoto.length>0 ? tempoTotNuoto[0].settimana : 0}
         }
+
+        
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+        const eventiWeek = eventiSelezionati.map(evento => evento.start.getWeek())
+        const eventiWeekSingola = eventiWeek.filter(onlyUnique)
+        const allPerWeek = []
+        for(let c=0;c<eventiWeekSingola.length;c++) {
+            const allCiclPerWeek = tempoTotCicl.find(el => el.settimana===eventiWeekSingola[c])
+            const allCorsaPerWeek = tempoTotCorsa.find(el => el.settimana===eventiWeekSingola[c])
+            const allNuotoPerWeek = tempoTotNuoto.find(el => el.settimana===eventiWeekSingola[c])
+
+            console.log(allCorsaPerWeek)
+            allPerWeek.push({allCiclPerWeek, settimana: eventiWeekSingola[c]})
+        }
         
         const listaTabDatiWeek = []
         let tabella = []
         for(let c=0;c<listaPiuLunga.lung;c++) {
-            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "center", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
+            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
+            
             const tabellaSingola = <TabDatiWeek settimana={listaPiuLunga.settimana-(listaPiuLunga.settimana-1-c)} />
             
             if(c%2===0 && c!==0) {
