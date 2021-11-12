@@ -434,14 +434,16 @@ const Report = props => {
         }
         const eventiWeek = eventiSelezionati.map(evento => evento.start.getWeek())
         const eventiWeekSingola = eventiWeek.filter(onlyUnique)
-        const allPerWeek = []
+        
         for(let c=0;c<eventiWeekSingola.length;c++) {
-            const allCiclPerWeek = tempoTotCicl.find(el => el.settimana===eventiWeekSingola[c])
-            const allCorsaPerWeek = tempoTotCorsa.find(el => el.settimana===eventiWeekSingola[c])
-            const allNuotoPerWeek = tempoTotNuoto.find(el => el.settimana===eventiWeekSingola[c])
+            const indexCicl = tempoTotCicl.findIndex(el => el.settimana===eventiWeekSingola[c])
+            const indexCorsa = tempoTotCorsa.findIndex(el => el.settimana===eventiWeekSingola[c])
+            const indexNuoto = tempoTotNuoto.findIndex(el => el.settimana===eventiWeekSingola[c])
 
-            console.log(allCorsaPerWeek)
-            allPerWeek.push({allCiclPerWeek, settimana: eventiWeekSingola[c]})
+            let wltCiclSingolo = 0
+            if(indexCicl>=0) {
+                wltCiclSingolo = wltCicl[indexCicl]
+            }
         }
         
         const listaTabDatiWeek = []
