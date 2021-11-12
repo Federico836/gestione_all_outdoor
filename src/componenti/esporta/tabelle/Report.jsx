@@ -244,7 +244,7 @@ const Report = props => {
                         {tabDaAggiungere}
                     </div>)
                 } else {
-                    listaStampaWorkouts.push(<div style={{marginTop: "3vh"}}>
+                    listaStampaWorkouts.push(<div style={{marginTop: "3vh", breakInside: "avoid"}}>
                         {tabDaAggiungere}
                     </div>)
                 }
@@ -268,8 +268,8 @@ const Report = props => {
         const trimpCiclTotal = []
         const trimpCiclMin = []
         for(let c=0;c<tempoTotCicl.length;c++) {
-            densitaCicl.push(recTotCicl[c]/tempoTotCicl[c].num*100)
-            tempoTotCiclConRec.push(tempoTotCicl[c].num+recTotCicl[c])
+            densitaCicl.push(recTotCicl[c].num/tempoTotCicl[c].num*100)
+            tempoTotCiclConRec.push(tempoTotCicl[c].num+recTotCicl[c].num)
             wltCicl.push(sommaWltCicl[c].num/contaWorkoutCicl[c].num)
     
             trimpCiclAerobic.push((tempoZoneCicl[c].num.zona1+tempoZoneCicl[c].num.zona2)/60)
@@ -434,19 +434,64 @@ const Report = props => {
         }
         const eventiWeek = eventiSelezionati.map(evento => evento.start.getWeek())
         const eventiWeekSingola = eventiWeek.filter(onlyUnique)
-        
+
+        const listaTabDatiWeek = []
+        let tabella = []
         for(let c=0;c<eventiWeekSingola.length;c++) {
             const indexCicl = tempoTotCicl.findIndex(el => el.settimana===eventiWeekSingola[c])
             const indexCorsa = tempoTotCorsa.findIndex(el => el.settimana===eventiWeekSingola[c])
             const indexNuoto = tempoTotNuoto.findIndex(el => el.settimana===eventiWeekSingola[c])
 
             let wltCiclSingolo = 0
+            let wlsCiclSingolo = 0
+            let tempoTotCiclSingolo = 0
+            let recTotCiclSingolo = 0
+            let tempoTotCiclConRecSingolo = 0
+            let densitaCiclSingolo = 0
+            let tempoZoneCiclSingolo = 0
+            let trimpCiclAerobicSingolo = 0
+            let trimpCiclMixedSingolo = 0
+            let trimpCiclAnaerobicSingolo = 0
+            let trimpCiclTotalSingolo = 0
+            let trimpCiclMinSingolo = 0
             if(indexCicl>=0) {
-                wltCiclSingolo = wltCicl[indexCicl]
+                wltCiclSingolo = wltCicl[indexCicl].toFixed(2)
+                wlsCiclSingolo = sommaWlsCicl[indexCicl].num.toFixed(2)
+                tempoTotCiclSingolo = tempoTotCicl[indexCicl].num.toFixed(2)
+                recTotCiclSingolo = recTotCicl[indexCicl].num.toFixed(2)
+                tempoTotCiclConRecSingolo = tempoTotCiclConRec[indexCicl].toFixed(2)
+                densitaCiclSingolo = densitaCicl[indexCicl].toFixed(2)
+                tempoZoneCiclSingolo = tempoZoneCicl[indexCicl].num
+                trimpCiclAerobicSingolo = trimpCiclAerobic[indexCicl].toFixed(2)
+                trimpCiclMixedSingolo = trimpCiclMixed[indexCicl].toFixed(2)
+                trimpCiclAnaerobicSingolo = trimpCiclAnaerobic[indexCicl].toFixed(2)
+                trimpCiclTotalSingolo = trimpCiclTotal[indexCicl].toFixed(2)
+                trimpCiclMinSingolo = trimpCiclMin[indexCicl].toFixed(2)
+            }
+
+
+
+            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
+            
+            const tabellaSingola = <TabDatiWeek settimana={eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c)}
+            // ciclismo
+            wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo} tempoTotCicl={tempoTotCiclSingolo} recTotCicl={recTotCiclSingolo}
+            tempoTotCiclConRec={tempoTotCiclConRecSingolo} densitaCicl={densitaCiclSingolo} tempoZoneCicl={tempoZoneCiclSingolo}
+            trimpCiclAerobic={trimpCiclAerobicSingolo} trimpCiclMixed={trimpCiclMixedSingolo}
+            trimpCiclAnaerobic={trimpCiclAnaerobicSingolo} trimpCiclTotal={trimpCiclTotalSingolo} trimpCiclMin={trimpCiclMinSingolo} />
+            
+            if(c%2===0 && c!==0) {
+                aggiungiPagina()
+                tabella = [tabellaSingola]
+            } else {
+                tabella.push(tabellaSingola)
+            }
+            if(c===eventiWeekSingola.length-1) {
+                aggiungiPagina()
             }
         }
         
-        const listaTabDatiWeek = []
+        /* const listaTabDatiWeek = []
         let tabella = []
         for(let c=0;c<listaPiuLunga.lung;c++) {
             const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
@@ -462,7 +507,7 @@ const Report = props => {
             if(c===listaPiuLunga.lung-1) {
                 aggiungiPagina()
             }
-        }
+        } */
 
         return {listaStampaWorkouts, listaTabDatiWeek}
 
