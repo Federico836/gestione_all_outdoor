@@ -297,8 +297,8 @@ const Report = props => {
             const velMedia = distTotCorsa[c].num/tempoTotCorsa[c].num
             velMediaCorsa.push(velMedia)
             passoMedioCorsa.push(1000/velMedia)
-            densitaCorsa.push(recTotCorsa[c]/tempoTotCorsa[c]*100)
-            tempoTotCorsaConRec.push(tempoTotCorsa[c]+recTotCorsa[c])
+            densitaCorsa.push(recTotCorsa[c].num/tempoTotCorsa[c].num*100)
+            tempoTotCorsaConRec.push(tempoTotCorsa[c].num+recTotCorsa[c].num)
             wltCorsa.push(passoCorsa/passoMedioCorsa[passoMedioCorsa.length-1])
             wlsCorsa.push(Math.pow(wltCorsa[wltCorsa.length-1], 3)*tempoTotCorsa[c].num/3600*100)
     
@@ -469,16 +469,90 @@ const Report = props => {
                 trimpCiclMinSingolo = trimpCiclMin[indexCicl].toFixed(2)
             }
 
+            let wltCorsaSingolo = 0
+            let wlsCorsaSingolo = 0
+            let passoMedioCorsaSingolo = 0
+            let tempoTotCorsaSingolo = 0
+            let recTotCorsaSingolo = 0
+            let tempoTotCorsaConRecSingolo = 0
+            let distTotCorsaSingolo = 0
+            let densitaCorsaSingolo = 0
+            let tempoZoneCorsaSingolo = 0
+            let trimpCorsaAerobicSingolo = 0
+            let trimpCorsaMixedSingolo = 0
+            let trimpCorsaAnaerobicSingolo = 0
+            let trimpCorsaTotalSingolo = 0
+            let trimpCorsaMinSingolo = 0
+            if(indexCorsa>=0) {
+                wltCorsaSingolo = wltCorsa[indexCorsa].toFixed(2)
+                wlsCorsaSingolo = wlsCorsa[indexCorsa].toFixed(2)
+                passoMedioCorsaSingolo = passoMedioCorsa[indexCorsa].toFixed(2)
+                tempoTotCorsaSingolo = tempoTotCorsa[indexCorsa].num.toFixed(2)
+                recTotCorsaSingolo = recTotCorsa[indexCorsa].num.toFixed(2)
+                tempoTotCorsaConRecSingolo = tempoTotCorsaConRec[indexCorsa].toFixed(2)
+                distTotCorsaSingolo = distTotCorsa[indexCorsa].num.toFixed(2)
+                densitaCorsaSingolo = densitaCorsa[indexCorsa].toFixed(2)
+                tempoZoneCorsaSingolo = tempoZoneCorsa[indexCorsa].num
+                trimpCorsaAerobicSingolo = trimpCorsaAerobic[indexCorsa].toFixed(2)
+                trimpCorsaMixedSingolo = trimpCorsaMixed[indexCorsa].toFixed(2)
+                trimpCorsaAnaerobicSingolo = trimpCorsaAnaerobic[indexCorsa].toFixed(2)
+                trimpCorsaTotalSingolo = trimpCorsaTotal[indexCorsa].toFixed(2)
+                trimpCorsaMinSingolo = trimpCorsaMin[indexCorsa].toFixed(2)
+            }
 
+            let wltNuotoSingolo = 0
+            let wlsNuotoSingolo = 0
+            let passoMedioNuotoSingolo = 0
+            let tempoTotNuotoSingolo = 0
+            let recTotNuotoSingolo = 0
+            let tempoTotNuotoConRecSingolo = 0
+            let distTotNuotoSingolo = 0
+            let densitaNuotoSingolo = 0
+            let tempoZoneNuotoSingolo = 0
+            let trimpNuotoAerobicSingolo = 0
+            let trimpNuotoMixedSingolo = 0
+            let trimpNuotoAnaerobicSingolo = 0
+            let trimpNuotoTotalSingolo = 0
+            let trimpNuotoMinSingolo = 0
+            if(indexNuoto>=0) {
+                wltNuotoSingolo = wltNuoto[indexNuoto].toFixed(2)
+                wlsNuotoSingolo = wlsNuoto[indexNuoto].toFixed(2)
+                passoMedioNuotoSingolo = passoMedioNuoto[indexNuoto].toFixed(2)
+                tempoTotNuotoSingolo = tempoTotNuoto[indexNuoto].num.toFixed(2)
+                recTotNuotoSingolo = recTotNuoto[indexNuoto].num.toFixed(2)
+                tempoTotNuotoConRecSingolo = tempoTotNuotoConRec[indexNuoto].toFixed(2)
+                distTotNuotoSingolo = distTotNuoto[indexNuoto].num.toFixed(2)
+                densitaNuotoSingolo = densitaNuoto[indexNuoto].toFixed(2)
+                tempoZoneNuotoSingolo = tempoZoneNuoto[indexNuoto].num
+                trimpNuotoAerobicSingolo = trimpNuotoAerobic[indexNuoto].toFixed(2)
+                trimpNuotoMixedSingolo = trimpNuotoMixed[indexNuoto].toFixed(2)
+                trimpNuotoAnaerobicSingolo = trimpNuotoAnaerobic[indexNuoto].toFixed(2)
+                trimpNuotoTotalSingolo = trimpNuotoTotal[indexNuoto].toFixed(2)
+                trimpNuotoMinSingolo = trimpNuotoMin[indexNuoto].toFixed(2)
+            }
 
             const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
             
             const tabellaSingola = <TabDatiWeek settimana={eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c)}
             // ciclismo
-            wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo} tempoTotCicl={tempoTotCiclSingolo} recTotCicl={recTotCiclSingolo}
-            tempoTotCiclConRec={tempoTotCiclConRecSingolo} densitaCicl={densitaCiclSingolo} tempoZoneCicl={tempoZoneCiclSingolo}
-            trimpCiclAerobic={trimpCiclAerobicSingolo} trimpCiclMixed={trimpCiclMixedSingolo}
-            trimpCiclAnaerobic={trimpCiclAnaerobicSingolo} trimpCiclTotal={trimpCiclTotalSingolo} trimpCiclMin={trimpCiclMinSingolo} />
+            wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo} passoMedioCorsa={passoMedioCorsaSingolo}
+            tempoTotCicl={tempoTotCiclSingolo} recTotCicl={recTotCiclSingolo} tempoTotCiclConRec={tempoTotCiclConRecSingolo}
+            densitaCicl={densitaCiclSingolo} tempoZoneCicl={tempoZoneCiclSingolo} trimpCiclAerobic={trimpCiclAerobicSingolo}
+            trimpCiclMixed={trimpCiclMixedSingolo} trimpCiclAnaerobic={trimpCiclAnaerobicSingolo}
+            trimpCiclTotal={trimpCiclTotalSingolo} trimpCiclMin={trimpCiclMinSingolo}
+            // corsa
+            wltCorsa={wltCorsaSingolo} wlsCorsa={wlsCorsaSingolo} tempoTotCorsa={tempoTotCorsaSingolo}
+            recTotCorsa={recTotCorsaSingolo} tempoTotCorsaConRec={tempoTotCorsaConRecSingolo} distTotCorsa={distTotCorsaSingolo}
+            densitaCorsa={densitaCorsaSingolo} tempoZoneCorsa={tempoZoneCorsaSingolo} trimpCorsaAerobic={trimpCorsaAerobicSingolo}
+            trimpCorsaMixed={trimpCorsaMixedSingolo} trimpCorsaAnaerobic={trimpCorsaAnaerobicSingolo}
+            trimpCorsaTotal={trimpCorsaTotalSingolo} trimpCorsaMin={trimpCorsaMinSingolo}
+            // nuoto
+            wltNuoto={wltNuotoSingolo} wlsNuoto={wlsNuotoSingolo} passoMedioNuoto={passoMedioNuotoSingolo}
+            tempoTotNuoto={tempoTotNuotoSingolo} recTotNuoto={recTotNuotoSingolo} tempoTotNuotoConRec={tempoTotNuotoConRecSingolo}
+            distTotNuoto={distTotNuotoSingolo} densitaNuoto={densitaNuotoSingolo} tempoZoneNuoto={tempoZoneNuotoSingolo}
+            trimpNuotoAerobic={trimpNuotoAerobicSingolo} trimpNuotoMixed={trimpNuotoMixedSingolo}
+            trimpNuotoAnaerobic={trimpNuotoAnaerobicSingolo} trimpNuotoTotal={trimpNuotoTotalSingolo}
+            trimpNuotoMin={trimpNuotoMinSingolo} />
             
             if(c%2===0 && c!==0) {
                 aggiungiPagina()
