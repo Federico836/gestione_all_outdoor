@@ -91,7 +91,7 @@ const Report = props => {
                 
                 mediaPonderata = Math.pow(mediaPonderata, 0.25)
                 const wltWorkout = mediaPonderata/ftp
-                const wlsWorkout = funzioniCicl.calcTempoTot(listaRigheFrameCalc)*mediaPonderata*wltWorkout/ftp*3600*100
+                const wlsWorkout = funzioniCicl.calcTempoTot(listaRigheFrameCalc)*mediaPonderata*wltWorkout/ftp/3600*100
     
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
                 tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
@@ -531,7 +531,8 @@ const Report = props => {
                 trimpNuotoMinSingolo = trimpNuotoMin[indexNuoto]
             }
 
-            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
+            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "10vw",
+            gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
             
             const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+
                 (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))}
@@ -637,6 +638,23 @@ const Report = props => {
                 text-align: center;
                 font-size: 11px;
                 padding: 2px;
+            }
+
+            .tab-all-week {
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 8vh;
+                width: 100%;
+                border: solid 1px black;
+                border-collapse: collapse;
+                text-align: center;
+            }
+            
+            .tab-all-week tr td {
+                border: solid 1px black;
+            }
+            .tab-all-week tr th {
+                border: solid 1px black;
             }
 
           </style>`+contenuto.innerHTML)

@@ -1,5 +1,5 @@
 import React from "react"
-import styles from './TabDatiWeek.module.css'
+import './TabDatiWeek.css'
 import { useTranslation } from 'react-i18next'
 
 import { toHHMMSS } from "../../../../utils/funzioni"
@@ -18,7 +18,7 @@ const TabDatiWeek = props => {
 
     return (
         <div /*  style={{height: "90vh", marginLeft: "auto", marginRight: "auto", marginTop: "6vh"}} */>
-            <table className={styles.tabella} /* style={{ height: "100%", border: "solid 1px black", borderCollapse: "collapse"}} */>
+            <table className="tab-all-week" /* style={{ height: "100%", border: "solid 1px black", borderCollapse: "collapse"}} */>
                 <thead>
                     <tr>
                         <th colSpan="9">{settimana}</th>

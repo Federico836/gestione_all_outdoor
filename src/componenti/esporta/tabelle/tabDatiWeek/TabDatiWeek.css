@@ -1,15 +1,15 @@
-.tabella {
+.tab-all-week {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 6vh;
     width: 100%;
     border: solid 1px black;
     border-collapse: collapse;
+    text-align: center;
 }
 
-.tabella tr td {
+.tab-all-week tr td {
     border: solid 1px black;
 }
-.tabella tr th {
+.tab-all-week tr th {
     border: solid 1px black;
 }
