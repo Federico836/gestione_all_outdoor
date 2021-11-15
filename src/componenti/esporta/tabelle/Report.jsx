@@ -328,7 +328,7 @@ const Report = props => {
             velMediaNuoto.push(velMedia)
             passoMedioNuoto.push(100/velMedia)
             densitaNuoto.push(recTotNuoto/tempoTotNuoto*100)
-            tempoTotNuotoConRec.push(tempoTotNuoto[c]+recTotNuoto[c])
+            tempoTotNuotoConRec.push(tempoTotNuoto[c].num+recTotNuoto[c].num)
             wltNuoto.push(passoNuoto/passoMedioNuoto[passoMedioNuoto.length-1])
             wlsNuoto.push(Math.pow(wltNuoto[wltNuoto.length-1], 3)*tempoTotNuoto[c].num/3600*100)
     
@@ -455,18 +455,18 @@ const Report = props => {
             let trimpCiclTotalSingolo = 0
             let trimpCiclMinSingolo = 0
             if(indexCicl>=0) {
-                wltCiclSingolo = wltCicl[indexCicl].toFixed(2)
-                wlsCiclSingolo = sommaWlsCicl[indexCicl].num.toFixed(2)
-                tempoTotCiclSingolo = tempoTotCicl[indexCicl].num.toFixed(2)
-                recTotCiclSingolo = recTotCicl[indexCicl].num.toFixed(2)
-                tempoTotCiclConRecSingolo = tempoTotCiclConRec[indexCicl].toFixed(2)
-                densitaCiclSingolo = densitaCicl[indexCicl].toFixed(2)
+                wltCiclSingolo = wltCicl[indexCicl]
+                wlsCiclSingolo = sommaWlsCicl[indexCicl].num
+                tempoTotCiclSingolo = tempoTotCicl[indexCicl].num
+                recTotCiclSingolo = recTotCicl[indexCicl].num
+                tempoTotCiclConRecSingolo = tempoTotCiclConRec[indexCicl]
+                densitaCiclSingolo = densitaCicl[indexCicl]
                 tempoZoneCiclSingolo = tempoZoneCicl[indexCicl].num
-                trimpCiclAerobicSingolo = trimpCiclAerobic[indexCicl].toFixed(2)
-                trimpCiclMixedSingolo = trimpCiclMixed[indexCicl].toFixed(2)
-                trimpCiclAnaerobicSingolo = trimpCiclAnaerobic[indexCicl].toFixed(2)
-                trimpCiclTotalSingolo = trimpCiclTotal[indexCicl].toFixed(2)
-                trimpCiclMinSingolo = trimpCiclMin[indexCicl].toFixed(2)
+                trimpCiclAerobicSingolo = trimpCiclAerobic[indexCicl]
+                trimpCiclMixedSingolo = trimpCiclMixed[indexCicl]
+                trimpCiclAnaerobicSingolo = trimpCiclAnaerobic[indexCicl]
+                trimpCiclTotalSingolo = trimpCiclTotal[indexCicl]
+                trimpCiclMinSingolo = trimpCiclMin[indexCicl]
             }
 
             let wltCorsaSingolo = 0
@@ -484,20 +484,20 @@ const Report = props => {
             let trimpCorsaTotalSingolo = 0
             let trimpCorsaMinSingolo = 0
             if(indexCorsa>=0) {
-                wltCorsaSingolo = wltCorsa[indexCorsa].toFixed(2)
-                wlsCorsaSingolo = wlsCorsa[indexCorsa].toFixed(2)
-                passoMedioCorsaSingolo = passoMedioCorsa[indexCorsa].toFixed(2)
-                tempoTotCorsaSingolo = tempoTotCorsa[indexCorsa].num.toFixed(2)
-                recTotCorsaSingolo = recTotCorsa[indexCorsa].num.toFixed(2)
-                tempoTotCorsaConRecSingolo = tempoTotCorsaConRec[indexCorsa].toFixed(2)
-                distTotCorsaSingolo = distTotCorsa[indexCorsa].num.toFixed(2)
-                densitaCorsaSingolo = densitaCorsa[indexCorsa].toFixed(2)
+                wltCorsaSingolo = wltCorsa[indexCorsa]
+                wlsCorsaSingolo = wlsCorsa[indexCorsa]
+                passoMedioCorsaSingolo = passoMedioCorsa[indexCorsa]
+                tempoTotCorsaSingolo = tempoTotCorsa[indexCorsa].num
+                recTotCorsaSingolo = recTotCorsa[indexCorsa].num
+                tempoTotCorsaConRecSingolo = tempoTotCorsaConRec[indexCorsa]
+                distTotCorsaSingolo = distTotCorsa[indexCorsa].num
+                densitaCorsaSingolo = densitaCorsa[indexCorsa]
                 tempoZoneCorsaSingolo = tempoZoneCorsa[indexCorsa].num
-                trimpCorsaAerobicSingolo = trimpCorsaAerobic[indexCorsa].toFixed(2)
-                trimpCorsaMixedSingolo = trimpCorsaMixed[indexCorsa].toFixed(2)
-                trimpCorsaAnaerobicSingolo = trimpCorsaAnaerobic[indexCorsa].toFixed(2)
-                trimpCorsaTotalSingolo = trimpCorsaTotal[indexCorsa].toFixed(2)
-                trimpCorsaMinSingolo = trimpCorsaMin[indexCorsa].toFixed(2)
+                trimpCorsaAerobicSingolo = trimpCorsaAerobic[indexCorsa]
+                trimpCorsaMixedSingolo = trimpCorsaMixed[indexCorsa]
+                trimpCorsaAnaerobicSingolo = trimpCorsaAnaerobic[indexCorsa]
+                trimpCorsaTotalSingolo = trimpCorsaTotal[indexCorsa]
+                trimpCorsaMinSingolo = trimpCorsaMin[indexCorsa]
             }
 
             let wltNuotoSingolo = 0
@@ -515,20 +515,20 @@ const Report = props => {
             let trimpNuotoTotalSingolo = 0
             let trimpNuotoMinSingolo = 0
             if(indexNuoto>=0) {
-                wltNuotoSingolo = wltNuoto[indexNuoto].toFixed(2)
-                wlsNuotoSingolo = wlsNuoto[indexNuoto].toFixed(2)
-                passoMedioNuotoSingolo = passoMedioNuoto[indexNuoto].toFixed(2)
-                tempoTotNuotoSingolo = tempoTotNuoto[indexNuoto].num.toFixed(2)
-                recTotNuotoSingolo = recTotNuoto[indexNuoto].num.toFixed(2)
-                tempoTotNuotoConRecSingolo = tempoTotNuotoConRec[indexNuoto].toFixed(2)
-                distTotNuotoSingolo = distTotNuoto[indexNuoto].num.toFixed(2)
-                densitaNuotoSingolo = densitaNuoto[indexNuoto].toFixed(2)
+                wltNuotoSingolo = wltNuoto[indexNuoto]
+                wlsNuotoSingolo = wlsNuoto[indexNuoto]
+                passoMedioNuotoSingolo = passoMedioNuoto[indexNuoto]
+                tempoTotNuotoSingolo = tempoTotNuoto[indexNuoto].num
+                recTotNuotoSingolo = recTotNuoto[indexNuoto].num
+                tempoTotNuotoConRecSingolo = tempoTotNuotoConRec[indexNuoto]
+                distTotNuotoSingolo = distTotNuoto[indexNuoto].num
+                densitaNuotoSingolo = densitaNuoto[indexNuoto]
                 tempoZoneNuotoSingolo = tempoZoneNuoto[indexNuoto].num
-                trimpNuotoAerobicSingolo = trimpNuotoAerobic[indexNuoto].toFixed(2)
-                trimpNuotoMixedSingolo = trimpNuotoMixed[indexNuoto].toFixed(2)
-                trimpNuotoAnaerobicSingolo = trimpNuotoAnaerobic[indexNuoto].toFixed(2)
-                trimpNuotoTotalSingolo = trimpNuotoTotal[indexNuoto].toFixed(2)
-                trimpNuotoMinSingolo = trimpNuotoMin[indexNuoto].toFixed(2)
+                trimpNuotoAerobicSingolo = trimpNuotoAerobic[indexNuoto]
+                trimpNuotoMixedSingolo = trimpNuotoMixed[indexNuoto]
+                trimpNuotoAnaerobicSingolo = trimpNuotoAnaerobic[indexNuoto]
+                trimpNuotoTotalSingolo = trimpNuotoTotal[indexNuoto]
+                trimpNuotoMinSingolo = trimpNuotoMin[indexNuoto]
             }
 
             const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
