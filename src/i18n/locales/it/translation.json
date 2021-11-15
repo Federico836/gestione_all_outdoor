@@ -151,7 +151,8 @@
         "tempo-tot-allenamento": "TEMPO TOT ALLENAMENTO",
         "volume-totale": "VOLUME TOTALE",
         "densita": "DENSITA",
-        "tempo-zone": "TEMPO NELLE ZONE"
+        "tempo-zone": "TEMPO NELLE ZONE",
+        "totale-delle-settimane": "TOTALE DELLE SETTIMANE"
       }
     },
     "tab-zone": {

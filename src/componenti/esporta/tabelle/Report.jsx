@@ -210,12 +210,14 @@ const Report = props => {
                             aggiungiDistanzaTot()
                             aggiungiTempoZone()
                         } else {
-                            if(tempoTotNuoto.lengh>0) {
+                            console.log(tempoTotNuoto.length)
+                            /* if(tempoTotNuoto.lengh>0) { */
                                 tempoTotNuoto[tempoTotNuoto.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
                                 recTotNuoto[recTotNuoto.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
                                 distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
                                 funzioniNuoto.sommaZone(tempoZoneNuoto[tempoZoneNuoto.length-1].num, tempoZone)
-                            }
+                            /* } */
+                            console.log(tempoTotNuoto)
                         }
                     }
                 } else {
@@ -537,7 +539,7 @@ const Report = props => {
             const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+
                 (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))}
             // ciclismo
-            wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo} passoMedioCorsa={passoMedioCorsaSingolo}
+            wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo}
             tempoTotCicl={tempoTotCiclSingolo} recTotCicl={recTotCiclSingolo} tempoTotCiclConRec={tempoTotCiclConRecSingolo}
             densitaCicl={densitaCiclSingolo} tempoZoneCicl={tempoZoneCiclSingolo} trimpCiclAerobic={trimpCiclAerobicSingolo}
             trimpCiclMixed={trimpCiclMixedSingolo} trimpCiclAnaerobic={trimpCiclAnaerobicSingolo}
@@ -547,7 +549,7 @@ const Report = props => {
             recTotCorsa={recTotCorsaSingolo} tempoTotCorsaConRec={tempoTotCorsaConRecSingolo} distTotCorsa={distTotCorsaSingolo}
             densitaCorsa={densitaCorsaSingolo} tempoZoneCorsa={tempoZoneCorsaSingolo} trimpCorsaAerobic={trimpCorsaAerobicSingolo}
             trimpCorsaMixed={trimpCorsaMixedSingolo} trimpCorsaAnaerobic={trimpCorsaAnaerobicSingolo}
-            trimpCorsaTotal={trimpCorsaTotalSingolo} trimpCorsaMin={trimpCorsaMinSingolo}
+            trimpCorsaTotal={trimpCorsaTotalSingolo} trimpCorsaMin={trimpCorsaMinSingolo} passoMedioCorsa={passoMedioCorsaSingolo}
             // nuoto
             wltNuoto={wltNuotoSingolo} wlsNuoto={wlsNuotoSingolo} passoMedioNuoto={passoMedioNuotoSingolo}
             tempoTotNuoto={tempoTotNuotoSingolo} recTotNuoto={recTotNuotoSingolo} tempoTotNuotoConRec={tempoTotNuotoConRecSingolo}
@@ -555,6 +557,27 @@ const Report = props => {
             trimpNuotoAerobic={trimpNuotoAerobicSingolo} trimpNuotoMixed={trimpNuotoMixedSingolo}
             trimpNuotoAnaerobic={trimpNuotoAnaerobicSingolo} trimpNuotoTotal={trimpNuotoTotalSingolo}
             trimpNuotoMin={trimpNuotoMinSingolo} />
+
+            const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
+            // ciclismo
+            wltCicl={ciclTotaloneWlt} wlsCicl={ciclTotaloneWls} tempoTotCicl={ciclTotaloneTempo}
+            recTotCicl={ciclTotaloneRec} tempoTotCiclConRec={ciclTotaloneTempoConRec} densitaCicl={ciclTotaloneDensita}
+            tempoZoneCicl={ciclTotaloneTempoZone} trimpCiclAerobic={ciclTotaloneTrimpAerobic} trimpCiclMixed={ciclTotaloneTrimpMixed}
+            trimpCiclAnaerobic={ciclTotaloneTrimpAnaerobic} trimpCiclTotal={ciclTotaloneTrimpTotal}
+            trimpCiclMin={ciclTotaloneTrimpMin}
+            // corsa
+            wltCorsa={corsaTotaloneWlt} wlsCorsa={corsaTotaloneWls} tempoTotCorsa={corsaTotaloneTempo}
+            recTotCorsa={corsaTotaloneRec} tempoTotCorsaConRec={corsaTotaloneTempoConRec} distTotCorsa={corsaTotaloneDistanza}
+            densitaCorsa={corsaTotaloneDensita} tempoZoneCorsa={corsaTotaloneTempoZone} trimpCorsaAerobic={corsaTotaloneTrimpAerobic}
+            trimpCorsaMixed={corsaTotaloneTrimpMixed} trimpCorsaAnaerobic={corsaTotaloneTrimpAnaerobic}
+            trimpCorsaTotal={corsaTotaloneTrimpTotal} trimpCorsaMin={corsaTotaloneTrimpMin} passoMedioCorsa={corsaTotalonePassoMedio}
+            // nuoto
+            wltNuoto={nuotoTotaloneWlt} wlsNuoto={nuotoTotaloneWls} passoMedioNuoto={nuotoTotalonePassoMedio}
+            tempoTotNuoto={nuotoTotaloneTempo} recTotNuoto={nuotoTotaloneRec} tempoTotNuotoConRec={nuotoTotaloneTempoConRec}
+            distTotNuoto={nuotoTotaloneDistanza} densitaNuoto={nuotoTotaloneDensita} tempoZoneNuoto={nuotoTotaloneTempoZone}
+            trimpNuotoAerobic={nuotoTotaloneTrimpAerobic} trimpNuotoMixed={nuotoTotaloneTrimpMixed}
+            trimpNuotoAnaerobic={nuotoTotaloneTrimpAnaerobic} trimpNuotoTotal={nuotoTotaloneTrimpTotal}
+            trimpNuotoMin={nuotoTotaloneTrimpMin} />
             
             if(c%2===0 && c!==0) {
                 aggiungiPagina()
@@ -563,7 +586,14 @@ const Report = props => {
                 tabella.push(tabellaSingola)
             }
             if(c===eventiWeekSingola.length-1) {
-                aggiungiPagina()
+                if(tabella.length<2) {
+                    tabella.push(tabellaTotali)
+                    aggiungiPagina()
+                } else {
+                    aggiungiPagina()
+                    tabella = [tabellaTotali]
+                    aggiungiPagina()
+                }
             }
         }
         

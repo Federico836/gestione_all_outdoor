@@ -21,7 +21,7 @@ const TabDatiWeek = props => {
             <table className="tab-all-week" /* style={{ height: "100%", border: "solid 1px black", borderCollapse: "collapse"}} */>
                 <thead>
                     <tr>
-                        <th colSpan="9">{settimana}</th>
+                        <th colSpan="10">{settimana}</th>
                     </tr>
                 </thead>
                 <tbody>
