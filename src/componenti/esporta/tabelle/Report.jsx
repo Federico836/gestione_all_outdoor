@@ -533,7 +533,8 @@ const Report = props => {
 
             const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
             
-            const tabellaSingola = <TabDatiWeek settimana={eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c)}
+            const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+
+                (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))}
             // ciclismo
             wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo} passoMedioCorsa={passoMedioCorsaSingolo}
             tempoTotCicl={tempoTotCiclSingolo} recTotCicl={recTotCiclSingolo} tempoTotCiclConRec={tempoTotCiclConRecSingolo}

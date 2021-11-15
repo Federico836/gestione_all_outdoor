@@ -21,193 +21,194 @@ const TabDatiWeek = props => {
             <table className={styles.tabella} /* style={{ height: "100%", border: "solid 1px black", borderCollapse: "collapse"}} */>
                 <thead>
                     <tr>
-                        <th colSpan="9">{t('esporta:report:tab-dati-week:settimana')+" "+settimana}</th>
+                        <th colSpan="9">{settimana}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td></td>
-                        <td colSpan="2">{t('scrivi-framework:ciclismo:ciclismo')}</td>
+                        {tempoTotCicl ? <><td rowSpan="22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td colSpan="2">{t('scrivi-framework:ciclismo:ciclismo')}</td></> : null}
                         {tempoTotCorsa ? <><td rowSpan="22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td colSpan="2">{t('scrivi-framework:corsa:corsa')}</td></> : null}
-                        <td rowSpan="22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                        <td colSpan="2">{t('scrivi-framework:nuoto:nuoto')}</td>
+                        {tempoTotNuoto ? <><td rowSpan="22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td colSpan="2">{t('scrivi-framework:nuoto:nuoto')}</td></> : null}
                     </tr>
                     <tr>
                         <td>WLT</td>
-                        <td></td>
-                        <td>{wltCicl}</td>
+                        {tempoTotCicl ? <><td></td>
+                        <td>{wltCicl.toFixed(2)}</td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{wltCorsa.toFixed(2)}</td></> : null}
-                        <td></td>
-                        <td>{wltNuoto}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{wltNuoto.toFixed(2)}</td></> : null}
                     </tr>
                     <tr>
                         <td>WLS</td>
-                        <td></td>
-                        <td>{wlsCicl}</td>
+                        {tempoTotCicl ? <><td></td>
+                        <td>{wlsCicl.toFixed(2)}</td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{wlsCorsa.toFixed(2)}</td></> : null}
-                        <td></td>
-                        <td>{wlsNuoto}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{wlsNuoto.toFixed(2)}</td></> : null}
                     </tr>
                     <tr>
                         <td>{t('esporta:report:tab-dati-week:passo-medio')}</td>
-                        <td></td>
-                        <td></td>
+                        {tempoTotCicl ? <><td></td>
+                        <td></td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{toHHMMSS(passoMedioCorsa)}</td></> : null}
-                        <td></td>
-                        <td>{passoMedioNuoto}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{toHHMMSS(passoMedioNuoto)}</td></> : null}
                     </tr>
                     <tr>
                         <td>{t('esporta:report:tab-dati-week:tempo-tot-lavoro')}</td>
-                        <td></td>
-                        <td>{tempoTotCicl}</td>
+                        {tempoTotCicl ? <><td></td>
+                        <td>{toHHMMSS(tempoTotCicl)}</td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{toHHMMSS(tempoTotCorsa)}</td></> : null}
-                        <td></td>
-                        <td>{tempoTotNuoto}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{toHHMMSS(tempoTotNuoto)}</td></> : null}
                     </tr>
                     <tr>
                         <td>{t('esporta:report:tab-dati-week:tempo-tot-recupero')}</td>
-                        <td></td>
-                        <td>{recTotCicl}</td>
+                        {tempoTotCicl ? <><td></td>
+                        <td>{toHHMMSS(recTotCicl)}</td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{toHHMMSS(recTotCorsa)}</td></> : null}
-                        <td></td>
-                        <td>{recTotNuoto}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{toHHMMSS(recTotNuoto)}</td></> : null}
                     </tr>
                     <tr>
                         <td>{t('esporta:report:tab-dati-week:tempo-tot-allenamento')}</td>
-                        <td></td>
-                        <td>{tempoTotCiclConRec}</td>
+                        {tempoTotCicl ? <><td></td>
+                        <td>{toHHMMSS(tempoTotCiclConRec)}</td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{toHHMMSS(tempoTotCorsaConRec)}</td></> : null}
-                        <td></td>
-                        <td>{tempoTotNuotoConRec}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{toHHMMSS(tempoTotNuotoConRec)}</td></> : null}
                     </tr>
                     <tr>
                         <td>{t('esporta:report:tab-dati-week:volume-totale')}</td>
-                        <td></td>
-                        <td></td>
+                        {tempoTotCicl ? <><td></td>
+                        <td></td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{distTotCorsa}</td></> : null}
-                        <td></td>
-                        <td>{distTotNuoto}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{distTotNuoto}</td></> : null}
                     </tr>
                     <tr>
                         <td>{t('esporta:report:tab-dati-week:densita')}</td>
-                        <td></td>
-                        <td>{densitaCicl}</td>
+                        {tempoTotCicl ? <><td></td>
+                        <td>{densitaCicl}</td></> : null}
                         {tempoTotCorsa ? <><td></td>
                         <td>{densitaCorsa}</td></> : null}
-                        <td></td>
-                        <td>{densitaNuoto}</td>
+                        {tempoTotNuoto ? <><td></td>
+                        <td>{densitaNuoto}</td></> : null}
                     </tr>
                     <tr>
                         <td rowSpan="8">{t('esporta:report:tab-dati-week:tempo-zone')}</td>
-                        <td>Z1</td>
-                        <td>{tempoZoneCicl.zona1}</td>
+                        {tempoTotCicl ? <><td>Z1</td>
+                        <td>{toHHMMSS(tempoZoneCicl.zona1)}</td></> : null}
                         {tempoTotCorsa ? <><td>FLR</td>
                         <td>{toHHMMSS(tempoZoneCorsa.zona1)}</td></> : null}
-                        <td>A1</td>
-                        <td>{tempoZoneNuoto.zona1}</td>
+                        {tempoTotNuoto ? <><td>A1</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona1)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>Z2</td>
-                        <td>{tempoZoneCicl.zona2}</td>
+                        {tempoTotCicl ? <><td>Z2</td>
+                        <td>{toHHMMSS(tempoZoneCicl.zona2)}</td></> : null}
                         {tempoTotCorsa ? <><td>FLR</td>
                         <td>{toHHMMSS(tempoZoneCorsa.zona2)}</td></> : null}
-                        <td>A2</td>
-                        <td>{tempoZoneNuoto.zona2}</td>
+                        {tempoTotNuoto ? <><td>A2</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona2)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>Z3</td>
-                        <td>{tempoZoneCicl.zona3}</td>
+                        {tempoTotCicl ? <><td>Z3</td>
+                        <td>{toHHMMSS(tempoZoneCicl.zona3)}</td></> : null}
                         {tempoTotCorsa ? <><td>FM</td>
                         <td>{toHHMMSS(tempoZoneCorsa.zona3)}</td></> : null}
-                        <td>B1</td>
-                        <td>{tempoZoneNuoto.zona3}</td>
+                        {tempoTotNuoto ? <><td>B1</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona3)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>Z4</td>
-                        <td>{tempoZoneCicl.zona4}</td>
+                        {tempoTotCicl ? <><td>Z4</td>
+                        <td>{toHHMMSS(tempoZoneCicl.zona4)}</td></> : null}
                         {tempoTotCorsa ? <><td>FV</td>
                         <td>{toHHMMSS(tempoZoneCorsa.zona4)}</td></> : null}
-                        <td>B2</td>
-                        <td>{tempoZoneNuoto.zona4}</td>
+                        {tempoTotNuoto ? <><td>B2</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona4)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>Z5</td>
-                        <td>{tempoZoneCicl.zona5}</td>
+                        {tempoTotCicl ? <><td>Z5</td>
+                        <td>{toHHMMSS(tempoZoneCicl.zona5)}</td></> : null}
                         {tempoTotCorsa ? <><td>SG</td>
                         <td>{toHHMMSS(tempoZoneCorsa.zona5)}</td></> : null}
-                        <td>C1</td>
-                        <td>{tempoZoneNuoto.zona5}</td>
+                        {tempoTotNuoto ? <><td>C1</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona5)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>Z6</td>
-                        <td>{tempoZoneCicl.zona6}</td>
+                        {tempoTotCicl ? <><td>Z6</td>
+                        <td>{toHHMMSS(tempoZoneCicl.zona6)}</td></> : null}
                         {tempoTotCorsa ? <><td>VO2</td>
                         <td>{toHHMMSS(tempoZoneCorsa.zona6)}</td></> : null}
-                        <td>C2</td>
-                        <td>{tempoZoneNuoto.zona6}</td>
+                        {tempoTotNuoto ? <><td>C2</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona6)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>Z7</td>
-                        <td>{tempoZoneCicl.zona7}</td>
-                        {tempoTotCorsa ? <><td></td><td></td></> : null}
-                        <td>C3</td>
-                        <td>{tempoZoneNuoto.zona7}</td>
+                        {tempoTotCicl ? <><td>Z7</td>
+                        <td>{toHHMMSS(tempoZoneCicl.zona7)}</td></> : null}
+                        {tempoTotCorsa ? <><td></td><td>&nbsp;</td></> : null}
+                        {tempoTotNuoto ? <><td>C3</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona7)}</td></> : null}
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        {tempoTotCorsa ? <><td></td><td></td></> : null}
-                        <td>D</td>
-                        <td>{tempoZoneNuoto.zona8}</td>
+                        {tempoTotCicl ? <><td></td>
+                        <td>&nbsp;</td></> : null}
+                        {tempoTotCorsa ? <><td></td><td>&nbsp;</td></> : null}
+                        {tempoTotNuoto ? <><td>D</td>
+                        <td>{toHHMMSS(tempoZoneNuoto.zona8)}</td></> : null}
                     </tr>
                     <tr>
                         <td rowSpan="5">TRIMP</td>
-                        <td>aerobic</td>
-                        <td>{trimpCiclAerobic}</td>
+                        {tempoTotCicl ? <><td>aerobic</td>
+                        <td>{trimpCiclAerobic.toFixed(2)}</td></> : null}
                         {tempoTotCorsa ? <><td>aerobic</td>
                         <td>{trimpCorsaAerobic.toFixed(2)}</td></> : null}
-                        <td></td>
-                        <td>{trimpNuotoAerobic}</td>
+                        {tempoTotNuoto ? <><td>aerobic</td>
+                        <td>{trimpNuotoAerobic.toFixed(2)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>mixed</td>
-                        <td>{trimpCiclMixed}</td>
+                        {tempoTotCicl ? <><td>mixed</td>
+                        <td>{trimpCiclMixed.toFixed(2)}</td></> : null}
                         {tempoTotCorsa ? <><td>mixed</td>
                         <td>{trimpCorsaMixed.toFixed(2)}</td></> : null}
-                        <td></td>
-                        <td>{trimpNuotoMixed}</td>
+                        {tempoTotNuoto ? <><td>mixed</td>
+                        <td>{trimpNuotoMixed.toFixed(2)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>anaerobic</td>
-                        <td>{trimpCiclAnaerobic}</td>
+                        {tempoTotCicl ? <><td>anaerobic</td>
+                        <td>{trimpCiclAnaerobic.toFixed(2)}</td></> : null}
                         {tempoTotCorsa ? <><td>anaerobic</td>
                         <td>{trimpCorsaAnaerobic.toFixed(2)}</td></> : null}
-                        <td></td>
-                        <td>{trimpNuotoAnaerobic}</td>
+                        {tempoTotNuoto ? <><td>anaerobic</td>
+                        <td>{trimpNuotoAnaerobic.toFixed(2)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>total</td>
-                        <td>{trimpCiclTotal}</td>
+                        {tempoTotCicl ? <><td>total</td>
+                        <td>{trimpCiclTotal.toFixed(2)}</td></> : null}
                         {tempoTotCorsa ? <><td>total</td>
                         <td>{trimpCorsaTotal.toFixed(2)}</td></> : null}
-                        <td></td>
-                        <td>{trimpNuotoTotal}</td>
+                        {tempoTotNuoto ? <><td>total</td>
+                        <td>{trimpNuotoTotal.toFixed(2)}</td></> : null}
                     </tr>
                     <tr>
-                        <td>trimp/min</td>
-                        <td>{trimpCiclMin}</td>
+                        {tempoTotCicl ? <><td>trimp/min</td>
+                        <td>{trimpCiclMin.toFixed(2)}</td></> : null}
                         {tempoTotCorsa ? <><td>trimp/min</td>
                         <td>{trimpCorsaMin.toFixed(2)}</td></> : null}
-                        <td></td>
-                        <td>{trimpNuotoMin}</td>
+                        {tempoTotNuoto ? <><td>trimp/min</td>
+                        <td>{trimpNuotoMin.toFixed(2)}</td></> : null}
                     </tr>
                 </tbody>
             </table>
