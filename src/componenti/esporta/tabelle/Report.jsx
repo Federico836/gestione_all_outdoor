@@ -210,14 +210,12 @@ const Report = props => {
                             aggiungiDistanzaTot()
                             aggiungiTempoZone()
                         } else {
-                            console.log(tempoTotNuoto.length)
                             /* if(tempoTotNuoto.lengh>0) { */
                                 tempoTotNuoto[tempoTotNuoto.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
                                 recTotNuoto[recTotNuoto.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
                                 distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
                                 funzioniNuoto.sommaZone(tempoZoneNuoto[tempoZoneNuoto.length-1].num, tempoZone)
                             /* } */
-                            console.log(tempoTotNuoto)
                         }
                     }
                 } else {
@@ -532,6 +530,8 @@ const Report = props => {
                 trimpNuotoTotalSingolo = trimpNuotoTotal[indexNuoto]
                 trimpNuotoMinSingolo = trimpNuotoMin[indexNuoto]
             }
+
+            console.log(tempoTotNuoto)
 
             const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "10vw",
             gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
