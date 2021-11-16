@@ -24,6 +24,8 @@ import ZoneCiclismo7 from './tabZone/ZoneCiclismo7'
 import ZoneCorsa from './tabZone/ZoneCorsa'
 import ZoneNuoto from './tabZone/ZoneNuoto'
 
+import Intestazione from './logo/intestazione_cybertest.png'
+
 import styles from './Report.module.css'
 
 const Report = props => {
@@ -702,24 +704,27 @@ const Report = props => {
             </div>
             
             <div ref={paginaDaStampare}>
-                {tabelleReport.listaStampaWorkouts}
-                {tabelleReport.listaTabDatiWeek}
-                {tabellone ? 
-                <>
-                    <div style={{pageBreakAfter: "always"}}></div>
-                    {fc!==0 && ftp!==0  ? <div>
-                        <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
-                        <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
-                    </div> : null}
-                    {passoCorsa!==0 ? <div>
-                        <h3>{t('scrivi-framework:corsa:corsa')}</h3>
-                        <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
-                    </div> : null}
-                    {passoNuoto!==0 ? <div>
-                        <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
-                        <ZoneNuoto zoneCalcNuoto={zoneCalcNuoto} />
-                    </div> : null}
-                </> : null}
+                <img src={Intestazione} style={{position: "fixed", height: "90vh"}} />
+                <div style={{marginLeft: "6vw"}}>
+                    {tabelleReport.listaStampaWorkouts}
+                    {tabelleReport.listaTabDatiWeek}
+                    {tabellone ? 
+                    <>
+                        <div style={{pageBreakAfter: "always"}}></div>
+                        {fc!==0 && ftp!==0  ? <div>
+                            <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
+                            <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
+                        </div> : null}
+                        {passoCorsa!==0 ? <div>
+                            <h3>{t('scrivi-framework:corsa:corsa')}</h3>
+                            <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
+                        </div> : null}
+                        {passoNuoto!==0 ? <div>
+                            <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
+                            <ZoneNuoto zoneCalcNuoto={zoneCalcNuoto} />
+                        </div> : null}
+                    </> : null}
+                </div>
             </div>
             <iframe ref={frameStampa} style={{display: "none"}}></iframe>
         </div>
