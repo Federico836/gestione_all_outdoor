@@ -430,6 +430,7 @@ const Report = props => {
 
         let listaTabDatiWeek = []
         let tabella = []
+        let contaTabelle = 0
         for(let c=0;c<eventiWeekSingola.length;c++) {
             const indexCicl = tempoTotCicl.findIndex(el => el.settimana===eventiWeekSingola[c])
             const indexCorsa = tempoTotCorsa.findIndex(el => el.settimana===eventiWeekSingola[c])
@@ -527,8 +528,8 @@ const Report = props => {
             const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "10vw",
             gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
             
-            const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+
-                (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))}
+            // (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))
+            const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+(contaTabelle+1)}
             // ciclismo
             wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo}
             tempoTotCicl={tempoTotCiclSingolo} recTotCicl={recTotCiclSingolo} tempoTotCiclConRec={tempoTotCiclConRecSingolo}
@@ -569,12 +570,17 @@ const Report = props => {
             trimpNuotoAerobic={nuotoTotaloneTrimpAerobic} trimpNuotoMixed={nuotoTotaloneTrimpMixed}
             trimpNuotoAnaerobic={nuotoTotaloneTrimpAnaerobic} trimpNuotoTotal={nuotoTotaloneTrimpTotal}
             trimpNuotoMin={nuotoTotaloneTrimpMin} />
+
+            console.log(tempoTotCorsa)
             
-            if(c%2===0 && c!==0) {
-                aggiungiPagina()
-                tabella = [tabellaSingola]
-            } else {
-                tabella.push(tabellaSingola)
+            if(indexCicl>=0 || indexCorsa>=0 || indexNuoto>=0) {
+                if(contaTabelle%2===0 && contaTabelle!==0) {
+                    aggiungiPagina()
+                    tabella = [tabellaSingola]
+                } else {
+                    tabella.push(tabellaSingola)
+                }
+                contaTabelle++
             }
             if(c===eventiWeekSingola.length-1) {
                 if(tabella.length<2) {
