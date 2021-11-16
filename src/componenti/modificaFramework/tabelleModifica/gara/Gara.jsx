@@ -63,13 +63,13 @@ const Gara = props => {
 
     const salvaFramework = () => {
         if(nomeFramework!==frame.nomeFramework) {
-            const f = {testo, tipo: nomeGara, tipoPerSelect: "gara",
+            const f = {testo, tipo: nomeGara, tipoPerSelect: "gara", listaRighe: [],
             dataDaFare: data, dataCreazione: Date.now(), nomeFramework, id: uuidv4()}
             
             dispatch(addFramework(f))
             setFrame(f)// andrea
         } else {
-            const ff = {testo, tipo: nomeGara, tipoPerSelect: "gara",
+            const ff = {testo, tipo: nomeGara, tipoPerSelect: "gara", listaRighe: [],
             dataDaFare: data, dataCreazione: Date.now(), nomeFramework: frame.nomeFramework, id: frame.id}
             
             dispatch(replaceFramework(ff))

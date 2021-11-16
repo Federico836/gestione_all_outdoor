@@ -69,8 +69,15 @@ const Report = props => {
         for(let c=0;c<eventiSelezionati.length;c++) {
             //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
     
-            const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c].extendedProps.mdId)
-            if(!framework) continue;
+            let framework = listaFramework.find(frame => frame.id===eventiSelezionati[c].extendedProps.mdId)
+            /* if(!framework) continue; */
+            if(!framework) {
+                if(eventiSelezionati[c].extendedProps.mdId==999) {
+                    framework = {tipoPerSelect: "MagneticDays", listaRighe: []}
+                } else {
+                    continue
+                }
+            }
             
             const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
             
@@ -234,6 +241,11 @@ const Report = props => {
             } else if(framework.tipoPerSelect==="altri") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:sport:altri')}</h4>)
                 tabDaAggiungere.push(<TabSportDragNDrop listaRighe={listaRigheFrame} />)
+            } else if(framework.tipoPerSelect==="MagneticDays") {
+                tabDaAggiungere.push(<h4>Magnetic Days</h4>)
+            } else if(framework.tipoPerSelect==="gara") {
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:gara:gara')}</h4>)
+                tabDaAggiungere.push(<div style={{whiteSpace: "pre-wrap"}}>{framework.testo}</div>)
             }
     
             if(c>0) {
@@ -410,32 +422,13 @@ const Report = props => {
         const nuotoTotaloneTrimpTotal = nuotoTotaloneTrimpAerobic+nuotoTotaloneTrimpMixed+nuotoTotaloneTrimpAnaerobic
         const nuotoTotaloneTrimpMin = nuotoTotaloneTrimpTotal/nuotoTotaloneTempo/60
 
-        /* let settimanaIniziale = tempoTotCicl[0].settimana
-        if(tempoTotCorsa.length>0) {
-            if(tempoTotCorsa[0].settimana>tempoTotCicl[0].settimana) {
-                settimanaIniziale = tempoTotCorsa[0].settimana
-            }
-            if(tempoTotNuoto[0].settimana>tempoTotCorsa[0].settimana) {
-                settimanaIniziale = tempoTotNuoto[0].settimana
-            }
-        } */
-
-        let listaPiuLunga = {lung: tempoTotCicl.length, settimana: tempoTotCicl.length>0 ? tempoTotCicl[0].settimana : 0}
-        if(tempoTotCorsa.length>tempoTotCicl.length) {
-            listaPiuLunga = {lung: tempoTotCorsa.length, settimana: tempoTotCorsa.length>0 ? tempoTotCorsa[0].settimana : 0}
-        }
-        if(tempoTotNuoto.length>tempoTotCorsa.length) {
-            listaPiuLunga = {lung: tempoTotNuoto.length, settimana: tempoTotNuoto.length>0 ? tempoTotNuoto[0].settimana : 0}
-        }
-
-        
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
         const eventiWeek = eventiSelezionati.map(evento => evento.start.getWeek())
         const eventiWeekSingola = eventiWeek.filter(onlyUnique)
 
-        const listaTabDatiWeek = []
+        let listaTabDatiWeek = []
         let tabella = []
         for(let c=0;c<eventiWeekSingola.length;c++) {
             const indexCicl = tempoTotCicl.findIndex(el => el.settimana===eventiWeekSingola[c])
@@ -531,8 +524,6 @@ const Report = props => {
                 trimpNuotoMinSingolo = trimpNuotoMin[indexNuoto]
             }
 
-            console.log(tempoTotNuoto)
-
             const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "10vw",
             gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
             
@@ -614,6 +605,8 @@ const Report = props => {
                 aggiungiPagina()
             }
         } */
+
+        listaTabDatiWeek = tempoTotCicl.length>0 || tempoTotCorsa.length>0 || tempoTotNuoto.length>0 ? listaTabDatiWeek : null
 
         return {listaStampaWorkouts, listaTabDatiWeek}
 
