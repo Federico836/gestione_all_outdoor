@@ -27,6 +27,7 @@ import ZoneNuoto from './tabZone/ZoneNuoto'
 import Intestazione from './logo/intestazione_cybertest.png'
 
 import styles from './Report.module.css'
+import './Report.css'
 
 const Report = props => {
     const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone } = props
@@ -688,6 +689,14 @@ const Report = props => {
                 border: solid 1px black;
             }
 
+            .intestazione-report {
+                position: fixed;
+                height: 90vh;
+            }
+            .container-tab-report {
+                margin-left: 6vw;
+            }
+
           </style>`+contenuto.innerHTML)
         pagina.document.close()
         pagina.focus()
@@ -695,6 +704,8 @@ const Report = props => {
     }
 
     const tabelleReport = stampaTabelleReport()
+
+    console.log(styles)
 
     return (
         <div>
@@ -704,8 +715,8 @@ const Report = props => {
             </div>
             
             <div ref={paginaDaStampare}>
-                <img src={Intestazione} style={{position: "fixed", height: "90vh"}} />
-                <div style={{marginLeft: "6vw"}}>
+                <img src={Intestazione} className="intestazione-report" />
+                <div className="container-tab-report">
                     {tabelleReport.listaStampaWorkouts}
                     {tabelleReport.listaTabDatiWeek}
                     {tabellone ? 
