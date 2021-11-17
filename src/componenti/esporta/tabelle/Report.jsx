@@ -721,12 +721,12 @@ const Report = props => {
             </div>
             
             <div ref={paginaDaStampare}>
+                <PrimaPaginaReport dataInizio={rangeDateSelect.start} dataFine={rangeDateSelect.end} />
                 <img src={Intestazione} className="intestazione-report" />
                 <div className="container-tab-report">
-                    <PrimaPaginaReport dataInizio={rangeDateSelect.start} dataFine={rangeDateSelect.end} />
                     {tabelleReport.listaStampaWorkouts}
                     {tabelleReport.listaTabDatiWeek}
-                    {tabellone ? 
+                    {tabellone ?
                     <>
                         <div style={{pageBreakAfter: "always"}}></div>
                         {fc!==0 && ftp!==0  ? <div>
