@@ -32,7 +32,7 @@ const TabPalestraAddRiga = (props) => {
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:palestra:esercizio')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:palestra:serie')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:palestra:ripetizioni')}</th>
-                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:palestra:peso')}</th>
+                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:palestra:peso')} kg/lbs</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:palestra:recupero')}</th>
                         <th style={{textAlign: 'center'}}>TUT</th>
                         <th style={{textAlign: 'center'}}>Note</th>

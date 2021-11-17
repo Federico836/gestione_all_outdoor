@@ -21,10 +21,10 @@ const Row = (props) => {
             <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.esercizio}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.serie}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.peso}</span></div>
+            <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.peso}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.tut}</span></div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
                 onClick={() => aggiungiRiga(riga)}><span>📋</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
@@ -72,10 +72,10 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '15%', textAlign: 'center'}}>{t('scrivi-framework:palestra:esercizio')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:palestra:serie')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:palestra:ripetizioni')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:palestra:peso')}</div>
+            <div style={{border: '1px solid gray', width: '15%', textAlign: 'center'}}>{t('scrivi-framework:palestra:peso')} kg/lbs</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:palestra:recupero')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>TUT</div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>Note</div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center'}}>Note</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:palestra:clona')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:palestra:modifica')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:palestra:elimina')}</div>
