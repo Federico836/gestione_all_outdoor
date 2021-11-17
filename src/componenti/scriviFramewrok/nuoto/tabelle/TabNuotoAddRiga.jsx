@@ -25,7 +25,7 @@ const TabNuotoAddRiga = (props) => {
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:zona')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:serie')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:ripetizioni')}</th>
-                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:distanza')}</th>
+                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:distanza')} m/yrd</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:recupero')}</th>
                         <th style={{textAlign: 'center'}}>Note</th>
                     </thead>

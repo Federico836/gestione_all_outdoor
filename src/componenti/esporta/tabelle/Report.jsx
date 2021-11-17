@@ -631,9 +631,6 @@ const Report = props => {
                     margin: 1cm;
                     size: landscape;
                 }
-                /* body {
-                    margin: 1.6cm;
-                } */
             }
 
             .containerTab {

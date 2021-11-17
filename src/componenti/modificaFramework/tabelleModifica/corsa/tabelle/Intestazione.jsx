@@ -59,7 +59,7 @@ const Intestazione = (props) => {
             <fieldset className={styles.riquadroTest}>
                 <legend>Test</legend>
                 <div>
-                    {t('scrivi-framework:corsa:distanza')} <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
+                    {t('scrivi-framework:corsa:distanza')} Km/Mi <input type="number" value={distanza/1000} onChange={e => setDistanza(e.target.value*1000)} />
                 </div>
                 <div>
                     {t('scrivi-framework:corsa:tempo')} ({toHHMMSS(tempo)}) <input type="text" /* value={toHHMMSS(tempo)}  *//* onChange={e => setTempo(e.target.value)} */ onBlur={onBlurTempo} />
