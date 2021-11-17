@@ -153,6 +153,13 @@
         "densita": "DENSITA",
         "tempo-zone": "TEMPO NELLE ZONE",
         "totale-delle-settimane": "TOTALE DELLE SETTIMANE"
+      },
+      "prima-pagina": {
+        "planning-allenamenti": "PLANNING ALLENAMENTI",
+        "da": "dal",
+        "a": "al",
+        "atleta": "ATLETA",
+        "allenatore": "ALLENATORE"
       }
     },
     "tab-zone": {

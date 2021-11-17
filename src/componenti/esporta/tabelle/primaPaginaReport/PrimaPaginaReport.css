@@ -1,0 +1,7 @@
+.container-prima-pagina-report {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    page-break-after: always;
+}

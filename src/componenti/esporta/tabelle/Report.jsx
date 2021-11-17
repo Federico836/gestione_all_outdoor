@@ -25,6 +25,7 @@ import ZoneCorsa from './tabZone/ZoneCorsa'
 import ZoneNuoto from './tabZone/ZoneNuoto'
 
 import Intestazione from './logo/intestazione_cybertest.png'
+import PrimaPaginaReport from './primaPaginaReport/PrimaPaginaReport'
 
 import styles from './Report.module.css'
 import './Report.css'
@@ -694,6 +695,14 @@ const Report = props => {
                 margin-left: 6vw;
             }
 
+            .container-prima-pagina-report {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                page-break-after: always;
+            }
+
           </style>`+contenuto.innerHTML)
         pagina.document.close()
         pagina.focus()
@@ -714,6 +723,7 @@ const Report = props => {
             <div ref={paginaDaStampare}>
                 <img src={Intestazione} className="intestazione-report" />
                 <div className="container-tab-report">
+                    <PrimaPaginaReport dataInizio={rangeDateSelect.start} dataFine={rangeDateSelect.end} />
                     {tabelleReport.listaStampaWorkouts}
                     {tabelleReport.listaTabDatiWeek}
                     {tabellone ? 

@@ -153,6 +153,13 @@
         "densita": "DENSITY",
         "tempo-zone": "TIME IN ZONES",
         "totale-delle-settimane": "TOTAL OF THE WEEKS"
+      },
+      "prima-pagina": {
+        "planning-allenamenti": "WORKOUTS PLANNING",
+        "da": "from",
+        "a": "to",
+        "atleta": "ATHLETE",
+        "allenatore": "TRAINER"
       }
     },
     "tab-zone": {
