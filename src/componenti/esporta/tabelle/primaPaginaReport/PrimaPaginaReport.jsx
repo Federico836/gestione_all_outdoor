@@ -22,8 +22,8 @@ const PrimaPaginaReport = props => {
                 <h1>{t('esporta:report:prima-pagina:planning-allenamenti')}</h1>
             </div>
             <div style={{marginTop: "10vh"}}>
-                <h2>{t('esporta:report:prima-pagina:da')+" "+dataInizio.toISOString().substring(0, 10)+" "+
-                t('esporta:report:prima-pagina:a')+" "+dataFine.toISOString().substring(0, 10)}</h2>
+                <h2>{t('esporta:report:prima-pagina:da')+" "+dataInizio.toLocaleDateString()+" "+
+                t('esporta:report:prima-pagina:a')+" "+dataFine.toLocaleDateString()}</h2>
             </div>
             <div>
                 <h2>{t('esporta:report:prima-pagina:atleta')}: PIPPO</h2>
@@ -36,3 +36,4 @@ const PrimaPaginaReport = props => {
 }
 
 export default PrimaPaginaReport
+

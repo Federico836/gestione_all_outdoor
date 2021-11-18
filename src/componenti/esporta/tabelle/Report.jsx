@@ -72,6 +72,8 @@ const Report = props => {
     
         for(let c=0;c<eventiSelezionati.length;c++) {
             //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
+
+            console.log(rangeDateSelect)
     
             let framework = listaFramework.find(frame => frame.id===eventiSelezionati[c].extendedProps.mdId)
             /* if(!framework) continue; */
@@ -251,12 +253,16 @@ const Report = props => {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:gara:gara')}</h4>)
                 tabDaAggiungere.push(<div style={{whiteSpace: "pre-wrap"}}>{framework.testo}</div>)
             }
+
+            const dataConOSenzaOrario = evento => evento.allDay ? evento.start.toLocaleDateString() :
+            evento.start.toLocaleDateString()+" "+t('esporta:report:prima-pagina:da')+" "+evento.start.toLocaleTimeString()
+            +" "+t('esporta:report:prima-pagina:a')+" "+evento.end.toLocaleTimeString()
     
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()
                 || eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
                     listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
-                        <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                        <h3>{dataConOSenzaOrario(eventiSelezionati[c])}</h3>
                         {tabDaAggiungere}
                     </div>)
                 } else {
@@ -266,7 +272,7 @@ const Report = props => {
                 }
             } else {
                 listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
-                    <h3>{eventiSelezionati[c].start.toISOString()}</h3>
+                    <h3>{dataConOSenzaOrario(eventiSelezionati[c])}</h3>
                     {tabDaAggiungere}
                 </div>)
             }
@@ -719,7 +725,7 @@ const Report = props => {
             </div>
             
             <div ref={paginaDaStampare}>
-                <PrimaPaginaReport dataInizio={rangeDateSelect.start} dataFine={rangeDateSelect.end} />
+                <PrimaPaginaReport dataInizio={rangeDateSelect.start} dataFine={new Date(rangeDateSelect.end-86400000)} />
                 <img src={Intestazione} className="intestazione-report" />
                 <div className="container-tab-report">
                     {tabelleReport.listaStampaWorkouts}
