@@ -2,6 +2,8 @@ import modello7zone from './modelli/modello7zone.json'
 import modelloCorsa from './modelli/modelloCorsa.json'
 import modelloNuoto from './modelli/modelloNuoto.json'
 
+const axios = require('axios')
+
 const calcola7Zone = (ftp, fc) => {
 
     /* if(!ftp || !fc) return null */
@@ -79,4 +81,47 @@ const toHHMMSS = secs => {
       .replace(/^0/, "");
 }
 
-export { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto, getSecondsFromHHMMSS, toHHMMSS }
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    //var file = new File([filename], filepath);
+    var reader = new FileReader();
+    // Read file content on file loaded event
+    reader.onload = function(event) {
+      resolve(event.target.result);
+    };
+    // Convert data to base64 
+    reader.readAsDataURL(file);
+  });
+}
+
+const postReport = (id_utente, id_allenatore, nome_file, dati, cookie) => {
+
+  const params = new URLSearchParams();
+
+  params.append('auth_cookie', cookie);
+  params.append('id_utente', id_utente);
+  params.append('id_allenatore', id_allenatore);
+  params.append('nome_file', nome_file);
+  params.append('dati', dati);
+
+  return axios.post('https://www.magneticdays.com/api/md/post_upload_pdf', params)
+}
+
+const uploadFiles = (files) => {
+  console.log(files)
+  Array.from(files).forEach((file) => {
+
+      fileToBase64(file).then(result => {
+          const stringInBase64 = result.replace("data:application/pdf;base64,","")
+          
+          postReport(window.md.user.ID,window.md.logged_user.ID,file.name,stringInBase64,window.md.cookie).then((res) => {
+              console.log(res)
+              alert("file caricato correttamente")
+          }).catch((error) => {
+              console.log(error)
+          })
+      });
+  })
+}
+
+export { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto, getSecondsFromHHMMSS, toHHMMSS, uploadFiles }

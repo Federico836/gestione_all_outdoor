@@ -197,6 +197,7 @@
         "tipo-lavoro": "TIPO LAVORO",
         "tempo": "TEMPO"
       }
-    }
+    },
+    "carica": "CARICA"
   }
 }

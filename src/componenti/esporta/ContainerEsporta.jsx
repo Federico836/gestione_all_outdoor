@@ -4,6 +4,7 @@ import Calendario from './tabelle/Calendario'
 import TabListaFramework from './tabelle/TabListaFramework'
 import TabValori from './tabelle/TabValori'
 import Report from './tabelle/Report'
+import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
 import { useTranslation } from 'react-i18next'
 
 import { Button, Checkbox } from "@mui/material"
@@ -31,6 +32,7 @@ const ContainerEsporta = props => {
             <>
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
+                    <BtnCaricaFile />
                 </div>
 
                 <div className={styles.containerGrid}>

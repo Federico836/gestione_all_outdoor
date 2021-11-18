@@ -711,8 +711,6 @@ const Report = props => {
 
     const tabelleReport = stampaTabelleReport()
 
-    console.log(styles)
-
     return (
         <div>
             <div className={styles.containerBottoni}>
