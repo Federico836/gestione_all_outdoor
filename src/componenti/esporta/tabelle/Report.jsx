@@ -255,8 +255,8 @@ const Report = props => {
             }
 
             const dataConOSenzaOrario = evento => evento.allDay ? evento.start.toLocaleDateString() :
-            evento.start.toLocaleDateString()+" "+t('esporta:report:prima-pagina:da')+" "+evento.start.toLocaleTimeString()
-            +" "+t('esporta:report:prima-pagina:a')+" "+evento.end.toLocaleTimeString()
+            evento.start.toLocaleDateString()+" "+t('esporta:report:prima-pagina:dalle')+" "+evento.start.toLocaleTimeString()
+            +" "+t('esporta:report:prima-pagina:alle')+" "+evento.end.toLocaleTimeString()
     
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()
@@ -765,4 +765,3 @@ Date.prototype.getWeek = function() {
     // Adjust to Thursday in week 1 and count number of weeks from date to week1.
     return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
 }
-

@@ -159,7 +159,9 @@
         "da": "from",
         "a": "to",
         "atleta": "ATHLETE",
-        "allenatore": "TRAINER"
+        "allenatore": "TRAINER",
+        "dalle": "from",
+        "alle": "to"
       }
     },
     "tab-zone": {
