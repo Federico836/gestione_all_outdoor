@@ -100,11 +100,11 @@ const TabDatiWeek = props => {
                     <tr>
                         <td>{t('esporta:report:tab-dati-week:densita')}</td>
                         {tempoTotCicl ? <><td></td>
-                        <td>{densitaCicl}</td></> : null}
+                        <td>{(densitaCicl) ? densitaCicl.toFixed(2) : "0"}</td></> : null}
                         {tempoTotCorsa ? <><td></td>
-                        <td>{densitaCorsa}</td></> : null}
+                        <td>{(densitaCorsa) ? densitaCorsa.toFixed(2) : "0"}</td></> : null}
                         {tempoTotNuoto ? <><td></td>
-                        <td>{densitaNuoto}</td></> : null}
+                        <td>{densitaNuoto.toFixed(2)}</td></> : null}
                     </tr>
                     <tr>
                         <td rowSpan="8">{t('esporta:report:tab-dati-week:tempo-zone')}</td>

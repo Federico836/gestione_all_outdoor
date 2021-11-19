@@ -30,6 +30,10 @@ import PrimaPaginaReport from './primaPaginaReport/PrimaPaginaReport'
 import styles from './Report.module.css'
 import './Report.css'
 
+import elaboraCiclismo from '../../../utils/funzioniCiclismo'
+import elaboraCorsa from '../../../utils/funzioniCorsa'
+import elaboraNuoto from '../../../utils/funzioniNuoto'
+
 const Report = props => {
     const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone } = props
 
@@ -47,28 +51,38 @@ const Report = props => {
     const zoneCalcCorsa = calcolaZoneCorsa(1000/passoCorsa)
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
 
+
+    const getWeeks = (arr,criteria = "settimana") => {
+
+        const newObj = arr.map(el => { return {settimana: el.start.getWeek()}}).reduce(function (acc, currentValue) {
+            if (!acc[currentValue[criteria]]) {
+              acc[currentValue[criteria]] = [];
+            }
+            acc[currentValue[criteria]].push(currentValue);
+            return acc;
+          }, {});
+    
+         return Object.keys(newObj)
+    }
+
     const stampaTabelleReport = () => {
 
         const listaStampaWorkouts = []
-        let tempoTotCicl = []
-        let tempoTotCorsa = []
-        let tempoTotNuoto = []
-    
-        let recTotCicl = []
-        let recTotCorsa = []
-        let recTotNuoto = []
-    
-        let distTotCorsa = []
-        let distTotNuoto = []
-    
-        const tempoZoneCicl = []
-        const tempoZoneCorsa = []
-        const tempoZoneNuoto = []
+       
+        const weeks = getWeeks(eventiSelezionati)
 
-        const sommaWltCicl = []
-        const sommaWlsCicl = []
+        const ciclismo = elaboraCiclismo(listaFramework,eventiSelezionati,ftp,fc)
+        const corsa = elaboraCorsa(listaFramework,eventiSelezionati,passoCorsa)
+        const nuoto = elaboraNuoto(listaFramework,eventiSelezionati,passoNuoto)        
+       
+        const eventi = weeks.map(w => {
 
-        const contaWorkoutCicl = []
+            const c = ciclismo.eventiCiclismoGrouped.find(el => el.settimana === w)
+            const cor = corsa.eventiCorsaGrouped.find(el => el.settimana === w)
+            const n = nuoto.eventiNuotoGrouped.find(el => el.settimana === w)
+
+            return {settimana: w, ciclismo: c, corsa: cor, nuoto: n}
+        })
     
         for(let c=0;c<eventiSelezionati.length;c++) {
             //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
@@ -89,155 +103,28 @@ const Report = props => {
             
             let listaRigheFrameCalc = []
             let tabDaAggiungere = []
-            if(framework.tipoPerSelect==="ciclismo") {
-                listaRigheFrameCalc = listaRigheFrame.map(riga => {
-                    const wattMedia = (zoneCalcCiclismo[riga.zona-1].watt_min+zoneCalcCiclismo[riga.zona-1].watt_max)/2
 
-                    return {...riga, wattMin: zoneCalcCiclismo[riga.zona-1].watt_min, wattMax: zoneCalcCiclismo[riga.zona-1].watt_max, wattMedia,
-                        fcMin: zoneCalcCiclismo[riga.zona-1].fc_min, fcMax: zoneCalcCiclismo[riga.zona-1].fc_max}
-                })
+             if(framework.tipoPerSelect==="ciclismo") {
 
-                let mediaPonderata = 0
-                listaRigheFrameCalc.forEach(riga => {
-                    mediaPonderata += Math.pow(riga.wattMedia, 4)
-                })
-                
-                mediaPonderata = Math.pow(mediaPonderata, 0.25)
-                const wltWorkout = mediaPonderata/ftp
-                const wlsWorkout = funzioniCicl.calcTempoTot(listaRigheFrameCalc)*mediaPonderata*wltWorkout/ftp/3600*100
-    
+                const datiCiclismo = ciclismo.calcolaDatiCiclismo(listaRigheFrame,ftp,fc)  
+                listaRigheFrameCalc = datiCiclismo.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
-                tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={listaRigheFrameCalc} />)
+                tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={datiCiclismo.rowsCalc} />)
     
-                const aggiungiTempoTot = () => tempoTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcTempoTot(listaRigheFrameCalc)})
-                const aggiungiRecTot = () => recTotCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.calcRecTot(listaRigheFrameCalc)})
-    
-                const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}}
-                const tempoZone = funzioniCicl.calcTempoZone(listaRigheFrameCalc)
-                const aggiungiTempoZone = () => tempoZoneCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCicl.sommaZone(addOggettoZone(), tempoZone)})
-                const aggiungiSommaWlt = () => sommaWltCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: wltWorkout})
-                const aggiungiSommaWls = () => sommaWlsCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: wlsWorkout})
-                const aggiungiContaWorkout = () => contaWorkoutCicl.push({settimana: eventiSelezionati[c].start.getWeek(), num: 1})
-
-                if(c>0) {
-                    if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                        aggiungiTempoTot()
-                        aggiungiRecTot()
-                        aggiungiTempoZone()
-                        aggiungiSommaWlt()
-                        aggiungiSommaWls()
-                        aggiungiContaWorkout()
-                    } else {
-                        if(tempoTotCicl.length<1) {
-                            aggiungiTempoTot()
-                            aggiungiRecTot()
-                            aggiungiTempoZone()
-                            aggiungiSommaWlt()
-                            aggiungiSommaWls()
-                            aggiungiContaWorkout()
-                        } else {
-                            tempoTotCicl[tempoTotCicl.length-1].num += funzioniCicl.calcTempoTot(listaRigheFrameCalc)
-                            recTotCicl[recTotCicl.length-1].num += funzioniCicl.calcRecTot(listaRigheFrameCalc)
-                            funzioniCicl.sommaZone(tempoZoneCicl[tempoZoneCicl.length-1].num, tempoZone)
-                            sommaWltCicl[sommaWltCicl.length-1].num += wltWorkout
-                            sommaWlsCicl[sommaWlsCicl.length-1].num += wlsWorkout
-                            contaWorkoutCicl[contaWorkoutCicl.length-1].num += 1
-                        }
-                    }
-                } else {
-                    aggiungiTempoTot()
-                    aggiungiRecTot()
-                    aggiungiTempoZone()
-                    aggiungiSommaWlt()
-                    aggiungiSommaWls()
-                    aggiungiContaWorkout()
-                }
             } else if(framework.tipoPerSelect==="corsa") {
-                listaRigheFrameCalc = listaRigheFrame.map(riga => {
-                    return {...riga, passoMin: 1000/zoneCalcCorsa[riga.zona.zona-1].min,
-                        passoMax: 1000/zoneCalcCorsa[riga.zona.zona-1].max,
-                        passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media}
-                })
-    
+
+                const datiCorsa = corsa.calcolaDatiCorsa(listaRigheFrame, passoCorsa)
+                listaRigheFrameCalc = datiCorsa.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:corsa:corsa')}</h4>)
                 tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
-    
-                const aggiungiTempoTot = () => tempoTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcTempoTot(listaRigheFrameCalc)})
-                const aggiungiRecTot = () => recTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcRecTot(listaRigheFrameCalc)})
-                const aggiungiDistanzaTot = () => distTotCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)*1000})
-    
-                const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}}
-                const tempoZone = funzioniCorsa.calcTempoZone(listaRigheFrameCalc)
-                const aggiungiTempoZone = () => tempoZoneCorsa.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniCorsa.sommaZone(addOggettoZone(), tempoZone)})
-                if(c>0) {
-                    if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                        aggiungiTempoTot()
-                        aggiungiRecTot()
-                        aggiungiDistanzaTot()
-                        aggiungiTempoZone()
-                    } else {
-                        if(tempoTotCorsa.length<1) {
-                            aggiungiTempoTot()
-                            aggiungiRecTot()
-                            aggiungiDistanzaTot()
-                            aggiungiTempoZone()
-                        } else {
-                            tempoTotCorsa[tempoTotCorsa.length-1].num += funzioniCorsa.calcTempoTot(listaRigheFrameCalc)
-                            recTotCorsa[recTotCorsa.length-1].num += funzioniCorsa.calcRecTot(listaRigheFrameCalc)
-                            distTotCorsa[distTotCorsa.length-1].num += funzioniCorsa.calcDistanzaTot(listaRigheFrameCalc)*1000
-                            funzioniCorsa.sommaZone(tempoZoneCorsa[tempoZoneCorsa.length-1].num, tempoZone)
-                        }
-                    }
-                } else {
-                    aggiungiTempoTot()
-                    aggiungiRecTot()
-                    aggiungiDistanzaTot()
-                    aggiungiTempoZone()
-                }
-    
+            
             } else if(framework.tipoPerSelect==="nuoto") {
-                listaRigheFrameCalc = listaRigheFrame.map(riga => {
-                    return {...riga, passo: 100/zoneCalcNuoto[riga.zona.zona-1].perce}
-                })
-    
+
+                const datiNuoto = nuoto.calcolaDatiNuoto(listaRigheFrame, passoNuoto)
+                listaRigheFrameCalc = datiNuoto.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:nuoto:nuoto')}</h4>)
                 tabDaAggiungere.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
-    
-                const aggiungiTempoTot = () => tempoTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcTempoTot(listaRigheFrameCalc)})
-                const aggiungiRecTot = () => recTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcRecTot(listaRigheFrameCalc)})
-                const aggiungiDistanzaTot = () => distTotNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)})
-    
-                const addOggettoZone = () => { return {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}}
-                const tempoZone = funzioniNuoto.calcTempoZone(listaRigheFrameCalc)
-                const aggiungiTempoZone = () => tempoZoneNuoto.push({settimana: eventiSelezionati[c].start.getWeek(), num: funzioniNuoto.sommaZone(addOggettoZone(), tempoZone)})
-                if(c>0) {
-                    if(eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                        aggiungiTempoTot()
-                        aggiungiRecTot()
-                        aggiungiDistanzaTot()
-                        aggiungiTempoZone()
-                    } else {
-                        if(tempoTotNuoto.lengh<1) {
-                            aggiungiTempoTot()
-                            aggiungiRecTot()
-                            aggiungiDistanzaTot()
-                            aggiungiTempoZone()
-                        } else {
-                            /* if(tempoTotNuoto.lengh>0) { */
-                                tempoTotNuoto[tempoTotNuoto.length-1].num += funzioniNuoto.calcTempoTot(listaRigheFrameCalc)
-                                recTotNuoto[recTotNuoto.length-1].num += funzioniNuoto.calcRecTot(listaRigheFrameCalc)
-                                distTotNuoto[distTotNuoto.length-1].num += funzioniNuoto.calcDistanzaTot(listaRigheFrameCalc)
-                                funzioniNuoto.sommaZone(tempoZoneNuoto[tempoZoneNuoto.length-1].num, tempoZone)
-                            /* } */
-                        }
-                    }
-                } else {
-                    aggiungiTempoTot()
-                    aggiungiRecTot()
-                    aggiungiDistanzaTot()
-                    aggiungiTempoZone()
-                }
-    
+            
             } else if(framework.tipoPerSelect==="palestra") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
                 tabDaAggiungere.push(<TabPalestraDragNDrop listaRighe={listaRigheFrame} />)
@@ -279,352 +166,134 @@ const Report = props => {
     
         }
     
-        // ciclismo
-        const densitaCicl = []
-        const tempoTotCiclConRec = []
-        const wltCicl = []
-    
-        const trimpCiclAerobic = []
-        const trimpCiclMixed = []
-        const trimpCiclAnaerobic = []
-        const trimpCiclTotal = []
-        const trimpCiclMin = []
-        for(let c=0;c<tempoTotCicl.length;c++) {
-            densitaCicl.push(recTotCicl[c].num/tempoTotCicl[c].num*100)
-            tempoTotCiclConRec.push(tempoTotCicl[c].num+recTotCicl[c].num)
-            wltCicl.push(sommaWltCicl[c].num/contaWorkoutCicl[c].num)
-    
-            trimpCiclAerobic.push((tempoZoneCicl[c].num.zona1+tempoZoneCicl[c].num.zona2)/60)
-            trimpCiclMixed.push((tempoZoneCicl[c].num.zona3+tempoZoneCicl[c].num.zona4)/60*2)
-            trimpCiclAnaerobic.push((tempoZoneCicl[c].num.zona5+tempoZoneCicl[c].num.zona6+tempoZoneCicl[c].num.zona7)/60*3)
-            trimpCiclTotal.push(trimpCiclAerobic[trimpCiclAerobic.length-1]+trimpCiclMixed[trimpCiclMixed.length-1]
-                +trimpCiclAnaerobic[trimpCiclAnaerobic.length-1])
-            trimpCiclMin.push(trimpCiclTotal[trimpCiclTotal.length-1]/tempoTotCicl[c].num/60)
-        }
-    
-        // corsa
-        const velMediaCorsa = []
-        const passoMedioCorsa = []
-        const densitaCorsa = []
-        const tempoTotCorsaConRec = []
-        const wltCorsa = []
-        const wlsCorsa = []
-    
-        const trimpCorsaAerobic = []
-        const trimpCorsaMixed = []
-        const trimpCorsaAnaerobic = []
-        const trimpCorsaTotal = []
-        const trimpCorsaMin = []
-        for(let c=0;c<tempoTotCorsa.length;c++) {
-            const velMedia = distTotCorsa[c].num/tempoTotCorsa[c].num
-            velMediaCorsa.push(velMedia)
-            passoMedioCorsa.push(1000/velMedia)
-            densitaCorsa.push(recTotCorsa[c].num/tempoTotCorsa[c].num*100)
-            tempoTotCorsaConRec.push(tempoTotCorsa[c].num+recTotCorsa[c].num)
-            wltCorsa.push(passoCorsa/passoMedioCorsa[passoMedioCorsa.length-1])
-            wlsCorsa.push(Math.pow(wltCorsa[wltCorsa.length-1], 3)*tempoTotCorsa[c].num/3600*100)
-    
-            trimpCorsaAerobic.push((tempoZoneCorsa[c].num.zona1+tempoZoneCorsa[c].num.zona2)/60)
-            trimpCorsaMixed.push((tempoZoneCorsa[c].num.zona3+tempoZoneCorsa[c].num.zona4)/60*2)
-            trimpCorsaAnaerobic.push((tempoZoneCorsa[c].num.zona5+tempoZoneCorsa[c].num.zona6)/60*3)
-            trimpCorsaTotal.push(trimpCorsaAerobic[trimpCorsaAerobic.length-1]+trimpCorsaMixed[trimpCorsaMixed.length-1]
-                +trimpCorsaAnaerobic[trimpCorsaAnaerobic.length-1])
-            trimpCorsaMin.push(trimpCorsaTotal[trimpCorsaTotal.length-1]/tempoTotCorsa[c].num/60)
-        }
-    
-        // nuoto
-        const velMediaNuoto = []
-        const passoMedioNuoto = []
-        const densitaNuoto = []
-        const tempoTotNuotoConRec = []
-        const wltNuoto = []
-        const wlsNuoto = []
-    
-        const trimpNuotoAerobic = []
-        const trimpNuotoMixed = []
-        const trimpNuotoAnaerobic = []
-        const trimpNuotoTotal = []
-        const trimpNuotoMin = []
-        for(let c=0;c<tempoTotNuoto.length;c++) {
-            const velMedia = distTotNuoto[c].num/tempoTotNuoto[c].num
-            velMediaNuoto.push(velMedia)
-            passoMedioNuoto.push(100/velMedia)
-            densitaNuoto.push(recTotNuoto/tempoTotNuoto*100)
-            tempoTotNuotoConRec.push(tempoTotNuoto[c].num+recTotNuoto[c].num)
-            wltNuoto.push(passoNuoto/passoMedioNuoto[passoMedioNuoto.length-1])
-            wlsNuoto.push(Math.pow(wltNuoto[wltNuoto.length-1], 3)*tempoTotNuoto[c].num/3600*100)
-    
-            trimpNuotoAerobic.push((tempoZoneNuoto[c].num.zona1+tempoZoneNuoto[c].num.zona2)/60)
-            trimpNuotoMixed.push((tempoZoneNuoto[c].num.zona3+tempoZoneNuoto[c].num.zona4)/60*2)
-            trimpNuotoAnaerobic.push((tempoZoneNuoto[c].num.zona5+tempoZoneNuoto[c].num.zona6)/60*3)
-            trimpNuotoTotal.push(trimpNuotoAerobic[trimpNuotoAerobic.length-1]+trimpNuotoMixed[trimpNuotoMixed.length-1]
-                +trimpNuotoAnaerobic[trimpNuotoAnaerobic.length-1])
-            trimpNuotoMin.push(trimpNuotoTotal[trimpNuotoTotal.length-1]/tempoTotNuoto[c].num/60)
-        }
-
-        // totaloni
-
-        // ciclismo
-        let ciclTotaloneTempo = 0
-        let ciclTotaloneRec = 0
-        const ciclTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0}
-        let ciclTotaloneSommaWlt = 0
-        let ciclTotaloneWls = 0
-        for(let c=0;c<tempoTotCicl.length;c++) {
-            ciclTotaloneTempo += tempoTotCicl[c].num
-            ciclTotaloneRec += recTotCicl[c].num
-            funzioniCicl.sommaZone(ciclTotaloneTempoZone, tempoZoneCicl[c].num)
-            ciclTotaloneSommaWlt += wltCicl[c]
-            ciclTotaloneWls += sommaWlsCicl[c].num
-        }
-        const ciclTotaloneTempoConRec = ciclTotaloneTempo+ciclTotaloneRec
-        const ciclTotaloneDensita = ciclTotaloneRec/ciclTotaloneTempo*100
-        const ciclTotaloneTrimpAerobic = (ciclTotaloneTempoZone.zona1+ciclTotaloneTempoZone.zona2)/60
-        const ciclTotaloneTrimpMixed = (ciclTotaloneTempoZone.zona3+ciclTotaloneTempoZone.zona4)/60*2
-        const ciclTotaloneTrimpAnaerobic = (ciclTotaloneTempoZone.zona5+ciclTotaloneTempoZone.zona6+ciclTotaloneTempoZone.zona7)/60*3
-        const ciclTotaloneTrimpTotal = ciclTotaloneTrimpAerobic+ciclTotaloneTrimpMixed+ciclTotaloneTrimpAnaerobic
-        const ciclTotaloneTrimpMin = ciclTotaloneTrimpTotal/ciclTotaloneTempo/60
-        const ciclTotaloneWlt = ciclTotaloneSommaWlt/wltCicl.length
-
-        // corsa
-        let corsaTotaloneTempo = 0
-        let corsaTotaloneRec = 0
-        let corsaTotaloneDistanza = 0
-        const corsaTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0}
-        for(let c=0;c<tempoTotCorsa.length;c++) {
-            corsaTotaloneTempo += tempoTotCorsa[c].num
-            corsaTotaloneRec += recTotCorsa[c].num
-            corsaTotaloneDistanza += distTotCorsa[c].num
-            funzioniCorsa.sommaZone(corsaTotaloneTempoZone, tempoZoneCorsa[c].num)
-        }
-        const corsaTotaloneTempoConRec = corsaTotaloneTempo+corsaTotaloneRec
-        const corsaTotaloneVelMedia = corsaTotaloneDistanza/corsaTotaloneTempo
-        const corsaTotalonePassoMedio = 1000/corsaTotaloneVelMedia
-        const corsaTotaloneWlt = passoCorsa/corsaTotalonePassoMedio
-        const corsaTotaloneWls = Math.pow(corsaTotaloneWlt, 3)*corsaTotaloneTempo/3600*1100
-        const corsaTotaloneDensita = corsaTotaloneRec/corsaTotaloneTempo*100
-        const corsaTotaloneTrimpAerobic = (corsaTotaloneTempoZone.zona1+corsaTotaloneTempoZone.zona2)/60
-        const corsaTotaloneTrimpMixed = (corsaTotaloneTempoZone.zona3+corsaTotaloneTempoZone.zona4)/60*2
-        const corsaTotaloneTrimpAnaerobic = (corsaTotaloneTempoZone.zona5+corsaTotaloneTempoZone.zona6)/60*3
-        const corsaTotaloneTrimpTotal = corsaTotaloneTrimpAerobic+corsaTotaloneTrimpMixed+corsaTotaloneTrimpAnaerobic
-        const corsaTotaloneTrimpMin = corsaTotaloneTrimpTotal/corsaTotaloneTempo/60
-
-        // nuoto
-        let nuotoTotaloneTempo = 0
-        let nuotoTotaloneRec = 0
-        let nuotoTotaloneDistanza = 0
-        const nuotoTotaloneTempoZone = {zona1: 0, zona2: 0, zona3: 0, zona4: 0, zona5: 0, zona6: 0, zona7: 0, zona8: 0}
-        for(let c=0;c<tempoTotNuoto.length;c++) {
-            nuotoTotaloneTempo += tempoTotNuoto[c].num
-            nuotoTotaloneRec += recTotNuoto[c].num
-            nuotoTotaloneDistanza += distTotNuoto[c].num
-            funzioniNuoto.sommaZone(nuotoTotaloneTempoZone, tempoZoneNuoto[c].num)
-        }
-        const nuotoTotaloneTempoConRec = nuotoTotaloneTempo+nuotoTotaloneRec
-        const nuotoTotaloneVelMedia = nuotoTotaloneDistanza/nuotoTotaloneTempo
-        const nuotoTotalonePassoMedio = 1000/nuotoTotaloneVelMedia
-        const nuotoTotaloneWlt = passoNuoto/nuotoTotalonePassoMedio
-        const nuotoTotaloneWls = Math.pow(nuotoTotaloneWlt, 3)*nuotoTotaloneTempo/3600*1100
-        const nuotoTotaloneDensita = nuotoTotaloneRec/nuotoTotaloneTempo*100
-        const nuotoTotaloneTrimpAerobic = (nuotoTotaloneTempoZone.zona1+nuotoTotaloneTempoZone.zona2)/60
-        const nuotoTotaloneTrimpMixed = (nuotoTotaloneTempoZone.zona3+nuotoTotaloneTempoZone.zona4)/60*2
-        const nuotoTotaloneTrimpAnaerobic = (nuotoTotaloneTempoZone.zona5+nuotoTotaloneTempoZone.zona6)/60*3
-        const nuotoTotaloneTrimpTotal = nuotoTotaloneTrimpAerobic+nuotoTotaloneTrimpMixed+nuotoTotaloneTrimpAnaerobic
-        const nuotoTotaloneTrimpMin = nuotoTotaloneTrimpTotal/nuotoTotaloneTempo/60
-
-        function onlyUnique(value, index, self) {
-            return self.indexOf(value) === index;
-        }
-        const eventiWeek = eventiSelezionati.map(evento => evento.start.getWeek())
-        const eventiWeekSingola = eventiWeek.filter(onlyUnique)
-
         let listaTabDatiWeek = []
         let tabella = []
         let contaTabelle = 0
-        for(let c=0;c<eventiWeekSingola.length;c++) {
-            const indexCicl = tempoTotCicl.findIndex(el => el.settimana===eventiWeekSingola[c])
-            const indexCorsa = tempoTotCorsa.findIndex(el => el.settimana===eventiWeekSingola[c])
-            const indexNuoto = tempoTotNuoto.findIndex(el => el.settimana===eventiWeekSingola[c])
 
-            let wltCiclSingolo = 0
-            let wlsCiclSingolo = 0
-            let tempoTotCiclSingolo = 0
-            let recTotCiclSingolo = 0
-            let tempoTotCiclConRecSingolo = 0
-            let densitaCiclSingolo = 0
-            let tempoZoneCiclSingolo = 0
-            let trimpCiclAerobicSingolo = 0
-            let trimpCiclMixedSingolo = 0
-            let trimpCiclAnaerobicSingolo = 0
-            let trimpCiclTotalSingolo = 0
-            let trimpCiclMinSingolo = 0
-            if(indexCicl>=0) {
-                wltCiclSingolo = wltCicl[indexCicl]
-                wlsCiclSingolo = sommaWlsCicl[indexCicl].num
-                tempoTotCiclSingolo = tempoTotCicl[indexCicl].num
-                recTotCiclSingolo = recTotCicl[indexCicl].num
-                tempoTotCiclConRecSingolo = tempoTotCiclConRec[indexCicl]
-                densitaCiclSingolo = densitaCicl[indexCicl]
-                tempoZoneCiclSingolo = tempoZoneCicl[indexCicl].num
-                trimpCiclAerobicSingolo = trimpCiclAerobic[indexCicl]
-                trimpCiclMixedSingolo = trimpCiclMixed[indexCicl]
-                trimpCiclAnaerobicSingolo = trimpCiclAnaerobic[indexCicl]
-                trimpCiclTotalSingolo = trimpCiclTotal[indexCicl]
-                trimpCiclMinSingolo = trimpCiclMin[indexCicl]
-            }
 
-            let wltCorsaSingolo = 0
-            let wlsCorsaSingolo = 0
-            let passoMedioCorsaSingolo = 0
-            let tempoTotCorsaSingolo = 0
-            let recTotCorsaSingolo = 0
-            let tempoTotCorsaConRecSingolo = 0
-            let distTotCorsaSingolo = 0
-            let densitaCorsaSingolo = 0
-            let tempoZoneCorsaSingolo = 0
-            let trimpCorsaAerobicSingolo = 0
-            let trimpCorsaMixedSingolo = 0
-            let trimpCorsaAnaerobicSingolo = 0
-            let trimpCorsaTotalSingolo = 0
-            let trimpCorsaMinSingolo = 0
-            if(indexCorsa>=0) {
-                wltCorsaSingolo = wltCorsa[indexCorsa]
-                wlsCorsaSingolo = wlsCorsa[indexCorsa]
-                passoMedioCorsaSingolo = passoMedioCorsa[indexCorsa]
-                tempoTotCorsaSingolo = tempoTotCorsa[indexCorsa].num
-                recTotCorsaSingolo = recTotCorsa[indexCorsa].num
-                tempoTotCorsaConRecSingolo = tempoTotCorsaConRec[indexCorsa]
-                distTotCorsaSingolo = distTotCorsa[indexCorsa].num
-                densitaCorsaSingolo = densitaCorsa[indexCorsa]
-                tempoZoneCorsaSingolo = tempoZoneCorsa[indexCorsa].num
-                trimpCorsaAerobicSingolo = trimpCorsaAerobic[indexCorsa]
-                trimpCorsaMixedSingolo = trimpCorsaMixed[indexCorsa]
-                trimpCorsaAnaerobicSingolo = trimpCorsaAnaerobic[indexCorsa]
-                trimpCorsaTotalSingolo = trimpCorsaTotal[indexCorsa]
-                trimpCorsaMinSingolo = trimpCorsaMin[indexCorsa]
-            }
+        const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "10vw",
+        gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
 
-            let wltNuotoSingolo = 0
-            let wlsNuotoSingolo = 0
-            let passoMedioNuotoSingolo = 0
-            let tempoTotNuotoSingolo = 0
-            let recTotNuotoSingolo = 0
-            let tempoTotNuotoConRecSingolo = 0
-            let distTotNuotoSingolo = 0
-            let densitaNuotoSingolo = 0
-            let tempoZoneNuotoSingolo = 0
-            let trimpNuotoAerobicSingolo = 0
-            let trimpNuotoMixedSingolo = 0
-            let trimpNuotoAnaerobicSingolo = 0
-            let trimpNuotoTotalSingolo = 0
-            let trimpNuotoMinSingolo = 0
-            if(indexNuoto>=0) {
-                wltNuotoSingolo = wltNuoto[indexNuoto]
-                wlsNuotoSingolo = wlsNuoto[indexNuoto]
-                passoMedioNuotoSingolo = passoMedioNuoto[indexNuoto]
-                tempoTotNuotoSingolo = tempoTotNuoto[indexNuoto].num
-                recTotNuotoSingolo = recTotNuoto[indexNuoto].num
-                tempoTotNuotoConRecSingolo = tempoTotNuotoConRec[indexNuoto]
-                distTotNuotoSingolo = distTotNuoto[indexNuoto].num
-                densitaNuotoSingolo = densitaNuoto[indexNuoto]
-                tempoZoneNuotoSingolo = tempoZoneNuoto[indexNuoto].num
-                trimpNuotoAerobicSingolo = trimpNuotoAerobic[indexNuoto]
-                trimpNuotoMixedSingolo = trimpNuotoMixed[indexNuoto]
-                trimpNuotoAnaerobicSingolo = trimpNuotoAnaerobic[indexNuoto]
-                trimpNuotoTotalSingolo = trimpNuotoTotal[indexNuoto]
-                trimpNuotoMinSingolo = trimpNuotoMin[indexNuoto]
-            }
 
-            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "10vw",
-            gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
-            
-            // (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))
-            const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+(contaTabelle+1)}
-            // ciclismo
-            wltCicl={wltCiclSingolo} wlsCicl={wlsCiclSingolo}
-            tempoTotCicl={tempoTotCiclSingolo} recTotCicl={recTotCiclSingolo} tempoTotCiclConRec={tempoTotCiclConRecSingolo}
-            densitaCicl={densitaCiclSingolo} tempoZoneCicl={tempoZoneCiclSingolo} trimpCiclAerobic={trimpCiclAerobicSingolo}
-            trimpCiclMixed={trimpCiclMixedSingolo} trimpCiclAnaerobic={trimpCiclAnaerobicSingolo}
-            trimpCiclTotal={trimpCiclTotalSingolo} trimpCiclMin={trimpCiclMinSingolo}
-            // corsa
-            wltCorsa={wltCorsaSingolo} wlsCorsa={wlsCorsaSingolo} tempoTotCorsa={tempoTotCorsaSingolo}
-            recTotCorsa={recTotCorsaSingolo} tempoTotCorsaConRec={tempoTotCorsaConRecSingolo} distTotCorsa={distTotCorsaSingolo}
-            densitaCorsa={densitaCorsaSingolo} tempoZoneCorsa={tempoZoneCorsaSingolo} trimpCorsaAerobic={trimpCorsaAerobicSingolo}
-            trimpCorsaMixed={trimpCorsaMixedSingolo} trimpCorsaAnaerobic={trimpCorsaAnaerobicSingolo}
-            trimpCorsaTotal={trimpCorsaTotalSingolo} trimpCorsaMin={trimpCorsaMinSingolo} passoMedioCorsa={passoMedioCorsaSingolo}
-            // nuoto
-            wltNuoto={wltNuotoSingolo} wlsNuoto={wlsNuotoSingolo} passoMedioNuoto={passoMedioNuotoSingolo}
-            tempoTotNuoto={tempoTotNuotoSingolo} recTotNuoto={recTotNuotoSingolo} tempoTotNuotoConRec={tempoTotNuotoConRecSingolo}
-            distTotNuoto={distTotNuotoSingolo} densitaNuoto={densitaNuotoSingolo} tempoZoneNuoto={tempoZoneNuotoSingolo}
-            trimpNuotoAerobic={trimpNuotoAerobicSingolo} trimpNuotoMixed={trimpNuotoMixedSingolo}
-            trimpNuotoAnaerobic={trimpNuotoAnaerobicSingolo} trimpNuotoTotal={trimpNuotoTotalSingolo}
-            trimpNuotoMin={trimpNuotoMinSingolo} />
-
-            const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
-            // ciclismo
-            wltCicl={ciclTotaloneWlt} wlsCicl={ciclTotaloneWls} tempoTotCicl={ciclTotaloneTempo}
-            recTotCicl={ciclTotaloneRec} tempoTotCiclConRec={ciclTotaloneTempoConRec} densitaCicl={ciclTotaloneDensita}
-            tempoZoneCicl={ciclTotaloneTempoZone} trimpCiclAerobic={ciclTotaloneTrimpAerobic} trimpCiclMixed={ciclTotaloneTrimpMixed}
-            trimpCiclAnaerobic={ciclTotaloneTrimpAnaerobic} trimpCiclTotal={ciclTotaloneTrimpTotal}
-            trimpCiclMin={ciclTotaloneTrimpMin}
-            // corsa
-            wltCorsa={corsaTotaloneWlt} wlsCorsa={corsaTotaloneWls} tempoTotCorsa={corsaTotaloneTempo}
-            recTotCorsa={corsaTotaloneRec} tempoTotCorsaConRec={corsaTotaloneTempoConRec} distTotCorsa={corsaTotaloneDistanza}
-            densitaCorsa={corsaTotaloneDensita} tempoZoneCorsa={corsaTotaloneTempoZone} trimpCorsaAerobic={corsaTotaloneTrimpAerobic}
-            trimpCorsaMixed={corsaTotaloneTrimpMixed} trimpCorsaAnaerobic={corsaTotaloneTrimpAnaerobic}
-            trimpCorsaTotal={corsaTotaloneTrimpTotal} trimpCorsaMin={corsaTotaloneTrimpMin} passoMedioCorsa={corsaTotalonePassoMedio}
-            // nuoto
-            wltNuoto={nuotoTotaloneWlt} wlsNuoto={nuotoTotaloneWls} passoMedioNuoto={nuotoTotalonePassoMedio}
-            tempoTotNuoto={nuotoTotaloneTempo} recTotNuoto={nuotoTotaloneRec} tempoTotNuotoConRec={nuotoTotaloneTempoConRec}
-            distTotNuoto={nuotoTotaloneDistanza} densitaNuoto={nuotoTotaloneDensita} tempoZoneNuoto={nuotoTotaloneTempoZone}
-            trimpNuotoAerobic={nuotoTotaloneTrimpAerobic} trimpNuotoMixed={nuotoTotaloneTrimpMixed}
-            trimpNuotoAnaerobic={nuotoTotaloneTrimpAnaerobic} trimpNuotoTotal={nuotoTotaloneTrimpTotal}
-            trimpNuotoMin={nuotoTotaloneTrimpMin} />
-
-            console.log(tempoTotCorsa)
-            
-            if(indexCicl>=0 || indexCorsa>=0 || indexNuoto>=0) {
-                if(contaTabelle%2===0 && contaTabelle!==0) {
-                    aggiungiPagina()
-                    tabella = [tabellaSingola]
-                } else {
-                    tabella.push(tabellaSingola)
-                }
-                contaTabelle++
-            }
-            if(c===eventiWeekSingola.length-1) {
-                if(tabella.length<2) {
-                    tabella.push(tabellaTotali)
-                    aggiungiPagina()
-                } else {
-                    aggiungiPagina()
-                    tabella = [tabellaTotali]
-                    aggiungiPagina()
-                }
-            }
-        }
+    for(let c=0;c<eventi.length;c++) {
         
-        /* const listaTabDatiWeek = []
-        let tabella = []
-        for(let c=0;c<listaPiuLunga.lung;c++) {
-            const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "flex", justifyContent: "space-around", alignItems: "center", pageBreakBefore: "always"}}>{tabella}</div>)
-            
-            const tabellaSingola = <TabDatiWeek settimana={listaPiuLunga.settimana-(listaPiuLunga.settimana-1-c)} />
-            
-            if(c%2===0 && c!==0) {
-                aggiungiPagina()
-                tabella = [tabellaSingola]
-            } else {
-                tabella.push(tabellaSingola)
-            }
-            if(c===listaPiuLunga.lung-1) {
-                aggiungiPagina()
-            }
-        } */
+        const week = eventi[c]
 
-        listaTabDatiWeek = tempoTotCicl.length>0 || tempoTotCorsa.length>0 || tempoTotNuoto.length>0 ? listaTabDatiWeek : null
+        // (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))
+        const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+(contaTabelle+1)}
+        // ciclismo
+        wltCicl={(week.ciclismo) ? week.ciclismo.wltWorkoutTot: null} 
+        wlsCicl={(week.ciclismo) ? week.ciclismo.wlsWorkoutTot: null}
+        tempoTotCicl={(week.ciclismo) ? week.ciclismo.tempoTot: null} 
+        recTotCicl={(week.ciclismo) ? week.ciclismo.recTot: null} 
+        tempoTotCiclConRec={(week.ciclismo) ? week.ciclismo.tempoTotCiclConRec: null}
+        densitaCicl={(week.ciclismo) ? week.ciclismo.densitaCicl: null} 
+        tempoZoneCicl={(week.ciclismo) ? week.ciclismo.tempoZone: null} 
+        trimpCiclAerobic={(week.ciclismo) ? week.ciclismo.trimpCiclAerobic: null}
+        trimpCiclMixed={(week.ciclismo) ? week.ciclismo.trimpCiclMixed: null} 
+        trimpCiclAnaerobic={(week.ciclismo) ? week.ciclismo.trimpCiclAnaerobic: null}
+        trimpCiclTotal={(week.ciclismo) ? week.ciclismo.trimpCiclTotal: null} 
+        trimpCiclMin={(week.ciclismo) ? week.ciclismo.trimpCiclMin: null} 
+        // corsa
+        tempoTotCorsa={(week.corsa) ? week.corsa.tempoTot : null}
+        recTotCorsa={(week.corsa) ? week.corsa.recTot : null}
+        distTotCorsa={(week.corsa) ? week.corsa.distTot : null}
+        tempoZoneCorsa={(week.corsa) ? week.corsa.tempoZone : null}
+        velMedia={(week.corsa) ? week.corsa.velMedia : null}
+        passoMedioCorsa={(week.corsa) ? week.corsa.passoMedioCorsa : null}
+        densitaCorsa={(week.corsa) ? week.corsa.densitaCorsa : null}
+        tempoTotCorsaConRec={(week.corsa) ? week.corsa.tempoTotCorsaConRec : null} 
+        wltCorsa={(week.corsa) ? week.corsa.wltCorsa : null}
+        wlsCorsa={(week.corsa) ? week.corsa.wlsCorsa : null}
+        trimpCorsaAerobic={(week.corsa) ? week.corsa.trimpCorsaAerobic : null}
+        trimpCorsaMixed={(week.corsa) ? week.corsa.trimpCorsaMixed : null}
+        trimpCorsaAnaerobic={(week.corsa) ? week.corsa.trimpCorsaAnaerobic : null} 
+        trimpCorsaTotal={(week.corsa) ? week.corsa.trimpCorsaTotal : null}
+        trimpCorsaMin={(week.corsa) ? week.corsa.trimpCorsaMin : null}   
 
-        return {listaStampaWorkouts, listaTabDatiWeek}
+        // nuoto
+        tempoTotNuoto={(week.nuoto) ? week.nuoto.tempoTot : null}
+        recTotNuoto={(week.nuoto) ? week.nuoto.recTot : null}
+        distTotNuoto={(week.nuoto) ? week.nuoto.distTot : null}
+        tempoZoneNuoto={(week.nuoto) ? week.nuoto.tempoZone : null}
+        velMedia={(week.nuoto) ? week.nuoto.velMedia : null}
+        passoMedioNuoto={(week.nuoto) ? week.nuoto.passoMedioNuoto : null}
+        densitaNuoto={(week.nuoto) ? week.nuoto.densitaNuoto : null}
+        tempoTotNuotoConRec={(week.nuoto) ? week.nuoto.tempoTotNuotoConRec : null} 
+        wltNuoto={(week.nuoto) ? week.nuoto.wltNuoto : null}
+        wlsNuoto={(week.nuoto) ? week.nuoto.wlsNuoto : null}
+        trimpNuotoAerobic={(week.nuoto) ? week.nuoto.trimpNuotoAerobic : null}
+        trimpNuotoMixed={(week.nuoto) ? week.nuoto.trimpNuotoMixed : null}
+        trimpNuotoAnaerobic={(week.nuoto) ? week.nuoto.trimpNuotoAnaerobic : null} 
+        trimpNuotoTotal={(week.nuoto) ? week.nuoto.trimpNuotoTotal : null}
+        trimpNuotoMin={(week.nuoto) ? week.nuoto.trimpNuotoMin : null} />
+
+
+        if(contaTabelle%2===0 && contaTabelle!==0) {
+            aggiungiPagina()
+            tabella = [tabellaSingola]
+        } else {
+            tabella.push(tabellaSingola)
+        }
+        contaTabelle++
+    }
+
+        const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
+        // ciclismo
+        wltCicl={ciclismo.totaliCiclismo.wltWorkoutTot} wlsCicl={ciclismo.totaliCiclismo.wlsWorkoutTot}
+        tempoTotCicl={ciclismo.totaliCiclismo.tempoTot} recTotCicl={ciclismo.totaliCiclismo.recTot} tempoTotCiclConRec={ciclismo.totaliCiclismo.tempoTotCiclConRec}
+        densitaCicl={ciclismo.totaliCiclismo.densitaCicl} tempoZoneCicl={ciclismo.totaliCiclismo.tempoZone} trimpCiclAerobic={ciclismo.totaliCiclismo.trimpCiclAerobic}
+        trimpCiclMixed={ciclismo.totaliCiclismo.trimpCiclMixed} trimpCiclAnaerobic={ciclismo.totaliCiclismo.trimpCiclAnaerobic}
+        trimpCiclTotal={ciclismo.totaliCiclismo.trimpCiclTotal} trimpCiclMin={ciclismo.totaliCiclismo.trimpCiclMin} 
+
+        // corsa
+        tempoTotCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.tempoTot : null}
+        recTotCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.recTot : null}
+        distTotCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.distTot : null}
+        tempoZoneCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.tempoZone : null}
+        velMedia={(corsa.totaliCorsa) ? corsa.totaliCorsa.velMedia : null}
+        passoMedioCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.passoMedioCorsa : null}
+        densitaCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.densitaCorsa : null}
+        tempoTotCorsaConRec={(corsa.totaliCorsa) ? corsa.totaliCorsa.tempoTotCorsaConRec : null} 
+        wltCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.wltCorsa : null}
+        wlsCorsa={(corsa.totaliCorsa) ? corsa.totaliCorsa.wlsCorsa : null}
+        trimpCorsaAerobic={(corsa.totaliCorsa) ? corsa.totaliCorsa.trimpCorsaAerobic : null}
+        trimpCorsaMixed={(corsa.totaliCorsa) ? corsa.totaliCorsa.trimpCorsaMixed : null}
+        trimpCorsaAnaerobic={(corsa.totaliCorsa) ? corsa.totaliCorsa.trimpCorsaAnaerobic : null} 
+        trimpCorsaTotal={(corsa.totaliCorsa) ? corsa.totaliCorsa.trimpCorsaTotal : null}
+        trimpCorsaMin={(corsa.totaliCorsa) ? corsa.totaliCorsa.trimpCorsaMin : null} 
+
+
+        //nuoto
+        tempoTotNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.tempoTot : null}
+        recTotNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.recTot : null}
+        distTotNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.distTot : null}
+        tempoZoneNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.tempoZone : null}
+        velMedia={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.velMedia : null}
+        passoMedioNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.passoMedioNuoto : null}
+        densitaNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.densitaNuoto : null}
+        tempoTotNuotoConRec={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.tempoTotNuotoConRec : null} 
+        wltNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.wltNuoto : null}
+        wlsNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.wlsNuoto : null}
+        trimpNuotoAerobic={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoAerobic : null}
+        trimpNuotoMixed={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoMixed : null}
+        trimpNuotoAnaerobic={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoAnaerobic : null} 
+        trimpNuotoTotal={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoTotal : null}
+        trimpNuotoMin={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoMin : null} />
+
+        if(tabella.length<2) {
+            tabella.push(tabellaTotali)
+            aggiungiPagina()
+        } else {
+            aggiungiPagina()
+            tabella = [tabellaTotali]
+            aggiungiPagina()
+        }
+    
+
+        //listaTabDatiWeek = tempoTotCicl.length>0 || tempoTotCorsa.length>0 || tempoTotNuoto.length>0 ? listaTabDatiWeek : null
+
+        return { listaStampaWorkouts, listaTabDatiWeek }
 
     }
 
