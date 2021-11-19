@@ -34,6 +34,8 @@ import elaboraCiclismo from '../../../utils/funzioniCiclismo'
 import elaboraCorsa from '../../../utils/funzioniCorsa'
 import elaboraNuoto from '../../../utils/funzioniNuoto'
 
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts'
+
 const Report = props => {
     const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone } = props
 
@@ -175,68 +177,93 @@ const Report = props => {
         gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
 
 
-    for(let c=0;c<eventi.length;c++) {
-        
-        const week = eventi[c]
+        for(let c=0;c<eventi.length;c++) {
+            
+            const week = eventi[c]
 
-        // (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))
-        const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+(contaTabelle+1)}
-        // ciclismo
-        wltCicl={(week.ciclismo) ? week.ciclismo.wltWorkoutTot: null} 
-        wlsCicl={(week.ciclismo) ? week.ciclismo.wlsWorkoutTot: null}
-        tempoTotCicl={(week.ciclismo) ? week.ciclismo.tempoTot: null} 
-        recTotCicl={(week.ciclismo) ? week.ciclismo.recTot: null} 
-        tempoTotCiclConRec={(week.ciclismo) ? week.ciclismo.tempoTotCiclConRec: null}
-        densitaCicl={(week.ciclismo) ? week.ciclismo.densitaCicl: null} 
-        tempoZoneCicl={(week.ciclismo) ? week.ciclismo.tempoZone: null} 
-        trimpCiclAerobic={(week.ciclismo) ? week.ciclismo.trimpCiclAerobic: null}
-        trimpCiclMixed={(week.ciclismo) ? week.ciclismo.trimpCiclMixed: null} 
-        trimpCiclAnaerobic={(week.ciclismo) ? week.ciclismo.trimpCiclAnaerobic: null}
-        trimpCiclTotal={(week.ciclismo) ? week.ciclismo.trimpCiclTotal: null} 
-        trimpCiclMin={(week.ciclismo) ? week.ciclismo.trimpCiclMin: null} 
-        // corsa
-        tempoTotCorsa={(week.corsa) ? week.corsa.tempoTot : null}
-        recTotCorsa={(week.corsa) ? week.corsa.recTot : null}
-        distTotCorsa={(week.corsa) ? week.corsa.distTot : null}
-        tempoZoneCorsa={(week.corsa) ? week.corsa.tempoZone : null}
-        velMedia={(week.corsa) ? week.corsa.velMedia : null}
-        passoMedioCorsa={(week.corsa) ? week.corsa.passoMedioCorsa : null}
-        densitaCorsa={(week.corsa) ? week.corsa.densitaCorsa : null}
-        tempoTotCorsaConRec={(week.corsa) ? week.corsa.tempoTotCorsaConRec : null} 
-        wltCorsa={(week.corsa) ? week.corsa.wltCorsa : null}
-        wlsCorsa={(week.corsa) ? week.corsa.wlsCorsa : null}
-        trimpCorsaAerobic={(week.corsa) ? week.corsa.trimpCorsaAerobic : null}
-        trimpCorsaMixed={(week.corsa) ? week.corsa.trimpCorsaMixed : null}
-        trimpCorsaAnaerobic={(week.corsa) ? week.corsa.trimpCorsaAnaerobic : null} 
-        trimpCorsaTotal={(week.corsa) ? week.corsa.trimpCorsaTotal : null}
-        trimpCorsaMin={(week.corsa) ? week.corsa.trimpCorsaMin : null}   
+            // (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))
+            const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+(contaTabelle+1)}
+            // ciclismo
+            wltCicl={(week.ciclismo) ? week.ciclismo.wltWorkoutTot: null} 
+            wlsCicl={(week.ciclismo) ? week.ciclismo.wlsWorkoutTot: null}
+            tempoTotCicl={(week.ciclismo) ? week.ciclismo.tempoTot: null} 
+            recTotCicl={(week.ciclismo) ? week.ciclismo.recTot: null} 
+            tempoTotCiclConRec={(week.ciclismo) ? week.ciclismo.tempoTotCiclConRec: null}
+            densitaCicl={(week.ciclismo) ? week.ciclismo.densitaCicl: null} 
+            tempoZoneCicl={(week.ciclismo) ? week.ciclismo.tempoZone: null} 
+            trimpCiclAerobic={(week.ciclismo) ? week.ciclismo.trimpCiclAerobic: null}
+            trimpCiclMixed={(week.ciclismo) ? week.ciclismo.trimpCiclMixed: null} 
+            trimpCiclAnaerobic={(week.ciclismo) ? week.ciclismo.trimpCiclAnaerobic: null}
+            trimpCiclTotal={(week.ciclismo) ? week.ciclismo.trimpCiclTotal: null} 
+            trimpCiclMin={(week.ciclismo) ? week.ciclismo.trimpCiclMin: null} 
+            // corsa
+            tempoTotCorsa={(week.corsa) ? week.corsa.tempoTot : null}
+            recTotCorsa={(week.corsa) ? week.corsa.recTot : null}
+            distTotCorsa={(week.corsa) ? week.corsa.distTot : null}
+            tempoZoneCorsa={(week.corsa) ? week.corsa.tempoZone : null}
+            velMedia={(week.corsa) ? week.corsa.velMedia : null}
+            passoMedioCorsa={(week.corsa) ? week.corsa.passoMedioCorsa : null}
+            densitaCorsa={(week.corsa) ? week.corsa.densitaCorsa : null}
+            tempoTotCorsaConRec={(week.corsa) ? week.corsa.tempoTotCorsaConRec : null} 
+            wltCorsa={(week.corsa) ? week.corsa.wltCorsa : null}
+            wlsCorsa={(week.corsa) ? week.corsa.wlsCorsa : null}
+            trimpCorsaAerobic={(week.corsa) ? week.corsa.trimpCorsaAerobic : null}
+            trimpCorsaMixed={(week.corsa) ? week.corsa.trimpCorsaMixed : null}
+            trimpCorsaAnaerobic={(week.corsa) ? week.corsa.trimpCorsaAnaerobic : null} 
+            trimpCorsaTotal={(week.corsa) ? week.corsa.trimpCorsaTotal : null}
+            trimpCorsaMin={(week.corsa) ? week.corsa.trimpCorsaMin : null}   
 
-        // nuoto
-        tempoTotNuoto={(week.nuoto) ? week.nuoto.tempoTot : null}
-        recTotNuoto={(week.nuoto) ? week.nuoto.recTot : null}
-        distTotNuoto={(week.nuoto) ? week.nuoto.distTot : null}
-        tempoZoneNuoto={(week.nuoto) ? week.nuoto.tempoZone : null}
-        velMedia={(week.nuoto) ? week.nuoto.velMedia : null}
-        passoMedioNuoto={(week.nuoto) ? week.nuoto.passoMedioNuoto : null}
-        densitaNuoto={(week.nuoto) ? week.nuoto.densitaNuoto : null}
-        tempoTotNuotoConRec={(week.nuoto) ? week.nuoto.tempoTotNuotoConRec : null} 
-        wltNuoto={(week.nuoto) ? week.nuoto.wltNuoto : null}
-        wlsNuoto={(week.nuoto) ? week.nuoto.wlsNuoto : null}
-        trimpNuotoAerobic={(week.nuoto) ? week.nuoto.trimpNuotoAerobic : null}
-        trimpNuotoMixed={(week.nuoto) ? week.nuoto.trimpNuotoMixed : null}
-        trimpNuotoAnaerobic={(week.nuoto) ? week.nuoto.trimpNuotoAnaerobic : null} 
-        trimpNuotoTotal={(week.nuoto) ? week.nuoto.trimpNuotoTotal : null}
-        trimpNuotoMin={(week.nuoto) ? week.nuoto.trimpNuotoMin : null} />
+            // nuoto
+            tempoTotNuoto={(week.nuoto) ? week.nuoto.tempoTot : null}
+            recTotNuoto={(week.nuoto) ? week.nuoto.recTot : null}
+            distTotNuoto={(week.nuoto) ? week.nuoto.distTot : null}
+            tempoZoneNuoto={(week.nuoto) ? week.nuoto.tempoZone : null}
+            velMedia={(week.nuoto) ? week.nuoto.velMedia : null}
+            passoMedioNuoto={(week.nuoto) ? week.nuoto.passoMedioNuoto : null}
+            densitaNuoto={(week.nuoto) ? week.nuoto.densitaNuoto : null}
+            tempoTotNuotoConRec={(week.nuoto) ? week.nuoto.tempoTotNuotoConRec : null} 
+            wltNuoto={(week.nuoto) ? week.nuoto.wltNuoto : null}
+            wlsNuoto={(week.nuoto) ? week.nuoto.wlsNuoto : null}
+            trimpNuotoAerobic={(week.nuoto) ? week.nuoto.trimpNuotoAerobic : null}
+            trimpNuotoMixed={(week.nuoto) ? week.nuoto.trimpNuotoMixed : null}
+            trimpNuotoAnaerobic={(week.nuoto) ? week.nuoto.trimpNuotoAnaerobic : null} 
+            trimpNuotoTotal={(week.nuoto) ? week.nuoto.trimpNuotoTotal : null}
+            trimpNuotoMin={(week.nuoto) ? week.nuoto.trimpNuotoMin : null} />
 
+            console.log(week.ciclismo.tempoZone)
 
-        if(contaTabelle%2===0 && contaTabelle!==0) {
-            aggiungiPagina()
-            tabella = [tabellaSingola]
-        } else {
-            tabella.push(tabellaSingola)
+            if(contaTabelle%2===0 && contaTabelle!==0) {
+                aggiungiPagina()
+                tabella = [tabellaSingola]
+            } else {
+                tabella.push(tabellaSingola)
+            }
+            contaTabelle++
         }
-        contaTabelle++
-    }
+
+        const tabGraficiWeek = []
+        const listaZoneGrafico = ["zona1", "zona2", "zona3", "zona4", "zona5", "zona6", "zona7"].map(zona => {
+            const el = {zona}
+            let contaCicl = 0
+            eventi.forEach((week, index) => {
+                if(week.ciclismo) {
+                    el[t('esporta:report:tab-dati-week:settimana')+" "+(index+1)]=week.ciclismo.tempoZone[zona]
+                }
+            })
+
+            return el
+        })
+        console.log(listaZoneGrafico)
+        tabGraficiWeek.push(<BarChart width={730} height={250} data={listaZoneGrafico}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {eventi.map((week, index) => <Bar dataKey={t('esporta:report:tab-dati-week:settimana')+" "+(index+1)} fill="blue" />)}
+                {/* <Bar dataKey="46" fill="blue" />
+                <Bar dataKey="47" fill="lightblue" /> */}
+            </BarChart>)
 
         const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
         // ciclismo
@@ -263,7 +290,6 @@ const Report = props => {
         trimpCorsaTotal={(corsa.totaliCorsa) ? corsa.totaliCorsa.trimpCorsaTotal : null}
         trimpCorsaMin={(corsa.totaliCorsa) ? corsa.totaliCorsa.trimpCorsaMin : null} 
 
-
         //nuoto
         tempoTotNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.tempoTot : null}
         recTotNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.recTot : null}
@@ -289,12 +315,8 @@ const Report = props => {
             tabella = [tabellaTotali]
             aggiungiPagina()
         }
-    
 
-        //listaTabDatiWeek = tempoTotCicl.length>0 || tempoTotCorsa.length>0 || tempoTotNuoto.length>0 ? listaTabDatiWeek : null
-
-        return { listaStampaWorkouts, listaTabDatiWeek }
-
+        return { listaStampaWorkouts, listaTabDatiWeek, tabGraficiWeek }
     }
 
     const stampa = () => {
@@ -399,6 +421,7 @@ const Report = props => {
                 <div className="container-tab-report">
                     {tabelleReport.listaStampaWorkouts}
                     {tabelleReport.listaTabDatiWeek}
+                    {tabelleReport.tabGraficiWeek}
                     {tabellone ?
                     <>
                         <div style={{pageBreakAfter: "always"}}></div>
