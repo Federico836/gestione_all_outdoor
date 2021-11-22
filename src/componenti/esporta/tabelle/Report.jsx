@@ -240,6 +240,10 @@ const Report = props => {
         const tabGraficiWeek = []
         tabGraficiWeek.push(<GraficoWeek.CiclTempoZone eventi={eventi} />)
         tabGraficiWeek.push(<GraficoWeek.CorsaTempoZone eventi={eventi} />)
+        tabGraficiWeek.push(<GraficoWeek.NuotoTempoZone eventi={eventi} />)
+        tabGraficiWeek.push(<GraficoWeek.CiclTrimp eventi={eventi} />)
+        tabGraficiWeek.push(<GraficoWeek.CorsaTrimp eventi={eventi} />)
+        tabGraficiWeek.push(<GraficoWeek.NuotoTrimp eventi={eventi} />)
 
         const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
         // ciclismo
