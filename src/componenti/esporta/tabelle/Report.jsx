@@ -12,9 +12,7 @@ import TabSportDragNDrop from './tabSport/TabSportDragNDrop'
 
 import TabDatiWeek from './tabDatiWeek/TabDatiWeek'
 
-import { calcola7Zone } from '../../../utils/funzioni'
-import { calcolaZoneCorsa } from '../../../utils/funzioni'
-import { calcolaZoneNuoto } from '../../../utils/funzioni'
+import { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto } from '../../../utils/funzioni'
 
 import * as funzioniCicl from './tabSport/funzioniTotaliCicl'
 import * as funzioniCorsa from './tabSport/funzioniTotaliCorsa'
@@ -34,7 +32,7 @@ import elaboraCiclismo from '../../../utils/funzioniCiclismo'
 import elaboraCorsa from '../../../utils/funzioniCorsa'
 import elaboraNuoto from '../../../utils/funzioniNuoto'
 
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts'
+import * as GraficoWeek from './grafici/settimana/GraficoWeek'
 
 const Report = props => {
     const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone } = props
@@ -230,8 +228,6 @@ const Report = props => {
             trimpNuotoTotal={(week.nuoto) ? week.nuoto.trimpNuotoTotal : null}
             trimpNuotoMin={(week.nuoto) ? week.nuoto.trimpNuotoMin : null} />
 
-            console.log(week.ciclismo.tempoZone)
-
             if(contaTabelle%2===0 && contaTabelle!==0) {
                 aggiungiPagina()
                 tabella = [tabellaSingola]
@@ -242,28 +238,8 @@ const Report = props => {
         }
 
         const tabGraficiWeek = []
-        const listaZoneGrafico = ["zona1", "zona2", "zona3", "zona4", "zona5", "zona6", "zona7"].map(zona => {
-            const el = {zona}
-            let contaCicl = 0
-            eventi.forEach((week, index) => {
-                if(week.ciclismo) {
-                    el[t('esporta:report:tab-dati-week:settimana')+" "+(index+1)]=week.ciclismo.tempoZone[zona]
-                }
-            })
-
-            return el
-        })
-        console.log(listaZoneGrafico)
-        tabGraficiWeek.push(<BarChart width={730} height={250} data={listaZoneGrafico}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                {eventi.map((week, index) => <Bar dataKey={t('esporta:report:tab-dati-week:settimana')+" "+(index+1)} fill="blue" />)}
-                {/* <Bar dataKey="46" fill="blue" />
-                <Bar dataKey="47" fill="lightblue" /> */}
-            </BarChart>)
+        tabGraficiWeek.push(<GraficoWeek.CiclTempoZone eventi={eventi} />)
+        tabGraficiWeek.push(<GraficoWeek.CorsaTempoZone eventi={eventi} />)
 
         const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
         // ciclismo
