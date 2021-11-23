@@ -24,7 +24,7 @@ const CiclTempoZone = props => {
     const listaColoriCicl = ["#063b00", "#607c3c", "#809c13", "	#abc32f", "#b5e550", "#ececa3", "#b7ffbf"]
 
     return (
-        <ResponsiveContainer width="30%" height={250} /* aspect={16/9} */ >
+        <ResponsiveContainer width="100%" height={250} /* aspect={16/9} */ >
             <BarChart data={listaZoneGrafico}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="zona" />
@@ -57,7 +57,7 @@ const CorsaTempoZone = props => {
     const listaColoriCorsa = ["#190000", "#330000", "#4d0000", "#800000", "#b30000", "#e60000", "#ff0000"]
 
     return (
-        <ResponsiveContainer width="30%" height={250} /* aspect={16/9} */ >
+        <ResponsiveContainer width="100%" height={250} /* aspect={16/9} */ >
             <BarChart data={listaZoneGrafico}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="zona" />
@@ -90,7 +90,7 @@ const NuotoTempoZone = props => {
     const listaColoriNuoto = ["#0c3953", "#094c72", "#0079bf", "#298fca", "#5ba4cf", "#8bbdd9", "#bcd9ea"]
 
     return (
-        <ResponsiveContainer width="30%" height={250} /* aspect={16/9} */ >
+        <ResponsiveContainer width="100%" height={250} /* aspect={16/9} */ >
             <BarChart data={listaZoneGrafico}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="zona" />
@@ -132,7 +132,7 @@ const CiclTrimp = props => {
     const listaColoriCicl = ["#063b00", "#607c3c", "#809c13", "	#abc32f", "#b5e550", "#ececa3", "#b7ffbf"]
 
     return (
-        <ResponsiveContainer width="30%" height={250} /* aspect={16/9} */ >
+        <ResponsiveContainer width="100%" height={250} /* aspect={16/9} */ >
             <BarChart data={listaZoneGrafico}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="zona" />
@@ -174,7 +174,7 @@ const CorsaTrimp = props => {
     const listaColoriCorsa = ["#190000", "#330000", "#4d0000", "#800000", "#b30000", "#e60000", "#ff0000"]
 
     return (
-        <ResponsiveContainer width="30%" height={250} /* aspect={16/9} */ >
+        <ResponsiveContainer width="100%" height={250} /* aspect={16/9} */ >
             <BarChart data={listaZoneGrafico}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="zona" />
@@ -216,7 +216,7 @@ const NuotoTrimp = props => {
     const listaColoriNuoto = ["#0c3953", "#094c72", "#0079bf", "#298fca", "#5ba4cf", "#8bbdd9", "#bcd9ea"]
 
     return (
-        <ResponsiveContainer width="30%" height={250} /* aspect={16/9} */ >
+        <ResponsiveContainer width="100%" height={250} /* aspect={16/9} */ >
             <BarChart data={listaZoneGrafico}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="zona" />
