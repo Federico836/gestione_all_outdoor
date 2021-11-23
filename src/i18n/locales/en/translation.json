@@ -162,7 +162,8 @@
         "allenatore": "TRAINER",
         "dalle": "from",
         "alle": "to"
-      }
+      },
+      "grafici": {}
     },
     "tab-zone": {
       "ciclismo": {

@@ -246,12 +246,23 @@ const Report = props => {
         tabGraficiWeek.push(<GraficoWeek.NuotoTrimp eventi={eventi} />) */
 
         const tabGraficiWeek = <div className="containerGrafico">
-            <GraficoWeek.CiclTempoZone eventi={eventi} />
-            <GraficoWeek.CorsaTempoZone eventi={eventi} />
-            <GraficoWeek.NuotoTempoZone eventi={eventi} />
-            <GraficoWeek.CiclTrimp eventi={eventi} />
-            <GraficoWeek.CorsaTrimp eventi={eventi} />
-            <GraficoWeek.NuotoTrimp eventi={eventi} />
+            <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.CiclTempoZone eventi={eventi} /></div>
+            
+            <div><span>{(t('scrivi-framework:corsa:corsa')+" "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.CorsaTempoZone eventi={eventi} /></div>
+            
+            <div><span>{(t('scrivi-framework:nuoto:nuoto')+" "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.NuotoTempoZone eventi={eventi} /></div>
+            
+            <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" TRIMP "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.CiclTrimp eventi={eventi} /></div>
+            
+            <div><span>{(t('scrivi-framework:corsa:corsa')+" TRIMP "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.CorsaTrimp eventi={eventi} /></div>
+            
+            <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TRIMP "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.NuotoTrimp eventi={eventi} /></div>
         </div>
 
         const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
@@ -394,10 +405,16 @@ const Report = props => {
                 display: grid;
                 grid-template-columns: auto auto auto;
                 grid-template-rows: auto auto auto;
-                row-gap: 5%;
+                row-gap: 8%;
                 align-content: center;
                 page-break-before: always;
-                margin-left: -5vw;
+                margin-left: -3vw;
+            }
+            .containerGrafico>div {
+                text-align: center;
+            }
+            .containerGrafico>div>span {
+                margin-left: 5vw;
             }
 
           </style>`+contenuto.innerHTML)
