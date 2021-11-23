@@ -245,7 +245,7 @@ const Report = props => {
         tabGraficiWeek.push(<GraficoWeek.CorsaTrimp eventi={eventi} />)
         tabGraficiWeek.push(<GraficoWeek.NuotoTrimp eventi={eventi} />) */
 
-        const tabGraficiWeek = <div className="containerGrafico">
+        const tabGraficiWeek = [<div className="containerGrafico">
             <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
             </span><GraficoWeek.CiclTempoZone eventi={eventi} /></div>
             
@@ -263,7 +263,26 @@ const Report = props => {
             
             <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TRIMP "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
             </span><GraficoWeek.NuotoTrimp eventi={eventi} /></div>
-        </div>
+        </div>]
+        tabGraficiWeek.push(<div className="containerGrafico">
+            <div><span>{("Weight Load Training "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.Wlt eventi={eventi} tipo="cicl" /></div>
+            
+            <div><span>{("Weight Load Training "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.Wlt eventi={eventi} tipo="corsa" /></div>
+            
+            <div><span>{("Weight Load Training "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.Wlt eventi={eventi} tipo="nuoto" /></div>
+            
+            <div><span>{("Weight Load Stress "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.Wls eventi={eventi} tipo="cicl" /></div>
+            
+            <div><span>{("Weight Load Stress "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.Wls eventi={eventi} tipo="corsa" /></div>
+            
+            <div><span>{("Weight Load Stress "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
+            </span><GraficoWeek.Wls eventi={eventi} tipo="nuoto" /></div>
+        </div>)
 
         const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
         // ciclismo

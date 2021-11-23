@@ -79,6 +79,7 @@ const NuotoTempoZone = props => {
         const el = {zona}
 
         eventi.forEach((week, index) => {
+            console.log(week.nuoto)
             if(week.nuoto) {
                 el[t('esporta:report:tab-dati-week:settimana')+" "+(index+1)]=week.nuoto.tempoZone["zona"+(indexZona+1)]
             }
@@ -229,5 +230,99 @@ const NuotoTrimp = props => {
     )
 }
 
-export { CiclTempoZone, CorsaTempoZone, NuotoTempoZone, CiclTrimp, CorsaTrimp, NuotoTrimp }
+const Wlt = props => {
+    const { eventi, tipo } = props
+
+    const { t, i18n } = useTranslation()
+
+    let tipoProp = null
+    let tipoWlt = null
+    let listaColori = null
+    if(tipo==="cicl") {
+        tipoProp = week => week.ciclismo
+        listaColori = ["#063b00", "#607c3c", "#809c13", "	#abc32f", "#b5e550", "#ececa3", "#b7ffbf"]
+        tipoWlt = tipoProp => tipoProp.wltWorkoutTot
+    } else if(tipo==="corsa") {
+        tipoProp = week => week.corsa
+        listaColori = ["#190000", "#330000", "#4d0000", "#800000", "#b30000", "#e60000", "#ff0000"]
+        tipoWlt = tipoProp => tipoProp.wltCorsa
+    } else if(tipo==="nuoto") {
+        tipoProp = week => week.nuoto
+        listaColori = ["#0c3953", "#094c72", "#0079bf", "#298fca", "#5ba4cf", "#8bbdd9", "#bcd9ea"]
+        tipoWlt = tipoProp => tipoProp.wltNuoto
+    }
+
+    const el = {}
+    eventi.forEach((week, index) => {
+
+        if(tipoProp(week)) {
+            el[t('esporta:report:tab-dati-week:settimana')+" "+(index+1)]=Math.round(tipoWlt(tipoProp(week))*100)/100
+        }
+
+    })
+
+    const listaZoneGrafico = [el]
+
+    return (
+        <ResponsiveContainer width="100%" height={280} /* aspect={16/9} */ >
+            <BarChart data={listaZoneGrafico}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="niente" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {eventi.map((week, index) => tipoProp(week) ? <Bar dataKey={t('esporta:report:tab-dati-week:settimana')+" "+(index+1)} fill={listaColori[index]} /> : null)}
+            </BarChart>
+        </ResponsiveContainer>
+    )
+}
+
+const Wls = props => {
+    const { eventi, tipo } = props
+
+    const { t, i18n } = useTranslation()
+
+    let tipoProp = null
+    let tipoWlt = null
+    let listaColori = null
+    if(tipo==="cicl") {
+        tipoProp = week => week.ciclismo
+        listaColori = ["#063b00", "#607c3c", "#809c13", "	#abc32f", "#b5e550", "#ececa3", "#b7ffbf"]
+        tipoWlt = tipoProp => tipoProp.wlsWorkoutTot
+    } else if(tipo==="corsa") {
+        tipoProp = week => week.corsa
+        listaColori = ["#190000", "#330000", "#4d0000", "#800000", "#b30000", "#e60000", "#ff0000"]
+        tipoWlt = tipoProp => tipoProp.wlsCorsa
+    } else if(tipo==="nuoto") {
+        tipoProp = week => week.nuoto
+        listaColori = ["#0c3953", "#094c72", "#0079bf", "#298fca", "#5ba4cf", "#8bbdd9", "#bcd9ea"]
+        tipoWlt = tipoProp => tipoProp.wlsNuoto
+    }
+
+    const el = {}
+    eventi.forEach((week, index) => {
+
+        if(tipoProp(week)) {
+            el[t('esporta:report:tab-dati-week:settimana')+" "+(index+1)]=Math.round(tipoWlt(tipoProp(week))*100)/100
+        }
+
+    })
+
+    const listaZoneGrafico = [el]
+
+    return (
+        <ResponsiveContainer width="100%" height={280} /* aspect={16/9} */ >
+            <BarChart data={listaZoneGrafico}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="niente" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {eventi.map((week, index) => tipoProp(week) ? <Bar dataKey={t('esporta:report:tab-dati-week:settimana')+" "+(index+1)} fill={listaColori[index]} /> : null)}
+            </BarChart>
+        </ResponsiveContainer>
+    )
+}
+
+export { CiclTempoZone, CorsaTempoZone, NuotoTempoZone, CiclTrimp, CorsaTrimp, NuotoTrimp, Wlt, Wls }
 
