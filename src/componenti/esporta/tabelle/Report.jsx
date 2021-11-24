@@ -235,8 +235,11 @@ const Report = props => {
                     tabella.push(tabellaSingola)
                 }
                 contaTabelle++
+                /* listaTabDatiWeek.push(<div style={{display: "flex", alignItems: "center" , justifyContent: "center", pageBreakBefore: "always"}}>{tabellaSingola}</div>) */
             }
-            
+            if(c===eventi.length-1) {
+                aggiungiPagina()
+            }
         }
 
         const tabGraficiWeek = [<div className="containerGrafico">
@@ -297,7 +300,7 @@ const Report = props => {
                 </span><GraficoTot.NuotoTrimp totali={nuoto.totaliNuoto} /></div>
             </div>
 
-        const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
+        const tabellaTotali = <div className="tab-totali"><TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
         // ciclismo
         wltCicl={ciclismo.totaliCiclismo.wltWorkoutTot} wlsCicl={ciclismo.totaliCiclismo.wlsWorkoutTot}
         tempoTotCicl={ciclismo.totaliCiclismo.tempoTot} recTotCicl={ciclismo.totaliCiclismo.recTot} tempoTotCiclConRec={ciclismo.totaliCiclismo.tempoTotCiclConRec}
@@ -337,7 +340,7 @@ const Report = props => {
         trimpNuotoMixed={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoMixed : null}
         trimpNuotoAnaerobic={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoAnaerobic : null} 
         trimpNuotoTotal={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoTotal : null}
-        trimpNuotoMin={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoMin : null} />
+        trimpNuotoMin={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoMin : null} /></div>
 
         /* if(tabella.length<2) {
             tabella.push(tabellaTotali)
@@ -447,6 +450,9 @@ const Report = props => {
             }
             .containerGrafico>div>span {
                 margin-left: 5vw;
+            }
+            .tab-totali {
+                margin-top: 20vh;
             }
 
           </style>`+contenuto.innerHTML)
