@@ -179,7 +179,7 @@ const Report = props => {
             const week = eventi[c]
 
             // (eventiWeekSingola[c]-(eventiWeekSingola[c]-1-c))
-            const tabellaSingola = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+(contaTabelle+1)}
+            const tabellaSingola = week.ciclismo || week.corsa || week.nuoto ? <TabDatiWeek settimana={t('esporta:report:tab-dati-week:settimana')+" "+(c+1)}
             // ciclismo
             wltCicl={(week.ciclismo) ? week.ciclismo.wltWorkoutTot: null} 
             wlsCicl={(week.ciclismo) ? week.ciclismo.wlsWorkoutTot: null}
@@ -225,24 +225,19 @@ const Report = props => {
             trimpNuotoMixed={(week.nuoto) ? week.nuoto.trimpNuotoMixed : null}
             trimpNuotoAnaerobic={(week.nuoto) ? week.nuoto.trimpNuotoAnaerobic : null} 
             trimpNuotoTotal={(week.nuoto) ? week.nuoto.trimpNuotoTotal : null}
-            trimpNuotoMin={(week.nuoto) ? week.nuoto.trimpNuotoMin : null} />
+            trimpNuotoMin={(week.nuoto) ? week.nuoto.trimpNuotoMin : null} /> : null
 
-            if(contaTabelle%2===0 && contaTabelle!==0) {
-                aggiungiPagina()
-                tabella = [tabellaSingola]
-            } else {
-                tabella.push(tabellaSingola)
+            if(week.ciclismo || week.corsa || week.nuoto) {
+                if(contaTabelle%2===0 && contaTabelle!==0) {
+                    aggiungiPagina()
+                    tabella = [tabellaSingola]
+                } else {
+                    tabella.push(tabellaSingola)
+                }
+                contaTabelle++
             }
-            contaTabelle++
+            
         }
-
-        /* const tabGraficiWeek = []
-        tabGraficiWeek.push(<GraficoWeek.CiclTempoZone eventi={eventi} />)
-        tabGraficiWeek.push(<GraficoWeek.CorsaTempoZone eventi={eventi} />)
-        tabGraficiWeek.push(<GraficoWeek.NuotoTempoZone eventi={eventi} />)
-        tabGraficiWeek.push(<GraficoWeek.CiclTrimp eventi={eventi} />)
-        tabGraficiWeek.push(<GraficoWeek.CorsaTrimp eventi={eventi} />)
-        tabGraficiWeek.push(<GraficoWeek.NuotoTrimp eventi={eventi} />) */
 
         const tabGraficiWeek = [<div className="containerGrafico">
             <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
@@ -282,25 +277,25 @@ const Report = props => {
             <div><span>{("Weight Load Stress "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
             </span><GraficoWeek.Wls eventi={eventi} tipo="nuoto" /></div>
         </div>)
-        tabGraficiWeek.push(<div className="containerGrafico">
-            <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" TOT").toUpperCase()}
-            </span><GraficoTot.CiclTempoZone tempoZone={ciclismo.totaliCiclismo.tempoZone} /></div>
-            
-            <div><span>{(t('scrivi-framework:corsa:corsa')+" TOT").toUpperCase()}
-            </span><GraficoTot.CorsaTempoZone tempoZone={corsa.totaliCorsa.tempoZone} /></div>
-            
-            <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TOT").toUpperCase()}
-            </span><GraficoTot.NuotoTempoZone tempoZone={nuoto.totaliNuoto.tempoZone} /></div>
-            
-            <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" TRIMP TOT").toUpperCase()}
-            </span><GraficoTot.CiclTrimp totali={ciclismo.totaliCiclismo} /></div>
-            
-            <div><span>{(t('scrivi-framework:corsa:corsa')+" TRIMP TOT").toUpperCase()}
-            </span><GraficoTot.CorsaTrimp totali={corsa.totaliCorsa} /></div>
-            
-            <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TRIMP TOT").toUpperCase()}
-            </span><GraficoTot.NuotoTrimp totali={nuoto.totaliNuoto} /></div>
-        </div>)
+        const tabGraficiTot = <div className="containerGrafico">
+                <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" TOT").toUpperCase()}
+                </span><GraficoTot.CiclTempoZone tempoZone={ciclismo.totaliCiclismo.tempoZone} /></div>
+                
+                <div><span>{(t('scrivi-framework:corsa:corsa')+" TOT").toUpperCase()}
+                </span><GraficoTot.CorsaTempoZone tempoZone={corsa.totaliCorsa.tempoZone} /></div>
+                
+                <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TOT").toUpperCase()}
+                </span><GraficoTot.NuotoTempoZone tempoZone={nuoto.totaliNuoto.tempoZone} /></div>
+                
+                <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" TRIMP TOT").toUpperCase()}
+                </span><GraficoTot.CiclTrimp totali={ciclismo.totaliCiclismo} /></div>
+                
+                <div><span>{(t('scrivi-framework:corsa:corsa')+" TRIMP TOT").toUpperCase()}
+                </span><GraficoTot.CorsaTrimp totali={corsa.totaliCorsa} /></div>
+                
+                <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TRIMP TOT").toUpperCase()}
+                </span><GraficoTot.NuotoTrimp totali={nuoto.totaliNuoto} /></div>
+            </div>
 
         const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}
         // ciclismo
@@ -344,16 +339,16 @@ const Report = props => {
         trimpNuotoTotal={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoTotal : null}
         trimpNuotoMin={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.trimpNuotoMin : null} />
 
-        if(tabella.length<2) {
+        /* if(tabella.length<2) {
             tabella.push(tabellaTotali)
             aggiungiPagina()
         } else {
             aggiungiPagina()
             tabella = [tabellaTotali]
             aggiungiPagina()
-        }
+        } */
 
-        return { listaStampaWorkouts, listaTabDatiWeek, tabGraficiWeek }
+        return { listaStampaWorkouts, listaTabDatiWeek, tabGraficiWeek, tabellaTotali, tabGraficiTot }
     }
 
     const stampa = () => {
@@ -476,6 +471,8 @@ const Report = props => {
                     {tabelleReport.listaStampaWorkouts}
                     {tabelleReport.listaTabDatiWeek}
                     {tabelleReport.tabGraficiWeek}
+                    {tabelleReport.tabellaTotali}
+                    {tabelleReport.tabGraficiTot}
                     {tabellone ?
                     <>
                         <div style={{pageBreakAfter: "always"}}></div>
