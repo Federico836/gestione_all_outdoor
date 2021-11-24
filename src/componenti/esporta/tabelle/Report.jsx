@@ -33,6 +33,7 @@ import elaboraCorsa from '../../../utils/funzioniCorsa'
 import elaboraNuoto from '../../../utils/funzioniNuoto'
 
 import * as GraficoWeek from './grafici/settimana/GraficoWeek'
+import * as GraficoTot from './grafici/totali/GraficoTot'
 
 const Report = props => {
     const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone } = props
@@ -170,10 +171,8 @@ const Report = props => {
         let tabella = []
         let contaTabelle = 0
 
-
-        const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "10vw",
+        const aggiungiPagina = () => listaTabDatiWeek.push(<div style={{display: "grid", gridColumnGap: "5vw",
         gridTemplateColumns: "auto auto", alignContent: "center", marginTop: "8vh", pageBreakBefore: "always"}}>{tabella}</div>)
-
 
         for(let c=0;c<eventi.length;c++) {
             
@@ -282,6 +281,25 @@ const Report = props => {
             
             <div><span>{("Weight Load Stress "+t('esporta:report:tab-dati-week:settimana')).toUpperCase()}
             </span><GraficoWeek.Wls eventi={eventi} tipo="nuoto" /></div>
+        </div>)
+        tabGraficiWeek.push(<div className="containerGrafico">
+            <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" TOT").toUpperCase()}
+            </span><GraficoTot.CiclTempoZone tempoZone={ciclismo.totaliCiclismo.tempoZone} /></div>
+            
+            <div><span>{(t('scrivi-framework:corsa:corsa')+" TOT").toUpperCase()}
+            </span><GraficoTot.CorsaTempoZone tempoZone={corsa.totaliCorsa.tempoZone} /></div>
+            
+            <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TOT").toUpperCase()}
+            </span><GraficoTot.NuotoTempoZone tempoZone={nuoto.totaliNuoto.tempoZone} /></div>
+            
+            <div><span>{(t('scrivi-framework:ciclismo:ciclismo')+" TRIMP TOT").toUpperCase()}
+            </span><GraficoTot.CiclTrimp totali={ciclismo.totaliCiclismo} /></div>
+            
+            <div><span>{(t('scrivi-framework:corsa:corsa')+" TRIMP TOT").toUpperCase()}
+            </span><GraficoTot.CorsaTrimp totali={corsa.totaliCorsa} /></div>
+            
+            <div><span>{(t('scrivi-framework:nuoto:nuoto')+" TRIMP TOT").toUpperCase()}
+            </span><GraficoTot.NuotoTrimp totali={nuoto.totaliNuoto} /></div>
         </div>)
 
         const tabellaTotali = <TabDatiWeek settimana={t('esporta:report:tab-dati-week:totale-delle-settimane')}

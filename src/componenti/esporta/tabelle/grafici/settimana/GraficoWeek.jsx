@@ -12,7 +12,7 @@ const CiclTempoZone = props => {
         const el = {zona}
 
         eventi.forEach((week, index) => {
-            console.log(week.ciclismo)
+
             if(week.ciclismo) {
                 el[t('esporta:report:tab-dati-week:settimana')+" "+(index+1)]=week.ciclismo.tempoZone["zona"+(indexZona+1)]
             }
@@ -79,7 +79,7 @@ const NuotoTempoZone = props => {
         const el = {zona}
 
         eventi.forEach((week, index) => {
-            console.log(week.nuoto)
+            
             if(week.nuoto) {
                 el[t('esporta:report:tab-dati-week:settimana')+" "+(index+1)]=week.nuoto.tempoZone["zona"+(indexZona+1)]
             }

@@ -108,10 +108,10 @@ const postReport = (id_utente, id_allenatore, nome_file, dati, cookie) => {
   params.append('nome_file', nome_file);
   params.append('dati', dati);
 
-  return axios.post('https://www.magneticdays.com/api/md/post_upload_pdf', params)
+  return axios.post('https://www.magneticdays.com/api/md/post_upload_planning', params)
 }
 
-const uploadFiles = (files) => {
+const uploadFiles = files => {
   console.log(files)
   Array.from(files).forEach((file) => {
 
