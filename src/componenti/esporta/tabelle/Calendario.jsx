@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import { useDispatch } from "react-redux"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -6,10 +7,14 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
 import { useTranslation } from 'react-i18next'
 
+import { getListaEventi } from '../../../redux/actions/EventActions'
+
 import './Calendario.css'
 
 const Calendario = props => {
     const { listaEventi, setListaEventi, setRangeDateSelect } = props
+
+    const dispatch = useDispatch()
 
     const { t, i18n } = useTranslation()
     
@@ -33,13 +38,15 @@ const Calendario = props => {
     }
 
     useEffect(() => {
-
         if(!events) {
             setEvents(listaEventi)
             console.log({listaEventi})
         }
+    }, [listaEventi])
 
-    },[listaEventi])
+    useEffect(function getEventi() {
+        dispatch(getListaEventi())
+    }, [])
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -96,9 +103,7 @@ const Calendario = props => {
             // evento drag and drop dalla tabella a lato
             /* eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: new Date(info.event.start.getTime()+43200000),
                 end: new Date(info.event.end.getTime()+46800000)}]); console.log(info.event)}} */
-            eventReceive={info => {
-                setListaEventi([...listaEventi, getEventPropsFromCalendarEvent(info.event)]);
-            }}
+            eventReceive={info => setListaEventi([...listaEventi, getEventPropsFromCalendarEvent(info.event)])}
             // selezione e modifica eventi
             droppable={true} events={events}  editable={true} eventClick={eventClick}
             selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}

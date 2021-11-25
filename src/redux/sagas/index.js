@@ -1,6 +1,7 @@
 import { call, put, takeEvery, takeLatest, all, actionChannel } from 'redux-saga/effects'
 import api from '../../api'
-import {setListaFrameworks, getListaFrameworks} from '../actions/FrameworkActions'
+import { setListaFrameworks, getListaFrameworks } from '../actions/FrameworkActions'
+import { setListaEventi } from '../actions/EventActions'
 import * as selectors from './selectors';
 import {select} from 'redux-saga/effects';
 
@@ -10,9 +11,9 @@ export function* getFrameworks(action) {
 
     const response = yield call(api.getFrameworks, payload);
     
-    yield put(setListaFrameworks(response.data.map((el,index) => {
+    yield put(setListaFrameworks(response.data.map((el, index) => {
 
-        const {id,dati} = el
+        const {id, dati} = el
         return {dbid: id, ...JSON.parse(dati)}
     })))
 }
@@ -57,11 +58,25 @@ export function* deleteFramework(action) {
 
 }
 
+export function* getListaEventi(action) {
+    const { payload } = action
+
+    const response = yield call(api.getEvents, payload)
+
+    yield put(setListaEventi(response.data.map((el, index) => {
+        const { id, dati } = el
+        return {dbid: id, ...JSON.parse(dati)}
+    })))
+
+}
+
 function* rootSaga() {
     yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
     yield takeLatest('ADD_FRAMEWORK', postFramework)
     yield takeLatest('REPLACE_FRAMEWORK', updateFramework)
     yield takeLatest('DELETE_FRAMEWORK', deleteFramework)
+
+    yield takeLatest('GET_LISTA_EVENTI', getListaEventi)
 }
 
 export default rootSaga
