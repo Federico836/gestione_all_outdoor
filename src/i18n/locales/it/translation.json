@@ -132,7 +132,8 @@
     "pagina-modifica": {
       "alert-cambiamenti": "Ci sono dei cambiamenti non salvati, sei sicuro di uscire ?"
     },
-    "data-da-fare": "Data Da Fare"
+    "data-da-fare": "Data Da Fare",
+    "elimina": "Elimina"
   },
   "esporta": {
     "calendario": {

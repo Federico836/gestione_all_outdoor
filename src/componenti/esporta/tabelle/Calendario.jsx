@@ -100,8 +100,8 @@ const Calendario = props => {
                 setListaEventi([...listaEventi, getEventPropsFromCalendarEvent(info.event)]);
             }}
             // selezione e modifica eventi
-            droppable={true} /* events={listaEventi} */ events={events}  editable={true} eventClick={eventClick}
-            /* eventResize={() => 1} */ selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
+            droppable={true} events={events}  editable={true} eventClick={eventClick}
+            selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
             eventChange={rimpiazzaEvento} />
         </div>
     )

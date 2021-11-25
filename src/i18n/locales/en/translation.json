@@ -132,7 +132,8 @@
     "pagina-modifica": {
       "alert-cambiamenti": "There are some unsaved changes, are you sure to exit ?"
     },
-    "data-da-fare": "Date To Do"
+    "data-da-fare": "Date To Do",
+    "elimina": "Delete"
   },
   "esporta": {
     "calendario": {

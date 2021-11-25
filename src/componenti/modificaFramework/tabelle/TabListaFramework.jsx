@@ -54,6 +54,7 @@ const TabListaFramework =props => {
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
             <td onClick={() => setModificaFrame({id: listaFiltrataNome[c].id, tipoPerSelect: listaFiltrataNome[c].tipoPerSelect})}>🖉</td>
+            <td onClick={() => setModificaFrame({id: listaFiltrataNome[c].id, tipoPerSelect: listaFiltrataNome[c].tipoPerSelect})}>🗑️</td>
         </tr>)
     }
 
@@ -78,6 +79,7 @@ const TabListaFramework =props => {
                                 "↑ "+t('modifica-framework:data-salvataggio') : t('modifica-framework:data-salvataggio')}</th>
                                 
                             <th>{t('modifica-framework:modifica')}</th>
+                            <th>{t('modifica-framework:elimina')}</th>
                         </tr>
                     </thead>
                 </table>
