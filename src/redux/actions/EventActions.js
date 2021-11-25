@@ -5,3 +5,5 @@ const getListaEventi = () => {
 const setListaEventi = lista => {
     return {type: 'SET_LISTA_EVENTI', payload: lista}
 }
+
+export { getListaEventi, setListaEventi }

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -18,7 +18,7 @@ const Calendario = props => {
 
     const { t, i18n } = useTranslation()
     
-    const [events, setEvents] = useState(null)
+    const [events, setEvents] = useState(useSelector(state => state.eventi.lista))
 
     const getEventPropsFromCalendarEvent = (calEvent) => {
 
