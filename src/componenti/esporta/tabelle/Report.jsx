@@ -452,13 +452,16 @@ const Report = props => {
                 margin-left: 5vw;
             }
             .tab-totali {
-                margin-top: 20vh;
+                margin-top: 50px;
             }
 
           </style>`+contenuto.innerHTML)
-        pagina.document.close()
-        pagina.focus()
-        pagina.print()
+
+        setTimeout(() => {
+            pagina.document.close()
+            pagina.focus()
+            pagina.print()
+        },100)
     }
 
     const tabelleReport = stampaTabelleReport()

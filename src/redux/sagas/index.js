@@ -1,42 +1,57 @@
 import { call, put, takeEvery, takeLatest,all,actionChannel } from 'redux-saga/effects'
+import api from '../../api'
+import {setListaFrameworks, getListaFrameworks} from '../actions/FrameworkActions'
+import * as selectors from './selectors';
+import {select} from 'redux-saga/effects';
 
-export function* getListaWorkouts(action) {
-    /* const {payload} = action
-
-    const response = yield call(api.getWorkouts, payload);
+export function* getFrameworks(action) {
     
-    const grouped = _.groupBy(response.data.allenamenti.filter(el => el.deleted !== "1"), allenamento => allenamento.category);
-    console.log(response)
-    //console.log({grouped})
-
-    const groupedArray = Object.entries(grouped).map((el) => {
-        return {category: el[0], workouts: el[1]}
-    })
-    
-    yield put({type: WorkoutActions.SET_LISTA_ALLENAMENTI, payload: groupedArray});
-    yield put({type: WorkoutActions.SET_LISTA_ALL_NON_GROUPED, payload: response.data.allenamenti}); */
-}
-
-export function* getListaFrameworks(action) {
-    
-    /* return
-
     const {payload} = action
 
     const response = yield call(api.getFrameworks, payload);
-    yield put({type: FrameworkActions.SET_LISTA_FRAMEWORKS, payload: response.data.scheletri.map((el,index) => {
-        return {...el}
-    })}); */
+    
+    yield put(setListaFrameworks(response.data.map((el,index) => {
 
+        const {id,dati} = el
+        return {dbid: id, ...JSON.parse(dati)}
+    })))
+}
+
+export function* postFramework(action) {
+
+    const {payload} = action
+
+    const response = yield call(api.postFramework, payload);
+
+    yield put(getListaFrameworks())
 
 }
+
+export function* updateFramework(action) {
+
+    const lista = yield select(selectors.frameworks)
+
+    const {payload} = action
+
+    const framework = lista.find(el => el.id === payload.id)
+    const {dbid} = framework
+
+    const response = yield call(api.updateFramework, {dbid,...payload});
+
+    yield put(getListaFrameworks())
+
+}
+
+
+
 
 
 
 function* rootSaga() {
-   /* yield takeLatest(WorkoutActions.GET_LISTA_ALLENAMENTI, getListaWorkouts)
-   yield takeLatest(FrameworkActions.GET_LISTA_FRAMEWORKS, getListaFrameworks) */
-   //yield takeEvery(FrameworkActions.UPLOAD_WORKOUT_TO_USER,handleInviaWorkout)
+    yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
+    yield takeLatest('ADD_FRAMEWORK', postFramework)
+    yield takeLatest('REPLACE_FRAMEWORK', updateFramework)
+   
 }
 
 export default rootSaga

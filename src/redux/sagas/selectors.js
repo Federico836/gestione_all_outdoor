@@ -1,0 +1,1 @@
+export const frameworks = (state) => state.frameworks.lista;

@@ -12,15 +12,15 @@ function frameworksReducer(state = { lista: []}, action) {
   switch (type) {
 
     case 'SET_LISTA_FRAMEWORKS': {
-      return {...state, lista: [...state.lista, ...payload]}
+      return {...state, lista: [...payload]}
     }
     
     case 'ADD_FRAMEWORK': {
-      return {...state, lista: [...state.lista, payload]}
+      //return {...state, lista: [...state.lista, payload]}
     }
 
     case 'REPLACE_FRAMEWORK': {
-      const { id } = payload
+      /* const { id } = payload
 
       const listaFrameReplace = state.lista.map(frame => {
         if(frame.id===id) {
@@ -28,7 +28,7 @@ function frameworksReducer(state = { lista: []}, action) {
         }
         return {...frame}
       })
-      return {...state, lista: listaFrameReplace}
+      return {...state, lista: listaFrameReplace} */
     }
     
     default:
