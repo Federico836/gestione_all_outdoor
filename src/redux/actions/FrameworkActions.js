@@ -1,4 +1,3 @@
-
 const setListaFrameworks = lista => {
   return {type: 'SET_LISTA_FRAMEWORKS', payload: lista}
 }
@@ -15,10 +14,15 @@ const replaceFramework = framework => {
   return {type: 'REPLACE_FRAMEWORK', payload: framework}
 }
 
+const deleteFramework = framework => {
+  return {type: 'DELETE_FRAMEWORK', payload: framework}
+}
+
 export {
   setListaFrameworks,
   getListaFrameworks,
   addFramework,
-  replaceFramework
+  replaceFramework,
+  deleteFramework
 }
 

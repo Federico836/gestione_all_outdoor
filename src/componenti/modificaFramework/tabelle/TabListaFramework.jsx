@@ -1,11 +1,14 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteFramework } from '../../../redux/actions/FrameworkActions'
 import { useTranslation } from 'react-i18next'
 
 import styles from './TabListaFramework.module.css'
 
 const TabListaFramework =props => {
+    const dispatch = useDispatch()
+
     const { tipoSport, setModificaFrame } = props
 
     const [ricercaNome, setRicercaNome] = useState("")
@@ -54,7 +57,7 @@ const TabListaFramework =props => {
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
             <td onClick={() => setModificaFrame({id: listaFiltrataNome[c].id, tipoPerSelect: listaFiltrataNome[c].tipoPerSelect})}>🖉</td>
-            <td onClick={() => setModificaFrame({id: listaFiltrataNome[c].id, tipoPerSelect: listaFiltrataNome[c].tipoPerSelect})}>🗑️</td>
+            <td onClick={() => dispatch(deleteFramework(listaFiltrataNome[c]))}>🗑️</td>
         </tr>)
     }
 

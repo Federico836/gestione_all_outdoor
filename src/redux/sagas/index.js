@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest,all,actionChannel } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest, all, actionChannel } from 'redux-saga/effects'
 import api from '../../api'
 import {setListaFrameworks, getListaFrameworks} from '../actions/FrameworkActions'
 import * as selectors from './selectors';
@@ -42,16 +42,26 @@ export function* updateFramework(action) {
 
 }
 
+export function* deleteFramework(action) {
+    
+    const lista = yield select(selectors.frameworks)
 
+    const {payload} = action
 
+    const framework = lista.find(el => el.id === payload.id)
+    const {dbid} = framework
 
+    const response = yield call(api.deleteFramework, dbid);
 
+    yield put(getListaFrameworks())
+
+}
 
 function* rootSaga() {
     yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
     yield takeLatest('ADD_FRAMEWORK', postFramework)
     yield takeLatest('REPLACE_FRAMEWORK', updateFramework)
-   
+    yield takeLatest('DELETE_FRAMEWORK', deleteFramework)
 }
 
 export default rootSaga
