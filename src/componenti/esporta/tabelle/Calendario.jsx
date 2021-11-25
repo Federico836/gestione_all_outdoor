@@ -7,7 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
 import { useTranslation } from 'react-i18next'
 
-import { getListaEventi } from '../../../redux/actions/EventActions'
+import { getListaEventi, addEvento } from '../../../redux/actions/EventActions'
 
 import './Calendario.css'
 
@@ -16,9 +16,11 @@ const Calendario = props => {
 
     const dispatch = useDispatch()
 
+    const listaEventiStore = useSelector(state => state.eventi.lista)
+    console.log(listaEventiStore)
     const { t, i18n } = useTranslation()
     
-    const [events, setEvents] = useState(useSelector(state => state.eventi.lista))
+    const [events, setEvents] = useState(null)
 
     const getEventPropsFromCalendarEvent = (calEvent) => {
 
@@ -37,16 +39,15 @@ const Calendario = props => {
 
     }
 
-    useEffect(() => {
-        if(!events) {
-            setEvents(listaEventi)
-            console.log({listaEventi})
-        }
-    }, [listaEventi])
-
     useEffect(function getEventi() {
         dispatch(getListaEventi())
     }, [])
+
+    useEffect(() => {
+        if(!events) {
+            setEvents(listaEventiStore)
+        }
+    }, [listaEventiStore])
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -103,9 +104,9 @@ const Calendario = props => {
             // evento drag and drop dalla tabella a lato
             /* eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: new Date(info.event.start.getTime()+43200000),
                 end: new Date(info.event.end.getTime()+46800000)}]); console.log(info.event)}} */
-            eventReceive={info => setListaEventi([...listaEventi, getEventPropsFromCalendarEvent(info.event)])}
+            eventReceive={info => {console.log(getEventPropsFromCalendarEvent(info.event)); dispatch(addEvento(getEventPropsFromCalendarEvent(info.event)))}}
             // selezione e modifica eventi
-            droppable={true} events={events}  editable={true} eventClick={eventClick}
+            droppable={true} events={events} editable={true} eventClick={eventClick}
             selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
             eventChange={rimpiazzaEvento} />
         </div>

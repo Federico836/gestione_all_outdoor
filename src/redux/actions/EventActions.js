@@ -6,4 +6,8 @@ const setListaEventi = lista => {
     return {type: 'SET_LISTA_EVENTI', payload: lista}
 }
 
-export { getListaEventi, setListaEventi }
+const addEvento = evento => {
+    return {type: 'ADD_EVENTO', payload: evento}
+}
+
+export { getListaEventi, setListaEventi, addEvento }

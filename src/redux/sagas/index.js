@@ -70,6 +70,13 @@ export function* getListaEventi(action) {
 
 }
 
+export function* addEvento(action) {
+    const { payload } = action
+
+    const response = yield call(api.postEvent, payload)
+    console.log(response)
+}
+
 function* rootSaga() {
     yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
     yield takeLatest('ADD_FRAMEWORK', postFramework)
@@ -77,6 +84,7 @@ function* rootSaga() {
     yield takeLatest('DELETE_FRAMEWORK', deleteFramework)
 
     yield takeLatest('GET_LISTA_EVENTI', getListaEventi)
+    yield takeLatest('ADD_EVENTO', addEvento)
 }
 
 export default rootSaga

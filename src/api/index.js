@@ -16,7 +16,8 @@ const updateFramework = framework => {return axios_instance.put('/frameworks/' +
 
 
 const getEvents = () => {return axios_instance.get('events')}
-const postEvent = event => {return axios_instance.post('events', {dati: JSON.stringify({...event})}  )}
+const postEvent = event => {return axios_instance.post('events', {dati: JSON.stringify({...event},
+    ["allDay", "backgroundColor", "borderColor", "display", "end", "extendedProps", "id", "start", "title", "_context", "_def", "_instance"])}  )}
 const deleteEvent = dbid => {return axios_instance.delete('events/' + dbid)}
 const updateEvent = event => {return axios_instance.put('/events/' + event.dbid,{dati: JSON.stringify({...event})})}
 
