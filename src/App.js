@@ -2,7 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import MainContainer from './componenti/MainContainer';
 import { useDispatch, useSelector } from 'react-redux'
-import {getListaFrameworks} from './redux/actions/FrameworkActions'
+import { getListaFrameworks } from './redux/actions/FrameworkActions'
+import { getListaEventi } from './redux/actions/EventActions'
 import {useEffect} from 'react'
 
 function App() {
@@ -11,8 +12,8 @@ function App() {
 
   useEffect(() => {
     dispatch(getListaFrameworks())
+    dispatch(getListaEventi())
   }, [])
-
 
   return (
     <div className="App">

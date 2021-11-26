@@ -7,7 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
 import { useTranslation } from 'react-i18next'
 
-import { getListaEventi, addEvento, eliminaEvento } from '../../../redux/actions/EventActions'
+import { addEvento, eliminaEvento } from '../../../redux/actions/EventActions'
 
 import './Calendario.css'
 
@@ -16,8 +16,6 @@ const Calendario = props => {
 
     const dispatch = useDispatch()
 
-    const listaEventiStore = useSelector(state => state.eventi.lista)
-    console.log(listaEventiStore)
     const { t, i18n } = useTranslation()
     
     const [events, setEvents] = useState(null)
@@ -39,15 +37,12 @@ const Calendario = props => {
 
     }
 
-    useEffect(function getEventi() {
-        dispatch(getListaEventi())
-    }, [])
-
     useEffect(() => {
         if(!events) {
-            setEvents(listaEventiStore)
+            setEvents(listaEventi)
+            console.log(listaEventi)
         }
-    }, [listaEventiStore])
+    }, [listaEventi])
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -77,7 +72,7 @@ const Calendario = props => {
         }).then(result => {
             if (result.value) {
                 setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id))
-                dispatch(eliminaEvento(listaEventiStore.find(evento => evento.id==eventClick.event.id).dbid))
+                dispatch(eliminaEvento(listaEventi.find(evento => evento.id==eventClick.event.id).dbid))
                 eventClick.event.remove();
                 Alert.fire(t('esporta:calendario:eliminato'), t('esporta:calendario:scritta-eliminato'), "success");
             }
