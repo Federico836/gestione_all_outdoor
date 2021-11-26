@@ -78,6 +78,14 @@ export function* addEvento(action) {
     yield put(getListaEventi())
 }
 
+export function* updateEvento(action) {
+    const { payload } = action
+
+    const response = yield call(api.updateEvent, payload)
+    
+    yield put(getListaEventi())
+}
+
 export function* eliminaEvento(action) {
     const { payload } = action
 
@@ -94,6 +102,7 @@ function* rootSaga() {
 
     yield takeLatest('GET_LISTA_EVENTI', getEventi)
     yield takeLatest('ADD_EVENTO', addEvento)
+    yield takeLatest('REPLACE_EVENTO', updateEvento)
     yield takeLatest('ELIMINA_EVENTO', eliminaEvento)
 }
 

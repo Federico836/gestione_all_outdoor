@@ -7,7 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
 import { useTranslation } from 'react-i18next'
 
-import { addEvento, eliminaEvento } from '../../../redux/actions/EventActions'
+import { addEvento, replaceEvento, eliminaEvento } from '../../../redux/actions/EventActions'
 
 import './Calendario.css'
 
@@ -86,9 +86,11 @@ const Calendario = props => {
             if(eventChange.oldEvent.id!==evento.id) {
                 return {...evento}
             } else {
-                return {...getEventPropsFromCalendarEvent(eventChange.event)}
+                return {...getEventPropsFromCalendarEvent(eventChange.event), dbid: evento.dbid}
             }
         })])
+        console.log({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid})
+        dispatch(replaceEvento({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid}))
     }
 
     return (

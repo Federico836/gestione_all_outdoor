@@ -14,12 +14,13 @@ const postFramework = framework => {return axios_instance.post('frameworks', {da
 const deleteFramework = dbid => {return axios_instance.delete('frameworks/' + dbid)}
 const updateFramework = framework => {return axios_instance.put('/frameworks/' + framework.dbid,{dati: JSON.stringify({...framework})})}
 
+const listaProp = ["allDay", "backgroundColor", "borderColor", "display", "end", "extendedProps","mdId", "id", "start",
+    "title", "_context", "_def", "_instance"]
 
 const getEvents = () => {return axios_instance.get('events')}
-const postEvent = event => {return axios_instance.post('events', {dati: JSON.stringify({...event},
-    ["allDay", "backgroundColor", "borderColor", "display", "end", "extendedProps","mdId", "id", "start", "title", "_context", "_def", "_instance"])}  )}
+const postEvent = event => {return axios_instance.post('events', {dati: JSON.stringify({...event}, listaProp)}  )}
 const deleteEvent = dbid => {return axios_instance.delete('events/' + dbid)}
-const updateEvent = event => {return axios_instance.put('/events/' + event.dbid,{dati: JSON.stringify({...event})})}
+const updateEvent = event => {return axios_instance.put('/events/' + event.dbid, {dati: JSON.stringify({...event}, listaProp)})}
 
 
 export default {
