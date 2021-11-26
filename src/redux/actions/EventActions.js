@@ -10,4 +10,8 @@ const addEvento = evento => {
     return {type: 'ADD_EVENTO', payload: evento}
 }
 
-export { getListaEventi, setListaEventi, addEvento }
+const eliminaEvento = evento => {
+    return {type: 'ELIMINA_EVENTO', payload: evento}
+}
+
+export { getListaEventi, setListaEventi, addEvento, eliminaEvento }

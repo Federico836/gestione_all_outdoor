@@ -7,7 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import Alert from "sweetalert2"
 import { useTranslation } from 'react-i18next'
 
-import { getListaEventi, addEvento } from '../../../redux/actions/EventActions'
+import { getListaEventi, addEvento, eliminaEvento } from '../../../redux/actions/EventActions'
 
 import './Calendario.css'
 
@@ -77,6 +77,7 @@ const Calendario = props => {
         }).then(result => {
             if (result.value) {
                 setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id))
+                dispatch(eliminaEvento(listaEventiStore.find(evento => evento.id==eventClick.event.id).dbid))
                 eventClick.event.remove();
                 Alert.fire(t('esporta:calendario:eliminato'), t('esporta:calendario:scritta-eliminato'), "success");
             }

@@ -1,7 +1,7 @@
 import { call, put, takeEvery, takeLatest, all, actionChannel } from 'redux-saga/effects'
 import api from '../../api'
 import { setListaFrameworks, getListaFrameworks } from '../actions/FrameworkActions'
-import { setListaEventi } from '../actions/EventActions'
+import { getListaEventi, setListaEventi } from '../actions/EventActions'
 import * as selectors from './selectors';
 import {select} from 'redux-saga/effects';
 
@@ -58,7 +58,7 @@ export function* deleteFramework(action) {
 
 }
 
-export function* getListaEventi(action) {
+export function* getEventi(action) {
     const { payload } = action
 
     const response = yield call(api.getEvents, payload)
@@ -74,7 +74,16 @@ export function* addEvento(action) {
     const { payload } = action
 
     const response = yield call(api.postEvent, payload)
-    console.log(response)
+    
+    yield put(getListaEventi())
+}
+
+export function* eliminaEvento(action) {
+    const { payload } = action
+
+    const response = yield call(api.deleteEvent, payload)
+
+    yield put(getListaEventi())
 }
 
 function* rootSaga() {
@@ -83,8 +92,9 @@ function* rootSaga() {
     yield takeLatest('REPLACE_FRAMEWORK', updateFramework)
     yield takeLatest('DELETE_FRAMEWORK', deleteFramework)
 
-    yield takeLatest('GET_LISTA_EVENTI', getListaEventi)
+    yield takeLatest('GET_LISTA_EVENTI', getEventi)
     yield takeLatest('ADD_EVENTO', addEvento)
+    yield takeLatest('ELIMINA_EVENTO', eliminaEvento)
 }
 
 export default rootSaga
