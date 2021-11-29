@@ -25,12 +25,12 @@ const ContainerEsporta = props => {
 
     const { t, i18n } = useTranslation()
 
-    /* const listaEventiStore = useSelector(state => state.eventi.lista)
+    const listaEventiStore = useSelector(state => state.eventi.lista)
     console.log(listaEventiStore)
 
     useEffect(() => {
         setListaEventi(listaEventiStore)
-    }, [listaEventiStore]) */
+    }, [listaEventiStore])
 
     return (
         <div className={styles.container}>

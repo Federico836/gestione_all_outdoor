@@ -71,7 +71,7 @@ const Calendario = props => {
 
         }).then(result => {
             if (result.value) {
-                setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id))
+                /* setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id)) */
                 dispatch(eliminaEvento(listaEventi.find(evento => evento.id==eventClick.event.id).dbid))
                 eventClick.event.remove();
                 Alert.fire(t('esporta:calendario:eliminato'), t('esporta:calendario:scritta-eliminato'), "success");
@@ -82,13 +82,13 @@ const Calendario = props => {
     const rimpiazzaEvento = eventChange => {
         console.log(eventChange)
         console.log(listaEventi)
-        setListaEventi([...listaEventi.map(evento => {
+        /* setListaEventi([...listaEventi.map(evento => {
             if(eventChange.oldEvent.id!==evento.id) {
                 return {...evento}
             } else {
                 return {...getEventPropsFromCalendarEvent(eventChange.event), dbid: evento.dbid}
             }
-        })])
+        })]) */
         console.log({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid})
         dispatch(replaceEvento({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid}))
     }
