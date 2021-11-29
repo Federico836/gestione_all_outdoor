@@ -155,6 +155,8 @@ const Report = props => {
                     </div>)
                 } else {
                     listaStampaWorkouts.push(<div style={{marginTop: "3vh", breakInside: "avoid"}}>
+                        {!eventiSelezionati[c].allDay ? <h3>{t('esporta:report:prima-pagina:dalle')+" "+eventiSelezionati[c].start.toLocaleTimeString()
+                            +" "+t('esporta:report:prima-pagina:alle')+" "+eventiSelezionati[c].end.toLocaleTimeString()}</h3> : null}
                         {tabDaAggiungere}
                     </div>)
                 }
