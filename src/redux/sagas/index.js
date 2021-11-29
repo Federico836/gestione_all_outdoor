@@ -65,7 +65,11 @@ export function* getEventi(action) {
 
     yield put(setListaEventi(response.data.map((el, index) => {
         const { id, dati } = el
-        return {dbid: id, ...JSON.parse(dati)}
+
+        const evento = {dbid: id, ...JSON.parse(dati)}
+        evento.start = evento.start === null ? null : new Date(evento.start)
+        evento.end = evento.end === null ? null : new Date(evento.end)
+        return evento
     })))
 
 }

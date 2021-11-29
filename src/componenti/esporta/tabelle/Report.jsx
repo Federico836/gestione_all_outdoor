@@ -461,7 +461,7 @@ const Report = props => {
             pagina.document.close()
             pagina.focus()
             pagina.print()
-        },100)
+        }, 300)
     }
 
     const tabelleReport = stampaTabelleReport()
