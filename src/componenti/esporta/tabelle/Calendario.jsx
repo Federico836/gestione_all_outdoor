@@ -106,7 +106,7 @@ const Calendario = props => {
             // selezione e modifica eventi
             droppable={true} events={events} editable={true} eventClick={eventClick}
             selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
-            eventChange={rimpiazzaEvento} />
+            eventChange={rimpiazzaEvento} firstDay={1} />
         </div>
     )
 }
