@@ -77,38 +77,40 @@ const TabListaFramework = props => {
             itemSelector: '.rigaDrag',
             eventData: function(eventEl) {
 
-            console.log(eventEl.innerText)
-            //const name = eventEl.getElementById('nome-frame')
-            
-            return {
-                title: (function iconaSport() {
-                    if(eventEl.getAttribute('tipoSport')==="ciclismo") {
-                        return "🚲 "+eventEl.getAttribute('title')
-                    } else if(eventEl.getAttribute('tipoSport')==="nuoto") {
-                        return "🏊 "+eventEl.getAttribute('title')
-                    } else if(eventEl.getAttribute('tipoSport')==="corsa") {
-                        return "🏃 "+eventEl.getAttribute('title')
-                    } else if(eventEl.getAttribute('tipoSport')==="palestra") {
-                        return <FontAwesomeIcon icon={faDumbbell} />
-                    } else return eventEl.getAttribute('title')
-                })(),
-                /* duration: '01:00', */
-                color: (function iconaSport() {
-                    if(eventEl.getAttribute('tipoSport')==="ciclismo") {
-                        return "green"
-                    } else if(eventEl.getAttribute('tipoSport')==="nuoto") {
-                        return "blue"
-                    } else if(eventEl.getAttribute('tipoSport')==="corsa") {
-                        return "red"
-                    } else if(eventEl.getAttribute('tipoSport')==="palestra") {
-                        return "black"
-                    } else return "gray"
-                })(),
-                create: true,
-                sourceId: eventEl.getAttribute('sourceId'),
-               /*  start: 'T10:30:00', */
-                mdId: eventEl.getAttribute('sourceId'),
-                id: uuidv4()
+                console.log(eventEl.innerText)
+                let titolo = ""
+                let colore = ""
+                if(eventEl.getAttribute('tipoSport')==="ciclismo") {
+                    titolo = "🚲 "+eventEl.getAttribute('title')
+                    colore = "green"
+                } else if(eventEl.getAttribute('tipoSport')==="nuoto") {
+                    titolo = "🏊 "+eventEl.getAttribute('title')
+                    colore = "blue"
+                } else if(eventEl.getAttribute('tipoSport')==="corsa") {
+                    titolo = "🏃 "+eventEl.getAttribute('title')
+                    colore = "red"
+                } else if(eventEl.getAttribute('tipoSport')==="palestra") {
+                    titolo = /* <FontAwesomeIcon icon={faDumbbell} /> */ "🏋 "+eventEl.getAttribute('title')
+                    colore = "black"
+                } else if(eventEl.getAttribute('tipoSport')==="combinati_tri") {
+                    titolo = "🏊🚲🏃 "+eventEl.getAttribute('title')
+                    colore = "gray"
+                } else if(eventEl.getAttribute('tipoSport')==="gara") {
+                    titolo = "🏁 "+eventEl.getAttribute('title')
+                    colore = "gray"
+                } else {
+                    titolo = eventEl.getAttribute('title')
+                    colore = "gray"
+                }
+
+                return {
+                    title: titolo,
+                    color: colore,
+                    create: true,
+                    sourceId: eventEl.getAttribute('sourceId'),
+                /*  start: 'T10:30:00', */
+                    mdId: eventEl.getAttribute('sourceId'),
+                    id: uuidv4()
                 }
             }
         })
