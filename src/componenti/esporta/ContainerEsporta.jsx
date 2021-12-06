@@ -32,10 +32,6 @@ const ContainerEsporta = props => {
         setListaEventi(listaEventiStore)
     }, [listaEventiStore])
 
-    useEffect(function getUtente() {
-
-    }, [])
-
     return (
         <div className={styles.container}>
             {report ? 
@@ -56,15 +52,18 @@ const ContainerEsporta = props => {
                     </div>
                 </div>
 
-                {utente ? <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
-                passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} /> : null}
+                {utente ?
+                <>
+                    <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
+                    passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
 
-                <div className={styles.containerBottoniBottom}>
-                    <Button variant="contained" onClick={() => setReport(true)}
-                    disabled={rangeDateSelect.length<1 ? true : false}>REPORT</Button>
-                    <Checkbox onChange={() => setTabellone(!tabellone)} checked={tabellone} />
-                    <div>{t('main-container:tabella-zone')}</div>
-                </div>
+                    <div className={styles.containerBottoniBottom}>
+                        <Button variant="contained" onClick={() => setReport(true)}
+                        disabled={rangeDateSelect.length<1 ? true : false}>REPORT</Button>
+                        <Checkbox onChange={() => setTabellone(!tabellone)} checked={tabellone} />
+                        <div>{t('main-container:tabella-zone')}</div>
+                    </div>
+                </> : null}
             </>}
         </div>
     )
