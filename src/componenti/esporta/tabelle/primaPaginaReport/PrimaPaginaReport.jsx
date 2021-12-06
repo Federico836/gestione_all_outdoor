@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import './PrimaPaginaReport.css'
 
 const PrimaPaginaReport = props => {
-    const { dataInizio, dataFine } = props
+    const { dataInizio, dataFine, utente } = props
 
     const { t, i18n } = useTranslation()
 
@@ -26,10 +26,10 @@ const PrimaPaginaReport = props => {
                 t('esporta:report:prima-pagina:a')+" "+dataFine.toLocaleDateString()}</h2>
             </div>
             <div>
-                <h2>{t('esporta:report:prima-pagina:atleta')}: PIPPO</h2>
+                <h2>{t('esporta:report:prima-pagina:atleta')}: {utente ? utente.nome+" "+utente.cognome : null}</h2>
             </div>
             <div>
-                <h2>{t('esporta:report:prima-pagina:allenatore')}: LUCA</h2>
+                <h2>{t('esporta:report:prima-pagina:allenatore')}: {window.md.logged_user.nome+" "+window.md.logged_user.cognome}</h2>
             </div>
         </div>
     )

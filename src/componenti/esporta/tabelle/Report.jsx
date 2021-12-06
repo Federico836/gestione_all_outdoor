@@ -36,7 +36,7 @@ import * as GraficoWeek from './grafici/settimana/GraficoWeek'
 import * as GraficoTot from './grafici/totali/GraficoTot'
 
 const Report = props => {
-    const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone } = props
+    const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone, utente } = props
 
     const { t, i18n } = useTranslation()
 
@@ -476,7 +476,8 @@ const Report = props => {
             </div>
             
             <div ref={paginaDaStampare}>
-                <PrimaPaginaReport dataInizio={rangeDateSelect.start} dataFine={new Date(rangeDateSelect.end-86400000)} />
+                <PrimaPaginaReport dataInizio={rangeDateSelect.start} dataFine={new Date(rangeDateSelect.end-86400000)}
+                utente={utente} />
                 <img src={Intestazione} className="intestazione-report" />
                 <div className="container-tab-report">
                     {tabelleReport.listaStampaWorkouts}

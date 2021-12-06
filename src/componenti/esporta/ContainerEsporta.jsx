@@ -12,7 +12,7 @@ import { Button, Checkbox } from "@mui/material"
 import styles from './ContainerEsporta.module.css'
 
 const ContainerEsporta = props => {
-    const { setPagina } = props
+    const { setPagina, utente } = props
 
     const [listaEventi, setListaEventi] = useState(useSelector(state => state.eventi.lista))
     const [rangeDateSelect, setRangeDateSelect] = useState([])
@@ -32,15 +32,19 @@ const ContainerEsporta = props => {
         setListaEventi(listaEventiStore)
     }, [listaEventiStore])
 
+    useEffect(function getUtente() {
+
+    }, [])
+
     return (
         <div className={styles.container}>
             {report ? 
             <Report listaEventi={listaEventi} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
-            passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} /> :
+            passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} utente={utente} /> :
             <>
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
-                    <BtnCaricaFile />
+                    {utente ? <BtnCaricaFile /> : null}
                 </div>
 
                 <div className={styles.containerGrid}>
@@ -52,8 +56,8 @@ const ContainerEsporta = props => {
                     </div>
                 </div>
 
-                <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
-                passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
+                {utente ? <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
+                passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} /> : null}
 
                 <div className={styles.containerBottoniBottom}>
                     <Button variant="contained" onClick={() => setReport(true)}
