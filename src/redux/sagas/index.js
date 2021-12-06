@@ -6,6 +6,8 @@ import { getListaTemplate, setListaTemplate } from '../actions/TemplateActions'
 import * as selectors from './selectors'
 import {select} from 'redux-saga/effects'
 
+// FRAMEWORK
+
 export function* getFrameworks(action) {
     
     const {payload} = action
@@ -59,12 +61,14 @@ export function* deleteFramework(action) {
 
 }
 
+// EVENTI
+
 export function* getEventi(action) {
     const { payload } = action
 
     const response = yield call(api.getEvents, payload)
 
-    yield put(setListaEventi(response.data.map((el, index) => {
+    yield put(setListaEventi(response.data.map(el => {
         const { id, dati } = el
 
         const evento = {dbid: id, ...JSON.parse(dati)}
@@ -99,6 +103,47 @@ export function* eliminaEvento(action) {
     yield put(getListaEventi())
 }
 
+// TEMPLATE
+
+export function* getTemplates(action) {
+    const { payload } = action
+
+    const response = yield call(api.getTemplates, payload)
+
+    yield put(setListaTemplate(response.data.map(el => {
+        const { id, dati } = el
+
+        const template = {dbid: id, ...JSON.parse(dati)}
+        template.start = template.start === null ? null : new Date(template.start)
+        template.end = template.end === null ? null : new Date(template.end)
+        return template
+    })))
+}
+
+export function* addTemplate(action) {
+    const { payload } = action
+
+    const response = yield call(api.postTemplate, payload)
+
+    yield put(getListaTemplate())
+}
+
+export function* updateTemplate(action) {
+    const { payload } = action
+
+    const response = yield call(api.updateTemplate, payload)
+
+    yield put(getListaTemplate())
+}
+
+export function* eliminaTemplate(action) {
+    const { payload } = action
+
+    const response = yield call(api.eliminaTemplate, payload)
+
+    yield put(getListaTemplate())
+}
+
 function* rootSaga() {
     yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
     yield takeLatest('ADD_FRAMEWORK', postFramework)
@@ -109,6 +154,11 @@ function* rootSaga() {
     yield takeLatest('ADD_EVENTO', addEvento)
     yield takeLatest('REPLACE_EVENTO', updateEvento)
     yield takeLatest('ELIMINA_EVENTO', eliminaEvento)
+
+    yield takeLatest('GET_LISTA_TEMPLATE', getTemplates)
+    yield takeLatest('ADD_TEMPLATE', addTemplate)
+    yield takeLatest('REPLACE_TEMPLATE', updateTemplate)
+    yield takeLatest('ELIMINA_TEMPLATE', eliminaTemplate)
 }
 
 export default rootSaga
