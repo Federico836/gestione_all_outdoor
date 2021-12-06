@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Calendario from './tabelle/Calendario'
 import TabListaFramework from './tabelle/TabListaFramework'
+import TabListaTemplate from './tabelle/TabListaTemplate'
 import TabValori from './tabelle/TabValori'
 import Report from './tabelle/Report'
 import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
@@ -22,6 +23,8 @@ const ContainerEsporta = props => {
     const [passoNuoto, setPassoNuoto] = useState(0)
     const [report, setReport] = useState(false)
     const [tabellone, setTabellone] = useState(true)
+
+    const [tipoEventi, setTipoEventi] = useState("framework")
 
     const { t, i18n } = useTranslation()
 
@@ -48,7 +51,8 @@ const ContainerEsporta = props => {
                         <Calendario listaEventi={listaEventi} setListaEventi={setListaEventi} setRangeDateSelect={setRangeDateSelect} />
                     </div>
                     <div>
-                        <TabListaFramework />
+                        {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :
+                        <TabListaTemplate setTipoEventi={setTipoEventi} />}
                     </div>
                 </div>
 

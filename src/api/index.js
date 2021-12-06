@@ -40,13 +40,7 @@ const postTemplate = template => {return axios_instance.post('templates', {dati:
 const deleteTemplate = dbid => {return axios_instance.delete('templates/' + dbid)}
 const updateTemplate = template => {return axios_instance.put('/templates/' + template.dbid, {dati: JSON.stringify({...template}), coach_id: window.md.logged_user.ID})}
 
-export default {
-    getFrameworks,
-    postFramework,
-    deleteFramework,
-    updateFramework,
-    getEvents,
-    postEvent,
-    deleteEvent,
-    updateEvent,
+export default { getFrameworks, postFramework, deleteFramework, updateFramework,
+    getEvents, postEvent, deleteEvent, updateEvent,
+    getTemplates, postTemplate, deleteTemplate, updateTemplate
 }

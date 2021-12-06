@@ -51,9 +51,9 @@ const TabListaFramework = props => {
 
     const lista = []
     for(let c=0;c<listaFiltrataNome.length;c++) {
-        let coloreRiga = "lightgray"
+        let coloreRiga = "white"
         if(c%2===0) {
-            coloreRiga = "white"
+            coloreRiga = "lightgray"
         }
 
         lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
@@ -64,14 +64,6 @@ const TabListaFramework = props => {
             <td>{listaFiltrataNome[c].dataDaFare}</td>
         </tr>)
     }
-
-    lista.unshift(<tr style={{backgroundColor: "lightgray"}} className="rigaDrag" title="MagneticDays"
-    tipoSport={"rullo"} sourceId={999}>
-        <td>{"MagneticDays"}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>)
 
     useEffect(function addDragNDrop() {
         new Draggable(document.getElementById("tabDrag"), {
@@ -121,19 +113,8 @@ const TabListaFramework = props => {
         <div className={styles.container}>
             <div className={styles.containerCerca}>
                 <div>
-                    <nobr>
-                        <Button variant="contained" style={{fontSize: "10px", padding: "0.6%"}}
-                            onClick={() => setTipoEventi("template")}>Framework</Button>
-                        <select className={styles.selectSport} onChange={e => setTipoSport(e.target.value)}>
-                            <option value="ciclismo">{t('scrivi-framework:ciclismo:ciclismo')}</option>
-                            <option value="corsa">{t('scrivi-framework:corsa:corsa')}</option>
-                            <option value="nuoto">{t('scrivi-framework:nuoto:nuoto')}</option>
-                            <option value="palestra">{t('scrivi-framework:palestra:palestra')}</option>
-                            <option value="combinati_tri">{t('scrivi-framework:combinati-tri:combinati-tri')}</option>
-                            <option value="altri">{t('scrivi-framework:sport:altri')}</option>
-                            <option value="tutti">{t('modifica-framework:tutti')}</option>
-                        </select>
-                    </nobr>
+                    <Button variant="contained" style={{fontSize: "10px", padding: "0.6%"}}
+                        onClick={() => setTipoEventi("framework")}>Template</Button>
                 </div>
                 <div className={styles.cerca}>
                     {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
