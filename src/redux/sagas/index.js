@@ -2,8 +2,9 @@ import { call, put, takeEvery, takeLatest, all, actionChannel } from 'redux-saga
 import api from '../../api'
 import { setListaFrameworks, getListaFrameworks } from '../actions/FrameworkActions'
 import { getListaEventi, setListaEventi } from '../actions/EventActions'
-import * as selectors from './selectors';
-import {select} from 'redux-saga/effects';
+import { getListaTemplate, setListaTemplate } from '../actions/TemplateActions'
+import * as selectors from './selectors'
+import {select} from 'redux-saga/effects'
 
 export function* getFrameworks(action) {
     
