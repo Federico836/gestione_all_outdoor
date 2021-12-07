@@ -115,10 +115,10 @@ export function* getTemplates(action) {
 
         const template = {dbid: id, ...JSON.parse(dati)}
         template.dataCreazione = new Date(template.dataCreazione)
-        template.listaEventi.forEach(evento => {
+        /* template.listaEventi.forEach(evento => {
             evento.start = evento.start === null ? null : new Date(evento.start)
             evento.end = evento.end === null ? null : new Date(evento.end)
-        })
+        }) */
         console.log(template)
         return template
     })))

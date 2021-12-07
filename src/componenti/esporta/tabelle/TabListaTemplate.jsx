@@ -78,7 +78,30 @@ const TabListaTemplate = props => {
         const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
         evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
 
-        dispatch(addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: eventiSelezionati }))
+        const eventiCopiati = JSON.parse(JSON.stringify(eventiSelezionati))
+        eventiCopiati.forEach(evento => {
+            evento.start = new Date(evento.start)
+            evento.end = evento.end ? new Date(evento.end) : null
+        })
+
+        if(eventiCopiati.length>0) {
+            for(let c=1;c<eventiCopiati.length;c++) {
+                const evento = eventiCopiati[c]
+                evento.start = evento.start-eventiCopiati[0].start
+                evento.end = evento.end ? evento.end-eventiCopiati[0].end : null
+            }
+
+            const evento = eventiCopiati[0]
+            const mezzanotteStart = new Date(new Date(evento.start).setHours(0, 0, 0, 0))
+            const msDaMezzanotteStart = evento.start.getTime()-mezzanotteStart.getTime()
+            const mezzanotteEnd = evento.end ? new Date(new Date(evento.end).setHours(0, 0, 0, 0)) : null
+            const msDaMezzanotteEnd = evento.end ? evento.end.getTime()-mezzanotteEnd.getTime() : null
+
+            evento.start = msDaMezzanotteStart
+            evento.end = msDaMezzanotteEnd
+        }
+
+        dispatch(addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: eventiCopiati }))
     }
 
     return (
