@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { addTemplate } from "../../../redux/actions/TemplateActions"
+import { addTemplate, eliminaTemplate } from "../../../redux/actions/TemplateActions"
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -11,7 +11,7 @@ import { Button } from "@mui/material"
 import styles from './TabListaTemplate.module.css'
 
 const TabListaTemplate = props => {
-    const { setTipoEventi, rangeDateSelect } = props
+    const { setTipoEventi, rangeDateSelect, listaEventi } = props
 
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("data")
@@ -52,10 +52,10 @@ const TabListaTemplate = props => {
         }
 
         lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
-        tipoSport={listaFiltrataNome[c].tipoPerSelect} sourceId={listaFiltrataNome[c].id}>
-            <td>{listaFiltrataNome[c].nomeFramework}</td>
+        sourceId={listaFiltrataNome[c].id}>
+            <td>{listaFiltrataNome[c].nome}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
-            <td>🗑️</td>
+            <td onClick={() => dispatch(eliminaTemplate(listaFiltrataNome[c].dbid))}>🗑️</td>
         </tr>)
     }
 
@@ -65,42 +65,21 @@ const TabListaTemplate = props => {
             eventData: function(eventEl) {
 
                 console.log(eventEl.innerText)
-                let titolo = ""
-                let colore = ""
-                if(eventEl.getAttribute('tipoSport')==="ciclismo") {
-                    titolo = "🚲 "+eventEl.getAttribute('title')
-                    colore = "green"
-                } else if(eventEl.getAttribute('tipoSport')==="nuoto") {
-                    titolo = "🏊 "+eventEl.getAttribute('title')
-                    colore = "blue"
-                } else if(eventEl.getAttribute('tipoSport')==="corsa") {
-                    titolo = "🏃 "+eventEl.getAttribute('title')
-                    colore = "red"
-                } else if(eventEl.getAttribute('tipoSport')==="palestra") {
-                    titolo = "🏋 "+eventEl.getAttribute('title')
-                    colore = "black"
-                } else if(eventEl.getAttribute('tipoSport')==="combinati_tri") {
-                    titolo = "🏊🚲🏃 "+eventEl.getAttribute('title')
-                    colore = "gray"
-                } else if(eventEl.getAttribute('tipoSport')==="gara") {
-                    titolo = "🏁 "+eventEl.getAttribute('title')
-                    colore = "gray"
-                } else {
-                    titolo = eventEl.getAttribute('title')
-                    colore = "gray"
-                }
 
-                return {
-                    title: titolo,
-                    color: colore,
-                    create: true,
-                    sourceId: eventEl.getAttribute('sourceId'),
-                    mdId: eventEl.getAttribute('sourceId'),
-                    id: uuidv4()
-                }
+                const listaEventi = listaFiltrataNome.find(template => template.id==eventEl.getAttribute('sourceId')).listaEventi
+                console.log(listaEventi)
+
+                return listaEventi
             }
         })
     }, [])
+
+    const aggiungiTemplate = () => {
+        const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
+        evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
+
+        dispatch(addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: eventiSelezionati }))
+    }
 
     return (
         <div className={styles.container}>
@@ -139,9 +118,7 @@ const TabListaTemplate = props => {
             </div>
             <div className={styles.containerSalvaTemplate}>
                 {t('modifica-framework:nome-template')}: <input type="text" onChange={e => setNomeTemplate(e.target.value)} />
-                <Button variant="contained" onClick={() => dispatch(
-                    addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: rangeDateSelect })
-                    )}>{t('esporta:salva')}</Button>
+                <Button variant="contained" onClick={aggiungiTemplate}>{t('esporta:salva')}</Button>
             </div>
         </div>
     )

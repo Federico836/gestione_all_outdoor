@@ -13,9 +13,8 @@ export function* getFrameworks(action) {
     const {payload} = action
 
     const response = yield call(api.getFrameworks, payload)
-    console.log(response)
     
-    yield put(setListaFrameworks(response.data.map((el, index) => {
+    yield put(setListaFrameworks(response.data.map(el => {
 
         const {id, dati} = el
         return {dbid: id, ...JSON.parse(dati)}
@@ -110,14 +109,17 @@ export function* getTemplates(action) {
     const { payload } = action
 
     const response = yield call(api.getTemplates, payload)
-    console.log(response)
 
     yield put(setListaTemplate(response.data.map(el => {
         const { id, dati } = el
 
         const template = {dbid: id, ...JSON.parse(dati)}
-        template.start = template.start === null ? null : new Date(template.start)
-        template.end = template.end === null ? null : new Date(template.end)
+        template.dataCreazione = new Date(template.dataCreazione)
+        template.listaEventi.forEach(evento => {
+            evento.start = evento.start === null ? null : new Date(evento.start)
+            evento.end = evento.end === null ? null : new Date(evento.end)
+        })
+        console.log(template)
         return template
     })))
 }
@@ -141,7 +143,7 @@ export function* updateTemplate(action) {
 export function* eliminaTemplate(action) {
     const { payload } = action
 
-    const response = yield call(api.eliminaTemplate, payload)
+    const response = yield call(api.deleteTemplate, payload)
 
     yield put(getListaTemplate())
 }
@@ -164,3 +166,4 @@ function* rootSaga() {
 }
 
 export default rootSaga
+

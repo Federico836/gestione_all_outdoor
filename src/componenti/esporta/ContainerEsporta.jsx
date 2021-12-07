@@ -52,7 +52,8 @@ const ContainerEsporta = props => {
                     </div>
                     <div style={{position: "relative"}}>
                         {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :
-                        <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect} />}
+                        <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
+                        listaEventi={listaEventi} />}
                     </div>
                 </div>
 
