@@ -133,7 +133,8 @@
       "alert-cambiamenti": "Ci sono dei cambiamenti non salvati, sei sicuro di uscire ?"
     },
     "data-da-fare": "Data Da Fare",
-    "elimina": "Elimina"
+    "elimina": "Elimina",
+    "nome-template": "Nome Template"
   },
   "esporta": {
     "calendario": {
@@ -202,6 +203,7 @@
         "tempo": "TEMPO"
       }
     },
-    "carica": "CARICA"
+    "carica": "CARICA",
+    "salva": "Salva"
   }
 }

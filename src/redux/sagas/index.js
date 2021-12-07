@@ -12,7 +12,8 @@ export function* getFrameworks(action) {
     
     const {payload} = action
 
-    const response = yield call(api.getFrameworks, payload);
+    const response = yield call(api.getFrameworks, payload)
+    console.log(response)
     
     yield put(setListaFrameworks(response.data.map((el, index) => {
 
@@ -109,6 +110,7 @@ export function* getTemplates(action) {
     const { payload } = action
 
     const response = yield call(api.getTemplates, payload)
+    console.log(response)
 
     yield put(setListaTemplate(response.data.map(el => {
         const { id, dati } = el

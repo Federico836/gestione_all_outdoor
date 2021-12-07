@@ -133,7 +133,8 @@
       "alert-cambiamenti": "There are some unsaved changes, are you sure to exit ?"
     },
     "data-da-fare": "Date To Do",
-    "elimina": "Delete"
+    "elimina": "Delete",
+    "nome-template": "Template Name"
   },
   "esporta": {
     "calendario": {
@@ -202,6 +203,7 @@
         "tempo": "TIME"
       }
     },
-    "carica": "UPLOAD"
+    "carica": "UPLOAD",
+    "salva": "Save"
   }
 }

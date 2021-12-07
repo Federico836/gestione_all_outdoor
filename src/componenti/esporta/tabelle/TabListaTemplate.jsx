@@ -1,6 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { addTemplate } from "../../../redux/actions/TemplateActions"
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -10,19 +11,23 @@ import { Button } from "@mui/material"
 import styles from './TabListaTemplate.module.css'
 
 const TabListaTemplate = props => {
-    const { setTipoEventi } = props
+    const { setTipoEventi, rangeDateSelect } = props
 
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("data")
     const [secClickOrd, setSecClickOrd] = useState(false)
+    const [nomeTemplate, setNomeTemplate] = useState("")
 
     const { t, i18n } = useTranslation()
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setSecClickOrd(false)
     }, [tipoOrd])
 
     const listaTemplate = useSelector(state => state.templates.lista)
+    console.log(listaTemplate)
     const listaFiltrataNome = ricercaNome ==="" ? listaTemplate : listaTemplate.filter(template => template.nome.includes(ricercaNome))
 
     if(tipoOrd === "nome") {
@@ -50,6 +55,7 @@ const TabListaTemplate = props => {
         tipoSport={listaFiltrataNome[c].tipoPerSelect} sourceId={listaFiltrataNome[c].id}>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
+            <td>🗑️</td>
         </tr>)
     }
 
@@ -112,12 +118,14 @@ const TabListaTemplate = props => {
                     <thead>
                         <tr>
                             <th onClick={() => {setTipoOrd("nome"); setSecClickOrd(!secClickOrd)}}>
-                                {tipoOrd==="nome" ? secClickOrd ? "↓ "+t('modifica-framework:nome-framework') :
-                                "↑ "+t('modifica-framework:nome-framework') : t('modifica-framework:nome-framework')}</th>
+                                {tipoOrd==="nome" ? secClickOrd ? "↓ "+t('modifica-framework:nome-template') :
+                                "↑ "+t('modifica-framework:nome-template') : t('modifica-framework:nome-template')}</th>
 
                             <th onClick={() => {setTipoOrd("data"); setSecClickOrd(!secClickOrd)}}>
                                 {tipoOrd==="data" ? secClickOrd ? "↓ "+t('modifica-framework:data-salvataggio') :
                                 "↑ "+t('modifica-framework:data-salvataggio') : t('modifica-framework:data-salvataggio')}</th>
+                            
+                            <th>{t('modifica-framework:elimina')}</th>
                         </tr>
                     </thead>
                 </table>
@@ -128,6 +136,12 @@ const TabListaTemplate = props => {
                         {lista}
                     </tbody>
                 </table>
+            </div>
+            <div className={styles.containerSalvaTemplate}>
+                {t('modifica-framework:nome-template')}: <input type="text" onChange={e => setNomeTemplate(e.target.value)} />
+                <Button variant="contained" onClick={() => dispatch(
+                    addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: rangeDateSelect })
+                    )}>{t('esporta:salva')}</Button>
             </div>
         </div>
     )
