@@ -55,11 +55,12 @@ const TabListaTemplate = props => {
         sourceId={listaFiltrataNome[c].id}>
             <td>{listaFiltrataNome[c].nome}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
+            <td>➕</td>
             <td onClick={() => dispatch(eliminaTemplate(listaFiltrataNome[c].dbid))}>🗑️</td>
         </tr>)
     }
 
-    useEffect(function addDragNDrop() {
+    /* useEffect(function addDragNDrop() {
         new Draggable(document.getElementById("tabDrag"), {
             itemSelector: '.rigaDrag',
             eventData: function(eventEl) {
@@ -72,7 +73,7 @@ const TabListaTemplate = props => {
                 return listaEventi
             }
         })
-    }, [])
+    }, []) */
 
     const aggiungiTemplate = () => {
         const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
@@ -127,6 +128,8 @@ const TabListaTemplate = props => {
                                 {tipoOrd==="data" ? secClickOrd ? "↓ "+t('modifica-framework:data-salvataggio') :
                                 "↑ "+t('modifica-framework:data-salvataggio') : t('modifica-framework:data-salvataggio')}</th>
                             
+                            <th>{t('modifica-framework:aggiungi')}</th>
+
                             <th>{t('modifica-framework:elimina')}</th>
                         </tr>
                     </thead>

@@ -50,14 +50,20 @@
 }
 .tabListaFramework tr td:first-child {
     border-left: 0px;
-    width: 42%;
+    width: 35%;
 }
 .tabListaFramework tr td:nth-child(2) {
-    width: 42%;
+    width: 35%;
+}
+.tabListaFramework tr td:nth-child(3) {
+    width: 15%;
 }
 .tabListaFramework tr td:last-child {
     border-right: 0px;
-    width: 16%;
+    width: 15%;
+}
+.tabListaFramework tr td:nth-child(3) {
+    cursor: pointer;
 }
 .tabListaFramework tr td:last-child:hover {
     cursor: pointer;
@@ -91,15 +97,19 @@
     cursor: pointer;
 }
 .intestazioneTab tr th:first-child {
-    width: 40%;
+    width: 32.82%;
     border-right: 1px solid black;
 }
 .intestazioneTab tr th:nth-child(2) {
-    width: 40%;
+    width: 32.84%;
+    border-right: 1px solid black;
+}
+.intestazioneTab tr th:nth-child(3) {
+    width: 14.05%;
     border-right: 1px solid black;
 }
 .intestazioneTab tr th:last-child {
-    width: 17.15%;
+    width: 15.96%;
 }
 
 .containerSalvaTemplate {
