@@ -11,7 +11,7 @@ import { Button } from "@mui/material"
 import styles from './TabListaTemplate.module.css'
 
 const TabListaTemplate = props => {
-    const { setTipoEventi, rangeDateSelect, listaEventi } = props
+    const { setTipoEventi, rangeDateSelect, listaEventi, aggiungiTemplateCal } = props
 
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("data")
@@ -55,7 +55,7 @@ const TabListaTemplate = props => {
         sourceId={listaFiltrataNome[c].id}>
             <td>{listaFiltrataNome[c].nome}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
-            <td>➕</td>
+            <td onClick={() => aggiungiTemplateCal(listaFiltrataNome[c])}>➕</td>
             <td onClick={() => dispatch(eliminaTemplate(listaFiltrataNome[c].dbid))}>🗑️</td>
         </tr>)
     }
@@ -85,21 +85,19 @@ const TabListaTemplate = props => {
             evento.end = evento.end ? new Date(evento.end) : null
         })
 
-        if(eventiCopiati.length>0) {
-            for(let c=1;c<eventiCopiati.length;c++) {
-                const evento = eventiCopiati[c]
-                evento.start = evento.start-eventiCopiati[0].start
-                evento.end = evento.end ? evento.end-eventiCopiati[0].end : null
-            }
+        const evento = eventiCopiati[0]
+        const mezzanotteStart = new Date(new Date(evento.start).setHours(0, 0, 0, 0))
+        /* const msDaMezzanotteStart = evento.start.getTime()-mezzanotteStart.getTime() */
+        const mezzanotteEnd = evento.end ? new Date(new Date(evento.end).setHours(0, 0, 0, 0)) : null
+        /* const msDaMezzanotteEnd = evento.end ? evento.end.getTime()-mezzanotteEnd.getTime() : null */
 
-            const evento = eventiCopiati[0]
-            const mezzanotteStart = new Date(new Date(evento.start).setHours(0, 0, 0, 0))
-            const msDaMezzanotteStart = evento.start.getTime()-mezzanotteStart.getTime()
-            const mezzanotteEnd = evento.end ? new Date(new Date(evento.end).setHours(0, 0, 0, 0)) : null
-            const msDaMezzanotteEnd = evento.end ? evento.end.getTime()-mezzanotteEnd.getTime() : null
+        /* evento.start = msDaMezzanotteStart
+        evento.end = msDaMezzanotteEnd */
 
-            evento.start = msDaMezzanotteStart
-            evento.end = msDaMezzanotteEnd
+        for(let c=0;c<eventiCopiati.length;c++) {
+            const evento = eventiCopiati[c]
+            evento.start = evento.start-mezzanotteStart
+            evento.end = evento.end ? evento.end-mezzanotteEnd : null
         }
 
         dispatch(addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: eventiCopiati }))

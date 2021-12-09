@@ -23,8 +23,8 @@ const ContainerEsporta = props => {
     const [passoNuoto, setPassoNuoto] = useState(0)
     const [report, setReport] = useState(false)
     const [tabellone, setTabellone] = useState(true)
-
     const [tipoEventi, setTipoEventi] = useState("framework")
+    const [calendarApi, setCalendarApi] = useState(null)
 
     const { t, i18n } = useTranslation()
 
@@ -34,6 +34,11 @@ const ContainerEsporta = props => {
     useEffect(() => {
         setListaEventi(listaEventiStore)
     }, [listaEventiStore])
+
+    const aggiungiTemplateCal = template => {
+        console.log(template)
+        template.listaEventi.forEach(evento => calendarApi.addEvent(evento))
+    }
 
     return (
         <div className={styles.container}>
@@ -48,12 +53,12 @@ const ContainerEsporta = props => {
 
                 <div className={styles.containerGrid}>
                     <div>
-                        <Calendario listaEventi={listaEventi} setListaEventi={setListaEventi} setRangeDateSelect={setRangeDateSelect} />
+                        <Calendario listaEventi={listaEventi} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi} />
                     </div>
                     <div style={{position: "relative"}}>
                         {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :
                         <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
-                        listaEventi={listaEventi} />}
+                        listaEventi={listaEventi} aggiungiTemplateCal={aggiungiTemplateCal} />}
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useRef} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -12,13 +12,26 @@ import { addEvento, replaceEvento, eliminaEvento } from '../../../redux/actions/
 import './Calendario.css'
 
 const Calendario = props => {
-    const { listaEventi, setListaEventi, setRangeDateSelect } = props
+    const { listaEventi, setRangeDateSelect, setCalendarApi } = props
 
     const dispatch = useDispatch()
 
     const { t, i18n } = useTranslation()
     
     const [events, setEvents] = useState(null)
+    const calendarRef = useRef(null)
+
+    useEffect(() => {
+        if(!events) {
+            setEvents(listaEventi)
+            console.log(listaEventi)
+        }
+    }, [listaEventi])
+
+    useEffect(function impostaApiCalendario() {
+        const calendarApi = calendarRef.current.getApi()
+        setCalendarApi(calendarApi)
+    }, [])
 
     const getEventPropsFromCalendarEvent = (calEvent) => {
 
@@ -36,13 +49,6 @@ const Calendario = props => {
         }
 
     }
-
-    useEffect(() => {
-        if(!events) {
-            setEvents(listaEventi)
-            console.log(listaEventi)
-        }
-    }, [listaEventi])
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -95,7 +101,7 @@ const Calendario = props => {
 
     return (
         <div className="fc-toolbar-chunk">
-            <FullCalendar
+            <FullCalendar ref={calendarRef}
             // generali calendario
             plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} initialView="dayGridMonth"
             headerToolbar={{left: 'dayGridMonth,timeGridWeek,timeGridDay', center: "title"}}
