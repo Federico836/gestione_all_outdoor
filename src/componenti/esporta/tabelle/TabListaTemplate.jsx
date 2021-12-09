@@ -88,7 +88,7 @@ const TabListaTemplate = props => {
         const evento = eventiCopiati[0]
         const mezzanotteStart = new Date(new Date(evento.start).setHours(0, 0, 0, 0))
         /* const msDaMezzanotteStart = evento.start.getTime()-mezzanotteStart.getTime() */
-        const mezzanotteEnd = evento.end ? new Date(new Date(evento.end).setHours(0, 0, 0, 0)) : null
+        /* const mezzanotteEnd = evento.end ? new Date(new Date(evento.end).setHours(0, 0, 0, 0)) : null */
         /* const msDaMezzanotteEnd = evento.end ? evento.end.getTime()-mezzanotteEnd.getTime() : null */
 
         /* evento.start = msDaMezzanotteStart
@@ -97,7 +97,7 @@ const TabListaTemplate = props => {
         for(let c=0;c<eventiCopiati.length;c++) {
             const evento = eventiCopiati[c]
             evento.start = evento.start-mezzanotteStart
-            evento.end = evento.end ? evento.end-mezzanotteEnd : null
+            evento.end = evento.end ? evento.end-mezzanotteStart : null
         }
 
         dispatch(addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: eventiCopiati }))

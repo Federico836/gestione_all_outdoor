@@ -36,14 +36,18 @@ const ContainerEsporta = props => {
     }, [listaEventiStore])
 
     const aggiungiTemplateCal = template => {
-        console.log(template)
-        template.listaEventi.forEach(evento => calendarApi.addEvent(evento))
+        const listaEventi = JSON.parse(JSON.stringify(template.listaEventi))
+        listaEventi.forEach(evento => {
+            evento.start = new Date(rangeDateSelect.start.getTime()+evento.start)
+            evento.end = evento.end ? new Date(rangeDateSelect.start.getTime()+evento.end) : null
+            calendarApi.addEvent(evento)
+        })
     }
 
     return (
         <div className={styles.container}>
             {report ? 
-            <Report listaEventi={listaEventi} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
+            <Report listaEventi={/* listaEventi */ calendarApi.getEvents()} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
             passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} utente={utente} /> :
             <>
                 <div className={styles.containerBottoniTop}>
