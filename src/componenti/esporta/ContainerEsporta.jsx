@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Calendario from './tabelle/Calendario'
 import TabListaFramework from './tabelle/TabListaFramework'
 import TabListaTemplate from './tabelle/TabListaTemplate'
@@ -8,12 +8,15 @@ import TabValori from './tabelle/TabValori'
 import Report from './tabelle/Report'
 import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
 import { useTranslation } from 'react-i18next'
+import { addEvento } from '../../redux/actions/EventActions'
 
 import { Button, Checkbox } from "@mui/material"
 import styles from './ContainerEsporta.module.css'
 
 const ContainerEsporta = props => {
     const { setPagina, utente, idUtente } = props
+
+    const dispatch = useDispatch()
 
     const [listaEventi, setListaEventi] = useState(useSelector(state => state.eventi.lista))
     const [rangeDateSelect, setRangeDateSelect] = useState([])
@@ -35,14 +38,30 @@ const ContainerEsporta = props => {
         setListaEventi(listaEventiStore)
     }, [listaEventiStore])
 
+    const getEventPropsFromCalendarEvent = calEvent => {
+        return {
+                ...calEvent,
+                extendedProps: calEvent.extendedProps,
+                allDay: calEvent.allDay, 
+                backgroundColor: calEvent.backgroundColor,
+                borderColor: calEvent.borderColor,
+                display: calEvent.display,
+                id: calEvent.id,
+                title: calEvent.title,
+                start: (calEvent.start) ? new Date(calEvent.start.getTime()) : null,
+                end: (calEvent.end) ? new Date(calEvent.end.getTime()) : null
+        }
+    }
+
     const aggiungiTemplateCal = template => {
         const listaEventiCopia = JSON.parse(JSON.stringify(template.listaEventi))
         listaEventiCopia.forEach(evento => {
             evento.start = new Date(rangeDateSelect.start.getTime()+evento.start)
             evento.end = evento.end ? new Date(rangeDateSelect.start.getTime()+evento.end) : null
             calendarApi.addEvent(evento)
+            dispatch(addEvento(getEventPropsFromCalendarEvent(evento), idUtente))
         })
-        setListaEventi([...listaEventi].concat(listaEventiCopia))
+        /* setListaEventi([...listaEventi].concat(listaEventiCopia)) */
     }
 
     return (
@@ -59,7 +78,7 @@ const ContainerEsporta = props => {
                 <div className={styles.containerGrid}>
                     <div>
                         <Calendario listaEventi={listaEventi} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi}
-                        idUtente={idUtente} />
+                        idUtente={idUtente} getEventPropsFromCalendarEvent={getEventPropsFromCalendarEvent} />
                     </div>
                     <div style={{position: "relative"}}>
                         {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :

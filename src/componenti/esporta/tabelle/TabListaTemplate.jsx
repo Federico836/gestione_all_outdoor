@@ -98,6 +98,7 @@ const TabListaTemplate = props => {
             const evento = eventiCopiati[c]
             evento.start = evento.start-mezzanotteStart
             evento.end = evento.end ? evento.end-mezzanotteStart : null
+            evento.id = uuidv4()
         }
 
         dispatch(addTemplate({ nome: nomeTemplate, id: uuidv4(), dataCreazione: Date.now(), listaEventi: eventiCopiati }))

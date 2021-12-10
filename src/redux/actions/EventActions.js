@@ -10,8 +10,8 @@ const addEvento = (evento, user_id) => {
     return {type: 'ADD_EVENTO', payload: {evento, user_id}}
 }
 
-const replaceEvento = evento => {
-    return {type: 'REPLACE_EVENTO', payload: evento}
+const replaceEvento = (evento, user_id) => {
+    return {type: 'REPLACE_EVENTO', payload: {evento, user_id}}
 }
 
 const eliminaEvento = evento => {

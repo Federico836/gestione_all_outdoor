@@ -12,7 +12,7 @@ import { addEvento, replaceEvento, eliminaEvento } from '../../../redux/actions/
 import './Calendario.css'
 
 const Calendario = props => {
-    const { listaEventi, setRangeDateSelect, setCalendarApi, idUtente } = props
+    const { listaEventi, setRangeDateSelect, setCalendarApi, idUtente, getEventPropsFromCalendarEvent } = props
 
     const dispatch = useDispatch()
 
@@ -22,7 +22,7 @@ const Calendario = props => {
     const calendarRef = useRef(null)
 
     useEffect(() => {
-        if(!events) {
+        if(!events /* && listaEventi.length>0 */) {
             setEvents(listaEventi)
             console.log(listaEventi)
         }
@@ -32,23 +32,6 @@ const Calendario = props => {
         const calendarApi = calendarRef.current.getApi()
         setCalendarApi(calendarApi)
     }, [])
-
-    const getEventPropsFromCalendarEvent = calEvent => {
-
-        return {
-                ...calEvent,
-                extendedProps: calEvent.extendedProps,
-                allDay: calEvent.allDay, 
-                backgroundColor: calEvent.backgroundColor,
-                borderColor: calEvent.borderColor,
-                display: calEvent.display,
-                id: calEvent.id,
-                title: calEvent.title,
-                start: (calEvent.start) ? new Date(calEvent.start.getTime()) : null,
-                end: (calEvent.end) ? new Date(calEvent.end.getTime()) : null
-        }
-
-    }
 
     const eventClick = eventClick => {
         Alert.fire({
@@ -96,7 +79,7 @@ const Calendario = props => {
             }
         })]) */
         console.log({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid})
-        dispatch(replaceEvento({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid}))
+        dispatch(replaceEvento({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid}, idUtente))
     }
 
     return (

@@ -85,7 +85,7 @@ export function* addEvento(action) {
     const response = yield call(api.postEvent, payload)
     console.log(response)
     
-    /* yield put(getListaEventi(payload.user_id)) */
+    yield put(getListaEventi(payload.user_id))
 }
 
 export function* updateEvento(action) {
@@ -93,7 +93,7 @@ export function* updateEvento(action) {
 
     const response = yield call(api.updateEvent, payload)
     
-    yield put(getListaEventi())
+    yield put(getListaEventi(payload.user_id))
 }
 
 export function* eliminaEvento(action) {
@@ -101,7 +101,7 @@ export function* eliminaEvento(action) {
 
     const response = yield call(api.deleteEvent, payload)
 
-    yield put(getListaEventi())
+    yield put(getListaEventi(payload.user_id))
 }
 
 // TEMPLATE
