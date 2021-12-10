@@ -53,7 +53,7 @@ const Report = props => {
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
 
 
-    const getWeeks = (arr,criteria = "settimana") => {
+    const getWeeks = (arr, criteria = "settimana") => {
 
         const newObj = arr.map(el => { return {settimana: el.start.getWeek()}}).reduce(function (acc, currentValue) {
             if (!acc[currentValue[criteria]]) {
@@ -127,10 +127,10 @@ const Report = props => {
                 tabDaAggiungere.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
             
             } else if(framework.tipoPerSelect==="palestra") {
-                tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:palestra:palestra')}</h4>)
                 tabDaAggiungere.push(<TabPalestraDragNDrop listaRighe={listaRigheFrame} />)
             } else if(framework.tipoPerSelect==="combinati_tri") {
-                tabDaAggiungere.push(<h4>{t('scrivi-framework:palestra:palestra')}</h4>)
+                tabDaAggiungere.push(<h4>{t('scrivi-framework:combinati-tri:combinati-tri')}</h4>)
                 tabDaAggiungere.push(<TabCombinatiTriDragNDrop listaRighe={listaRigheFrame} />)
             } else if(framework.tipoPerSelect==="altri") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:sport:altri')}</h4>)

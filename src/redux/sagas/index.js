@@ -83,8 +83,9 @@ export function* addEvento(action) {
     const { payload } = action
 
     const response = yield call(api.postEvent, payload)
+    console.log(response)
     
-    yield put(getListaEventi())
+    /* yield put(getListaEventi(payload.user_id)) */
 }
 
 export function* updateEvento(action) {

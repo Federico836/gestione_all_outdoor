@@ -13,7 +13,7 @@ import { Button, Checkbox } from "@mui/material"
 import styles from './ContainerEsporta.module.css'
 
 const ContainerEsporta = props => {
-    const { setPagina, utente } = props
+    const { setPagina, utente, idUtente } = props
 
     const [listaEventi, setListaEventi] = useState(useSelector(state => state.eventi.lista))
     const [rangeDateSelect, setRangeDateSelect] = useState([])
@@ -36,18 +36,19 @@ const ContainerEsporta = props => {
     }, [listaEventiStore])
 
     const aggiungiTemplateCal = template => {
-        const listaEventi = JSON.parse(JSON.stringify(template.listaEventi))
-        listaEventi.forEach(evento => {
+        const listaEventiCopia = JSON.parse(JSON.stringify(template.listaEventi))
+        listaEventiCopia.forEach(evento => {
             evento.start = new Date(rangeDateSelect.start.getTime()+evento.start)
             evento.end = evento.end ? new Date(rangeDateSelect.start.getTime()+evento.end) : null
             calendarApi.addEvent(evento)
         })
+        setListaEventi([...listaEventi].concat(listaEventiCopia))
     }
 
     return (
         <div className={styles.container}>
             {report ? 
-            <Report listaEventi={/* listaEventi */ calendarApi.getEvents()} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
+            <Report listaEventi={listaEventi /* calendarApi.getEvents() */} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
             passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} utente={utente} /> :
             <>
                 <div className={styles.containerBottoniTop}>
@@ -57,7 +58,8 @@ const ContainerEsporta = props => {
 
                 <div className={styles.containerGrid}>
                     <div>
-                        <Calendario listaEventi={listaEventi} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi} />
+                        <Calendario listaEventi={listaEventi} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi}
+                        idUtente={idUtente} />
                     </div>
                     <div style={{position: "relative"}}>
                         {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :

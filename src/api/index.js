@@ -30,10 +30,15 @@ const updateFramework = framework => {return axios_instance.put('/frameworks/' +
 const listaProp = ["allDay", "backgroundColor", "borderColor", "display", "end", "extendedProps","mdId", "id", "start",
     "title", "_context", "_def", "_instance"]
 
-const getEvents = () => {return axios_instance.get('events')}
+/* const getEvents = () => {return axios_instance.get('events')}
 const postEvent = event => {return axios_instance.post('events', {dati: JSON.stringify({...event}, listaProp), coach_id: window.md.logged_user.ID}  )}
 const deleteEvent = dbid => {return axios_instance.delete('events/' + dbid)}
-const updateEvent = event => {return axios_instance.put('/events/' + event.dbid, {dati: JSON.stringify({...event}, listaProp), coach_id: window.md.logged_user.ID})}
+const updateEvent = event => {return axios_instance.put('/events/' + event.dbid, {dati: JSON.stringify({...event}, listaProp), coach_id: window.md.logged_user.ID})} */
+
+const getEvents = user_id => {if(user_id) {return axios_instance.get('events/'+ user_id)} else {return axios_instance.get('events')}}
+const postEvent = payload => { const {evento, user_id} = payload; return axios_instance.post('events', {dati: JSON.stringify({...evento}, listaProp), coach_id: window.md.logged_user.ID, user_id})}
+const deleteEvent = dbid => {return axios_instance.delete('events/' + dbid)}
+const updateEvent = (event, user_id) => {return axios_instance.put('/events/' + event.dbid, {dati: JSON.stringify({...event}, listaProp), coach_id: window.md.logged_user.ID, user_id})}
 
 const getTemplates = () => {return axios_instance.get('templates')}
 const postTemplate = template => {return axios_instance.post('templates', {dati: JSON.stringify({...template}), coach_id: window.md.logged_user.ID})}

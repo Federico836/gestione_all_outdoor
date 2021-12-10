@@ -11,17 +11,23 @@ function App() {
 
   const dispatch = useDispatch()
 
+  const url_str = window.location.href
+  const url = new URL(url_str)
+  const search_params = url.searchParams
+  const idUtente = search_params.get('id_utente')
+  console.log(idUtente)
+
   useEffect(() => {
     dispatch(getListaFrameworks())
-    dispatch(getListaEventi())
+    dispatch(getListaEventi(idUtente))
     dispatch(getListaTemplate())
   }, [])
 
   return (
     <div className="App">
-      <MainContainer />
+      <MainContainer idUtente={idUtente} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

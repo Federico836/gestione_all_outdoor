@@ -9,7 +9,8 @@ import ContainerEsporta from "./esporta/ContainerEsporta"
 
 const axios = require('axios')
 
-const MainContainer = () => {
+const MainContainer = props => {
+    const { idUtente } = props
 
     const [pagina, setPagina] = useState("menu_princ")
     const [utente, setUtente] = useState(null)
@@ -17,10 +18,6 @@ const MainContainer = () => {
     const { t, i18n } = useTranslation()
 
     useEffect(function getUtente() {
-        const url_str = window.location.href
-        const url = new URL(url_str)
-        const search_params = url.searchParams
-        const idUtente = search_params.get('id_utente')
         axios.get("https://www.magneticdays.com/api/md/get_utente/?id_utente="+idUtente).then(res => {
             setUtente(res.data.utente[0])
             setPagina("esporta")
@@ -46,7 +43,7 @@ const MainContainer = () => {
                 <ContainerFramework setPagina={setPagina} /> :
             pagina==="modifica_frame" ?
                 <ContainerModFrame setPagina={setPagina} /> :
-                <ContainerEsporta setPagina={setPagina} utente={utente} />}
+                <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} />}
         </div>
     )
 }

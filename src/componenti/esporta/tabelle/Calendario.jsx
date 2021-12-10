@@ -12,7 +12,7 @@ import { addEvento, replaceEvento, eliminaEvento } from '../../../redux/actions/
 import './Calendario.css'
 
 const Calendario = props => {
-    const { listaEventi, setRangeDateSelect, setCalendarApi } = props
+    const { listaEventi, setRangeDateSelect, setCalendarApi, idUtente } = props
 
     const dispatch = useDispatch()
 
@@ -33,7 +33,7 @@ const Calendario = props => {
         setCalendarApi(calendarApi)
     }, [])
 
-    const getEventPropsFromCalendarEvent = (calEvent) => {
+    const getEventPropsFromCalendarEvent = calEvent => {
 
         return {
                 ...calEvent,
@@ -106,9 +106,7 @@ const Calendario = props => {
             plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} initialView="dayGridMonth"
             headerToolbar={{left: 'dayGridMonth,timeGridWeek,timeGridDay', center: "title"}}
             // evento drag and drop dalla tabella a lato
-            /* eventReceive={info => {setListaEventi([...listaEventi, {...info.event, start: new Date(info.event.start.getTime()+43200000),
-                end: new Date(info.event.end.getTime()+46800000)}]); console.log(info.event)}} */
-            eventReceive={info => {console.log(getEventPropsFromCalendarEvent(info.event)); dispatch(addEvento(getEventPropsFromCalendarEvent(info.event)))}}
+            eventReceive={info => {console.log(getEventPropsFromCalendarEvent(info.event)); dispatch(addEvento(getEventPropsFromCalendarEvent(info.event), idUtente))}}
             // selezione e modifica eventi
             droppable={true} events={events} editable={true} eventClick={eventClick}
             selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
