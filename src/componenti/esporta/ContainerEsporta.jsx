@@ -9,6 +9,7 @@ import Report from './tabelle/Report'
 import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
 import { useTranslation } from 'react-i18next'
 import { addEvento } from '../../redux/actions/EventActions'
+import { v4 as uuidv4 } from 'uuid'
 
 import { Button, Checkbox } from "@mui/material"
 import styles from './ContainerEsporta.module.css'
@@ -58,6 +59,8 @@ const ContainerEsporta = props => {
         listaEventiCopia.forEach(evento => {
             evento.start = new Date(rangeDateSelect.start.getTime()+evento.start)
             evento.end = evento.end ? new Date(rangeDateSelect.start.getTime()+evento.end) : null
+            evento.id = uuidv4()
+            delete evento.dbid
             calendarApi.addEvent(evento)
             dispatch(addEvento(getEventPropsFromCalendarEvent(evento), idUtente))
         })
