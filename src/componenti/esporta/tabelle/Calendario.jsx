@@ -78,8 +78,9 @@ const Calendario = props => {
                 return {...getEventPropsFromCalendarEvent(eventChange.event), dbid: evento.dbid}
             }
         })]) */
+        let end = !eventChange.event.end ? eventChange.event.start.getTime()+3600000 : eventChange.event.end
         console.log({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid})
-        dispatch(replaceEvento({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid}, idUtente))
+        dispatch(replaceEvento({...getEventPropsFromCalendarEvent(eventChange.event), end, dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid}, idUtente))
     }
 
     return (
@@ -89,7 +90,8 @@ const Calendario = props => {
             plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} initialView="dayGridMonth"
             headerToolbar={{left: 'dayGridMonth,timeGridWeek,timeGridDay', center: "title"}}
             // evento drag and drop dalla tabella a lato
-            eventReceive={info => {console.log(getEventPropsFromCalendarEvent(info.event)); dispatch(addEvento(getEventPropsFromCalendarEvent(info.event), idUtente))}}
+            eventReceive={info => {console.log(getEventPropsFromCalendarEvent(info.event));
+                dispatch(addEvento({...getEventPropsFromCalendarEvent(info.event), end: new Date(info.event.start.getTime()+3600000)}, idUtente))}}
             // selezione e modifica eventi
             droppable={true} events={events} editable={true} eventClick={eventClick}
             selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}

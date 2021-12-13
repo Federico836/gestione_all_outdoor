@@ -66,6 +66,16 @@ const Report = props => {
          return Object.keys(newObj)
     }
 
+    function dataConOSenzaOrario(evento) { 
+        console.log(evento.end)
+        if(evento.allDay) {
+            return evento.start.toLocaleDateString()
+        } else {
+            return evento.start.toLocaleDateString()+" "+t('esporta:report:prima-pagina:dalle')+" "+evento.start.toLocaleTimeString()
+            +" "+t('esporta:report:prima-pagina:alle')+" "+evento.end.toLocaleTimeString()
+        }
+    }
+
     const stampaTabelleReport = () => {
 
         const listaStampaWorkouts = []
@@ -142,9 +152,10 @@ const Report = props => {
                 tabDaAggiungere.push(<div style={{whiteSpace: "pre-wrap"}}>{framework.testo}</div>)
             }
 
-            const dataConOSenzaOrario = evento => evento.allDay ? evento.start.toLocaleDateString() :
+            console.log(eventiSelezionati[c])
+            /* function dataConOSenzaOrario(evento) { return evento.allDay ? evento.start.toLocaleDateString() :
             evento.start.toLocaleDateString()+" "+t('esporta:report:prima-pagina:dalle')+" "+evento.start.toLocaleTimeString()
-            +" "+t('esporta:report:prima-pagina:alle')+" "+evento.end.toLocaleTimeString()
+            +" "+t('esporta:report:prima-pagina:alle')+" "+evento.end.toLocaleTimeString()} */
     
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()
