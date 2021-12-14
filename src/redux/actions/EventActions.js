@@ -14,8 +14,8 @@ const replaceEvento = (evento, user_id) => {
     return {type: 'REPLACE_EVENTO', payload: {evento, user_id}}
 }
 
-const eliminaEvento = evento => {
-    return {type: 'ELIMINA_EVENTO', payload: evento}
+const eliminaEvento = (evento, user_id) => {
+    return {type: 'ELIMINA_EVENTO', payload: {evento, user_id}}
 }
 
 export { getListaEventi, setListaEventi, addEvento, replaceEvento, eliminaEvento }

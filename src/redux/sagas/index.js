@@ -99,7 +99,7 @@ export function* updateEvento(action) {
 export function* eliminaEvento(action) {
     const { payload } = action
 
-    const response = yield call(api.deleteEvent, payload)
+    const response = yield call(api.deleteEvent, payload.evento)
 
     yield put(getListaEventi(payload.user_id))
 }

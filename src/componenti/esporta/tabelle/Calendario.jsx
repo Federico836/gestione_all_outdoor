@@ -61,7 +61,7 @@ const Calendario = props => {
         }).then(result => {
             if (result.value) {
                 /* setListaEventi(listaEventi.filter(evento => evento.id!==eventClick.event.id)) */
-                dispatch(eliminaEvento(listaEventi.find(evento => evento.id==eventClick.event.id).dbid))
+                dispatch(eliminaEvento(listaEventi.find(evento => evento.id==eventClick.event.id).dbid, idUtente))
                 eventClick.event.remove();
                 Alert.fire(t('esporta:calendario:eliminato'), t('esporta:calendario:scritta-eliminato'), "success");
             }
