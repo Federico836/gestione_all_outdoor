@@ -66,7 +66,7 @@ const TabListaFramework = props => {
     }
 
     lista.unshift(<tr style={{backgroundColor: "lightgray"}} className="rigaDrag" title="MagneticDays"
-    tipoSport={"rullo"} sourceId={999}>
+    tipoSport="rullo" sourceId={999}>
         <td>{"MagneticDays"}</td>
         <td></td>
         <td></td>
@@ -98,6 +98,9 @@ const TabListaFramework = props => {
                     colore = "gray"
                 } else if(eventEl.getAttribute('tipoSport')==="gara") {
                     titolo = "🏁 "+eventEl.getAttribute('title')
+                    colore = "gray"
+                } else if(eventEl.getAttribute('tipoSport')==="rullo") {
+                    titolo = "𑁍 "+eventEl.getAttribute('title')
                     colore = "gray"
                 } else {
                     titolo = eventEl.getAttribute('title')
