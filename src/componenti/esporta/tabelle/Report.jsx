@@ -36,15 +36,14 @@ import * as GraficoWeek from './grafici/settimana/GraficoWeek'
 import * as GraficoTot from './grafici/totali/GraficoTot'
 
 const Report = props => {
-    const { listaEventi, rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone, utente } = props
+    const { rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone, utente, eventiSelezionati } = props
 
     const { t, i18n } = useTranslation()
 
     const paginaDaStampare = useRef(null)
     const frameStampa = useRef(null)
 
-    const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
-    evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
+    
 
     const listaFramework = useSelector(state => state.frameworks.lista)
 
@@ -82,9 +81,9 @@ const Report = props => {
        
         const weeks = getWeeks(eventiSelezionati)
 
-        const ciclismo = elaboraCiclismo(listaFramework,eventiSelezionati,ftp,fc)
-        const corsa = elaboraCorsa(listaFramework,eventiSelezionati,passoCorsa)
-        const nuoto = elaboraNuoto(listaFramework,eventiSelezionati,passoNuoto)        
+        const ciclismo = elaboraCiclismo(listaFramework, eventiSelezionati, ftp, fc)
+        const corsa = elaboraCorsa(listaFramework, eventiSelezionati, passoCorsa)
+        const nuoto = elaboraNuoto(listaFramework, eventiSelezionati, passoNuoto)        
        
         const eventi = weeks.map(w => {
 
@@ -499,7 +498,7 @@ const Report = props => {
                     {tabellone ?
                     <>
                         <div style={{pageBreakAfter: "always"}}></div>
-                        {fc!==0 && ftp!==0  ? <div>
+                        {fc!=="" || ftp!==""  ? <div>
                             <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
                             <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
                         </div> : null}

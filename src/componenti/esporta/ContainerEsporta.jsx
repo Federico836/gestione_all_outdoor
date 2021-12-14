@@ -20,9 +20,9 @@ const ContainerEsporta = props => {
     const dispatch = useDispatch()
 
     const [listaEventi, setListaEventi] = useState(useSelector(state => state.eventi.lista))
-    const [rangeDateSelect, setRangeDateSelect] = useState([])
-    const [ftp, setFtp] = useState(0)
-    const [fc, setFc] = useState(0)
+    const [rangeDateSelect, setRangeDateSelect] = useState({start: new Date(), end: new Date()})
+    const [ftp, setFtp] = useState("")
+    const [fc, setFc] = useState("")
     const [passoCorsa, setPassoCorsa] = useState(0)
     const [passoNuoto, setPassoNuoto] = useState(0)
     const [report, setReport] = useState(false)
@@ -67,11 +67,54 @@ const ContainerEsporta = props => {
         /* setListaEventi([...listaEventi].concat(listaEventiCopia)) */
     }
 
+    const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
+    evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
+    const listaFramework = useSelector(state => state.frameworks.lista)
+
+    const controlloEventiSelected = () => {
+        const frameworkSelezionati = []
+        eventiSelezionati.forEach(evento => {
+            const trovato = listaFramework.find(framework => framework.id==evento.extendedProps.mdId)
+            if(trovato) frameworkSelezionati.push(trovato)
+        })
+
+        const cicl = frameworkSelezionati.find(framework => framework.tipoPerSelect==="ciclismo")
+        const corsa = frameworkSelezionati.find(framework => framework.tipoPerSelect==="corsa")
+        const nuoto = frameworkSelezionati.find(framework => framework.tipoPerSelect==="nuoto")
+
+        function datiPresenti() {
+            const ciclTrovato = cicl!=undefined ? true : false
+            const corsaTrovato = corsa!=undefined ? true : false
+            const nuotoTrovato = nuoto!=undefined ? true : false
+
+            let datiMancanti = ""
+            if(ciclTrovato) {
+                if(ftp=="" || fc=="") datiMancanti+=" "+t('scrivi-framework:ciclismo:ciclismo')
+            }
+            if(corsaTrovato) {
+                if(!passoCorsa) datiMancanti+=" "+t('scrivi-framework:corsa:corsa')
+            }
+            if(nuotoTrovato) {
+                if(!passoNuoto) datiMancanti+=" "+t('scrivi-framework:nuoto:nuoto')
+            }
+
+            return datiMancanti
+        }
+        
+        const datiMancanti = datiPresenti()
+        if(datiMancanti=="") {
+            setReport(true)
+        } else {
+            alert(t('esporta:inserisci-dati')+":"+datiMancanti)
+        }
+    }
+
     return (
         <div className={styles.container}>
             {report ? 
-            <Report listaEventi={listaEventi /* calendarApi.getEvents() */} rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
-            passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} utente={utente} /> :
+            <Report rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
+            passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} utente={utente}
+            eventiSelezionati={eventiSelezionati} /> :
             <>
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
@@ -96,8 +139,8 @@ const ContainerEsporta = props => {
                     passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
 
                     <div className={styles.containerBottoniBottom}>
-                        <Button variant="contained" onClick={() => setReport(true)}
-                        disabled={rangeDateSelect.length<1 ? true : false}>REPORT</Button>
+                        <Button variant="contained" onClick={controlloEventiSelected}
+                        disabled={rangeDateSelect.end-rangeDateSelect.start<100 ? true : false}>REPORT</Button>
                         <Checkbox onChange={() => setTabellone(!tabellone)} checked={tabellone} />
                         <div>{t('main-container:tabella-zone')}</div>
                     </div>

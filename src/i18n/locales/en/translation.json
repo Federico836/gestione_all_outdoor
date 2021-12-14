@@ -205,6 +205,7 @@
       }
     },
     "carica": "UPLOAD",
-    "salva": "Save"
+    "salva": "Save",
+    "inserisci-dati": "Insert the missing data"
   }
 }
