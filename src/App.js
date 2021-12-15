@@ -15,7 +15,6 @@ function App() {
   const url = new URL(url_str)
   const search_params = url.searchParams
   const idUtente = search_params.get('id_utente')
-  console.log(idUtente)
 
   useEffect(() => {
     dispatch(getListaFrameworks())

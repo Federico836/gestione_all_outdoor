@@ -18,10 +18,12 @@ const MainContainer = props => {
     const { t, i18n } = useTranslation()
 
     useEffect(function getUtente() {
-        axios.get("https://www.magneticdays.com/api/md/get_utente/?id_utente="+idUtente).then(res => {
-            setUtente(res.data.utente[0])
-            setPagina("esporta")
-        }).catch(err => console.log(err))
+        if(idUtente) {
+            axios.get("https://www.magneticdays.com/api/md/get_utente/?id_utente="+idUtente).then(res => {
+                setUtente(res.data.utente[0])
+                setPagina("esporta")
+            }).catch(err => console.log(err))
+        }
     }, [])
 
     return (

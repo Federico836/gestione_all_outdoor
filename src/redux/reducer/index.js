@@ -5,6 +5,7 @@ import templates from './TemplateReducer'
 import eventi from './EventReducer'
 import pdf from './PdfReducer'
 import riferimenti from './RiferimentiReducer'
+import soglia from './SogliaReducer'
 
 const reducers = {
     workouts,
@@ -12,7 +13,8 @@ const reducers = {
     templates,
     eventi,
     pdf,
-    riferimenti
-};
+    riferimenti,
+    soglia
+}
 
-export default combineReducers(reducers);
+export default combineReducers(reducers)

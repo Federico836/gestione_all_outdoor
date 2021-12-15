@@ -3,6 +3,7 @@ import api from '../../api'
 import { setListaFrameworks, getListaFrameworks } from '../actions/FrameworkActions'
 import { getListaEventi, setListaEventi } from '../actions/EventActions'
 import { getListaTemplate, setListaTemplate } from '../actions/TemplateActions'
+import { getSoglia, setSoglia } from '../actions/SogliaActions' 
 import * as selectors from './selectors'
 import {select} from 'redux-saga/effects'
 
@@ -149,6 +150,42 @@ export function* eliminaTemplate(action) {
     yield put(getListaTemplate())
 }
 
+// SOGLIA
+
+export function* getSogliaSaga(action) {
+    const { payload } = action
+
+    const response = yield call(api.getSoglia, payload)
+    const { id, dati } = response
+    const soglia = {dbid: id, ...JSON.parse(dati)}
+
+    yield put(setSoglia(soglia))
+}
+
+export function* addSoglia(action) {
+    const { payload } = action
+
+    const response = yield call(api.postSoglia, payload)
+
+    yield put(getSoglia())
+}
+
+export function* updateSoglia(action) {
+    const { payload } = action
+
+    const response = yield call(api.updateSoglia, payload)
+
+    yield put(getSoglia())
+}
+
+export function* eliminaSoglia(action) {
+    const { payload } = action
+
+    const response = yield call(api.deleteSoglia, payload)
+
+    yield put(getSoglia())
+}
+
 function* rootSaga() {
     yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
     yield takeLatest('ADD_FRAMEWORK', postFramework)
@@ -164,6 +201,11 @@ function* rootSaga() {
     yield takeLatest('ADD_TEMPLATE', addTemplate)
     yield takeLatest('REPLACE_TEMPLATE', updateTemplate)
     yield takeLatest('ELIMINA_TEMPLATE', eliminaTemplate)
+
+    yield takeLatest('GET_SOGLIA', getSogliaSaga)
+    yield takeLatest('ADD_SOGLIA', addSoglia)
+    yield takeLatest('REPLACE_SOGLIA', updateSoglia)
+    yield takeLatest('ELIMINA_SOGLIA', eliminaSoglia)
 }
 
 export default rootSaga
