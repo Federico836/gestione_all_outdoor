@@ -139,10 +139,10 @@ const ContainerEsporta = props => {
                     {utente ? <BtnCaricaFile /> : null}
                 </div>
 
-                <div className={styles.containerGrid}>
+                <div className={ruoloLoggedUser==="allenatore" ? styles.containerGrid : null}>
                     <div>
                         <Calendario listaEventi={listaEventi} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi}
-                        idUtente={idUtente} getEventPropsFromCalendarEvent={getEventPropsFromCalendarEvent} />
+                        idUtente={idUtente} getEventPropsFromCalendarEvent={getEventPropsFromCalendarEvent} ruoloLoggedUser={ruoloLoggedUser} />
                     </div>
                     {ruoloLoggedUser==="allenatore" ? 
                     <div style={{position: "relative"}}>
@@ -154,19 +154,21 @@ const ContainerEsporta = props => {
 
                 {utente ?
                 <>
-                    <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
-                    passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} ruoloLoggedUser={ruoloLoggedUser} />
+                    <div className={ruoloLoggedUser!=="allenatore" ? styles.tabValori : null}>
+                        <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
+                        passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} ruoloLoggedUser={ruoloLoggedUser} />
 
-                    <div className={styles.containerBottoniBottom}>
-                        <Button variant="contained" onClick={controlloEventiSelected}
-                        disabled={rangeDateSelect.end-rangeDateSelect.start<100 ? true : false}>REPORT</Button>
+                        <div className={styles.containerBottoniBottom}>
+                            <Button variant="contained" onClick={controlloEventiSelected}
+                            disabled={rangeDateSelect.end-rangeDateSelect.start<100 ? true : false}>REPORT</Button>
 
-                        {ruoloLoggedUser==="allenatore" ? 
-                        <Button variant="contained" onClick={salvaDatiCalcoli} style={{marginLeft: "1vw"}}>{t('esporta:salva')}</Button> : null}
+                            {ruoloLoggedUser==="allenatore" ? 
+                            <Button variant="contained" onClick={salvaDatiCalcoli} style={{marginLeft: "1vw"}}>{t('esporta:salva')}</Button> : null}
 
-                        <Checkbox onChange={() => setTabellone(!tabellone)} checked={tabellone} />
+                            <Checkbox onChange={() => setTabellone(!tabellone)} checked={tabellone} />
 
-                        <div>{t('main-container:tabella-zone')}</div>
+                            <div>{t('main-container:tabella-zone')}</div>
+                        </div>
                     </div>
                 </> : null}
             </>}

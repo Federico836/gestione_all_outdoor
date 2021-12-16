@@ -22,3 +22,9 @@
     margin-top: 3vh;
     margin-bottom: 6vh;
 }
+
+.tabValori {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

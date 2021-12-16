@@ -12,7 +12,7 @@ import { addEvento, replaceEvento, eliminaEvento } from '../../../redux/actions/
 import './Calendario.css'
 
 const Calendario = props => {
-    const { listaEventi, setRangeDateSelect, setCalendarApi, idUtente, getEventPropsFromCalendarEvent } = props
+    const { listaEventi, setRangeDateSelect, setCalendarApi, idUtente, getEventPropsFromCalendarEvent, ruoloLoggedUser } = props
 
     const dispatch = useDispatch()
 
@@ -89,6 +89,7 @@ const Calendario = props => {
             // generali calendario
             plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]} initialView="dayGridMonth"
             headerToolbar={{left: 'dayGridMonth,timeGridWeek,timeGridDay', center: "title"}}
+            aspectRatio={ruoloLoggedUser!=="allenatore" ? 2.4 : 1.35}
             // evento drag and drop dalla tabella a lato
             eventReceive={info => {console.log(getEventPropsFromCalendarEvent(info.event));
                 dispatch(addEvento({...getEventPropsFromCalendarEvent(info.event), end: new Date(info.event.start.getTime()+3600000)}, idUtente))}}
