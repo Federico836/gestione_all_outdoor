@@ -1,5 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
 import Button from '@mui/material/Button'
 import styles from './MainContainer.module.css'
 import { useTranslation } from 'react-i18next'
@@ -7,10 +8,14 @@ import ContainerFramework from "./scriviFramewrok/ContainerFramework"
 import ContainerModFrame from "./modificaFramework/ContainerModFrame"
 import ContainerEsporta from "./esporta/ContainerEsporta"
 
+import { getSoglia } from "../redux/actions/SogliaActions"
+
 const axios = require('axios')
 
 const MainContainer = props => {
     const { idUtente } = props
+
+    const dispatch = useDispatch()
 
     const [pagina, setPagina] = useState("menu_princ")
     const [utente, setUtente] = useState(null)
@@ -25,6 +30,13 @@ const MainContainer = props => {
             }).catch(err => console.log(err))
         }
     }, [])
+
+    useEffect(function getSogliaUtente() {
+        if(utente) {
+            console.log(utente)
+            dispatch(getSoglia(utente.id_utente))
+        }
+    }, [utente])
 
     return (
         <div>

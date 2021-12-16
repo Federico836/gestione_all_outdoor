@@ -156,8 +156,10 @@ export function* getSogliaSaga(action) {
     const { payload } = action
 
     const response = yield call(api.getSoglia, payload)
-    const { id, dati } = response
-    const soglia = {dbid: id, ...JSON.parse(dati)}
+    const { data } = response
+    console.log(data)
+    const soglia = {/* dbid: data[0].id,  */...data}
+    console.log(soglia)
 
     yield put(setSoglia(soglia))
 }
@@ -167,7 +169,7 @@ export function* addSoglia(action) {
 
     const response = yield call(api.postSoglia, payload)
 
-    yield put(getSoglia())
+    yield put(getSoglia(payload.user_id))
 }
 
 export function* updateSoglia(action) {
@@ -175,7 +177,7 @@ export function* updateSoglia(action) {
 
     const response = yield call(api.updateSoglia, payload)
 
-    yield put(getSoglia())
+    yield put(getSoglia(payload.user_id))
 }
 
 export function* eliminaSoglia(action) {
@@ -183,7 +185,7 @@ export function* eliminaSoglia(action) {
 
     const response = yield call(api.deleteSoglia, payload)
 
-    yield put(getSoglia())
+    yield put(getSoglia(payload.user_id))
 }
 
 function* rootSaga() {

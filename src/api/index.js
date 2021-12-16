@@ -27,10 +27,10 @@ const postTemplate = template => {return axios_instance.post('templates', {dati:
 const deleteTemplate = dbid => {return axios_instance.delete('templates/' + dbid)}
 const updateTemplate = template => {return axios_instance.put('/templates/' + template.dbid, {dati: JSON.stringify({...template}), coach_id: window.md.logged_user.ID})}
 
-const getSoglia = user_id => axios_instance.get('valori/soglia/'+ user_id)
-const postSoglia = payload => {const {soglia, user_id} = payload; return axios_instance.post('soglia', {dati: JSON.stringify({...soglia}, listaProp), coach_id: window.md.logged_user.ID, user_id})}
-const deleteSoglia = dbid => axios_instance.delete('soglia/' + dbid)
-const updateSoglia= payload => {const {soglia, user_id} = payload; return axios_instance.put('/soglia/' + soglia.dbid, {dati: JSON.stringify({...soglia}, listaProp), coach_id: window.md.logged_user.ID, user_id})}
+const getSoglia = user_id => {return axios_instance.get('valori/soglia/'+ user_id)}
+const postSoglia = payload => {const {soglia, user_id} = payload; return axios_instance.post('soglia', {...soglia, coach_id: window.md.logged_user.ID, user_id})}
+const deleteSoglia = dbid => {return axios_instance.delete('soglia/' + dbid)}
+const updateSoglia = payload => {const {soglia, user_id} = payload; return axios_instance.put('/soglia/' + soglia.dbid, {...soglia, coach_id: window.md.logged_user.ID, user_id})}
 
 export default { getFrameworks, postFramework, deleteFramework, updateFramework,
     getEvents, postEvent, deleteEvent, updateEvent,

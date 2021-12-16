@@ -9,6 +9,7 @@ import Report from './tabelle/Report'
 import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
 import { useTranslation } from 'react-i18next'
 import { addEvento } from '../../redux/actions/EventActions'
+import { addSoglia } from '../../redux/actions/SogliaActions'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Button, Checkbox } from "@mui/material"
@@ -35,9 +36,20 @@ const ContainerEsporta = props => {
     const listaEventiStore = useSelector(state => state.eventi.lista)
     console.log(listaEventiStore)
 
-    useEffect(() => {
+    useEffect(function()  {
         setListaEventi(listaEventiStore)
     }, [listaEventiStore])
+
+    const sogliaUtente = useSelector(state => state.soglia.soglia)
+    useEffect(function() {
+        if(utente && sogliaUtente.hasOwnProperty("ftp")) {
+            console.log(sogliaUtente.passonuoto)
+            setFtp(sogliaUtente.ftp)
+            setFc(sogliaUtente.fc)
+            setPassoCorsa(sogliaUtente.passocorsa)
+            setPassoNuoto(sogliaUtente.passonuoto)
+        }
+    }, [sogliaUtente])
 
     const getEventPropsFromCalendarEvent = calEvent => {
         return {
@@ -109,6 +121,12 @@ const ContainerEsporta = props => {
         }
     }
 
+    const salvaDatiCalcoli = () => {
+        dispatch(addSoglia({ftp: ftp, fc: fc, passocorsa: passoCorsa, passonuoto: passoNuoto}, idUtente))
+    }
+
+    const ruoloLoggedUser = window.md.logged_user.roles[0]
+
     return (
         <div className={styles.container}>
             {report ? 
@@ -126,22 +144,28 @@ const ContainerEsporta = props => {
                         <Calendario listaEventi={listaEventi} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi}
                         idUtente={idUtente} getEventPropsFromCalendarEvent={getEventPropsFromCalendarEvent} />
                     </div>
+                    {ruoloLoggedUser==="allenatore" ? 
                     <div style={{position: "relative"}}>
                         {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :
                         <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
                         listaEventi={listaEventi} aggiungiTemplateCal={aggiungiTemplateCal} />}
-                    </div>
+                    </div> : null}
                 </div>
 
                 {utente ?
                 <>
                     <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
-                    passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} />
+                    passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} ruoloLoggedUser={ruoloLoggedUser} />
 
                     <div className={styles.containerBottoniBottom}>
                         <Button variant="contained" onClick={controlloEventiSelected}
                         disabled={rangeDateSelect.end-rangeDateSelect.start<100 ? true : false}>REPORT</Button>
+
+                        {ruoloLoggedUser==="allenatore" ? 
+                        <Button variant="contained" onClick={salvaDatiCalcoli} style={{marginLeft: "1vw"}}>{t('esporta:salva')}</Button> : null}
+
                         <Checkbox onChange={() => setTabellone(!tabellone)} checked={tabellone} />
+
                         <div>{t('main-container:tabella-zone')}</div>
                     </div>
                 </> : null}
