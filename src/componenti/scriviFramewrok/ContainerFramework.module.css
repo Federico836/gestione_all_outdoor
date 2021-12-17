@@ -12,6 +12,9 @@
     align-items: flex-start;
 }
 
+.linkLista {
+    margin-top: 152px;
+}
 .linkLista a {
     text-decoration: none;
     color: initial;

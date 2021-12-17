@@ -19,6 +19,7 @@ const MainContainer = props => {
 
     const [pagina, setPagina] = useState("menu_princ")
     const [utente, setUtente] = useState(null)
+    const [nonAbilitato, setNonAbilitato] = useState("")
 
     const { t, i18n } = useTranslation()
 
@@ -26,38 +27,44 @@ const MainContainer = props => {
         if(idUtente) {
             axios.get("https://www.magneticdays.com/api/md/get_utente/?id_utente="+idUtente).then(res => {
                 setUtente(res.data.utente[0])
-                setPagina("esporta")
             }).catch(err => console.log(err))
         }
     }, [])
 
     useEffect(function getSogliaUtente() {
         if(utente) {
-            console.log(utente)
             dispatch(getSoglia(utente.id_utente))
+            setPagina("esporta")
+        } else {
+            setTimeout(() => setNonAbilitato(t('main-container:utente-non-abilitato')), 3000)
         }
     }, [utente])
+
+    const ruoloLoggedUser = window.md.logged_user.roles[0]
 
     return (
         <div>
             {pagina==="menu_princ" ?
                 <div className={styles.container}>
                     <div className={styles.containerBottoni}>
-                        <Button variant="contained" className={styles.bottone} onClick={() => setPagina("scrivi_frame")}>
-                            {t('main-container:scrivi-framework')}</Button>
+                        {ruoloLoggedUser==="allenatore" ? 
+                        <>
+                            <Button variant="contained" className={styles.bottone} onClick={() => setPagina("scrivi_frame")}>
+                                {t('main-container:scrivi-framework')}</Button>
 
-                        <Button variant="contained" className={styles.bottone} onClick={() => setPagina("modifica_frame")}>
-                            {t('main-container:modifica-framework')}</Button>
+                            <Button variant="contained" className={styles.bottone} onClick={() => setPagina("modifica_frame")}>
+                                {t('main-container:modifica-framework')}</Button>
 
-                        <Button variant="contained" className={styles.bottone} onClick={() => setPagina("esporta")}>
-                            {t('main-container:esporta')}</Button>
+                            <Button variant="contained" className={styles.bottone} onClick={() => setPagina("esporta")}>
+                                {t('main-container:esporta')}</Button>
+                        </> : nonAbilitato}
                     </div>
                 </div> :
             pagina==="scrivi_frame" ?
                 <ContainerFramework setPagina={setPagina} /> :
             pagina==="modifica_frame" ?
                 <ContainerModFrame setPagina={setPagina} /> :
-                <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} />}
+                <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} ruoloLoggedUser={ruoloLoggedUser} />}
         </div>
     )
 }

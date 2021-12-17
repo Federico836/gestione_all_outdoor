@@ -464,7 +464,8 @@ const Report = props => {
                 margin-left: 5vw;
             }
             .tab-totali {
-                margin-top: 50px;
+                page-break-before: always;
+                margin-top: 20vh;
             }
 
           </style>`+contenuto.innerHTML)
@@ -473,7 +474,7 @@ const Report = props => {
             pagina.document.close()
             pagina.focus()
             pagina.print()
-        }, 300)
+        }, 500)
     }
 
     const tabelleReport = stampaTabelleReport()
@@ -497,19 +498,20 @@ const Report = props => {
                     {tabelleReport.tabGraficiTot}
                     {tabellone ?
                     <>
-                        <div style={{pageBreakAfter: "always"}}></div>
-                        {fc!=="" || ftp!==""  ? <div>
-                            <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
-                            <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
-                        </div> : null}
-                        {passoCorsa!==0 ? <div>
-                            <h3>{t('scrivi-framework:corsa:corsa')}</h3>
-                            <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
-                        </div> : null}
-                        {passoNuoto!==0 ? <div>
-                            <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
-                            <ZoneNuoto zoneCalcNuoto={zoneCalcNuoto} />
-                        </div> : null}
+                        <div style={{marginBottom: "10vh", pageBreakBefore: "always"}}>
+                            {fc!=="" || ftp!==""  ? <div>
+                                <h3>{t('scrivi-framework:ciclismo:ciclismo')}</h3>
+                                <ZoneCiclismo7 zoneCalcCiclismo={zoneCalcCiclismo} />
+                            </div> : null}
+                            {passoCorsa!==0 ? <div>
+                                <h3>{t('scrivi-framework:corsa:corsa')}</h3>
+                                <ZoneCorsa zoneCalcCorsa={zoneCalcCorsa} />
+                            </div> : null}
+                            {passoNuoto!==0 ? <div>
+                                <h3>{t('scrivi-framework:nuoto:nuoto')}</h3>
+                                <ZoneNuoto zoneCalcNuoto={zoneCalcNuoto} />
+                            </div> : null}
+                        </div>
                     </> : null}
                 </div>
             </div>

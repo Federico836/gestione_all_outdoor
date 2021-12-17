@@ -4,7 +4,8 @@
     "modifica-framework": "Modify Framework",
     "scrivi-framework": "Write Framework",
     "indietro": "Back",
-    "tabella-zone": "Table of Zones"
+    "tabella-zone": "Table of Zones",
+    "utente-non-abilitato": "The user is not enabled!"
   },
   "scrivi-framework": {
     "ciclismo": {

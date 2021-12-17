@@ -16,7 +16,7 @@ import { Button, Checkbox } from "@mui/material"
 import styles from './ContainerEsporta.module.css'
 
 const ContainerEsporta = props => {
-    const { setPagina, utente, idUtente } = props
+    const { setPagina, utente, idUtente, ruoloLoggedUser } = props
 
     const dispatch = useDispatch()
 
@@ -125,8 +125,6 @@ const ContainerEsporta = props => {
         dispatch(addSoglia({ftp: ftp, fc: fc, passocorsa: passoCorsa, passonuoto: passoNuoto}, idUtente))
     }
 
-    const ruoloLoggedUser = window.md.logged_user.roles[0]
-
     return (
         <div className={styles.container}>
             {report ? 
@@ -134,10 +132,11 @@ const ContainerEsporta = props => {
             passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} utente={utente}
             eventiSelezionati={eventiSelezionati} /> :
             <>
+                {ruoloLoggedUser==="allenatore" ?
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
                     {utente ? <BtnCaricaFile /> : null}
-                </div>
+                </div> : <div style={{marginTop: "3vh"}}></div>}
 
                 <div className={ruoloLoggedUser==="allenatore" ? styles.containerGrid : null}>
                     <div>

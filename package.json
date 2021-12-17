@@ -2,6 +2,7 @@
   "name": "gestione_all_outdoor",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://www.magneticdays.com/cybertest/outdoor",
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",

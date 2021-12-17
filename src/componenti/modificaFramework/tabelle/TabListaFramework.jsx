@@ -56,7 +56,7 @@ const TabListaFramework =props => {
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
-            <td onClick={() => setModificaFrame({id: listaFiltrataNome[c].id, tipoPerSelect: listaFiltrataNome[c].tipoPerSelect})}>🖉</td>
+            <td onClick={() => setModificaFrame({id: listaFiltrataNome[c].id, tipoPerSelect: listaFiltrataNome[c].tipoPerSelect})}>✎</td>
             <td onClick={() => dispatch(deleteFramework(listaFiltrataNome[c]))}>🗑️</td>
         </tr>)
     }
