@@ -9,17 +9,12 @@
     height: 6vh;
     display: flex;
     justify-content: center;
+    column-gap: 1vw;
+    margin-top: 1vw;
 }
 
-.bottone {
+.containerBottoni button {
     display: block;
     width: 15vw;
     height: 100%;
-}
-
-.bottone:nth-child(2) {
-    margin-left: 1vw;
-}
-.bottone:nth-child(3) {
-    margin-left: 1vw;
 }

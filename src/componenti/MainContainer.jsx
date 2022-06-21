@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import ContainerFramework from "./scriviFramewrok/ContainerFramework"
 import ContainerModFrame from "./modificaFramework/ContainerModFrame"
 import ContainerEsporta from "./esporta/ContainerEsporta"
+import ContainerAnalisiTest from "./containerAnalisiTest/ContainerAnalisiTest"
 
 import { getSoglia } from "../redux/actions/SogliaActions"
 
@@ -34,37 +35,52 @@ const MainContainer = props => {
     useEffect(function getSogliaUtente() {
         if(utente) {
             dispatch(getSoglia(utente.id_utente))
-            setPagina("esporta")
+            setTimeout(() => setPagina("esporta"), 1000)
         } else {
             setTimeout(() => setNonAbilitato(t('main-container:utente-non-abilitato')), 3000)
         }
     }, [utente])
 
-    const ruoloLoggedUser = window.md.logged_user.roles[0]
+    /* useEffect(function getSogliaUtente() {
+        if(utente) {
+            dispatch(getSoglia(utente.id_utente))
+            setPagina("esporta")
+        } else {
+            setTimeout(() => setNonAbilitato(t('main-container:utente-non-abilitato')), 3000)
+        }
+    }, [utente]) */
+
+    const ruoloLoggedUser = /* window.md.logged_user.roles[0] */ "allenatore"
 
     return (
         <div>
             {pagina==="menu_princ" ?
                 <div className={styles.container}>
-                    <div className={styles.containerBottoni}>
-                        {ruoloLoggedUser==="allenatore" ? 
-                        <>
-                            <Button variant="contained" className={styles.bottone} onClick={() => setPagina("scrivi_frame")}>
+                    {ruoloLoggedUser==="allenatore" ? 
+                    <>
+                        <div className={styles.containerBottoni}>
+                            <Button variant="contained" onClick={() => setPagina("scrivi_frame")}>
                                 {t('main-container:scrivi-framework')}</Button>
 
-                            <Button variant="contained" className={styles.bottone} onClick={() => setPagina("modifica_frame")}>
+                            <Button variant="contained" onClick={() => setPagina("modifica_frame")}>
                                 {t('main-container:modifica-framework')}</Button>
 
-                            <Button variant="contained" className={styles.bottone} onClick={() => setPagina("esporta")}>
+                            <Button variant="contained" onClick={() => setPagina("esporta")}>
                                 {t('main-container:esporta')}</Button>
-                        </> : nonAbilitato}
-                    </div>
+                        </div>
+                        <div className={styles.containerBottoni}>
+                            <Button variant="contained" onClick={() => setPagina("analisi_test")}>TEST</Button>
+                        </div>
+                    </> : nonAbilitato}
                 </div> :
             pagina==="scrivi_frame" ?
                 <ContainerFramework setPagina={setPagina} /> :
             pagina==="modifica_frame" ?
                 <ContainerModFrame setPagina={setPagina} /> :
-                <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} ruoloLoggedUser={ruoloLoggedUser} />}
+            pagina==="esporta" ?
+                <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} ruoloLoggedUser={ruoloLoggedUser} /> :
+            pagina==="analisi_test" ?
+                <ContainerAnalisiTest setPagina={setPagina} /> : null}
         </div>
     )
 }
