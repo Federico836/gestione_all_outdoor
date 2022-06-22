@@ -9,7 +9,6 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContainerCorsa from "./corsa/ContainerCorsa"
 import ContainerNuoto from "./nuoto/ContainerNuoto"
-import BottoniTop from "./bottoniTop/BottoniTop"
 import styles from "./ContainerAnalisiTest.module.css"
 
 const ContainerAnalisiTest = props => {
@@ -20,7 +19,6 @@ const ContainerAnalisiTest = props => {
 
     return (
         <div className={styles.container}>
-            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} />
             <Router>
                 <Drawer anchor="left" open={open} onClose={() => setOpen(!open)}>
                     <List className={styles.linkLista} style={{marginTop: "152px"}}>
@@ -43,7 +41,7 @@ const ContainerAnalisiTest = props => {
                 <Switch>
 
                     <Route exact path="/">
-                        <ContainerCorsa />
+                        <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen} />
                     </Route>
 
                     <Route path="/nuoto">

@@ -208,5 +208,8 @@
     "carica": "CARICA",
     "salva": "Salva",
     "inserisci-dati": "Inserisci i dati mancanti"
+  },
+  "analisi-test": {
+    "tipo-test": "Tipo test"
   }
 }
