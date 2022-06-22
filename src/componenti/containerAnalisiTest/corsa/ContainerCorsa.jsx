@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import MaderCorsa from "./test/MaderCorsa"
+import MaderCorsa from "./testMader/MaderCorsa"
 import BottoniTop from "../bottoniTop/BottoniTop"
 import styles from "./ContainerCorsa.module.css"
 
