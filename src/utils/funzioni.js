@@ -107,7 +107,7 @@ const toHHMMSS = secs => {
 const toMMSS = secs => {
     const secNum = parseInt(secs.toString(), 10);
     /* const minutes = Math.floor(secNum / 60) % 60; */
-    const minutes = Math.floor(secNum / 60) % 60;
+    const minutes = Math.floor(secNum / 60);
     const seconds = secNum % 60;
 
     return [minutes, seconds]

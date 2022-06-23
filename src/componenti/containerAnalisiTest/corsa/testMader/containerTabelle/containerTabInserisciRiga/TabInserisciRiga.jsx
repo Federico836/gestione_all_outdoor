@@ -12,9 +12,11 @@ const TabInserisciRiga = props => {
         const velKmh = velMs*3.6
         const passo1000 = toMMSS(1000/velMs)
 
-        setPuntoCliccato({...puntoCliccato, velKmh, velMs, passo1000})
+        const strokeLength = puntoCliccato.distanza/(puntoCliccato.tempo/(60/puntoCliccato.strokeFreq))
 
-    }, [puntoCliccato.distanza, puntoCliccato.tempo])
+        setPuntoCliccato({...puntoCliccato, velKmh, velMs, passo1000, strokeLength})
+
+    }, [puntoCliccato.distanza, puntoCliccato.tempo, puntoCliccato.strokeFreq])
 
     return (
         <div>
@@ -48,7 +50,7 @@ const TabInserisciRiga = props => {
                         <td><input type="number" value={puntoCliccato.glicemia} onChange={e => setPuntoCliccato({...puntoCliccato, glicemia: e.target.value!=="" ? Number(e.target.value) : ""})} /></td>
                         <td><input type="number" value={puntoCliccato.o2} onChange={e => setPuntoCliccato({...puntoCliccato, o2: e.target.value!=="" ? Number(e.target.value) : ""})} /></td>
                         <td><input type="number" value={puntoCliccato.rpe} onChange={e => setPuntoCliccato({...puntoCliccato, rpe: e.target.value!=="" ? Number(e.target.value) : ""})} /></td>
-                        <td>{puntoCliccato.strokeLength ? puntoCliccato.strokeLength : ""}</td>
+                        <td>{isFinite(puntoCliccato.strokeLength) ? Math.round(puntoCliccato.strokeLength*100)/100 : ""}</td>
                         <td><input type="number" value={puntoCliccato.strokeFreq} onChange={e => setPuntoCliccato({...puntoCliccato, strokeFreq: e.target.value!=="" ? Number(e.target.value) : ""})} /></td>
                         <td><input type="text" value={puntoCliccato.note} onChange={e => setPuntoCliccato({...puntoCliccato, note: e.target.value})} /></td>
                     </tr>
