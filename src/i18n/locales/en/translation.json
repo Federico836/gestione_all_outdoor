@@ -210,6 +210,18 @@
     "inserisci-dati": "Insert the missing data"
   },
   "analisi-test": {
-    "tipo-test": "Test type"
+    "tipo-test": "Test type",
+    "corsa": {
+      "mader": {
+        "lattato": "Lactate",
+        "tempo": "Time",
+        "velocita": "Speed",
+        "passo": "Pace",
+        "fc": "Hr",
+        "glicemia": "Glycemia",
+        "stroke-length": "Stroke length",
+        "stroke-freq": "Stroke freq."
+      }
+    }
   }
 }

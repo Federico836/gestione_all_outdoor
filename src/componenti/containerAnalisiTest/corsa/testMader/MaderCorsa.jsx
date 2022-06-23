@@ -4,7 +4,7 @@ import ContainerTabelle from "./containerTabelle/ContainerTabelle"
 const MaderCorsa = props => {
     const {  } = props
 
-    const [puntoCliccato, setPuntoCliccato] = useState({lattato: "", distanza: 0, tempo: 0, velKmh: 0, velMs: 0,
+    const [puntoCliccato, setPuntoCliccato] = useState({lattato: "", distanza: "", tempo: "", velKmh: "", velMs: "",
         passo1000: "", heartrate: "", glicemia: "", o2: "", rpe: "", strokeLength: "", strokeFreq: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [puntiSelected, setPuntiSelected] = useState([])
@@ -16,9 +16,11 @@ const MaderCorsa = props => {
         if(modificaRiga) setPuntoCliccato(modificaRiga)
      }, [modificaRiga])
 
+     console.log(puntoCliccato)
+
     return (
         <div>
-            <ContainerTabelle />
+            <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} />
         </div>
     )
 }

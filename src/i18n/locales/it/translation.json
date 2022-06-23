@@ -210,6 +210,18 @@
     "inserisci-dati": "Inserisci i dati mancanti"
   },
   "analisi-test": {
-    "tipo-test": "Tipo test"
+    "tipo-test": "Tipo test",
+    "corsa": {
+      "mader": {
+        "lattato": "Lattato",
+        "tempo": "Tempo",
+        "velocita": "Vel",
+        "passo": "Passo",
+        "fc": "Fc",
+        "glicemia": "Glicemia",
+        "stroke-length": "Lunghezza corsa",
+        "stroke-freq": "Freq. corsa"
+      }
+    }
   }
 }
