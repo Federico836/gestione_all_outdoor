@@ -1,9 +1,11 @@
 import React from "react"
 import ContainerTabInserisciRiga from "./containerTabInserisciRiga/ContainerTabInserisciRiga"
 import TabCorsaDragNDrop from "./containerTabPuntiSelected/TabCorsaDragNDrop"
+import SelezionaPunto from "./selezionaPunto/SelezionaPunto"
 
 const ContainerTabelle = props => {
-    const { puntoCliccato, setPuntoCliccato, modificaRiga, setModificaRiga, puntiSelected, setPuntiSelected } = props
+    const { puntoCliccato, setPuntoCliccato, modificaRiga, setModificaRiga, puntiSelected, setPuntiSelected,
+        livAnal, setLivAnal } = props
 
     return (
         <div>
@@ -12,6 +14,7 @@ const ContainerTabelle = props => {
             setPuntiSelected={setPuntiSelected} />
             <TabCorsaDragNDrop puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected}
             setModificaRiga={setModificaRiga} />
+            <SelezionaPunto livAnal={livAnal} setLivAnal={setLivAnal} />
         </div>
     )
 }

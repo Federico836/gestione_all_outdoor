@@ -220,7 +220,8 @@
         "fc": "Fc",
         "glicemia": "Glicemia",
         "stroke-length": "Lunghezza corsa",
-        "stroke-freq": "Freq. corsa"
+        "stroke-freq": "Freq. corsa",
+        "desc-liv-anal": "Seleziona il numero che ti permette di trovare i valori di potenza e fc più precisi possibile"
       }
     }
   }

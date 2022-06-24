@@ -14,14 +14,15 @@ const MaderCorsa = props => {
 
     useEffect(() => {
         if(modificaRiga) setPuntoCliccato(modificaRiga)
-     }, [modificaRiga])
+    }, [modificaRiga])
 
-     console.log(puntoCliccato)
+    console.log(puntiSelected)
 
     return (
         <div>
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}
-            setModificaRiga={setModificaRiga} puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected} />
+            setModificaRiga={setModificaRiga} puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected}
+            livAnal={livAnal} setLivAnal={setLivAnal} />
         </div>
     )
 }

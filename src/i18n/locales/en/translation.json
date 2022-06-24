@@ -220,7 +220,8 @@
         "fc": "Hr",
         "glicemia": "Glycemia",
         "stroke-length": "Stroke length",
-        "stroke-freq": "Stroke freq."
+        "stroke-freq": "Stroke freq.",
+        "desc-liv-anal": "Select the number that allows you to find the values of power and hr as accurate as possible"
       }
     }
   }

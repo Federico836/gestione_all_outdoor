@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import { useTranslation } from 'react-i18next'
-import { toHHMMSS } from '../../../../../../utils/funzioni'
+import { toMMSS } from '../../../../../../utils/funzioni'
 import styles from './TabCorsaDragNDrop.module.css'
 
 const Row = props => {
@@ -18,16 +18,17 @@ const Row = props => {
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{indice+1}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.lattato}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{toHHMMSS(riga.tempo)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{toMMSS(riga.tempo)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{Math.round(riga.velKmh*100)/100}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{Math.round(riga.velMs*100)/100}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.passo1000}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.heartrate}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.glicemia}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.o2}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.rpe}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{Math.round(riga.strokeLength*100)/100}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.strokeFreq}</span></div>
-            <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
                 onClick={() => setModificaRiga(riga)}><span>✎</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
@@ -72,7 +73,7 @@ const Lista = props => {
 
     return (
       <div style={{marginTop: "3vh", border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
-        <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center', backgroundColor: "#bee5b0"}}> 
+        <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center', backgroundColor: "#ffcccb"}}> 
             <div style={{border: '1px solid gray', width: '8%', display: "flex", justifyContent: "center", alignItems: "center"}}>Num</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:lattato')}</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>Dist.</div>
@@ -80,12 +81,13 @@ const Lista = props => {
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:velocita')} Km/h</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:velocita')} m/s</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:passo')} 1000</div>
+            <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:fc')}</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:glicemia')}</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>O²</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>RPE</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:stroke-length')}</div>
             <div style={{border: '1px solid gray', width: '10%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('analisi-test:corsa:mader:stroke-freq')}</div>
-            <div style={{border: '1px solid gray', width: '30%', display: "flex", justifyContent: "center", alignItems: "center"}}>Note</div>
+            <div style={{border: '1px solid gray', width: '25%', display: "flex", justifyContent: "center", alignItems: "center"}}>Note</div>
             <div style={{border: '1px solid gray', width: '8%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('scrivi-framework:ciclismo:modifica')}</div>
             <div style={{border: '1px solid gray', width: '8%', display: "flex", justifyContent: "center", alignItems: "center"}}>{t('scrivi-framework:ciclismo:elimina')}</div>
         </div>
