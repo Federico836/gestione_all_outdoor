@@ -10,7 +10,6 @@ const MaderCorsa = props => {
     const [puntiSelected, setPuntiSelected] = useState([])
     const [livAnal, setLivAnal] = useState(2)
     const [lattatoTabTotali, setLattatoTabTotali] = useState({lattato1: "", lattato2: ""})
-    const [note, setNote] = useState("")
 
     useEffect(() => {
         if(modificaRiga) setPuntoCliccato(modificaRiga)

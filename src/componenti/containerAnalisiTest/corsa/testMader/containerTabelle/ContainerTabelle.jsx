@@ -3,10 +3,15 @@ import ContainerTabInserisciRiga from "./containerTabInserisciRiga/ContainerTabI
 import TabCorsaDragNDrop from "./containerTabPuntiSelected/TabCorsaDragNDrop"
 import SelezionaPunto from "./selezionaPunto/SelezionaPunto"
 import ContainerTabTotali from "./containerTabTotali/ContainerTabTotali"
+import calcTabTotali from "../../../../../utils/funzioniAnalisiTest/corsa/funzioniMader"
 
 const ContainerTabelle = props => {
     const { puntoCliccato, setPuntoCliccato, modificaRiga, setModificaRiga, puntiSelected, setPuntiSelected,
         livAnal, setLivAnal, lattatoTabTotali, setLattatoTabTotali } = props
+
+    const tabTotali = calcTabTotali(puntiSelected, lattatoTabTotali, livAnal)
+
+    console.log(tabTotali)
 
     return (
         <div>
