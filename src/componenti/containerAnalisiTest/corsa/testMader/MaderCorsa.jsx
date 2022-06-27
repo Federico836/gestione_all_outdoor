@@ -22,7 +22,8 @@ const MaderCorsa = props => {
         <div>
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}
             setModificaRiga={setModificaRiga} puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected}
-            livAnal={livAnal} setLivAnal={setLivAnal} />
+            livAnal={livAnal} setLivAnal={setLivAnal} lattatoTabTotali={lattatoTabTotali}
+            setLattatoTabTotali={setLattatoTabTotali} />
         </div>
     )
 }
