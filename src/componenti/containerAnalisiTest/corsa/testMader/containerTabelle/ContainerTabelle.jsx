@@ -20,7 +20,8 @@ const ContainerTabelle = props => {
             setPuntiSelected={setPuntiSelected} />
             <TabCorsaDragNDrop puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected}
             setModificaRiga={setModificaRiga} />
-            <ContainerTabTotali lattatoTabTotali={lattatoTabTotali} setLattatoTabTotali={setLattatoTabTotali} />
+            <ContainerTabTotali lattatoTabTotali={lattatoTabTotali} setLattatoTabTotali={setLattatoTabTotali}
+            tabTotali={tabTotali} />
             <SelezionaPunto livAnal={livAnal} setLivAnal={setLivAnal} />
         </div>
     )

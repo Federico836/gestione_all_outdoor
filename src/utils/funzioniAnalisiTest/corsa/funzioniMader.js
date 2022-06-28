@@ -1,4 +1,5 @@
 import PolynomialRegression from '../../polynomialRegression/PolynomialRegression'
+import { toMMSS } from '../../funzioni'
 
 const calcPolyReg = (puntiSelected, nomeProp, lattatoTabTotali, grado) => {
     const dati = puntiSelected.map(riga => ({x: riga.lattato, y: riga[nomeProp]}))
@@ -31,14 +32,20 @@ const trovaGlicemiaO2RPE = (puntiSelected, velKmh1, velKmh2) => {
 
 const calcTabTotali = (puntiSelected, lattatoTabTotali, grado) => {
     const velKmh = calcPolyReg(puntiSelected, "velKmh", lattatoTabTotali, grado)
-    const heartrate = calcPolyReg(puntiSelected, "heartrate", lattatoTabTotali, grado)
+    const velMs = {val1: velKmh.val1/3.6, val2: velKmh.val2/3.6}
+    const passo1000 = {val1: 1000/velMs.val1, val2: 1000/velMs.val2}
+    /* const heartrate = calcPolyReg(puntiSelected, "heartrate", lattatoTabTotali, grado) */
     const glicemiaO2Rpe = trovaGlicemiaO2RPE(puntiSelected, velKmh.val1, velKmh.val2)
 
     return {
         velKmh1: isFinite(velKmh.val1) && lattatoTabTotali.lattato1!=="" ? Math.round(velKmh.val1*10)/10 : "",
         velKmh2: isFinite(velKmh.val2) && lattatoTabTotali.lattato2!=="" ? Math.round(velKmh.val2*10)/10 : "",
-        heartrate1: isFinite(heartrate.val1) && lattatoTabTotali.lattato1!=="" ? Math.round(heartrate.val1*10)/10 : "",
-        heartrate2: isFinite(heartrate.val2) && lattatoTabTotali.lattato2!=="" ? Math.round(heartrate.val2*10)/10 : "",
+        velMs1: isFinite(velMs.val1) && lattatoTabTotali.lattato1!=="" ? Math.round(velMs.val1*10)/10 : "",
+        velMs2: isFinite(velMs.val2) && lattatoTabTotali.lattato2!=="" ? Math.round(velMs.val2*10)/10 : "",
+        passo10001: isFinite(passo1000.val1) && lattatoTabTotali.lattato1!=="" ? toMMSS(passo1000.val1) : "",
+        passo10002: isFinite(passo1000.val2) && lattatoTabTotali.lattato2!=="" ? toMMSS(passo1000.val2) : "",
+        /* heartrate1: isFinite(heartrate.val1) && lattatoTabTotali.lattato1!=="" ? Math.round(heartrate.val1*10)/10 : "",
+        heartrate2: isFinite(heartrate.val2) && lattatoTabTotali.lattato2!=="" ? Math.round(heartrate.val2*10)/10 : "", */
         glicemia1: isFinite(glicemiaO2Rpe.glicemia1) && lattatoTabTotali.lattato1!=="" ? glicemiaO2Rpe.glicemia1 : "",
         glicemia2: isFinite(glicemiaO2Rpe.glicemia2) && lattatoTabTotali.lattato2!=="" ? glicemiaO2Rpe.glicemia2 : "",
         o21: isFinite(glicemiaO2Rpe.o21) && lattatoTabTotali.lattato1!=="" ? glicemiaO2Rpe.o21 : "",
