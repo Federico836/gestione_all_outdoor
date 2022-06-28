@@ -3,6 +3,7 @@ import ContainerTabInserisciRiga from "./containerTabInserisciRiga/ContainerTabI
 import TabCorsaDragNDrop from "./containerTabPuntiSelected/TabCorsaDragNDrop"
 import SelezionaPunto from "./selezionaPunto/SelezionaPunto"
 import ContainerTabTotali from "./containerTabTotali/ContainerTabTotali"
+import GraficoLattato from "./graficoLattato/GraficoLattato"
 import calcTabTotali from "../../../../../utils/funzioniAnalisiTest/corsa/funzioniMader"
 
 const ContainerTabelle = props => {
@@ -10,8 +11,6 @@ const ContainerTabelle = props => {
         livAnal, setLivAnal, lattatoTabTotali, setLattatoTabTotali } = props
 
     const tabTotali = calcTabTotali(puntiSelected, lattatoTabTotali, livAnal)
-
-    console.log(tabTotali)
 
     return (
         <div>
@@ -23,6 +22,7 @@ const ContainerTabelle = props => {
             <ContainerTabTotali lattatoTabTotali={lattatoTabTotali} setLattatoTabTotali={setLattatoTabTotali}
             tabTotali={tabTotali} />
             <SelezionaPunto livAnal={livAnal} setLivAnal={setLivAnal} />
+            <GraficoLattato puntiSelected={puntiSelected} lattatoTabTotali={lattatoTabTotali} tabTotali={tabTotali} />
         </div>
     )
 }

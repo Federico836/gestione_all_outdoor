@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     column-gap: 1vw;
+    margin-top: 3vh;
 }
 
 .container button {

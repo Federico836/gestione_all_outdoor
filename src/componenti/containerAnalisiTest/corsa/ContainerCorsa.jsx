@@ -13,7 +13,8 @@ const ContainerCorsa = props => {
 
     return (
         <div className={styles.container}>
-            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest} />
+            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
+            listaTest={["mader"]} />
             <h2 style={{textAlign: "left"}}>{t("scrivi-framework:corsa:corsa")}</h2>
             {tipoTest==="mader" ?
             <MaderCorsa /> : null}
