@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
 import ContainerTabelle from "./containerTabelle/ContainerTabelle"
+import BottoniTop from "../../bottoniTop/BottoniTop"
+import { useTranslation } from 'react-i18next'
 
 const MaderCorsa = props => {
-    const {  } = props
+    const { setPagina, open, setOpen, tipoTest, setTipoTest } = props
 
     const [puntoCliccato, setPuntoCliccato] = useState({lattato: "", distanza: "", tempo: "", velKmh: "", velMs: "",
         passo1000: "", heartrate: "", glicemia: "", o2: "", rpe: "", strokeLength: "", strokeFreq: "", note: ""})
@@ -15,10 +17,14 @@ const MaderCorsa = props => {
         if(modificaRiga) setPuntoCliccato(modificaRiga)
     }, [modificaRiga])
 
-    console.log(puntiSelected)
+    const { t, i18n } = useTranslation()
 
     return (
         <div>
+            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
+            listaTest={["mader"]} salvaDati={() => alert("sfdddd")} />
+            <h2 style={{textAlign: "left"}}>{t("scrivi-framework:corsa:corsa")}</h2>
+
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}
             setModificaRiga={setModificaRiga} puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected}
             livAnal={livAnal} setLivAnal={setLivAnal} lattatoTabTotali={lattatoTabTotali}
