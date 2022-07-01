@@ -45,7 +45,7 @@ const ContainerAnalisiTest = props => {
                     </Route>
 
                     <Route path="/nuoto">
-                        <ContainerNuoto />
+                        <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen} />
                     </Route>
 
                 </Switch>

@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: center;
+    column-gap: 1vw;
+    margin-top: 3vh;
+}
+
+.container button {
+    background-color: #e0e0e0;
+    color: black;
+}
+.container button:hover {
+    background-color: #d5d5d5;
+}
+
+.container select {
+    display: inline-block;
+    height: 100%;
+}
