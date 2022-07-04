@@ -8,6 +8,7 @@ import ContainerFramework from "./scriviFramewrok/ContainerFramework"
 import ContainerModFrame from "./modificaFramework/ContainerModFrame"
 import ContainerEsporta from "./esporta/ContainerEsporta"
 import ContainerAnalisiTest from "./containerAnalisiTest/ContainerAnalisiTest"
+import ContainerComparaTest from "./containerComparaTest/ContainerComparaTest"
 
 import { getSoglia } from "../redux/actions/SogliaActions"
 
@@ -70,6 +71,7 @@ const MainContainer = props => {
                         </div>
                         <div className={styles.containerBottoni}>
                             <Button variant="contained" onClick={() => setPagina("analisi_test")}>TEST</Button>
+                            <Button variant="contained" onClick={() => setPagina("compara_test")}>Compara TEST</Button>
                         </div>
                     </> : nonAbilitato}
                 </div> :
@@ -80,7 +82,9 @@ const MainContainer = props => {
             pagina==="esporta" ?
                 <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} ruoloLoggedUser={ruoloLoggedUser} /> :
             pagina==="analisi_test" ?
-                <ContainerAnalisiTest setPagina={setPagina} /> : null}
+                <ContainerAnalisiTest setPagina={setPagina} /> :
+            pagina==="compara_test" ?
+                <ContainerComparaTest setPagina={setPagina} /> : null}
         </div>
     )
 }
