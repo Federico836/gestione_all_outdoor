@@ -3,13 +3,13 @@
     column-gap: 1vw;
 }
 
-.container>div:nth-child(3) {
+/* .container>div:nth-child(3) {
     align-self: center;
-    /* margin-left: auto;
-    font-size: 16px; */
+    margin-left: auto;
+    font-size: 16px;
 }
 
 .container button:last-child {
     margin-left: auto;
-}
+} */
 

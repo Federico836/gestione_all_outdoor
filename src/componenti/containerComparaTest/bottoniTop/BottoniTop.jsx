@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styles from "./BottoniTop.module.css"
 
 const BottoniTop = props => {
-    const { setPagina, open, setOpen, tipoTest, setTipoTest, listaTest, salvaDati } = props
+    const { setPagina, open, setOpen } = props
 
     const { t, i18n } = useTranslation()
 
@@ -12,15 +12,6 @@ const BottoniTop = props => {
         <div className={styles.container}>
             <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
             <Button variant="contained" onClick={() => setOpen(!open)}>menu</Button>
-
-            <div>
-                {t('analisi-test:tipo-test')}&nbsp;&nbsp;
-               <select onChange={e => setTipoTest(e.target.value)} value={tipoTest}>
-                    {listaTest.map(test => <option value={test}>{test}</option>)}
-               </select>
-           </div>
-
-           <Button variant="contained" onClick={salvaDati}>{t('esporta:salva')}</Button>
         </div>
     )
 }

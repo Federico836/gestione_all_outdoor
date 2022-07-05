@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { MemoryRouter as Router, Switch, Route, Link as MaterialLink } from "react-router-dom"
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
@@ -15,7 +15,13 @@ const ContainerComparaTest = props => {
     const { setPagina } = props
 
     const [open, setOpen] = useState(false)
+    const [listaTest, setListaTest] = useState([])
+
     const { t, i18n } = useTranslation()
+
+    useEffect(function richiediTestEseguiti() {
+        setListaTest([])
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -41,11 +47,13 @@ const ContainerComparaTest = props => {
                 <Switch>
 
                     <Route exact path="/">
-                        <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen} />
+                        <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen}
+                        listaTest={listaTest.filter(test => test.tipoSport==="corsa")} />
                     </Route>
 
                     <Route path="/nuoto">
-                        <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen} />
+                        <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen}
+                        listaTest={listaTest.filter(test => test.tipoSport==="nuoto")} />
                     </Route>
 
                 </Switch>
