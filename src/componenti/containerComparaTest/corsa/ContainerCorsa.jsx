@@ -20,7 +20,7 @@ const ContainerCorsa = props => {
             <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} />
             {tipoTest==="mader" ?
             <MaderCorsa listaTest={listaMader} puntiSelectedMader={puntiSelectedMader}
-            setPuntiSelectedMader={setPuntiSelectedMader} setTipoTest={setTipoTest} /> : null}
+            setPuntiSelectedMader={setPuntiSelectedMader} tipoTest={tipoTest} setTipoTest={setTipoTest} /> : null}
         </div>
     )
 }
