@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styles from "./ContainerNuoto.module.css"
 
 const ContainerNuoto = props => {
-    const { setPagina, open, setOpen } = props
+    const { setPagina, open, setOpen, listaTest } = props
 
     const { t, i18n } = useTranslation()
 
