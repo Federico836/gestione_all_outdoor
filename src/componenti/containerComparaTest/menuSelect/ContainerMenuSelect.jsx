@@ -1,11 +1,12 @@
 import React from "react"
+import DropdownTipoTest from "./dropdownMenu/DropdownTipoTest"
 
 const ContainerMenuSelect = props => {
-    const {  } = props
+    const { listaTipiTest, tipoTest, setTipoTest } = props
 
     return (
         <div>
-
+            <DropdownTipoTest listaTipiTest={listaTipiTest} tipoTest={tipoTest} setTipoTest={setTipoTest} />
         </div>
     )
 }

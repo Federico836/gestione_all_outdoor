@@ -1,11 +1,13 @@
 import React from "react"
+import ContainerMenuSelect from "../../../../menuSelect/ContainerMenuSelect"
+import styles from "./ContainerGraficoMenu.module.css"
 
 const ContainerGraficoMenu = props => {
-    const {  } = props
+    const { listaTipiTest, tipoTest, setTipoTest } = props
 
     return (
-        <div>
-
+        <div className={styles.container}>
+            <ContainerMenuSelect listaTipiTest={listaTipiTest} tipoTest={tipoTest} setTipoTest={setTipoTest} />
         </div>
     )
 }
