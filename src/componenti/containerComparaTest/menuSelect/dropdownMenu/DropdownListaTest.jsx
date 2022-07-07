@@ -2,27 +2,24 @@ import React from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from './DropdownMenu.module.css'
-import {convertiNomi} from '../../utils/funzioni'
-
+/* import { convertiNomi } from '../../utils/funzioni' */
 
 const DropdownListaTest = props => {
 
-    const { listaPunti, listaPuntiSelected, setListaPuntiSelected } = props
+    const { listaPunti, puntiSelected, setPuntiSelected } = props
 
     const { t, i18n } = useTranslation()
 
-    const [mouseOver, setMouseOver] = useState(t('comp-test:seleziona-test')+" ᐁ") 
+    const [mouseOver, setMouseOver] = useState(t('analisi-test:seleziona-test')+" ᐁ") 
 
     return(
-        <div className={styles.dropdown} onMouseOver={() => setMouseOver(t('comp-test:seleziona-test')+" ᐃ")}
-        onMouseOut={() => setMouseOver(t('comp-test:seleziona-test')+" ᐁ")}>
+        <div className={styles.dropdown} onMouseOver={() => setMouseOver(t('analisi-test:seleziona-test')+" ᐃ")}
+        onMouseOut={() => setMouseOver(t('analisi-test:seleziona-test')+" ᐁ")}>
             <button className={styles.dropbtn}>{mouseOver}</button>
             <div className={styles.dropdownContent}>
-            {listaPunti.map((element, index) => {
-                return <p key={index} onClick={() => {
-                    listaPuntiSelected.length<7 ? setListaPuntiSelected([...listaPuntiSelected, element]) : alert(t('comp-test:alerts:max-test-comp'))
-                }}>{element.dati.data}<br />{convertiNomi(element.dati.tipoAll)}</p>
-            })}
+            {listaPunti.map((test, index) => <p key={index}
+                onClick={() => setPuntiSelected([...puntiSelected, test])}>{test.data}<br />{test.tipoTest}</p>
+            )}
             </div>
         </div>
     )
