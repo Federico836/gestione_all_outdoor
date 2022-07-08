@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import ContainerTabelle from "./containerTabelle/ContainerTabelle"
 import BottoniTop from "../../bottoniTop/BottoniTop"
+import calcTabTotali from "../../../../utils/funzioniAnalisiTest/corsa/funzioniMader"
 import { useTranslation } from 'react-i18next'
 
 const MaderCorsa = props => {
@@ -19,16 +20,31 @@ const MaderCorsa = props => {
 
     const { t, i18n } = useTranslation()
 
+    const tabTotali = calcTabTotali(puntiSelected, lattatoTabTotali, livAnal)
+
+    function salvaDati() {
+        const dati = {
+            data: Date.now(),
+            tipoSport: "corsa",
+            tipoTest: "mader",
+            lattatoTabTotali,
+            tabTotali,
+            puntiSelected
+        }
+
+        console.log(dati)
+    }
+
     return (
         <div>
             <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
-            listaTest={["mader"]} salvaDati={() => alert("sfdddd")} />
+            listaTest={["mader"]} salvaDati={salvaDati} />
             <h2 style={{textAlign: "left"}}>{t("scrivi-framework:corsa:corsa")}</h2>
 
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}
             setModificaRiga={setModificaRiga} puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected}
             livAnal={livAnal} setLivAnal={setLivAnal} lattatoTabTotali={lattatoTabTotali}
-            setLattatoTabTotali={setLattatoTabTotali} />
+            setLattatoTabTotali={setLattatoTabTotali} tabTotali={tabTotali} />
         </div>
     )
 }

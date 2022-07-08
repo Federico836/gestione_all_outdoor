@@ -14,19 +14,19 @@ const MenuPuntiSelected = props => {
             <table>
                 <thead>
                     <tr>
-                        <th>{t('comp-test:menu-punti-selected:data')}</th>
-                        <th>{t('comp-test:menu-punti-selected:tipo-test')}</th>
-                        <th>{t('comp-test:menu-punti-selected:elimina')}</th>
+                        <th>{t('scrivi-framework:corsa:data')}</th>
+                        <th>{t('analisi-test:tipo-test')}</th>
+                        <th>{t('scrivi-framework:corsa:elimina')}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {puntiSelected.map(test => {
-                        return <tr>
+                    {puntiSelected.map((test, c) => {
+                        return <tr key={c}>
                             <td>{test.data}</td>
                             <td>{test.tipoTest}</td>
                             <td><Button variant="contained"
                             onClick={() => setPuntiSelected(puntiSelected.filter(el => el.id !== test.id))}>
-                                {t('comp-test:menu-punti-selected:elimina')}</Button></td>
+                                {t('scrivi-framework:corsa:elimina')}</Button></td>
                         </tr>
                     })}
                 </tbody>

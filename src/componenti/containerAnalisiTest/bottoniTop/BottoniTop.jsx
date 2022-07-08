@@ -16,7 +16,7 @@ const BottoniTop = props => {
             <div>
                 {t('analisi-test:tipo-test')}&nbsp;&nbsp;
                <select onChange={e => setTipoTest(e.target.value)} value={tipoTest}>
-                    {listaTest.map(test => <option value={test}>{test}</option>)}
+                    {listaTest.map((test, c) => <option value={test} key={c}>{test}</option>)}
                </select>
            </div>
 
