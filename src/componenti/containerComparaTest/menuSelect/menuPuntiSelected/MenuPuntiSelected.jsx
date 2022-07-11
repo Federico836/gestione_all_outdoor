@@ -22,7 +22,7 @@ const MenuPuntiSelected = props => {
                 <tbody>
                     {puntiSelected.map((test, c) => {
                         return <tr key={c}>
-                            <td>{test.data}</td>
+                            <td>{new Date(test.data).toLocaleDateString()}</td>
                             <td>{test.tipoTest}</td>
                             <td><Button variant="contained"
                             onClick={() => setPuntiSelected(puntiSelected.filter(el => el.id !== test.id))}>

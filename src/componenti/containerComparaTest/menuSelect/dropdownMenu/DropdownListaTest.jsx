@@ -18,7 +18,8 @@ const DropdownListaTest = props => {
             <button className={styles.dropbtn}>{mouseOver}</button>
             <div className={styles.dropdownContent}>
             {listaPunti.map((test, index) => <p key={index}
-                onClick={() => setPuntiSelected([...puntiSelected, test])}>{test.data}<br />{test.tipoTest}</p>
+                onClick={() => setPuntiSelected([...puntiSelected, test])}>
+                    {new Date(test.data).toLocaleDateString()}<br />{test.tipoTest}</p>
             )}
             </div>
         </div>

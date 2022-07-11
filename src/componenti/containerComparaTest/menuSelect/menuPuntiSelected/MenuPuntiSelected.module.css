@@ -13,6 +13,12 @@
     border: 1px solid black;
     padding: 1vh;
 }
+.container table tr td button {
+    background-color: rgb(142, 139, 139);
+}
+.container table tr td button:hover {
+    background-color: rgb(126, 124, 124);
+}
 .container table tr td:first-child {
     border-left: 0;
 }
