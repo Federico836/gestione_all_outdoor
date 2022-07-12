@@ -18,7 +18,8 @@ const Ciclismo = () => {
     const dispatch = useDispatch()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, percZona: "", serie: "", ripetizioni: "", recupero: "0:00", rpm: "", note: "", durata: "0:00" })
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, percZona: "", serie: "", ripetizioni: "", recupero: "0:00",
+    rpm: "", note: "", durata: "0:00", wattPerc: "", fcPerc: "" })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
@@ -34,7 +35,9 @@ const Ciclismo = () => {
             setListaRighe(listaRighe.map(el => {
                 if(el.idRiga && el.idRiga === modificaRiga.idRiga) {
                     return {...el, ...datiSingolaRiga, wattMin: zoneCalcolate[datiSingolaRiga.zona-1].watt_min, wattMax: zoneCalcolate[datiSingolaRiga.zona-1].watt_max,
-                        fcMin: zoneCalcolate[datiSingolaRiga.zona-1].fc_min, fcMax: zoneCalcolate[datiSingolaRiga.zona-1].fc_max}
+                        fcMin: zoneCalcolate[datiSingolaRiga.zona-1].fc_min, fcMax: zoneCalcolate[datiSingolaRiga.zona-1].fc_max,
+                        wattPerc: Math.round(ftp*(riga.percZona/100)), fcPerc: Math.round(fc*(riga.percZona/100))
+                    }
                 }
                 return {...el}
             }))
@@ -42,7 +45,8 @@ const Ciclismo = () => {
         }
         else {
             setListaRighe([...listaRighe, {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
-                fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max, idRiga: uuidv4()}])
+                fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max, idRiga: uuidv4(),
+                wattPerc: Math.round(ftp*(riga.percZona/100)), fcPerc: Math.round(fc*(riga.percZona/100))}])
         }
     }
 
@@ -66,7 +70,8 @@ const Ciclismo = () => {
         cambiaSingolaRigaFtpFc()
         setListaRighe(listaRighe.map(riga => {
             return {...riga, wattMin: zoneCalcolate[riga.zona-1].watt_min, wattMax: zoneCalcolate[riga.zona-1].watt_max,
-                fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max }
+                fcMin: zoneCalcolate[riga.zona-1].fc_min, fcMax: zoneCalcolate[riga.zona-1].fc_max,
+                wattPerc: Math.round(ftp*(riga.percZona/100)), fcPerc: Math.round(fc*(riga.percZona/100))}
         }))
     }, [ftp, fc])
 
