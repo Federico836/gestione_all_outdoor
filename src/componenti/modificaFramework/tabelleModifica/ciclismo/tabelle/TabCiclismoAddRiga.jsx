@@ -41,7 +41,7 @@ const TabCiclismoAddRiga = (props) => {
                 <table className={styles.tabella}>
                     <thead>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:zona')}</th>
-                        <th style={{textAlign: 'center'}}>% {t('scrivi-framework:ciclismo:zona')}</th>
+                        <th style={{textAlign: 'center'}}>%</th>
                         <th style={{textAlign: 'center'}}>Watt</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:fc')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:serie')}</th>
