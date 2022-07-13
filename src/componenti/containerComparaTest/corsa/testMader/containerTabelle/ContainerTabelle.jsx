@@ -10,6 +10,7 @@ const ContainerTabelle = props => {
         <div className={styles.container}>
             <ContainerGraficoMenu tipoTest={tipoTest} setTipoTest={setTipoTest}
             listaPunti={listaTest} puntiSelectedMader={puntiSelectedMader} setPuntiSelectedMader={setPuntiSelectedMader} />
+            <TabCompTestMader puntiSelectedMader={puntiSelectedMader} marginTop={"3vh"} />
         </div>
     )
 }

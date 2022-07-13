@@ -224,6 +224,7 @@
         "desc-liv-anal": "Seleziona il numero che ti permette di trovare i valori di velocità e fc più precisi possibile"
       }
     },
-    "seleziona-test": "Seleziona test"
+    "seleziona-test": "Seleziona test",
+    "variazione": "variation"
   }
 }

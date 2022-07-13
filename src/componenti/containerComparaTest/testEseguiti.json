@@ -4,11 +4,9 @@
         "data": 1657292548210,
         "tipoSport": "corsa",
         "tipoTest": "mader",
-        "lattatoTabTotali": {
-            "lattato1": 2.5,
-            "lattato2": 4.5
-        },
         "tabTotali": {
+            "lattato1": 2.5,
+            "lattato2": 4.5,
             "velKmh1": 9,
             "velKmh2": 16.2,
             "velMs1": 2.5,
@@ -125,28 +123,26 @@
     },
     {
         "id": 2,
-        "data": 1657292548211,
+        "data": 1657892548211,
         "tipoSport": "corsa",
         "tipoTest": "mader",
-        "lattatoTabTotali": {
-            "lattato1": 2.5,
-            "lattato2": 4.5
-        },
         "tabTotali": {
-            "velKmh1": 9,
-            "velKmh2": 16.2,
-            "velMs1": 2.5,
-            "velMs2": 4.5,
-            "passo10001": "6:39",
-            "passo10002": "3:42",
-            "heartrate1": 95,
-            "heartrate2": 115,
-            "glicemia1": 98,
-            "glicemia2": 154,
-            "o21": 45,
-            "o22": 64,
-            "rpe1": 83,
-            "rpe2": 83
+            "lattato1": 2.5,
+            "lattato2": 4.5,
+            "velKmh1": 12,
+            "velKmh2": 18,
+            "velMs1": 3,
+            "velMs2": 6,
+            "passo10001": "8:56",
+            "passo10002": "4:36",
+            "heartrate1": 90,
+            "heartrate2": 108,
+            "glicemia1": 78,
+            "glicemia2": 126,
+            "o21": 36,
+            "o22": 57,
+            "rpe1": 90,
+            "rpe2": 86
         },
         "puntiSelected": [
             {

@@ -27,8 +27,7 @@ const MaderCorsa = props => {
             data: Date.now(),
             tipoSport: "corsa",
             tipoTest: "mader",
-            lattatoTabTotali,
-            tabTotali,
+            tabTotali: {...tabTotali, lattato1: lattatoTabTotali.lattato1, lattato2: lattatoTabTotali.lattato2},
             puntiSelected
         }
 

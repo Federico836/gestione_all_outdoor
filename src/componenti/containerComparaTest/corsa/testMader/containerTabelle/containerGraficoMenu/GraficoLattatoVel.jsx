@@ -25,7 +25,7 @@ const GraficoLattatoVel = props => {
 
     const listaColori = ["blue", "green", "red", "cyan"]
 
-    const formattaData = data => new Date(data).toLocaleString()
+    const formattaData = data => new Date(data).toLocaleDateString()
 
     return (
         <div>

@@ -53,6 +53,8 @@ const MainContainer = props => {
 
     const ruoloLoggedUser = /* window.md.logged_user.roles[0] */ "allenatore"
 
+    window.md = {numDopoVirgola: 1}
+
     return (
         <div>
             {pagina==="menu_princ" ?
