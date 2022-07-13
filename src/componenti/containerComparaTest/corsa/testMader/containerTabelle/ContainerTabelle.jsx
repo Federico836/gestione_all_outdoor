@@ -1,5 +1,6 @@
 import React from "react"
 import ContainerGraficoMenu from "./containerGraficoMenu/ContainerGraficoMenu"
+import TabCompTestMader from "./tabCompTestMader/TabCompTestMader"
 import styles from "./ContainerTabelle.module.css"
 
 const ContainerTabelle = props => {

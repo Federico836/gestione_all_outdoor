@@ -160,4 +160,12 @@ const uploadFiles = files => {
   })
 }
 
-export { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto, getSecondsFromHHMMSS, getSecondsFromMMSS, toHHMMSS, toMMSS, uploadFiles }
+const calcVarPerc = (primo, secondo) => {
+
+  const diff = (secondo-primo).toFixed(window.md.numDopoVirgola)
+
+  return {diff, percent: ((diff/primo)*100).toFixed(window.md.numDopoVirgola)}
+}
+
+export { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto, getSecondsFromHHMMSS, getSecondsFromMMSS,
+  toHHMMSS, toMMSS, uploadFiles, calcVarPerc }
