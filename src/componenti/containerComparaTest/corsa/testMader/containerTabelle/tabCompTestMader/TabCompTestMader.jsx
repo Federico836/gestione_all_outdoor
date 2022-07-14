@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { calcVarPerc, toHHMMSS } from '../../../../../../utils/funzioni'
-import { getSecondsFromMMSS, toMMSS } from '../../../../../../utils/funzioni'
+import { calcVarPerc, toMMSS, getSecondsFromMMSS } from '../../../../../../utils/funzioni'
 import styles from './TabCompTestMader.module.css'
 
 const TabCompTestMader = props => {
@@ -30,32 +29,35 @@ const TabCompTestMader = props => {
         rpe2: []
     }
 
-    for(let c=0;c<puntiSelectedMader.length-1;c++) {
-        const test1 = puntiSelectedMader[c]
-        const test2 = puntiSelectedMader[c+1]
+    for(let r=0;r<puntiSelectedMader.length-1;r++) {
+        const test1 = puntiSelectedMader[r]
 
-        if(c===0) tab.data.push(<td><nobr>{new Date(test1.data).toLocaleDateString()}</nobr></td>)
-        tab.data.push(<td>{t('analisi-test:variazione')}</td>)
-        tab.data.push(<td><nobr>{t('analisi-test:variazione')} %</nobr></td>)
-        tab.data.push(<td><nobr>{new Date(test2.data).toLocaleDateString()}</nobr></td>)
-        for(let prop in test1.tabTotali) {
-            if(prop==="lattato1" || prop=="lattato2") {
-                if(c===0) tab[prop].push(<td>{"⠀"}</td>)
-                tab[prop].push(<td>{"⠀"}</td>)
-                tab[prop].push(<td>{"⠀"}</td>)
-                tab[prop].push(<td>{"⠀"}</td>)
-            } else if(prop==="passo10001" || prop==="passo10002") {
-                const { diff, percent } = calcVarPerc(getSecondsFromMMSS(test1.tabTotali[prop]), getSecondsFromMMSS(test2.tabTotali[prop]))
-                if(c===0) tab[prop].push(<td>{test1.tabTotali[prop]}</td>)
-                tab[prop].push(<td>{diff>=0 ? toHHMMSS(diff) : "-"+toHHMMSS(Math.abs(diff))}</td>)
-                tab[prop].push(<td>{isFinite(percent) ? percent : "N/A"}</td>)
-                tab[prop].push(<td>{test2.tabTotali[prop]}</td>)
-            } else {
-                const { diff, percent } = calcVarPerc(test1.tabTotali[prop], test2.tabTotali[prop])
-                if(c===0) tab[prop].push(<td>{isFinite(test1.tabTotali[prop]) ? test1.tabTotali[prop] : "N/A"}</td>)
-                tab[prop].push(<td>{isFinite(diff) ? diff : "N/A"}</td>)
-                tab[prop].push(<td>{isFinite(percent) ? percent : "N/A"}</td>)
-                tab[prop].push(<td>{isFinite(test2.tabTotali[prop]) ? test2.tabTotali[prop] : "N/A"}</td>)
+        for(let c=r+1;c<puntiSelectedMader.length;c++) {
+            const test2 = puntiSelectedMader[c]
+
+            /* if(c===1) */ tab.data.push(<td><nobr>{new Date(test1.data).toLocaleDateString()}</nobr></td>)
+            tab.data.push(<td>{t('analisi-test:variazione')}</td>)
+            tab.data.push(<td><nobr>{t('analisi-test:variazione')} %</nobr></td>)
+            tab.data.push(<td><nobr>{new Date(test2.data).toLocaleDateString()}</nobr></td>)
+            for(let prop in test1.tabTotali) {
+                if(prop==="lattato1" || prop=="lattato2") {
+                    /* if(c===1) */ tab[prop].push(<td>{"⠀"}</td>)
+                    tab[prop].push(<td>{"⠀"}</td>)
+                    tab[prop].push(<td>{"⠀"}</td>)
+                    tab[prop].push(<td>{"⠀"}</td>)
+                } else if(prop==="passo10001" || prop==="passo10002") {
+                    const { diff, percent } = calcVarPerc(getSecondsFromMMSS(test1.tabTotali[prop]), getSecondsFromMMSS(test2.tabTotali[prop]))
+                    /* if(c===1) */ tab[prop].push(<td>{test1.tabTotali[prop]}</td>)
+                    tab[prop].push(<td>{diff>=0 ? toMMSS(diff) : "-"+toMMSS(Math.abs(diff))}</td>)
+                    tab[prop].push(<td>{isFinite(percent) ? percent : "N/A"}</td>)
+                    tab[prop].push(<td>{test2.tabTotali[prop]}</td>)
+                } else {
+                    const { diff, percent } = calcVarPerc(test1.tabTotali[prop], test2.tabTotali[prop])
+                    /* if(c===1) */ tab[prop].push(<td>{isFinite(test1.tabTotali[prop]) ? test1.tabTotali[prop] : "N/A"}</td>)
+                    tab[prop].push(<td>{isFinite(diff) ? diff : "N/A"}</td>)
+                    tab[prop].push(<td>{isFinite(percent) ? percent : "N/A"}</td>)
+                    tab[prop].push(<td>{isFinite(test2.tabTotali[prop]) ? test2.tabTotali[prop] : "N/A"}</td>)
+                }
             }
         }
     }
