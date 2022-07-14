@@ -12,7 +12,7 @@ const GraficoLattatoVel = props => {
     const listaPuntiSelected = puntiSelectedMader.map(test => test.puntiSelected)
     const listaVel = [].concat(...listaPuntiSelected).map(punto => punto.velKmh)
     const listaVelUnica = [...new Set(listaVel)]
-    const datiGrafico = listaVelUnica.map(vel => ({velKmh: vel}))
+    const datiGrafico = listaVelUnica.map(vel => ({velKmh: vel})).sort((a, b) => a.velKmh-b.velKmh)
 
     puntiSelectedMader.forEach(test => {
         test.puntiSelected.forEach(punto => {
@@ -49,7 +49,7 @@ const GraficoLattatoVel = props => {
             </ResponsiveContainer> */}
             <ResponsiveContainer width="100%" height={400}>
                 <LineChart data={datiGrafico} margin={{ top: 10, right: 10, bottom: 10, left: -20 }}>
-                {puntiSelectedMader.map((test, c) => <Line key={c} type="monotone" yAxisId="left"
+                {puntiSelectedMader.map((test, c) => <Line key={c} type="monotone" yAxisId="left" connectNulls={true}
                 dataKey={test.data} stroke={listaColori[c]} fill={listaColori[c]} r={4} isAnimationActive={false} dot={true} />)}
 
                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
