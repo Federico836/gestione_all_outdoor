@@ -287,7 +287,7 @@
                 "lattato": 6,
                 "distanza": 100,
                 "tempo": 50,
-                "velKmh": 10,
+                "velKmh": 9.6,
                 "velMs": 2,
                 "passo1000": "8:20",
                 "heartrate": 90,
