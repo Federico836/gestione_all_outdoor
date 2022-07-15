@@ -225,6 +225,7 @@
       }
     },
     "seleziona-test": "Select test",
-    "variazione": "variazione"
+    "variazione": "variazione",
+    "max-test-comp": "you reached the maximum amount of trainings you can compare"
   }
 }

@@ -225,6 +225,7 @@
       }
     },
     "seleziona-test": "Seleziona test",
-    "variazione": "variation"
+    "variazione": "variation",
+    "max-test-comp": "numero massimo di allenamenti raggiunto"
   }
 }

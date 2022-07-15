@@ -23,7 +23,7 @@ const GraficoLattatoVel = props => {
 
     console.log(datiGrafico)
 
-    const listaColori = ["blue", "green", "red", "cyan"]
+    const listaColori = ["blue", "LightCoral", "red", "cyan", "Chocolate", "DarkMagenta", "green", "LightGray"]
 
     const formattaData = data => new Date(data).toLocaleDateString()
 
@@ -47,7 +47,7 @@ const GraficoLattatoVel = props => {
                 <Tooltip />
                 </LineChart>
             </ResponsiveContainer> */}
-            <ResponsiveContainer width="100%" height={450}>
+            <ResponsiveContainer width="100%" height={500}>
                 <LineChart data={datiGrafico} margin={{ top: 10, right: 10, bottom: 10, left: -20 }}>
                 {puntiSelectedMader.map((test, c) => <Line key={c} type="monotone" yAxisId="left" connectNulls={true}
                 dataKey={test.data} stroke={listaColori[c]} fill={listaColori[c]} r={4} isAnimationActive={false} dot={true} />)}
