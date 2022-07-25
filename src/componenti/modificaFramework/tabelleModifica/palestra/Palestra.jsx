@@ -25,18 +25,22 @@ const Palestra = props => {
     const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({esercizio: "", serie: "", ripetizioni: "", peso: "", recupero: "0:00", tut: "", note: "" })
     const [modificaRiga, setModificaRiga] = useState(null)
-    const [data, setData] = useState(frameworkSalvato.dataDaFare)
-    const [nomeFramework, setNomeFramework] = useState(frameworkSalvato.nomeFramework)
+    const [data, setData] = useState("")
+    const [nomeFramework, setNomeFramework] = useState("")
 
     const { t, i18n } = useTranslation()
 
     useEffect(() => {
 
-        setFrame(frameworkSalvato)
-        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga, passo: 0}})
-
-        setListaRighe([...listaRigheCopia])
-        setListaRigheCopia([...listaRigheCopia])
+        if(frameworkSalvato) {
+            setFrame(frameworkSalvato)
+            const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga, passo: 0}})
+    
+            setListaRighe([...listaRigheCopia])
+            setListaRigheCopia([...listaRigheCopia])
+            setData(frameworkSalvato.dataDaFare)
+            setNomeFramework(frameworkSalvato.nomeFramework)
+        }
 
     }, [frameworkSalvato])
 

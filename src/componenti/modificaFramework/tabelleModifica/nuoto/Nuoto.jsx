@@ -31,16 +31,20 @@ const Nuoto = props => {
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)
     const [tempoPer100m, setTempoPer100m] = useState(0)
-    const [data, setData] = useState(frameworkSalvato.dataDaFare)
-    const [nomeFramework, setNomeFramework] = useState(frameworkSalvato.nomeFramework)
+    const [data, setData] = useState("")
+    const [nomeFramework, setNomeFramework] = useState("")
 
     useEffect(() => {
 
-        setFrame(frameworkSalvato)
-        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
-
-        setListaRighe([...listaRigheCopia])
-        setListaRigheCopia([...listaRigheCopia])
+        if(frameworkSalvato) {
+            setFrame(frameworkSalvato)
+            const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
+    
+            setListaRighe([...listaRigheCopia])
+            setListaRigheCopia([...listaRigheCopia])
+            setData(frameworkSalvato.dataDaFare)
+            setNomeFramework(frameworkSalvato.nomeFramework)
+        }
 
     }, [frameworkSalvato])
 

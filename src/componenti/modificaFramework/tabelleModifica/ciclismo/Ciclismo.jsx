@@ -28,17 +28,21 @@ const Ciclismo = props => {
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
-    const [data, setData] = useState(frameworkSalvato.dataDaFare)
-    const [nomeFramework, setNomeFramework] = useState(frameworkSalvato.nomeFramework)
+    const [data, setData] = useState("")
+    const [nomeFramework, setNomeFramework] = useState("")
 
     // andrea
     useEffect(() => {
 
-        setFrame(frameworkSalvato)
-        const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
+        if(frameworkSalvato) {
+            setFrame(frameworkSalvato)
+            const listaRigheCopia = frameworkSalvato.listaRighe.map(riga => {return {...riga}})
 
-        setListaRighe([...listaRigheCopia])
-        setListaRigheCopia([...listaRigheCopia])
+            setListaRighe([...listaRigheCopia])
+            setListaRigheCopia([...listaRigheCopia])
+            setData(frameworkSalvato.dataDaFare)
+            setNomeFramework(frameworkSalvato.nomeFramework)
+        }
 
     }, [frameworkSalvato])
     // andrea

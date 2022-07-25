@@ -22,15 +22,20 @@ const Gara = props => {
     const [testo, setTesto] = useState("")
     const [testoCopia, setTestoCopia] = useState("")
     const [data, setData] = useState("")
-    const [nomeFramework, setNomeFramework] = useState(frameworkSalvato.nomeFramework)
-    const [nomeGara, setNomeGara] = useState(frameworkSalvato.tipo)
+    const [nomeFramework, setNomeFramework] = useState("")
+    const [nomeGara, setNomeGara] = useState("")
 
     useEffect(() => {
 
-        setFrame(frameworkSalvato)
+        if(frameworkSalvato) {
+            setFrame(frameworkSalvato)
 
-        setTesto(frameworkSalvato.testo)
-        setTestoCopia(frameworkSalvato.testo)
+            setTesto(frameworkSalvato.testo)
+            setTestoCopia(frameworkSalvato.testo)
+            setData(frameworkSalvato.dataDaFare)
+            setNomeFramework(frameworkSalvato.nomeFramework)
+            setNomeGara(frameworkSalvato.tipo)
+        }
 
     }, [frameworkSalvato])
 

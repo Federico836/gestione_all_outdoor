@@ -51,9 +51,13 @@ const MainContainer = props => {
         }
     }, [utente]) */
 
-    const ruoloLoggedUser = /* window.md.logged_user.roles[0] */ "allenatore"
+    window.md = {
+        logged_user: {ID: 345, nome: "Allena", cognome: "Tore", roles: ['allenatore']},
+        numDopoVirgola: 1
+    }
+    const ruoloLoggedUser = window.md.logged_user.roles[0]
 
-    window.md = {numDopoVirgola: 1}
+    /* window.md = {numDopoVirgola: 1} */
 
     return (
         <div>
