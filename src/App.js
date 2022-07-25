@@ -6,6 +6,7 @@ import { getListaFrameworks } from './redux/actions/FrameworkActions'
 import { getListaEventi } from './redux/actions/EventActions'
 import { getListaTemplate } from './redux/actions/TemplateActions'
 import {useEffect} from 'react'
+import i18n from 'i18next'
 
 function App() {
 
@@ -21,6 +22,20 @@ function App() {
     dispatch(getListaEventi(idUtente))
     dispatch(getListaTemplate())
   }, [])
+
+  useEffect(() => {
+
+    let url = new URL(window.location.href);
+    let pat = url.pathname.split('/')
+
+    if(pat && pat.length > 2 && pat[1] === 'en') {
+      i18n.changeLanguage('en')
+    }
+    else  {
+      i18n.changeLanguage('it')
+    }
+
+  },[])
 
   return (
     <div className="App">
