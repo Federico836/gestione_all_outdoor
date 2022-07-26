@@ -120,6 +120,8 @@ const Report = props => {
                 listaRigheFrameCalc = datiCiclismo.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
                 tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={datiCiclismo.rowsCalc} />)
+                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word",
+                    whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
     
             } else if(framework.tipoPerSelect==="corsa") {
 

@@ -25,6 +25,7 @@ const Ciclismo = () => {
     const [fc, setFc] = useState(0)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
+    const [noteAll, setNoteAll] = useState("")
 
     const { t, i18n } = useTranslation()
 
@@ -91,13 +92,20 @@ const Ciclismo = () => {
             <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
-            <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, wattMin: 0, wattMax: 0, fcMin: 0, fcMax: 0}}),
-            tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo", dataDaFare: data,
-            dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
-            
-            <Button className={styles.bottoneReset} variant="contained"
-            onClick={reset}>RESET</Button>
+            <div className={styles.bottoniNote}>
+                <div>
+                    <Button variant="contained"
+                    onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, wattMin: 0, wattMax: 0, fcMin: 0, fcMax: 0}}),
+                    tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo", dataDaFare: data,
+                    dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                </div>
+
+                <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />
+                
+                <div>
+                    <Button variant="contained" onClick={reset}>RESET</Button>
+                </div>
+            </div>
         </div>
     )
 }
