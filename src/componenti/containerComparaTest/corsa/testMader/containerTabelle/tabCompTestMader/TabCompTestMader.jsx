@@ -39,24 +39,28 @@ const TabCompTestMader = props => {
             tab.data.push(<td>{t('analisi-test:variazione')}</td>)
             tab.data.push(<td><nobr>{t('analisi-test:variazione')} %</nobr></td>)
             tab.data.push(<td><nobr>{new Date(test2.data).toLocaleDateString()}</nobr></td>)
+            if(r!==puntiSelectedMader.length-2) tab.data.push(<td>{"⠀⠀⠀⠀⠀⠀"}</td>)
             for(let prop in test1.tabTotali) {
                 if(prop==="lattato1" || prop=="lattato2") {
                     /* if(c===1) */ tab[prop].push(<td>{"⠀"}</td>)
                     tab[prop].push(<td>{"⠀"}</td>)
                     tab[prop].push(<td>{"⠀"}</td>)
                     tab[prop].push(<td>{"⠀"}</td>)
+                    if(r!==puntiSelectedMader.length-2) tab[prop].push(<td>{"⠀"}</td>)
                 } else if(prop==="passo10001" || prop==="passo10002") {
                     const { diff, percent } = calcVarPerc(getSecondsFromMMSS(test1.tabTotali[prop]), getSecondsFromMMSS(test2.tabTotali[prop]))
                     /* if(c===1) */ tab[prop].push(<td>{test1.tabTotali[prop]}</td>)
                     tab[prop].push(<td>{diff>=0 ? toMMSS(diff) : "-"+toMMSS(Math.abs(diff))}</td>)
                     tab[prop].push(<td>{isFinite(percent) ? percent : "N/A"}</td>)
                     tab[prop].push(<td>{test2.tabTotali[prop]}</td>)
+                    if(r!==puntiSelectedMader.length-2) tab[prop].push(<td>{"⠀"}</td>)
                 } else {
                     const { diff, percent } = calcVarPerc(test1.tabTotali[prop], test2.tabTotali[prop])
                     /* if(c===1) */ tab[prop].push(<td>{isFinite(test1.tabTotali[prop]) ? test1.tabTotali[prop] : "N/A"}</td>)
                     tab[prop].push(<td>{isFinite(diff) ? diff : "N/A"}</td>)
                     tab[prop].push(<td>{isFinite(percent) ? percent : "N/A"}</td>)
                     tab[prop].push(<td>{isFinite(test2.tabTotali[prop]) ? test2.tabTotali[prop] : "N/A"}</td>)
+                    if(r!==puntiSelectedMader.length-2) tab[prop].push(<td>{"⠀"}</td>)
                 }
             }
         }
@@ -71,7 +75,7 @@ const TabCompTestMader = props => {
                         <tr><td><nobr>{t('analisi-test:corsa:mader:lattato')} {puntiSelectedMader[0] ? puntiSelectedMader[0].tabTotali.lattato1 : ""}</nobr></td></tr>
                         <tr><td><nobr>{t('analisi-test:corsa:mader:velocita')} Km/h</nobr></td></tr>
                         <tr><td><nobr>{t('analisi-test:corsa:mader:velocita')} m/s</nobr></td></tr>
-                        <tr><td>{t('analisi-test:corsa:mader:passo')} 1000</td></tr>
+                        <tr><td><nobr>{t('analisi-test:corsa:mader:passo')} 1000</nobr></td></tr>
                         <tr><td>{t('analisi-test:corsa:mader:fc')}</td></tr>
                         <tr><td>{t('analisi-test:corsa:mader:glicemia')}</td></tr>
                         <tr><td>o²</td></tr>
@@ -79,7 +83,7 @@ const TabCompTestMader = props => {
                         <tr><td><nobr>{t('analisi-test:corsa:mader:lattato')} {puntiSelectedMader[0] ? puntiSelectedMader[0].tabTotali.lattato2 : ""}</nobr></td></tr>
                         <tr><td>{t('analisi-test:corsa:mader:velocita')} Km/h</td></tr>
                         <tr><td>{t('analisi-test:corsa:mader:velocita')} m/s</td></tr>
-                        <tr><td>{t('analisi-test:corsa:mader:passo')} 1000</td></tr>
+                        <tr><td><nobr>{t('analisi-test:corsa:mader:passo')} 1000</nobr></td></tr>
                         <tr><td>{t('analisi-test:corsa:mader:fc')}</td></tr>
                         <tr><td>{t('analisi-test:corsa:mader:glicemia')}</td></tr>
                         <tr><td>o²</td></tr>

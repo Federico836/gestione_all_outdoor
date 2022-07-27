@@ -106,6 +106,7 @@ const Ciclismo = () => {
                     <Button variant="contained" onClick={reset}>RESET</Button>
                 </div>
             </div>
+            
         </div>
     )
 }
