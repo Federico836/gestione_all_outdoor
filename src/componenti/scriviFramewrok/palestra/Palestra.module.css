@@ -4,14 +4,14 @@
     margin-right: auto;
 }
 
-.container .bottoneSalva {
+.container .bottoniNote {
+    display: flex;
+    column-gap: 1vw;
+    justify-content: space-between;
     margin-top: 3vh;
     margin-bottom: 16vh;
-    float: left;
 }
-
-.container .bottoneReset {
-    margin-top: 3vh;
-    margin-bottom: 16vh;
-    float: right;
+.container .bottoniNote textarea {
+    width: 75%;
+    height: 12vh;
 }

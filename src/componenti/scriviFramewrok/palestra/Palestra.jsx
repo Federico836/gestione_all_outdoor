@@ -21,6 +21,7 @@ const Palestra = () => {
     const [modificaRiga, setModificaRiga] = useState(null)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
+    const [noteAll, setNoteAll] = useState("")
 
     const { t, i18n } = useTranslation()
 
@@ -60,12 +61,20 @@ const Palestra = () => {
             <TabPalestraDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
-            <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:palestra:palestra'), tipoPerSelect: "palestra", dataDaFare: data,
-            dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
-            
-            <Button className={styles.bottoneReset} variant="contained"
-            onClick={reset}>RESET</Button>
+            <div className={styles.bottoniNote}>
+                <div>
+                    <Button variant="contained"
+                    onClick={() => {dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:palestra:palestra'), tipoPerSelect: "palestra", dataDaFare: data,
+                    dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                </div>
+
+                <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />
+                
+                <div>
+                    <Button variant="contained" onClick={reset}>RESET</Button>
+                </div>
+            </div>
+
         </div>
     )
 }

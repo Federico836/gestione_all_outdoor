@@ -120,8 +120,7 @@ const Report = props => {
                 listaRigheFrameCalc = datiCiclismo.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:ciclismo:ciclismo')}</h4>)
                 tabDaAggiungere.push(<TabCiclismoDragNDrop listaRighe={datiCiclismo.rowsCalc} />)
-                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word",
-                    whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
+                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
     
             } else if(framework.tipoPerSelect==="corsa") {
 
@@ -129,6 +128,7 @@ const Report = props => {
                 listaRigheFrameCalc = datiCorsa.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:corsa:corsa')}</h4>)
                 tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
+                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
             
             } else if(framework.tipoPerSelect==="nuoto") {
 
@@ -136,16 +136,20 @@ const Report = props => {
                 listaRigheFrameCalc = datiNuoto.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:nuoto:nuoto')}</h4>)
                 tabDaAggiungere.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)
+                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
             
             } else if(framework.tipoPerSelect==="palestra") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:palestra:palestra')}</h4>)
                 tabDaAggiungere.push(<TabPalestraDragNDrop listaRighe={listaRigheFrame} />)
+                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
             } else if(framework.tipoPerSelect==="combinati_tri") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:combinati-tri:combinati-tri')}</h4>)
                 tabDaAggiungere.push(<TabCombinatiTriDragNDrop listaRighe={listaRigheFrame} />)
+                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
             } else if(framework.tipoPerSelect==="altri") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:sport:altri')}</h4>)
                 tabDaAggiungere.push(<TabSportDragNDrop listaRighe={listaRigheFrame} />)
+                if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
             } else if(framework.tipoPerSelect==="MagneticDays") {
                 tabDaAggiungere.push(<h4>Magnetic Days</h4>)
             } else if(framework.tipoPerSelect==="gara") {

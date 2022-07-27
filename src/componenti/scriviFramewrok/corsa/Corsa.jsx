@@ -27,6 +27,7 @@ const Corsa = () => {
     const [tempoPer1000m, setTempoPer1000m] = useState(0)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
+    const [noteAll, setNoteAll] = useState("")
 
     const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
@@ -134,15 +135,24 @@ const Corsa = () => {
 
             <div className={styles.scrittaRac} dangerouslySetInnerHTML={{ __html: t('scrivi-framework:corsa:scritta-rac') }}></div>
 
-            <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passoMin: 0, passoMax: 0, passoMedia: 0}}),
-            tipo: t('scrivi-framework:corsa:corsa'), tipoPerSelect: "corsa", dataDaFare: data, dataCreazione: Date.now(),
-            nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
-            
-            <Button className={styles.bottoneReset} variant="contained"
-            onClick={reset}>RESET</Button>
+            <div className={styles.bottoniNote}>
+                <div>
+                    <Button variant="contained"
+                    onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passoMin: 0, passoMax: 0, passoMedia: 0}}),
+                    tipo: t('scrivi-framework:corsa:corsa'), tipoPerSelect: "corsa", dataDaFare: data, dataCreazione: Date.now(),
+                    nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                </div>
 
-            <Button className={styles.bottoneInutile} variant="contained">{t('scrivi-framework:calcola')}</Button>
+                <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />
+                
+                <div>
+                    <Button variant="contained" onClick={reset}>RESET</Button>
+                </div>
+                
+                <div>
+                    <Button variant="contained">{t('scrivi-framework:calcola')}</Button>
+                </div>
+            </div>
 
         </div>
     )

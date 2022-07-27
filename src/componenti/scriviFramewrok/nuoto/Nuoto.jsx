@@ -27,6 +27,7 @@ const Nuoto = () => {
     const [tempoPer100m, setTempoPer100m] = useState(0)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
+    const [noteAll, setNoteAll] = useState("")
 
     const velocita = 100/tempoPer100m
     let velocitaKmh = velocita*3.6
@@ -87,15 +88,24 @@ const Nuoto = () => {
 
             <div className={styles.scrittaRac} dangerouslySetInnerHTML={{ __html: t('scrivi-framework:nuoto:scritta-rac') }}></div>
 
-            <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passo: 0}}),
-            tipo: t('scrivi-framework:nuoto:nuoto'), tipoPerSelect: "nuoto", dataDaFare: data, dataCreazione: Date.now(),
-            nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
-            
-            <Button className={styles.bottoneReset} variant="contained"
-            onClick={reset}>RESET</Button>
+            <div className={styles.bottoniNote}>
+                <div>
+                    <Button variant="contained"
+                    onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passo: 0}}),
+                    tipo: t('scrivi-framework:nuoto:nuoto'), tipoPerSelect: "nuoto", dataDaFare: data, dataCreazione: Date.now(),
+                    nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                </div>
 
-            <Button className={styles.bottoneInutile} variant="contained">{t('scrivi-framework:calcola')}</Button>
+                <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />
+                
+                <div>
+                    <Button variant="contained" onClick={reset}>RESET</Button>
+                </div>
+                
+                <div>
+                    <Button variant="contained">{t('scrivi-framework:calcola')}</Button>
+                </div>
+            </div>
 
         </div>
     )
