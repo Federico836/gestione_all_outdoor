@@ -28,6 +28,7 @@ const Sport = props => {
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
     const [nomeSport, setNomeSport] = useState("")
+    const [noteAll, setNoteAll] = useState("")
 
     const { t, i18n } = useTranslation()
 
@@ -42,6 +43,7 @@ const Sport = props => {
             setData(frameworkSalvato.dataDaFare)
             setNomeFramework(frameworkSalvato.nomeFramework)
             setNomeSport(frameworkSalvato.tipo)
+            setNoteAll(frameworkSalvato.noteAll)
         }
 
     }, [frameworkSalvato])
@@ -70,13 +72,13 @@ const Sport = props => {
     const salvaFramework = () => {
         if(nomeFramework!==frame.nomeFramework) {
             const f = {listaRighe, tipo: nomeSport, tipoPerSelect: "altri", dataDaFare: data,
-            dataCreazione: Date.now(), nomeFramework, id: uuidv4()}
+            dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}
            
             dispatch(addFramework(f))
             setFrame(f)// andrea
         } else {
             const ff = {listaRighe, tipo: nomeSport, tipoPerSelect: "altri", dataDaFare: data,
-            dataCreazione: Date.now(), nomeFramework: frame.nomeFramework, id: frame.id}
+            dataCreazione: Date.now(), nomeFramework: frame.nomeFramework, noteAll, id: frame.id}
             
             dispatch(replaceFramework(ff))
             setFrame(ff)// andrea
@@ -88,6 +90,7 @@ const Sport = props => {
             if(data!==frame.dataDaFare) return false
             if(nomeFramework!==frame.nomeFramework) return false
             if(nomeSport!==frame.tipo) return false
+            if(noteAll!==frame.noteAll) return false
             if(listaRighe.length!==listaRigheCopia.length) return false
 
             for(let c=0;c<listaRighe.length;c++) {
@@ -129,10 +132,18 @@ const Sport = props => {
             <TabSportDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />
 
-            <Button className={styles.bottoneSalva} variant="contained"
-            onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
-            
-            <Button className={styles.bottoneReset} variant="contained" onClick={reset}>RESET</Button>
+            <div className={styles.bottoniNote}>
+                <div>
+                    <Button variant="contained" onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
+                </div>
+
+                <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />
+                
+                <div>
+                    <Button variant="contained" onClick={reset}>RESET</Button>
+                </div>
+            </div>
+
         </div>
     )
 }

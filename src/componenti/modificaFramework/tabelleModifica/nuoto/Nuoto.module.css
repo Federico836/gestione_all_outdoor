@@ -10,24 +10,18 @@
     margin-bottom: 2vh;
 }
 
-.container .bottoneSalva {
-    margin-top: 3vh;
-    margin-bottom: 16vh;
-    float: left;
-}
-.container .bottoneReset {
-    margin-top: 3vh;
-    margin-bottom: 16vh;
-    margin-left: 1vw;
-    float: right;
-}
-
-.container .bottoneInutile {
-    margin-top: 3vh;
-    margin-bottom: 16vh;
-    float: right;
-}
-
 .container .scrittaRac {
     margin-top: 3vh;
+}
+
+.container .bottoniNote {
+    display: flex;
+    column-gap: 1vw;
+    justify-content: space-between;
+    margin-top: 3vh;
+    margin-bottom: 16vh;
+}
+.container .bottoniNote textarea {
+    width: 66%;
+    height: 12vh;
 }

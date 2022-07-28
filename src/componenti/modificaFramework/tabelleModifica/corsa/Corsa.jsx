@@ -33,6 +33,7 @@ const Corsa = props => {
     const [tempoPer1000m, setTempoPer1000m] = useState(0)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
+    const [noteAll, setNoteAll] = useState("")
 
     useEffect(() => {
 
@@ -44,6 +45,7 @@ const Corsa = props => {
             setListaRigheCopia([...listaRigheCopia])
             setData(frameworkSalvato.dataDaFare)
             setNomeFramework(frameworkSalvato.nomeFramework)
+            setNoteAll(frameworkSalvato.noteAll)
         }
 
     }, [frameworkSalvato])
@@ -86,13 +88,13 @@ const Corsa = props => {
     const salvaFramework = () => {
         if(nomeFramework!==frame.nomeFramework) {
             const f = {listaRighe, tipo: t('scrivi-framework:corsa:corsa'), tipoPerSelect: "corsa", dataDaFare: data,
-            dataCreazione: Date.now(), nomeFramework, id: uuidv4()}
+            dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}
            
             dispatch(addFramework(f))
             setFrame(f)// andrea
         } else {
             const ff = {listaRighe, tipo: t('scrivi-framework:corsa:corsa'), tipoPerSelect: "corsa", dataDaFare: data,
-            dataCreazione: Date.now(), nomeFramework: frame.nomeFramework, id: frame.id}
+            dataCreazione: Date.now(), nomeFramework: frame.nomeFramework, noteAll, id: frame.id}
             
             dispatch(replaceFramework(ff))
             setFrame(ff)// andrea
@@ -103,6 +105,7 @@ const Corsa = props => {
         const isFrameworkUguale = () => {
             if(data!==frame.dataDaFare) return false
             if(nomeFramework!==frame.nomeFramework) return false
+            if(noteAll!==frame.noteAll) return false
             if(listaRighe.length!==listaRigheCopia.length) return false
 
             for(let c=0;c<listaRighe.length;c++) {
@@ -165,12 +168,21 @@ const Corsa = props => {
 
             <div className={styles.scrittaRac} dangerouslySetInnerHTML={{ __html: t('scrivi-framework:corsa:scritta-rac') }}></div>
 
-            <Button className={styles.bottoneSalva} variant="contained"
-            onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
-            
-            <Button className={styles.bottoneReset} variant="contained" onClick={reset}>RESET</Button>
+            <div className={styles.bottoniNote}>
+                <div>
+                    <Button variant="contained" onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
+                </div>
 
-            <Button className={styles.bottoneInutile} variant="contained">{t('scrivi-framework:calcola')}</Button>
+                <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />
+                
+                <div>
+                    <Button variant="contained" onClick={reset}>RESET</Button>
+                </div>
+                
+                <div>
+                    <Button variant="contained">{t('scrivi-framework:calcola')}</Button>
+                </div>
+            </div>
 
         </div>
     )
