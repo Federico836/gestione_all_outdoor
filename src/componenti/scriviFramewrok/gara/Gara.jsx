@@ -27,6 +27,11 @@ const Gara = () => {
         }
     }
 
+    const salvaFramework = () => {
+        dispatch(addFramework({tipo: nomeGara, tipoPerSelect: "gara", listaRighe: [], testo, dataDaFare: data,
+        dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))
+    }
+
     return (
         <div className={styles.container}>
 
@@ -37,8 +42,7 @@ const Gara = () => {
             </div>
 
             <Button className={styles.bottoneSalva} variant="contained"
-            onClick={() => {dispatch(addFramework({tipo: nomeGara, tipoPerSelect: "gara", listaRighe: [], testo, dataDaFare: data,
-            dataCreazione: Date.now(), nomeFramework, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+            onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
             
             <Button className={styles.bottoneReset} variant="contained" onClick={reset}>RESET</Button>
         </div>

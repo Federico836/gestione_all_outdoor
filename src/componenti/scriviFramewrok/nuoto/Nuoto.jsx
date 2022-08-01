@@ -73,6 +73,12 @@ const Nuoto = () => {
         cambiaSingolaRigaDistTempo()
     }, [datiSingolaRiga.zona])
 
+    const salvaFramework = () => {
+        dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passo: 0}}),
+        tipo: t('scrivi-framework:nuoto:nuoto'), tipoPerSelect: "nuoto", dataDaFare: data, dataCreazione: Date.now(),
+        nomeFramework, noteAll, id: uuidv4()}))
+    }
+
     return (
         <div className={styles.container}>
 
@@ -90,10 +96,7 @@ const Nuoto = () => {
 
             <div className={styles.bottoniNote}>
                 <div>
-                    <Button variant="contained"
-                    onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passo: 0}}),
-                    tipo: t('scrivi-framework:nuoto:nuoto'), tipoPerSelect: "nuoto", dataDaFare: data, dataCreazione: Date.now(),
-                    nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                    <Button variant="contained" onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
                 </div>
 
                 <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />

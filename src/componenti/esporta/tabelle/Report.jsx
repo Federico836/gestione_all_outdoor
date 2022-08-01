@@ -373,6 +373,9 @@ const Report = props => {
     }
 
     const stampa = () => {
+        const file_name = "Outdoor_planning_"+utente.cognome+"_"+utente.nome+"_"+
+        rangeDateSelect.start.toLocaleDateString()+"-"+new Date(rangeDateSelect.end-86400000).toLocaleDateString()
+        document.title = file_name
         const contenuto = paginaDaStampare.current
         const pagina = frameStampa.current.contentWindow
         pagina.document.open()
@@ -480,6 +483,7 @@ const Report = props => {
             pagina.document.close()
             pagina.focus()
             pagina.print()
+            document.title = "coaching cube"
         }, 500)
     }
 

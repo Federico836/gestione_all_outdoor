@@ -82,6 +82,12 @@ const Ciclismo = () => {
 
     console.log(datiSingolaRiga)
 
+    const salvaFramework = () => {
+        dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, wattMin: 0, wattMax: 0, fcMin: 0, fcMax: 0}}),
+        tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo", dataDaFare: data,
+        dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}))
+    }
+
     return (
         <div className={styles.container}>
             <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} setData={setData} setNomeFramework={setNomeFramework} />
@@ -94,10 +100,7 @@ const Ciclismo = () => {
 
             <div className={styles.bottoniNote}>
                 <div>
-                    <Button variant="contained"
-                    onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, wattMin: 0, wattMax: 0, fcMin: 0, fcMax: 0}}),
-                    tipo: t('scrivi-framework:ciclismo:ciclismo'), tipoPerSelect: "ciclismo", dataDaFare: data,
-                    dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                    <Button variant="contained" onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
                 </div>
 
                 <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />

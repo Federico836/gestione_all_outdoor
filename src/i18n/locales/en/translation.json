@@ -120,7 +120,8 @@
       "nome-gara": "Race Name",
       "data": "Date",
       "nome-framework": "Name"
-    }
+    },
+    "frame-salvato": "The framework was saved correctly"
   },
   "modifica-framework": {
     "cerca-per-sport": "Search Per Sport",

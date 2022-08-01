@@ -120,6 +120,12 @@ const Corsa = () => {
         cambiaSingolaRigaDistTempo()
     }, [datiSingolaRiga.zona])
 
+    const salvaFramework = () => {
+        dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passoMin: 0, passoMax: 0, passoMedia: 0}}),
+        tipo: t('scrivi-framework:corsa:corsa'), tipoPerSelect: "corsa", dataDaFare: data, dataCreazione: Date.now(),
+        nomeFramework, noteAll, id: uuidv4()}))
+    }
+
     return (
         <div className={styles.container}>
 
@@ -137,10 +143,7 @@ const Corsa = () => {
 
             <div className={styles.bottoniNote}>
                 <div>
-                    <Button variant="contained"
-                    onClick={() => {dispatch(addFramework({listaRighe: listaRighe.map(riga => {return {...riga, passoMin: 0, passoMax: 0, passoMedia: 0}}),
-                    tipo: t('scrivi-framework:corsa:corsa'), tipoPerSelect: "corsa", dataDaFare: data, dataCreazione: Date.now(),
-                    nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                    <Button variant="contained" onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
                 </div>
 
                 <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />

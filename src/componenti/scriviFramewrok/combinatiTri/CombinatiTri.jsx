@@ -50,6 +50,11 @@ const CombinatiTri = () => {
        if(modificaRiga) setDatiSingolaRiga(modificaRiga)
     }, [modificaRiga])
 
+    const salvaFramework = () => {
+        dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:combinati-tri:combinati-tri'),
+        tipoPerSelect: "combinati_tri", dataDaFare: data, dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}))
+    }
+
     return (
         <div className={styles.container}>
 
@@ -63,9 +68,7 @@ const CombinatiTri = () => {
 
             <div className={styles.bottoniNote}>
                 <div>
-                    <Button variant="contained"
-                    onClick={() => {dispatch(addFramework({listaRighe, tipo: t('scrivi-framework:combinati-tri:combinati-tri'), tipoPerSelect: "combinati_tri", dataDaFare: data,
-                    dataCreazione: Date.now(), nomeFramework, noteAll, id: uuidv4()}))}}>{t('scrivi-framework:salva')}</Button>
+                    <Button variant="contained" onClick={salvaFramework}>{t('scrivi-framework:salva')}</Button>
                 </div>
 
                 <textarea value={noteAll} onChange={e => setNoteAll(e.target.value)} />

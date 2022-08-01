@@ -6,6 +6,7 @@ import { getListaTemplate, setListaTemplate } from '../actions/TemplateActions'
 import { getSoglia, setSoglia } from '../actions/SogliaActions' 
 import * as selectors from './selectors'
 import {select} from 'redux-saga/effects'
+import i18n from 'i18next'
 
 // FRAMEWORK
 
@@ -27,6 +28,7 @@ export function* postFramework(action) {
     const {payload} = action
 
     const response = yield call(api.postFramework, payload);
+    if(response) alert(i18n.t('scrivi-framework:frame-salvato'))
 
     yield put(getListaFrameworks())
 
@@ -42,6 +44,7 @@ export function* updateFramework(action) {
     const {dbid} = framework
 
     const response = yield call(api.updateFramework, {dbid,...payload});
+    if(response) alert(i18n.t('scrivi-framework:frame-salvato'))
 
     yield put(getListaFrameworks())
 

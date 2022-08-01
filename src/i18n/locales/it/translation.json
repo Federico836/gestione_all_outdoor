@@ -120,7 +120,8 @@
       "nome-gara": "Nome Gara",
       "data": "Data",
       "nome-framework": "Nome"
-    }
+    },
+    "frame-salvato": "Framework salvato correttamente"
   },
   "modifica-framework": {
     "cerca-per-sport": "Cerca Per Sport",
