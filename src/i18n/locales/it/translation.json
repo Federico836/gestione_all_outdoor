@@ -208,7 +208,8 @@
     },
     "carica": "CARICA",
     "salva": "Salva",
-    "inserisci-dati": "Inserisci i dati mancanti"
+    "inserisci-dati": "Inserisci i dati mancanti",
+    "pulisci": "Pulisci"
   },
   "analisi-test": {
     "tipo-test": "Tipo test",

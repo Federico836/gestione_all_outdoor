@@ -8,7 +8,7 @@ import TabValori from './tabelle/TabValori'
 import Report from './tabelle/Report'
 import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
 import { useTranslation } from 'react-i18next'
-import { addEvento } from '../../redux/actions/EventActions'
+import { addEvento, eliminaEvento } from '../../redux/actions/EventActions'
 import { addSoglia } from '../../redux/actions/SogliaActions'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -125,6 +125,17 @@ const ContainerEsporta = props => {
         dispatch(addSoglia({ftp: ftp, fc: fc, passocorsa: passoCorsa, passonuoto: passoNuoto}, idUtente))
     }
 
+    setTimeout(() => console.log(eventiSelezionati), 1000)
+
+    const eliminaEventiSelected = () => {
+        const eventiSelected = calendarApi.getEvents().filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
+        evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
+        eventiSelected.forEach(evento => {
+            dispatch(eliminaEvento(listaEventi.find(eventoStore => eventoStore.id==evento.id).dbid, idUtente))
+            evento.remove()
+        })
+    }
+
     return (
         <div className={styles.container}>
             {report ? 
@@ -136,6 +147,7 @@ const ContainerEsporta = props => {
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
                     {utente ? <BtnCaricaFile /> : null}
+                    {!utente ? <Button variant="contained" onClick={eliminaEventiSelected} style={{marginLeft: "1vw"}}>{t('esporta:pulisci')}</Button> : null}
                 </div> : <div style={{marginTop: "3vh"}}></div>}
 
                 <div className={ruoloLoggedUser==="allenatore" ? styles.containerGrid : null}>
@@ -176,3 +188,4 @@ const ContainerEsporta = props => {
 }
 
 export default ContainerEsporta
+

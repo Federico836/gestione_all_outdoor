@@ -72,8 +72,7 @@ const MainContainer = props => {
                             <Button variant="contained" onClick={() => setPagina("modifica_frame")}>
                                 {t('main-container:modifica-framework')}</Button>
 
-                            <Button variant="contained" onClick={() => setPagina("esporta")}>
-                                {t('main-container:esporta')}</Button>
+                            <Button variant="contained" onClick={() => setPagina("esporta")}>{t('main-container:esporta')}</Button>
                         </div>
                         <div className={styles.containerBottoni}>
                             <Button variant="contained" onClick={() => setPagina("analisi_test")}>TEST</Button>
