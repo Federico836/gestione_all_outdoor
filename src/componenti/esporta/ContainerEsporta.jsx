@@ -7,6 +7,7 @@ import TabListaTemplate from './tabelle/TabListaTemplate'
 import TabValori from './tabelle/TabValori'
 import Report from './tabelle/Report'
 import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
+import IgnoraData from './IgnoraData/IgnoraData'
 import { useTranslation } from 'react-i18next'
 import { addEvento, eliminaEvento } from '../../redux/actions/EventActions'
 import { addSoglia } from '../../redux/actions/SogliaActions'
@@ -146,8 +147,9 @@ const ContainerEsporta = props => {
                 {ruoloLoggedUser==="allenatore" ?
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
-                    {utente ? <BtnCaricaFile /> : null}
+                    {utente ? <BtnCaricaFile testo={"PDF"} /> : null}
                     {!utente ? <Button variant="contained" onClick={eliminaEventiSelected} style={{marginLeft: "1vw"}}>{t('esporta:pulisci')}</Button> : null}
+                    {utente ? <IgnoraData testo={"FIT"} /> : null}
                 </div> : <div style={{marginTop: "3vh"}}></div>}
 
                 <div className={ruoloLoggedUser==="allenatore" ? styles.containerGrid : null}>

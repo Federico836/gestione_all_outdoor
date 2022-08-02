@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from "@mui/material"
+import { Button, Checkbox } from "@mui/material"
 
 import { uploadFiles } from '../../../utils/funzioni'
 
-const BtnCaricaFile = props => {
+const IgnoraData = props => {
     const { testo } = props
 
     const { t, i18n } = useTranslation()
@@ -16,8 +16,9 @@ const BtnCaricaFile = props => {
             <label htmlFor="raised-button-file">
                 <Button variant="contained" component="span" style={{height: "100%"}}>{t('esporta:carica')} {testo}</Button>
             </label>
+            <Checkbox /> Ignora data
         </div>
     )
 }
 
-export default BtnCaricaFile
+export default IgnoraData
