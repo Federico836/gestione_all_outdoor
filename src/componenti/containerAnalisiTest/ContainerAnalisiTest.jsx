@@ -12,7 +12,7 @@ import ContainerNuoto from "./nuoto/ContainerNuoto"
 import styles from "./ContainerAnalisiTest.module.css"
 
 const ContainerAnalisiTest = props => {
-    const { setPagina } = props
+    const { setPagina, utente } = props
 
     const [open, setOpen] = useState(false)
     const { t, i18n } = useTranslation()
@@ -41,11 +41,11 @@ const ContainerAnalisiTest = props => {
                 <Switch>
 
                     <Route exact path="/">
-                        <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen} />
+                        <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen} utente={utente} />
                     </Route>
 
                     <Route path="/nuoto">
-                        <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen} />
+                        <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen} utente={utente} />
                     </Route>
 
                 </Switch>

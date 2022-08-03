@@ -87,9 +87,9 @@ const MainContainer = props => {
             pagina==="esporta" ?
                 <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} ruoloLoggedUser={ruoloLoggedUser} /> :
             pagina==="analisi_test" ?
-                <ContainerAnalisiTest setPagina={setPagina} /> :
+                <ContainerAnalisiTest setPagina={setPagina} utente={utente} /> :
             pagina==="compara_test" ?
-                <ContainerComparaTest setPagina={setPagina} /> : null}
+                <ContainerComparaTest setPagina={setPagina} utente={utente} /> : null}
         </div>
     )
 }

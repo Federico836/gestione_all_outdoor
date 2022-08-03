@@ -5,7 +5,7 @@ import MaderNuoto from "./testMader/MaderNuoto"
 import styles from "./ContainerNuoto.module.css"
 
 const ContainerNuoto = props => {
-    const { setPagina, open, setOpen, listaTest } = props
+    const { setPagina, open, setOpen, listaTest, utente } = props
 
     const { t, i18n } = useTranslation()
 
@@ -17,7 +17,7 @@ const ContainerNuoto = props => {
 
     return (
         <div className={styles.container}>
-            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} />
+            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} utente={utente} />
             {tipoTest==="mader" ?
             <MaderNuoto listaTest={listaMader} puntiSelectedMader={puntiSelectedMader}
             setPuntiSelectedMader={setPuntiSelectedMader} tipoTest={tipoTest} setTipoTest={setTipoTest} /> : null}

@@ -1,6 +1,10 @@
 .container {
     display: flex;
     column-gap: 1vw;
+    align-items: center;
+}
+.container>div:nth-child(3) {
+    font-size: 26px;
 }
 
 /* .container>div:nth-child(3) {

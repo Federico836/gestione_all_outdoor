@@ -5,7 +5,7 @@ import calcTabTotali from "../../../../utils/funzioniAnalisiTest/corsa/funzioniM
 import { useTranslation } from 'react-i18next'
 
 const MaderCorsa = props => {
-    const { setPagina, open, setOpen, tipoTest, setTipoTest } = props
+    const { setPagina, open, setOpen, tipoTest, setTipoTest, utente } = props
 
     const [puntoCliccato, setPuntoCliccato] = useState({lattato: "", distanza: "", tempo: "", velKmh: "", velMs: "",
         passo1000: "", heartrate: "", glicemia: "", o2: "", rpe: "", strokeLength: "", strokeFreq: "", note: ""})
@@ -37,7 +37,7 @@ const MaderCorsa = props => {
     return (
         <div>
             <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
-            listaTest={["mader"]} salvaDati={salvaDati} />
+            listaTest={["mader"]} salvaDati={salvaDati} utente={utente} />
             <h2 style={{textAlign: "left"}}>{t("scrivi-framework:corsa:corsa")}</h2>
 
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}

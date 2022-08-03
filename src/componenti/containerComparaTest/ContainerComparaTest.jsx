@@ -13,7 +13,7 @@ import testEseguiti from "./testEseguiti.json"
 import styles from "./ContainerComparaTest.module.css"
 
 const ContainerComparaTest = props => {
-    const { setPagina } = props
+    const { setPagina, utente } = props
 
     const [open, setOpen] = useState(false)
     const [listaTest, setListaTest] = useState([])
@@ -49,12 +49,12 @@ const ContainerComparaTest = props => {
 
                     <Route exact path="/">
                         <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen}
-                        listaTest={listaTest.filter(test => test.tipoSport==="corsa")} />
+                        listaTest={listaTest.filter(test => test.tipoSport==="corsa")} utente={utente} />
                     </Route>
 
                     <Route path="/nuoto">
                         <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen}
-                        listaTest={listaTest.filter(test => test.tipoSport==="nuoto")} />
+                        listaTest={listaTest.filter(test => test.tipoSport==="nuoto")} utente={utente} />
                     </Route>
 
                 </Switch>

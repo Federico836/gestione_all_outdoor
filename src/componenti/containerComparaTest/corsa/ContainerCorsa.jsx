@@ -5,7 +5,7 @@ import MaderCorsa from "./testMader/MaderCorsa"
 import styles from "./ContainerCorsa.module.css"
 
 const ContainerCorsa = props => {
-    const { setPagina, open, setOpen, listaTest } = props
+    const { setPagina, open, setOpen, listaTest, utente } = props
 
     const { t, i18n } = useTranslation()
 
@@ -17,7 +17,7 @@ const ContainerCorsa = props => {
 
     return (
         <div className={styles.container}>
-            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} />
+            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} utente={utente} />
             {tipoTest==="mader" ?
             <MaderCorsa listaTest={listaMader} puntiSelectedMader={puntiSelectedMader}
             setPuntiSelectedMader={setPuntiSelectedMader} tipoTest={tipoTest} setTipoTest={setTipoTest} /> : null}
