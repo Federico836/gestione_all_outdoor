@@ -6,12 +6,12 @@
 
 .bottoneIndietro {
     display: flex;
+    column-gap: 8vw;
+    align-items: center;
     margin-top: 3vh;
 }
-
-.titolo {
+.bottoneIndietro>div {
     font-size: 4vh;
-    margin-left: 10vw;
 }
 
 .containerGrid {

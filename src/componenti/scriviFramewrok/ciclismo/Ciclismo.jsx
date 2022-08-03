@@ -13,7 +13,7 @@ import Intestazione from "./tabelle/Intestazione.jsx"
 import { Button } from "@mui/material"
 import styles from './Ciclismo.module.css'
 
-const Ciclismo = () => {
+const Ciclismo = props => {
 
     const dispatch = useDispatch()
 

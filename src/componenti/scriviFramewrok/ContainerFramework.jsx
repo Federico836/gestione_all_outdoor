@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next'
 
 
 const ContainerFramework = props => {
-    const { setPagina } = props
+    const { setPagina, utente } = props
     
     const [open, setOpen] = useState(false)
     const { t, i18n } = useTranslation()
@@ -30,8 +30,9 @@ const ContainerFramework = props => {
     return (
         <div className={styles.container}>
             <div className={styles.bottoniIndietroMenu}>
-                <Button variant="contained" className={styles.bottoneApriMenu} onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
-                <Button variant="contained" className={styles.bottoneApriMenu} onClick={() => setOpen(!open)}>menu</Button>
+                <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
+                <Button variant="contained" onClick={() => setOpen(!open)}>menu</Button>
+                {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
             </div>
             <div className={styles.containerTabFramework}>
                 <Router>

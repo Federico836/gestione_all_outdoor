@@ -14,7 +14,7 @@ import { Button } from "@mui/material"
 import styles from './Ciclismo.module.css'
 
 const Ciclismo = props => {
-    const { modificaFrame, setModificaFrame } = props
+    const { modificaFrame, setModificaFrame, utente } = props
     const [frame, setFrame] = useState({}) // andrea
     const dispatch = useDispatch()
 
@@ -151,6 +151,7 @@ const Ciclismo = props => {
         <div className={styles.container}>
             <div className={styles.containerBottoniTop}>
                 <Button variant="contained" onClick={esci}>{t('main-container:indietro')}</Button>
+                {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
             </div>
 
             <Intestazione ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} data={data} setData={setData}

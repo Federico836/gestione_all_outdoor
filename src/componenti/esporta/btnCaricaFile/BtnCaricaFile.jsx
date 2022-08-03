@@ -10,7 +10,7 @@ const BtnCaricaFile = props => {
     const { t, i18n } = useTranslation()
 
     return (
-        <div style={{marginLeft: "1vw"}}>
+        <div>
             <input accept=".pdf" style={{ display: 'none' }} id="raised-button-file" multiple type="file"
             onChange={e => uploadFiles(e.target.files)}/>
             <label htmlFor="raised-button-file">

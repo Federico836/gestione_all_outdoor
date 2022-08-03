@@ -17,7 +17,7 @@ const oggettoVuoto = oggetto => {
 }
 
 const ContainerModFrame = props => {
-    const { setPagina } = props
+    const { setPagina, utente } = props
 
     const [modificaFrame, setModificaFrame] = useState({})
     const [tipoSport, setTipoSport] = useState("tutti")
@@ -30,9 +30,8 @@ const ContainerModFrame = props => {
             <div className={styles.container}>
                 <div className={styles.bottoneIndietro}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
-                    <div className={styles.titolo}>
-                        {t('modifica-framework:modifica-framework')}
-                    </div>
+                    <div>{t('modifica-framework:modifica-framework')}</div>
+                    {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
                 </div>
                 <div className={styles.containerGrid}>
                     <div>
@@ -43,7 +42,7 @@ const ContainerModFrame = props => {
                     </div>
                 </div>
             </div> :
-            <ContainerTabModifica modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} />}
+            <ContainerTabModifica modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} />}
         </div>
     )
 }

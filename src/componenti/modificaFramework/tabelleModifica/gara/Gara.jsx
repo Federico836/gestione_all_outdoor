@@ -12,7 +12,7 @@ import styles from './Gara.module.css'
 
 const Gara = props => {
 
-    const { modificaFrame, setModificaFrame } = props
+    const { modificaFrame, setModificaFrame, utente } = props
     const [frame, setFrame] = useState({}) // andrea
     const dispatch = useDispatch()
 
@@ -86,6 +86,7 @@ const Gara = props => {
         <div className={styles.container}>
             <div className={styles.containerBottoniTop}>
                 <Button variant="contained" onClick={esci}>{t('main-container:indietro')}</Button>
+                {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
             </div>
 
             <Intestazione setData={setData} nomeFramework={nomeFramework} setNomeFramework={setNomeFramework}

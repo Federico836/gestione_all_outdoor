@@ -81,9 +81,9 @@ const MainContainer = props => {
                     </> : nonAbilitato}
                 </div> :
             pagina==="scrivi_frame" ?
-                <ContainerFramework setPagina={setPagina} /> :
+                <ContainerFramework setPagina={setPagina} utente={utente} /> :
             pagina==="modifica_frame" ?
-                <ContainerModFrame setPagina={setPagina} /> :
+                <ContainerModFrame setPagina={setPagina} utente={utente} /> :
             pagina==="esporta" ?
                 <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} ruoloLoggedUser={ruoloLoggedUser} /> :
             pagina==="analisi_test" ?

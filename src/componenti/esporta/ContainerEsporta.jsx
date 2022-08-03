@@ -148,8 +148,9 @@ const ContainerEsporta = props => {
                 <div className={styles.containerBottoniTop}>
                     <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
                     {utente ? <BtnCaricaFile testo={"PDF"} /> : null}
-                    {!utente ? <Button variant="contained" onClick={eliminaEventiSelected} style={{marginLeft: "1vw"}}>{t('esporta:pulisci')}</Button> : null}
+                    {!utente ? <Button variant="contained" onClick={eliminaEventiSelected}>{t('esporta:pulisci')}</Button> : null}
                     {utente ? <IgnoraData testo={"FIT"} /> : null}
+                    {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
                 </div> : <div style={{marginTop: "3vh"}}></div>}
 
                 <div className={ruoloLoggedUser==="allenatore" ? styles.containerGrid : null}>

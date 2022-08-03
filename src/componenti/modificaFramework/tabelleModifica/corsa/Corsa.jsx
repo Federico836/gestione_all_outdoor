@@ -14,7 +14,7 @@ import { Button } from "@mui/material"
 import styles from './Corsa.module.css'
 
 const Corsa = props => {
-    const { modificaFrame, setModificaFrame } = props
+    const { modificaFrame, setModificaFrame, utente } = props
 
     const [frame, setFrame] = useState({})
     const dispatch = useDispatch()
@@ -154,6 +154,7 @@ const Corsa = props => {
         <div className={styles.container}>
             <div className={styles.containerBottoniTop}>
                 <Button variant="contained" onClick={esci}>{t('main-container:indietro')}</Button>
+                {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
             </div>
 
             <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData}

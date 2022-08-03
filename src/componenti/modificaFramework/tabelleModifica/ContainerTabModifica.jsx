@@ -10,22 +10,22 @@ import Sport from './sport/Sport'
 import Gara from './gara/Gara'
 
 const ContainerTabModifica = props => {
-    const { modificaFrame, setModificaFrame } = props
+    const { modificaFrame, setModificaFrame, utente } = props
     return (
         <div>
             {modificaFrame.tipoPerSelect==="ciclismo" ?
-            <Ciclismo modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
+            <Ciclismo modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} /> :
             modificaFrame.tipoPerSelect==="corsa" ?
-            <Corsa modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
+            <Corsa modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} /> :
             modificaFrame.tipoPerSelect==="nuoto" ?
-            <Nuoto modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
+            <Nuoto modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} /> :
             modificaFrame.tipoPerSelect==="palestra" ?
-            <Palestra modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
+            <Palestra modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} /> :
             modificaFrame.tipoPerSelect==="combinati_tri" ?
-            <CombinatiTri modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
+            <CombinatiTri modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} /> :
             modificaFrame.tipoPerSelect==="gara" ?
-            <Gara modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} /> :
-            <Sport modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} />} 
+            <Gara modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} /> :
+            <Sport modificaFrame={modificaFrame} setModificaFrame={setModificaFrame} utente={utente} />} 
         </div>
     )
 }

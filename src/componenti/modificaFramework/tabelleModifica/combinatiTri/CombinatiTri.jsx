@@ -13,7 +13,7 @@ import { Button } from "@mui/material"
 import styles from './CombinatiTri.module.css'
 
 const CombinatiTri = props => {
-    const { modificaFrame, setModificaFrame } = props
+    const { modificaFrame, setModificaFrame, utente } = props
 
     const [frame, setFrame] = useState({})
     const dispatch = useDispatch()
@@ -119,6 +119,7 @@ const CombinatiTri = props => {
         <div className={styles.container}>
             <div className={styles.containerBottoniTop}>
                 <Button variant="contained" onClick={esci}>{t('main-container:indietro')}</Button>
+                {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
             </div>
 
             <Intestazione setData={setData} nomeFramework={nomeFramework} setNomeFramework={setNomeFramework} />

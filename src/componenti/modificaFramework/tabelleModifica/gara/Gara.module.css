@@ -12,8 +12,13 @@
 
 .containerBottoniTop {
     display: flex;
+    column-gap: 1vw;
+    align-content: center;
     margin-top: 3vh;
     margin-bottom: 2vh;
+}
+.containerBottoniTop>div {
+    font-size: 26px;
 }
 
 .container .bottoneReset {
