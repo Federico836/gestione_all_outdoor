@@ -22,7 +22,7 @@ import ZoneCiclismo7 from './tabZone/ZoneCiclismo7'
 import ZoneCorsa from './tabZone/ZoneCorsa'
 import ZoneNuoto from './tabZone/ZoneNuoto'
 
-import Intestazione from './logo/intestazione_cybertest.png'
+import Intestazione from './logo/logo-C3_laterale-report.png'
 import PrimaPaginaReport from './primaPaginaReport/PrimaPaginaReport'
 
 import styles from './Report.module.css'
@@ -442,7 +442,9 @@ const Report = props => {
 
             .intestazione-report {
                 position: fixed;
-                height: 90vh;
+                /* top: 220px; */
+                margin-top: 220px;
+                height: 60vh;
             }
             .container-tab-report {
                 margin-left: 6vw;
