@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Button from '@mui/material/Button'
 import styles from './MainContainer.module.css'
 import { useTranslation } from 'react-i18next'
@@ -36,7 +36,7 @@ const MainContainer = props => {
     useEffect(function getSogliaUtente() {
         if(utente) {
             dispatch(getSoglia(utente.id_utente))
-            setTimeout(() => setPagina("esporta"), 1000)
+            /* setTimeout(() => setPagina("esporta"), 1000) */
         } else {
             setTimeout(() => setNonAbilitato(t('main-container:utente-non-abilitato')), 3000)
         }
@@ -50,6 +50,29 @@ const MainContainer = props => {
             setTimeout(() => setNonAbilitato(t('main-container:utente-non-abilitato')), 3000)
         }
     }, [utente]) */
+
+    /* const listaEventi = useSelector(state => state.eventi.lista)
+    function getEventi() {
+        const interval = setInterval(function eventiScaricati() {
+            console.log(listaEventi)
+            if(listaEventi) {
+                clearInterval(interval)
+                setPagina("esporta")
+            }
+        }, 300)
+    } */
+
+    useEffect(function impostaPaginaURL() {
+        const pagina = new URL(window.location.href).searchParams.get('pagina')
+
+        if(pagina) {
+            if(pagina==="esporta") {
+                setTimeout(() => setPagina("esporta"), 1500)
+            } else {
+                setPagina(pagina)
+            }
+        }
+    }, [])
 
     window.md = {
         logged_user: {ID: 345, nome: "Allena", cognome: "Tore", roles: ['allenatore']},
@@ -65,30 +88,30 @@ const MainContainer = props => {
                 <div className={styles.container}>
                     {ruoloLoggedUser==="allenatore" ? 
                     <>
-                        <div className={styles.containerBottoni}>
-                            <Button variant="contained" onClick={() => setPagina("scrivi_frame")}>
+                        {/* <div className={styles.containerBottoni}>
+                            <Button variant="contained" onClick={() => setPagina("scrivi")}>
                                 {t('main-container:scrivi-framework')}</Button>
 
-                            <Button variant="contained" onClick={() => setPagina("modifica_frame")}>
+                            <Button variant="contained" onClick={() => setPagina("modifica")}>
                                 {t('main-container:modifica-framework')}</Button>
 
                             <Button variant="contained" onClick={() => setPagina("esporta")}>{t('main-container:esporta')}</Button>
                         </div>
                         <div className={styles.containerBottoni}>
-                            <Button variant="contained" onClick={() => setPagina("analisi_test")}>TEST</Button>
-                            <Button variant="contained" onClick={() => setPagina("compara_test")}>{t('analisi-test:compara')} TEST</Button>
-                        </div>
+                            <Button variant="contained" onClick={() => setPagina("analisi")}>TEST</Button>
+                            <Button variant="contained" onClick={() => setPagina("compara")}>{t('analisi-test:compara')} TEST</Button>
+                        </div> */}
                     </> : nonAbilitato}
                 </div> :
-            pagina==="scrivi_frame" ?
+            pagina==="scrivi" ?
                 <ContainerFramework setPagina={setPagina} utente={utente} /> :
-            pagina==="modifica_frame" ?
+            pagina==="modifica" ?
                 <ContainerModFrame setPagina={setPagina} utente={utente} /> :
             pagina==="esporta" ?
                 <ContainerEsporta setPagina={setPagina} utente={utente} idUtente={idUtente} ruoloLoggedUser={ruoloLoggedUser} /> :
-            pagina==="analisi_test" ?
+            pagina==="analisi" ?
                 <ContainerAnalisiTest setPagina={setPagina} utente={utente} /> :
-            pagina==="compara_test" ?
+            pagina==="compara" ?
                 <ContainerComparaTest setPagina={setPagina} utente={utente} /> : null}
         </div>
     )

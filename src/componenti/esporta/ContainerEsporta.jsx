@@ -34,12 +34,12 @@ const ContainerEsporta = props => {
 
     const { t, i18n } = useTranslation()
 
-    const listaEventiStore = useSelector(state => state.eventi.lista)
+    /* const listaEventiStore = useSelector(state => state.eventi.lista)
     console.log(listaEventiStore)
 
     useEffect(function()  {
         setListaEventi(listaEventiStore)
-    }, [listaEventiStore])
+    }, [listaEventiStore]) */
 
     const sogliaUtente = useSelector(state => state.soglia.soglia)
     useEffect(function() {
@@ -80,8 +80,8 @@ const ContainerEsporta = props => {
         /* setListaEventi([...listaEventi].concat(listaEventiCopia)) */
     }
 
-    const eventiSelezionati = listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
-    evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime())
+    const eventiSelezionati = listaEventi ? listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
+    evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime()) : []
     const listaFramework = useSelector(state => state.frameworks.lista)
 
     const controlloEventiSelected = () => {
@@ -155,14 +155,14 @@ const ContainerEsporta = props => {
 
                 <div className={ruoloLoggedUser==="allenatore" ? styles.containerGrid : null}>
                     <div>
-                        <Calendario listaEventi={listaEventi} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi}
+                        <Calendario listaEventi={listaEventi ? listaEventi : []} setRangeDateSelect={setRangeDateSelect} setCalendarApi={setCalendarApi}
                         idUtente={idUtente} getEventPropsFromCalendarEvent={getEventPropsFromCalendarEvent} ruoloLoggedUser={ruoloLoggedUser} />
                     </div>
                     {ruoloLoggedUser==="allenatore" ? 
                     <div style={{position: "relative"}}>
                         {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :
                         <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
-                        listaEventi={listaEventi} aggiungiTemplateCal={aggiungiTemplateCal} />}
+                        listaEventi={listaEventi ? listaEventi : []} aggiungiTemplateCal={aggiungiTemplateCal} />}
                     </div> : null}
                 </div>
 
