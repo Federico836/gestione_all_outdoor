@@ -20,6 +20,7 @@ const MainContainer = props => {
     const dispatch = useDispatch()
 
     const [pagina, setPagina] = useState("menu_princ")
+    const [eventiScaricati, setEventiScaricati] = useState(false)
     const [utente, setUtente] = useState(null)
     const [nonAbilitato, setNonAbilitato] = useState("")
 
@@ -42,37 +43,18 @@ const MainContainer = props => {
         }
     }, [utente])
 
-    /* useEffect(function getSogliaUtente() {
-        if(utente) {
-            dispatch(getSoglia(utente.id_utente))
-            setPagina("esporta")
-        } else {
-            setTimeout(() => setNonAbilitato(t('main-container:utente-non-abilitato')), 3000)
-        }
-    }, [utente]) */
-
-    /* const listaEventi = useSelector(state => state.eventi.lista)
-    function getEventi() {
-        const interval = setInterval(function eventiScaricati() {
-            console.log(listaEventi)
-            if(listaEventi) {
-                clearInterval(interval)
-                setPagina("esporta")
-            }
-        }, 300)
-    } */
+    const listaEventi = useSelector(state => state.eventi.lista)
+    console.log(listaEventi)
 
     useEffect(function impostaPaginaURL() {
-        const pagina = new URL(window.location.href).searchParams.get('pagina')
-
-        if(pagina) {
-            if(pagina==="esporta") {
-                setTimeout(() => setPagina("esporta"), 1500)
-            } else {
+        if(listaEventi!==null && eventiScaricati===false) {
+            const pagina = new URL(window.location.href).searchParams.get('pagina')
+            if(pagina) {
                 setPagina(pagina)
+                setEventiScaricati(true)
             }
         }
-    }, [])
+    }, [listaEventi])
 
     window.md = {
         logged_user: {ID: 345, nome: "Allena", cognome: "Tore", roles: ['allenatore']},

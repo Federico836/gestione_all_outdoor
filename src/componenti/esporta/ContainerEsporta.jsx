@@ -34,12 +34,12 @@ const ContainerEsporta = props => {
 
     const { t, i18n } = useTranslation()
 
-    /* const listaEventiStore = useSelector(state => state.eventi.lista)
+    const listaEventiStore = useSelector(state => state.eventi.lista)
     console.log(listaEventiStore)
 
     useEffect(function()  {
         setListaEventi(listaEventiStore)
-    }, [listaEventiStore]) */
+    }, [listaEventiStore])
 
     const sogliaUtente = useSelector(state => state.soglia.soglia)
     useEffect(function() {
@@ -146,7 +146,7 @@ const ContainerEsporta = props => {
             <>
                 {ruoloLoggedUser==="allenatore" ?
                 <div className={styles.containerBottoniTop}>
-                    <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
+                    {/* <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button> */}
                     {utente ? <BtnCaricaFile testo={"PDF"} /> : null}
                     {!utente ? <Button variant="contained" onClick={eliminaEventiSelected}>{t('esporta:pulisci')}</Button> : null}
                     {utente ? <IgnoraData testo={"FIT"} /> : null}
