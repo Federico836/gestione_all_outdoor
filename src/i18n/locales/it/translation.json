@@ -5,7 +5,8 @@
     "scrivi-framework": "Scrivi Framework",
     "indietro": "Indietro",
     "tabella-zone": "Tabella Zone",
-    "utente-non-abilitato": "Utente non abilitato!"
+    "utente-non-abilitato": "Utente non abilitato!",
+    "scrivi": "Scrivi"
   },
   "scrivi-framework": {
     "ciclismo": {
@@ -229,6 +230,7 @@
     "seleziona-test": "Seleziona test",
     "variazione": "variation",
     "max-test-comp": "numero massimo di allenamenti raggiunto",
-    "compara": "Compara"
+    "compara": "Compara",
+    "analisi": "Analisi"
   }
 }

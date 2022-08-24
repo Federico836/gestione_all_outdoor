@@ -30,7 +30,7 @@ export function* postFramework(action) {
     const response = yield call(api.postFramework, payload);
     if(response) alert(i18n.t('scrivi-framework:frame-salvato'))
 
-    yield put(getListaFrameworks())
+    yield put(getListaFrameworks(window.md.logged_user.ID))
 
 }
 
@@ -46,7 +46,7 @@ export function* updateFramework(action) {
     const response = yield call(api.updateFramework, {dbid,...payload});
     if(response) alert(i18n.t('scrivi-framework:frame-salvato'))
 
-    yield put(getListaFrameworks())
+    yield put(getListaFrameworks(window.md.logged_user.ID))
 
 }
 
@@ -61,7 +61,7 @@ export function* deleteFramework(action) {
 
     const response = yield call(api.deleteFramework, dbid);
 
-    yield put(getListaFrameworks())
+    yield put(getListaFrameworks(window.md.logged_user.ID))
 
 }
 
@@ -134,7 +134,7 @@ export function* addTemplate(action) {
 
     const response = yield call(api.postTemplate, payload)
 
-    yield put(getListaTemplate())
+    yield put(getListaTemplate(window.md.logged_user.ID))
 }
 
 export function* updateTemplate(action) {
@@ -142,7 +142,7 @@ export function* updateTemplate(action) {
 
     const response = yield call(api.updateTemplate, payload)
 
-    yield put(getListaTemplate())
+    yield put(getListaTemplate(window.md.logged_user.ID))
 }
 
 export function* eliminaTemplate(action) {
@@ -150,7 +150,7 @@ export function* eliminaTemplate(action) {
 
     const response = yield call(api.deleteTemplate, payload)
 
-    yield put(getListaTemplate())
+    yield put(getListaTemplate(window.md.logged_user.ID))
 }
 
 // SOGLIA

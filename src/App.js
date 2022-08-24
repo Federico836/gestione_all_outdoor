@@ -16,11 +16,13 @@ function App() {
   const url = new URL(url_str)
   const search_params = url.searchParams
   const idUtente = search_params.get('id_utente')
+  
+  const coach_id = (window.md && window.md.logged_user) ? window.md.logged_user.ID : null
 
   useEffect(() => {
-    dispatch(getListaFrameworks())
+    dispatch(getListaFrameworks(coach_id))
     dispatch(getListaEventi(idUtente))
-    dispatch(getListaTemplate())
+    dispatch(getListaTemplate(coach_id))
   }, [])
 
   useEffect(() => {

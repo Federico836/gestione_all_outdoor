@@ -2,8 +2,8 @@ const setListaFrameworks = lista => {
   return {type: 'SET_LISTA_FRAMEWORKS', payload: lista}
 }
 
-const getListaFrameworks = () => {
-  return {type: 'GET_LISTA_FRAMEWORKS'}
+const getListaFrameworks = (coach_id) => {
+  return {type: 'GET_LISTA_FRAMEWORKS', payload: coach_id}
 }
 
 const addFramework = framework => {

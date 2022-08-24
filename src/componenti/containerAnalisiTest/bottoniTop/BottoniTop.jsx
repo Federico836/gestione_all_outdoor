@@ -10,7 +10,7 @@ const BottoniTop = props => {
 
     return (
         <div className={styles.container}>
-            <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
+            <Button variant="contained" onClick={() => setPagina("compara")}>{t('analisi-test:compara')}</Button>
             <Button variant="contained" onClick={() => setOpen(!open)}>menu</Button>
 
             <div>

@@ -56,10 +56,6 @@ const MainContainer = props => {
         }
     }, [listaEventi])
 
-    window.md = {
-        logged_user: {ID: 345, nome: "Allena", cognome: "Tore", roles: ['allenatore']},
-        numDopoVirgola: 1
-    }
     const ruoloLoggedUser = window.md.logged_user.roles[0]
 
     /* window.md = {numDopoVirgola: 1} */

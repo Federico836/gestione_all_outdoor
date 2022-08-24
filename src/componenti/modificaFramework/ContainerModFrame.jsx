@@ -29,7 +29,7 @@ const ContainerModFrame = props => {
             {oggettoVuoto(modificaFrame) ?
             <div className={styles.container}>
                 <div className={styles.bottoneIndietro}>
-                    <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
+                    <Button variant="contained" onClick={() => setPagina("scrivi")}>{t('main-container:scrivi')}</Button>
                     <div>{t('modifica-framework:modifica-framework')}</div>
                     {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
                 </div>

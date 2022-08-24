@@ -30,7 +30,7 @@ const ContainerFramework = props => {
     return (
         <div className={styles.container}>
             <div className={styles.bottoniIndietroMenu}>
-                <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button>
+                <Button variant="contained" onClick={() => setPagina("modifica")}>{t('modifica-framework:modifica')}</Button>
                 <Button variant="contained" onClick={() => setOpen(!open)}>menu</Button>
                 {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
             </div>

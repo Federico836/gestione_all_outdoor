@@ -1,5 +1,5 @@
-const getListaTemplate = () => {
-    return {type: 'GET_LISTA_TEMPLATE'}
+const getListaTemplate = (coach_id) => {
+    return {type: 'GET_LISTA_TEMPLATE', payload: coach_id}
 }
 
 const setListaTemplate = lista => {
