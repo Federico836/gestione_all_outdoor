@@ -9,7 +9,8 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContainerCorsa from "./corsa/ContainerCorsa"
 import ContainerNuoto from "./nuoto/ContainerNuoto"
-import testEseguiti from "./testEseguiti.json"
+/* import testEseguiti from "./testEseguiti.json" */
+import api from "../../api/index"
 import styles from "./ContainerComparaTest.module.css"
 
 const ContainerComparaTest = props => {
@@ -20,8 +21,10 @@ const ContainerComparaTest = props => {
 
     const { t, i18n } = useTranslation()
 
-    useEffect(function richiediTestEseguiti() {
-        setListaTest(testEseguiti)
+    useEffect(async function richiediTestEseguiti() {
+        const res = await api.getTests(utente.id_utente)
+        console.log(res)
+        setListaTest(res.data.map(test => ({id: test.id, ...JSON.parse(test.dati)})))
     }, [])
 
     return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import ContainerTabelle from "./containerTabelle/ContainerTabelle"
 import BottoniTop from "../../bottoniTop/BottoniTop"
 import calcTabTotali from "../../../../utils/funzioniAnalisiTest/corsa/funzioniMader"
+import api from "../../../../api/index"
 import { useTranslation } from 'react-i18next'
 
 const MaderCorsa = props => {
@@ -23,15 +24,16 @@ const MaderCorsa = props => {
     const tabTotali = calcTabTotali(puntiSelected, lattatoTabTotali, livAnal)
 
     function salvaDati() {
-        const dati = {
+        const test = {
             data: Date.now(),
             tipoSport: "corsa",
             tipoTest: "mader",
             tabTotali: {...tabTotali, lattato1: lattatoTabTotali.lattato1, lattato2: lattatoTabTotali.lattato2},
             puntiSelected
         }
-
-        console.log(dati)
+        
+        api.postTest({test, user_id: utente.id_utente}).then(() => alert(i18n.t('analisi-test:analisi-salvata')))
+        /* api.deleteTest(3) */
     }
 
     return (

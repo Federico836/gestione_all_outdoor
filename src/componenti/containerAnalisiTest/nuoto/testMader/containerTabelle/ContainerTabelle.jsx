@@ -8,9 +8,7 @@ import calcTabTotali from "../../../../../utils/funzioniAnalisiTest/nuoto/funzio
 
 const ContainerTabelle = props => {
     const { puntoCliccato, setPuntoCliccato, modificaRiga, setModificaRiga, puntiSelected, setPuntiSelected,
-        livAnal, setLivAnal, lattatoTabTotali, setLattatoTabTotali } = props
-
-    const tabTotali = calcTabTotali(puntiSelected, lattatoTabTotali, livAnal)
+        livAnal, setLivAnal, lattatoTabTotali, setLattatoTabTotali, tabTotali } = props
 
     return (
         <div>

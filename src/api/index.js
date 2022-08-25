@@ -42,5 +42,5 @@ const updateTest = payload => { const {test, user_id} = payload; return axios_in
 export default { getFrameworks, postFramework, deleteFramework, updateFramework,
     getEvents, postEvent, deleteEvent, updateEvent,
     getTemplates, postTemplate, deleteTemplate, updateTemplate,
-    getSoglia, postSoglia, deleteSoglia, updateSoglia, getTests, postTest,deleteTest,updateTest
+    getSoglia, postSoglia, deleteSoglia, updateSoglia, getTests, postTest, deleteTest, updateTest
 }

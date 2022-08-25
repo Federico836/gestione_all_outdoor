@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import ContainerTabelle from "./containerTabelle/ContainerTabelle"
 import BottoniTop from "../../bottoniTop/BottoniTop"
+import calcTabTotali from "../../../../utils/funzioniAnalisiTest/nuoto/funzioniMader"
+import api from "../../../../api/index"
 import { useTranslation } from 'react-i18next'
 
 const MaderNuoto = props => {
@@ -19,16 +21,30 @@ const MaderNuoto = props => {
 
     const { t, i18n } = useTranslation()
 
+    const tabTotali = calcTabTotali(puntiSelected, lattatoTabTotali, livAnal)
+
+    function salvaDati() {
+        const test = {
+            data: Date.now(),
+            tipoSport: "nuoto",
+            tipoTest: "mader",
+            tabTotali: {...tabTotali, lattato1: lattatoTabTotali.lattato1, lattato2: lattatoTabTotali.lattato2},
+            puntiSelected
+        }
+        
+        api.postTest({test, user_id: utente.id_utente}).then(() => alert(i18n.t('analisi-test:analisi-salvata')))
+    }
+
     return (
         <div>
             <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
-            listaTest={["mader"]} salvaDati={() => alert("sfdddd")} utente={utente} />
+            listaTest={["mader"]} salvaDati={salvaDati} utente={utente} />
             <h2 style={{textAlign: "left"}}>{t("scrivi-framework:nuoto:nuoto")}</h2>
 
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}
             setModificaRiga={setModificaRiga} puntiSelected={puntiSelected} setPuntiSelected={setPuntiSelected}
             livAnal={livAnal} setLivAnal={setLivAnal} lattatoTabTotali={lattatoTabTotali}
-            setLattatoTabTotali={setLattatoTabTotali} />
+            setLattatoTabTotali={setLattatoTabTotali} tabTotali={tabTotali} />
         </div>
     )
 }
