@@ -210,7 +210,9 @@
     "carica": "CARICA",
     "salva": "Salva",
     "inserisci-dati": "Inserisci i dati mancanti",
-    "pulisci": "Pulisci"
+    "pulisci": "Pulisci",
+    "ignora-data": "Ignora data",
+    "valori": "Valori"
   },
   "analisi-test": {
     "tipo-test": "Tipo test",

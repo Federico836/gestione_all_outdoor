@@ -1,10 +1,12 @@
 import React from "react"
 import { getSecondsFromHHMMSS, toHHMMSS } from "../../../utils/funzioni"
-
+import { useTranslation } from 'react-i18next'
 import styles from './TabValori.module.css'
 
 const TabValori = props => {
     const { ftp, setFtp, fc, setFc, passoNuoto, setPassoNuoto, passoCorsa, setPassoCorsa, ruoloLoggedUser } = props
+
+    const { t, i18n } = useTranslation()
 
     const onBlurPassoCorsa = event => {
         const value = event.target.value;
@@ -28,11 +30,11 @@ const TabValori = props => {
 
     return (
         <fieldset className={styles.container}>
-            <legend>valori:</legend>
+            <legend>{t('esporta:valori')}:</legend>
 
             <div className={styles.containerCiclismo}>
                 <div>
-                    ciclismo: <input type="number" min={0} value={fc} onChange={e => setFc(e.target.value)} disabled={disabilita} /> fc
+                    {t('scrivi-framework:ciclismo:ciclismo')}: <input type="number" min={0} value={fc} onChange={e => setFc(e.target.value)} disabled={disabilita} /> {t('analisi-test:corsa:mader:fc')}
                 </div>
                 <div>
                     <input type="number" min={0} value={ftp} onChange={e => setFtp(e.target.value)} disabled={disabilita} /> ftp
@@ -40,11 +42,11 @@ const TabValori = props => {
             </div>
 
             <div>
-                corsa: ({toHHMMSS(passoCorsa)}) <input type="text" onBlur={onBlurPassoCorsa} disabled={disabilita} /> passo 1000
+                {t('scrivi-framework:corsa:corsa')}: ({toHHMMSS(passoCorsa)}) <input type="text" onBlur={onBlurPassoCorsa} disabled={disabilita} /> passo 1000
             </div>
 
             <div>
-                nuoto: ({toHHMMSS(passoNuoto)}) <input type="text" onBlur={onBlurPassoNuoto} disabled={disabilita} /> passo 100
+                {t('scrivi-framework:nuoto:nuoto')}: ({toHHMMSS(passoNuoto)}) <input type="text" onBlur={onBlurPassoNuoto} disabled={disabilita} /> passo 100
             </div>
         </fieldset>
     )

@@ -16,7 +16,7 @@ const IgnoraData = props => {
             <label htmlFor="raised-button-file">
                 <Button variant="contained" component="span" style={{height: "100%"}}>{t('esporta:carica')} {testo}</Button>
             </label>
-            <Checkbox />Ignora data
+            <Checkbox />{t('esporta:ignora-data')}
         </div>
     )
 }

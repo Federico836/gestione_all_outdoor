@@ -210,7 +210,9 @@
     "carica": "UPLOAD",
     "salva": "Save",
     "inserisci-dati": "Insert the missing data",
-    "pulisci": "Clean"
+    "pulisci": "Clean",
+    "ignora-data": "Ignore date",
+    "valori": "Values"
   },
   "analisi-test": {
     "tipo-test": "Test type",
