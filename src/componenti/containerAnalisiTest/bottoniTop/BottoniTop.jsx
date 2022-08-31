@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styles from "./BottoniTop.module.css"
 
 const BottoniTop = props => {
-    const { setPagina, open, setOpen, tipoTest, setTipoTest, listaTest, salvaDati, utente } = props
+    const { setPagina, open, setOpen, tipoTest, setTipoTest, listaTest, salvaDati, utente, setTestEseguiti } = props
 
     const { t, i18n } = useTranslation()
 
@@ -20,8 +20,9 @@ const BottoniTop = props => {
                </select>
            </div>
 
-           {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
+           <div>{utente ? utente.nome+" "+utente.cognome : null}</div>
 
+           <Button variant="contained" onClick={() => setTestEseguiti(true)}>{t('analisi-test:test-eseguiti')}</Button>
            <Button variant="contained" onClick={salvaDati}>{t('esporta:salva')}</Button>
         </div>
     )

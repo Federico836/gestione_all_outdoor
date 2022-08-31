@@ -9,16 +9,21 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContainerCorsa from "./corsa/ContainerCorsa"
 import ContainerNuoto from "./nuoto/ContainerNuoto"
+import ContainerTestEseguiti from "./testEseguiti/ContainerTestEseguiti"
 import styles from "./ContainerAnalisiTest.module.css"
 
 const ContainerAnalisiTest = props => {
     const { setPagina, utente } = props
 
     const [open, setOpen] = useState(false)
+    const [testEseguiti, setTestEseguiti] = useState(false)
+
     const { t, i18n } = useTranslation()
 
     return (
         <div className={styles.container}>
+            {testEseguiti ? 
+            <ContainerTestEseguiti setTestEseguiti={setTestEseguiti} /> :
             <Router>
                 <Drawer anchor="left" open={open} onClose={() => setOpen(!open)}>
                     <List className={styles.linkLista} style={{marginTop: "152px"}}>
@@ -41,15 +46,17 @@ const ContainerAnalisiTest = props => {
                 <Switch>
 
                     <Route exact path="/">
-                        <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen} utente={utente} />
+                        <ContainerCorsa setPagina={setPagina} open={open} setOpen={setOpen} utente={utente}
+                        setTestEseguiti={setTestEseguiti} />
                     </Route>
 
                     <Route path="/nuoto">
-                        <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen} utente={utente} />
+                        <ContainerNuoto setPagina={setPagina} open={open} setOpen={setOpen} utente={utente}
+                        setTestEseguiti={setTestEseguiti} />
                     </Route>
 
                 </Switch>
-            </Router>
+            </Router>}
         </div>
     )
 }

@@ -234,6 +234,8 @@
     "max-test-comp": "you reached the maximum amount of trainings you can compare",
     "compara": "Compare",
     "analisi": "Analysis",
-    "analisi-salvata": "Analysis saved"
+    "analisi-salvata": "Analysis saved",
+    "test-eseguiti": "Performed tests",
+    "test-outdoor": "Outdoor test"
   }
 }

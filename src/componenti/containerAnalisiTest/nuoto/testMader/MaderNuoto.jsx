@@ -6,7 +6,7 @@ import api from "../../../../api/index"
 import { useTranslation } from 'react-i18next'
 
 const MaderNuoto = props => {
-    const { setPagina, open, setOpen, tipoTest, setTipoTest, utente } = props
+    const { setPagina, open, setOpen, tipoTest, setTipoTest, utente, setTestEseguiti } = props
 
     const [puntoCliccato, setPuntoCliccato] = useState({lattato: "", distanza: "", tempo: "", velKmh: "", velMs: "",
         passo100: "", heartrate: "", glicemia: "", o2: "", rpe: "", strokeLength: "", strokeFreq: "", note: ""})
@@ -28,6 +28,8 @@ const MaderNuoto = props => {
             data: Date.now(),
             tipoSport: "nuoto",
             tipoTest: "mader",
+            nomeUtente: utente.nome,
+            cognomeUtente: utente.cognome,
             tabTotali: {...tabTotali, lattato1: lattatoTabTotali.lattato1, lattato2: lattatoTabTotali.lattato2},
             puntiSelected
         }
@@ -38,7 +40,7 @@ const MaderNuoto = props => {
     return (
         <div>
             <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
-            listaTest={["mader"]} salvaDati={salvaDati} utente={utente} />
+            listaTest={["mader"]} salvaDati={salvaDati} utente={utente} setTestEseguiti={setTestEseguiti} />
             <h2 style={{textAlign: "left"}}>{t("scrivi-framework:nuoto:nuoto")}</h2>
 
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}
