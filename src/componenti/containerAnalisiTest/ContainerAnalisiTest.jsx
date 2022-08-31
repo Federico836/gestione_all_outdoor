@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { MemoryRouter as Router, Switch, Route, Link as MaterialLink } from "react-router-dom"
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
@@ -23,7 +23,7 @@ const ContainerAnalisiTest = props => {
     return (
         <div className={styles.container}>
             {testEseguiti ? 
-            <ContainerTestEseguiti setTestEseguiti={setTestEseguiti} /> :
+            <ContainerTestEseguiti setTestEseguiti={setTestEseguiti} utente={utente} /> :
             <Router>
                 <Drawer anchor="left" open={open} onClose={() => setOpen(!open)}>
                     <List className={styles.linkLista} style={{marginTop: "152px"}}>
