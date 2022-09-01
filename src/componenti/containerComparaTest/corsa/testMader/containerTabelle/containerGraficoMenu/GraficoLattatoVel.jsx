@@ -26,6 +26,7 @@ const GraficoLattatoVel = props => {
     const listaColori = ["blue", "LightCoral", "red", "cyan", "Chocolate", "DarkMagenta", "green", "LightGray"]
 
     const formattaData = data => new Date(data).toLocaleDateString()
+    const arrotonda = el => Math.round(el*10)/10
 
     return (
         <div>
@@ -53,7 +54,7 @@ const GraficoLattatoVel = props => {
                 dataKey={test.data} stroke={listaColori[c]} fill={listaColori[c]} r={4} isAnimationActive={false} dot={true} />)}
 
                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                <XAxis dataKey={"velKmh"} type="number" domain={['dataMin-1', 'dataMax+1']} tickCount={14} >
+                <XAxis dataKey={"velKmh"} type="number" domain={['dataMin-1', 'dataMax+1']} tickCount={14} tickFormatter={arrotonda}>
                     <Label value={t('analisi-test:corsa:mader:velocita')} offset={-8} position="insideBottomRight" fill='#676767' fontSize={14} />
                 </XAxis>
 
@@ -62,7 +63,7 @@ const GraficoLattatoVel = props => {
                 </YAxis>
 
                 <Legend formatter={formattaData} />
-                <Tooltip formatter={(value, name, props) => [value, formattaData(name)]} />
+                <Tooltip formatter={(value, name, props) => [value, formattaData(name)]} labelFormatter={arrotonda} />
                 </LineChart>
             </ResponsiveContainer>
         </div>

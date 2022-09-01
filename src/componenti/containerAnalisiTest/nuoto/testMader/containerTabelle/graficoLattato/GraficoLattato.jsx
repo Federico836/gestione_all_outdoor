@@ -8,7 +8,8 @@ const GraficoLattato = props => {
 
     const { t, i18n } = useTranslation()
 
-    const datiGrafico = puntiSelected.map(riga => ({...riga, velMs: Math.round(riga.velMs*10)/10}))
+    const datiGrafico = puntiSelected/* .map(riga => ({...riga, velMs: Math.round(riga.velMs*100)/100})) */
+    const arrotonda = el => Math.round(el*100)/100
 
     return (
         <div className={styles.container}>
@@ -23,7 +24,7 @@ const GraficoLattato = props => {
                 <ReferenceLine yAxisId="left" stroke="red" strokeDasharray="3 3" segment={[{ x: tabTotali.velMs2, y: 0 }, { x: tabTotali.velMs2, y: lattatoTabTotali.lattato2 }]} />
 
                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                <XAxis dataKey={"velMs"} type="number" domain={['dataMin-1', 'dataMax+1']} tickCount={14} >
+                <XAxis dataKey={"velMs"} type="number" domain={['dataMin-0.5', 'dataMax+0.5']} tickCount={14} tickFormatter={arrotonda}>
                     <Label value={t('analisi-test:corsa:mader:velocita')} offset={-8} position="insideBottomRight" fill='#676767' fontSize={14} />
                 </XAxis>
 
@@ -35,7 +36,7 @@ const GraficoLattato = props => {
                 </YAxis>
 
                 <Legend />
-                <Tooltip />
+                <Tooltip labelFormatter={arrotonda} />
                 </LineChart>
             </ResponsiveContainer>
         </div>
