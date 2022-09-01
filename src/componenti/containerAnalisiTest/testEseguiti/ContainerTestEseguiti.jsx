@@ -19,7 +19,7 @@ const ContainerTestEseguiti = props => {
     return (
         <div>
             <BottoniTop setTestEseguiti={setTestEseguiti} />
-            <ContainerTabListaTest listaTest={listaTest} />
+            <ContainerTabListaTest listaTest={listaTest} setListaTest={setListaTest} />
         </div>
     )
 }

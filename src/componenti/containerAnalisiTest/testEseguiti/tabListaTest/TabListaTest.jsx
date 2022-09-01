@@ -1,11 +1,17 @@
 import React from "react"
 import { useTranslation } from 'react-i18next'
+import api from "../../../../api/index"
 
 const TabListaTest = props => {
 
-    const { listaTest } = props
+    const { listaTest, setListaTest } = props
 
     const { t, i18n } = useTranslation()
+
+    const eliminaTest = async testId => {
+        const res = await api.deleteTest(testId)
+        if(res) setListaTest(listaTest.filter(test => test.id!==testId))
+    }
 
     return (
         <div>
@@ -14,6 +20,8 @@ const TabListaTest = props => {
                     <tr>
                         <th>{t('scrivi-framework:ciclismo:nome-framework')}</th>
                         <th>{t('scrivi-framework:ciclismo:data')}</th>
+                        <th>{t('scrivi-framework:ciclismo:modifica')}</th>
+                        <th>{t('scrivi-framework:ciclismo:elimina')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +33,8 @@ const TabListaTest = props => {
                         return <tr key={riga.id}>
                             <td>{tipoSport+" "+riga.tipoTest+" "+riga.nomeUtente+" "+riga.cognomeUtente}</td>
                             <td>{new Date(riga.data).toLocaleString()}</td>
+                            <td>✎</td>
+                            <td onClick={() => eliminaTest(riga.id)}>🗑</td>
                         </tr>
                     })}
                 </tbody>
@@ -34,3 +44,4 @@ const TabListaTest = props => {
 }
 
 export default TabListaTest
+

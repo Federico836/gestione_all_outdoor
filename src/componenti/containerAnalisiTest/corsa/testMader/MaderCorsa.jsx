@@ -35,7 +35,6 @@ const MaderCorsa = props => {
         }
         
         api.postTest({test, user_id: utente.id_utente}).then(() => alert(i18n.t('analisi-test:analisi-salvata')))
-        /* for(let c=20;c<25;c++) api.deleteTest(c) */
     }
 
     return (
