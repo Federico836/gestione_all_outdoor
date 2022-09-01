@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react"
 import ContainerTabelle from "./containerTabelle/ContainerTabelle"
 import BottoniTop from "../../bottoniTop/BottoniTop"
+import BottoniTopModifica from "../../bottoniTopModifica/BottoniTopModifica"
 import calcTabTotali from "../../../../utils/funzioniAnalisiTest/nuoto/funzioniMader"
 import api from "../../../../api/index"
 import { useTranslation } from 'react-i18next'
 
 const MaderNuoto = props => {
-    const { setPagina, open, setOpen, tipoTest, setTipoTest, utente, setTestEseguiti } = props
+    const { setPagina, open, setOpen, tipoTest, setTipoTest, utente, setTestEseguiti, modificaTest } = props
 
     const [puntoCliccato, setPuntoCliccato] = useState({lattato: "", distanza: "", tempo: "", velKmh: "", velMs: "",
         passo100: "", heartrate: "", glicemia: "", o2: "", rpe: "", strokeLength: "", strokeFreq: "", note: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
-    const [puntiSelected, setPuntiSelected] = useState([])
+    const [puntiSelected, setPuntiSelected] = useState(modificaTest ? modificaTest.puntiSelected : [])
     const [livAnal, setLivAnal] = useState(2)
-    const [lattatoTabTotali, setLattatoTabTotali] = useState({lattato1: "", lattato2: ""})
+    const [lattatoTabTotali, setLattatoTabTotali] = useState(modificaTest ? 
+        {lattato1: modificaTest.tabTotali.lattato1, lattato2: modificaTest.tabTotali.lattato2} : {lattato1: "", lattato2: ""})
 
     useEffect(() => {
         if(modificaRiga) setPuntoCliccato(modificaRiga)
@@ -34,13 +36,18 @@ const MaderNuoto = props => {
             puntiSelected
         }
         
-        api.postTest({test, user_id: utente.id_utente}).then(() => alert(i18n.t('analisi-test:analisi-salvata')))
+        if(modificaTest) {
+            api.updateTest({test, user_id: utente.id_utente, testId: modificaTest.id}).then(() => alert(i18n.t('analisi-test:analisi-salvata')))
+        } else {
+            api.postTest({test, user_id: utente.id_utente}).then(() => alert(i18n.t('analisi-test:analisi-salvata')))
+        }
     }
 
     return (
         <div>
-            <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
-            listaTest={["mader"]} salvaDati={salvaDati} utente={utente} setTestEseguiti={setTestEseguiti} />
+            {!modificaTest ? <BottoniTop setPagina={setPagina} open={open} setOpen={setOpen} tipoTest={tipoTest} setTipoTest={setTipoTest}
+            listaTest={["mader"]} salvaDati={salvaDati} utente={utente} setTestEseguiti={setTestEseguiti} /> :
+            <BottoniTopModifica setTestEseguiti={setTestEseguiti} salvaDati={salvaDati} />}
             <h2 style={{textAlign: "left"}}>{t("scrivi-framework:nuoto:nuoto")}</h2>
 
             <ContainerTabelle puntoCliccato={puntoCliccato} setPuntoCliccato={setPuntoCliccato} modificaRiga={modificaRiga}

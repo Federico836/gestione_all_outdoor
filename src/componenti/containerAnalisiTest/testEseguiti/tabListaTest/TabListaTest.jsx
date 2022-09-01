@@ -4,7 +4,7 @@ import api from "../../../../api/index"
 
 const TabListaTest = props => {
 
-    const { listaTest, setListaTest } = props
+    const { listaTest, setListaTest, setTestEseguiti } = props
 
     const { t, i18n } = useTranslation()
 
@@ -33,7 +33,7 @@ const TabListaTest = props => {
                         return <tr key={riga.id}>
                             <td>{tipoSport+" "+riga.tipoTest+" "+riga.nomeUtente+" "+riga.cognomeUtente}</td>
                             <td>{new Date(riga.data).toLocaleString()}</td>
-                            <td>✎</td>
+                            <td onClick={() => setTestEseguiti(riga)}>✎</td>
                             <td onClick={() => eliminaTest(riga.id)}>🗑</td>
                         </tr>
                     })}

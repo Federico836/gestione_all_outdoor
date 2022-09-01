@@ -22,7 +22,7 @@ const BottoniTop = props => {
 
            <div>{utente ? utente.nome+" "+utente.cognome : null}</div>
 
-           <Button variant="contained" onClick={() => setTestEseguiti(true)}>{t('analisi-test:test-eseguiti')}</Button>
+           <Button variant="contained" onClick={() => setTestEseguiti("eseguiti")}>{t('analisi-test:test-eseguiti')}</Button>
            <Button variant="contained" onClick={salvaDati}>{t('esporta:salva')}</Button>
         </div>
     )

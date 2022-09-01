@@ -10,20 +10,22 @@ import { useTranslation } from 'react-i18next'
 import ContainerCorsa from "./corsa/ContainerCorsa"
 import ContainerNuoto from "./nuoto/ContainerNuoto"
 import ContainerTestEseguiti from "./testEseguiti/ContainerTestEseguiti"
+import ContainerModifica from "./containerModifica/ContainerModifica"
 import styles from "./ContainerAnalisiTest.module.css"
 
 const ContainerAnalisiTest = props => {
     const { setPagina, utente } = props
 
     const [open, setOpen] = useState(false)
-    const [testEseguiti, setTestEseguiti] = useState(false)
+    const [testEseguiti, setTestEseguiti] = useState("analisi")
 
     const { t, i18n } = useTranslation()
 
     return (
         <div className={styles.container}>
-            {testEseguiti ? 
+            {testEseguiti==="eseguiti" ?
             <ContainerTestEseguiti setTestEseguiti={setTestEseguiti} utente={utente} /> :
+            testEseguiti==="analisi" ?
             <Router>
                 <Drawer anchor="left" open={open} onClose={() => setOpen(!open)}>
                     <List className={styles.linkLista} style={{marginTop: "152px"}}>
@@ -56,7 +58,8 @@ const ContainerAnalisiTest = props => {
                     </Route>
 
                 </Switch>
-            </Router>}
+            </Router> :
+            <ContainerModifica testEseguiti={testEseguiti} setTestEseguiti={setTestEseguiti} utente={utente} />}
         </div>
     )
 }

@@ -12,7 +12,7 @@ const BottoniTop = props => {
     return (
         <div className={styles.container}>
 
-            <Button variant="contained" onClick={() => setTestEseguiti(false)}>{t('main-container:indietro')}</Button>
+            <Button variant="contained" onClick={() => setTestEseguiti("analisi")}>{t('main-container:indietro')}</Button>
 
             <div>{t('analisi-test:test-outdoor')}</div> 
 

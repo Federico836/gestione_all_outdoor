@@ -35,7 +35,7 @@ const updateSoglia = payload => {const {soglia, user_id} = payload; return axios
 const getTests = user_id => {if(user_id) {return axios_instance.get('tests/'+ user_id)} else {return axios_instance.get('tests')}}
 const postTest = payload => { const {test, user_id} = payload; return axios_instance.post('tests', {dati: JSON.stringify({...test}), coach_id: window.md.logged_user.ID, user_id})}
 const deleteTest = dbid => {return axios_instance.delete('tests/' + dbid)}
-const updateTest = payload => { const {test, user_id} = payload; return axios_instance.put('/tests/' + test.dbid, {dati: JSON.stringify({...test}), coach_id: window.md.logged_user.ID, user_id})}
+const updateTest = payload => { const {test, user_id, testId} = payload; return axios_instance.put('/tests/' + testId, {dati: JSON.stringify({...test}), coach_id: window.md.logged_user.ID, user_id})}
 
 
 
