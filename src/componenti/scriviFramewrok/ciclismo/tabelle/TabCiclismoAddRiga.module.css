@@ -1,6 +1,8 @@
 .container {
     display: flex;
     margin-bottom: 6vh;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .bottoneAdd {
@@ -48,7 +50,7 @@
 }
 .tabella th:last-child {
     border-right: 0;
-    width: 15%
+    width: 10%
 }
 
 .tabella tbody tr td input {    

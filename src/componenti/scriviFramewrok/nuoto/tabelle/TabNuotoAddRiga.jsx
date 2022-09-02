@@ -22,6 +22,10 @@ const TabNuotoAddRiga = (props) => {
             <div className={styles.containerTab}>
                 <table className={styles.tabella}>
                     <thead>
+                        <th style={{textAlign: 'center'}}>Obbiettivo</th>
+                        <th style={{textAlign: 'center'}}>Fase di lavoro</th>
+                        <th style={{textAlign: 'center'}}>Stile</th>
+                        <th style={{textAlign: 'center'}}>Attrezzo</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:zona')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:serie')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:ripetizioni')}</th>
@@ -31,6 +35,44 @@ const TabNuotoAddRiga = (props) => {
                     </thead>
                     <tbody>
                         <tr>
+                            <td>
+                                <select value={datiSingolaRiga.durationType} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durationType: e.target.value})}}>
+                                    <option value="TIME">Tempo</option>
+                                    <option value="DISTANCE">Distanza</option>
+                                    <option value="CALORIES">Calorie</option>
+                                    <option value="HR_LESS_THAN">Freq. Cardiaca</option>
+                                    <option value="OPEN">Altro</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select value={datiSingolaRiga.intensity} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, intensity: e.target.value})}}>
+                                    <option value="REST">Recupero passivo</option>
+                                    <option value="WARMUP">Riscaldamento</option>
+                                    <option value="COOLDOWN">Defaticamento</option>
+                                    <option value="RECOVERY">Recupero</option>
+                                    <option value="INTERVAL">Intervallo</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select value={datiSingolaRiga.strokeType} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, strokeType: e.target.value})}}>
+                                    <option value="BACKSTROKE">Dorso</option>
+                                    <option value="BREASTSTROKE">Rana</option>
+                                    <option value="DRILL">Tecnica</option>
+                                    <option value="BUTTERFLY">Farfalla</option>
+                                    <option value="FREESTYLE">Stile libero</option>
+                                    <option value="MIXED">Misto</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select value={datiSingolaRiga.equipmentType} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, equipmentType: e.target.value})}}>
+                                    <option value="NONE">Nessuno</option>
+                                    <option value="SWIM_FINS">Pinne</option>
+                                    <option value="SWIM_KICKBOARD">Tavoletta</option>
+                                    <option value="SWIM_PADDLES">Palette</option>
+                                    <option value="SWIM_PULL_BUOY">Pull Buoy</option>
+                                    <option value="SWIM_SNORKEL">Snorkel</option>
+                                </select>
+                            </td>
                             <td>
                                 <select value={datiSingolaRiga.zona.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: zoneCalcolate[e.target.value-1]})}}>
                                     <option value="1">{"A1"}</option>

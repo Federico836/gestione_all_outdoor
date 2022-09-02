@@ -3,6 +3,9 @@ import Button from '@mui/material/Button'
 import { useTranslation } from 'react-i18next'
 import { getSecondsFromHHMMSS, toHHMMSS } from "../../../../utils/funzioni.js"
 import styles from './TabCiclismoAddRiga.module.css'
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 
 const TabCiclismoAddRiga = (props) => {
 
@@ -52,6 +55,8 @@ const TabCiclismoAddRiga = (props) => {
                             <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:ripetizioni')}</th>
                             <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:tempo')}</th>
                             <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:recupero')}</th>
+                            <th style={{textAlign: 'center'}}>Distanza</th>
+                            <th style={{textAlign: 'center'}}>Calorie</th>
                             <th style={{textAlign: 'center'}}>Rpm</th>
                             <th style={{textAlign: 'center'}}>Note</th>
                         </tr>
@@ -105,15 +110,25 @@ const TabCiclismoAddRiga = (props) => {
                             {/* <td><input type="time" value={datiSingolaRiga.durata} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} /></td> */}
                             <td><input type="text" onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} onBlur={onBlurDurata} value={datiSingolaRiga.durata} /></td>
                             <td><input type="text" onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, recupero: e.target.value})}} onBlur={onBlurRecupero} value={datiSingolaRiga.recupero} /></td>
+                            
+                            
+                            <td><input type="text" min="0" value={datiSingolaRiga.distanza} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, distanza: e.target.value})} /></td>
+                            <td><input type="text" min="0" value={datiSingolaRiga.calorie} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, calorie: e.target.value})} /></td>
+                            
                             <td><input type="text" min="0" value={datiSingolaRiga.rpm} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, rpm: e.target.value})} /></td>
                             <td><input type="text" value={datiSingolaRiga.note} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, note: e.target.value})} /></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div className={styles.bottoneAdd}>
-                <Button variant="contained" onClick={() => aggiungiRiga(datiSingolaRiga)}>{modificaRiga ? "✎" : "➕"}</Button>
+            <div style={{textAlign: 'center', marginTop: '20px'}}>
+                <Fab color="primary" aria-label="add" onClick={() => aggiungiRiga(datiSingolaRiga)}>
+                    {(modificaRiga) ? <EditIcon /> : <AddIcon />}
+                </Fab>
             </div>
+            {/* <div className={styles.bottoneAdd}>
+                <Button variant="contained" onClick={() => aggiungiRiga(datiSingolaRiga)}>{modificaRiga ? "✎" : "➕"}</Button>
+            </div> */}
         </div>
     )
 }

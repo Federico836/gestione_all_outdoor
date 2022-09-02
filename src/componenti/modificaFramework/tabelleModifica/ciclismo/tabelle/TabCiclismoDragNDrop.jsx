@@ -142,6 +142,8 @@ const Row = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.durata}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.recupero}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.calorie}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.rpm}</span></div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.note}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', cursor: "pointer", display: "flex", alignItems: "center"}}
@@ -204,6 +206,8 @@ const Lista = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:ripetizioni')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:tempo')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:recupero')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Distanza</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Calorie</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Rpm</div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>Note</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:clona')}</div>
@@ -224,6 +228,8 @@ const Lista = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totDurata+totRecupero)}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totRecupero)}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>

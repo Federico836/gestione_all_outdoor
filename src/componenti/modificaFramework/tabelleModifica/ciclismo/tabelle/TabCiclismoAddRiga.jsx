@@ -51,6 +51,8 @@ const TabCiclismoAddRiga = (props) => {
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:ripetizioni')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:tempo')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:recupero')}</th>
+                        <th style={{textAlign: 'center'}}>Distanza</th>
+                        <th style={{textAlign: 'center'}}>Calorie</th>
                         <th style={{textAlign: 'center'}}>Rpm</th>
                         <th style={{textAlign: 'center'}}>Note</th>
                     </thead>
@@ -103,6 +105,10 @@ const TabCiclismoAddRiga = (props) => {
                             {/* <td><input type="time" value={datiSingolaRiga.durata} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} /></td> */}
                             <td><input type="text" onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} onBlur={onBlurDurata} value={datiSingolaRiga.durata} /></td>
                             <td><input type="text" onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, recupero: e.target.value})}} onBlur={onBlurRecupero} value={datiSingolaRiga.recupero} /></td>
+                            
+                            <td><input type="text" min="0" value={datiSingolaRiga.distanza} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, distanza: e.target.value})} /></td>
+                            <td><input type="text" min="0" value={datiSingolaRiga.calorie} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, calorie: e.target.value})} /></td>
+                            
                             <td><input type="text" min="0" value={datiSingolaRiga.rpm} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, rpm: e.target.value})}} /></td>
                             <td><input type="text" value={datiSingolaRiga.note} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, note: e.target.value})}} /></td>
                         </tr>

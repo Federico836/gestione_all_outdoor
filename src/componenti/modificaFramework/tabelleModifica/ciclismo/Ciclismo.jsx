@@ -24,7 +24,7 @@ const Ciclismo = props => {
     const [listaRigheCopia, setListaRigheCopia] = useState([])
     const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: "1", percZona: "", serie: "", ripetizioni: "", recupero: "0:00",
-    rpm: "", note: "", durata: "0:00", wattPerc: "", fcPerc: "", durationType: "TIME", intensity: "WARMUP", targetType: "PERCENT_HR"})
+    rpm: "", note: "", durata: "0:00", wattPerc: "", fcPerc: "", durationType: "TIME", intensity: "WARMUP", targetType: "PERCENT_HR",distanza: "", calorie: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [ftp, setFtp] = useState(0)
     const [fc, setFc] = useState(0)
