@@ -40,6 +40,9 @@ const TabCiclismoAddRiga = (props) => {
             <div className={styles.containerTab}>
                 <table className={styles.tabella}>
                     <thead>
+                        <th style={{textAlign: 'center'}}>Obbiettivo</th>
+                        <th style={{textAlign: 'center'}}>Fase di lavoro</th>
+                        <th style={{textAlign: 'center'}}>Intensità</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:zona')}</th>
                         <th style={{textAlign: 'center'}}>%</th>
                         <th style={{textAlign: 'center'}}>Watt</th>
@@ -53,20 +56,48 @@ const TabCiclismoAddRiga = (props) => {
                     </thead>
                     <tbody>
                         <tr>
+                        <td>
+                                <select value={datiSingolaRiga.durationType} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durationType: e.target.value})}}>
+                                    <option value="TIME">Tempo</option>
+                                    <option value="DISTANCE">Distanza</option>
+                                    <option value="CALORIES">Calorie</option>
+                                    <option value="HR_LESS_THAN">Freq. Cardiaca</option>
+                                    <option value="OPEN">Altro</option>
+                                </select>
+                            </td>
                             <td>
-                                <select value={datiSingolaRiga.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}}>
+                                <select value={datiSingolaRiga.intensity} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, intensity: e.target.value})}}>
+                                    <option value="REST">Recupero passivo</option>
+                                    <option value="WARMUP">Riscaldamento</option>
+                                    <option value="COOLDOWN">Defaticamento</option>
+                                    <option value="RECOVERY">Recupero</option>
+                                    <option value="INTERVAL">Intervallo</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select value={datiSingolaRiga.targetType} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, targetType: e.target.value, percZona: (e.target.value !== "PERCENT_HR" && e.target.value !== "PERCENT_WATT") ? "" : datiSingolaRiga.percZona})}}>
+                                    <option value="PERCENT_HR">% HR</option>
+                                    <option value="PERCENT_WATT">% WATT</option>
+                                    <option value="ZONE_HR">ZONA HR</option>
+                                    <option value="ZONE_W">ZONA W</option>
+                                    <option value="CADENCE">CADENZA</option>
+                                    <option value="OPEN">LIBERO</option>  
+                                </select>
+                            </td>
+                            <td>
+                                <select disabled={(datiSingolaRiga.targetType !== "ZONE_HR" && datiSingolaRiga.targetType !== "ZONE_W")} value={datiSingolaRiga.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
+                                    {(datiSingolaRiga.targetType !== "ZONE_HR") ? <option value="6">6</option> : ''}
+                                    {(datiSingolaRiga.targetType !== "ZONE_HR") ? <option value="7">7</option> : ''}
                                 </select>{/* <input type="number" min="1" max="7" value={datiSingolaRiga.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}} /> */}
                             </td>
-                            <td><input type="number" min="0" value={datiSingolaRiga.percZona} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, percZona: e.target.value})} /></td>
-                            <td><input type="text" min="0" value={zonaWatt} /></td>
-                            <td><input type="text" min="0" value={zonaFc} /></td>
+                            <td><input disabled={(datiSingolaRiga.targetType !== "PERCENT_HR" && datiSingolaRiga.targetType !== "PERCENT_WATT")} type="number" min="0" value={datiSingolaRiga.percZona} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, percZona: e.target.value})} /></td>
+                            <td><input type="text" min="0" value={(datiSingolaRiga.targetType === 'PERCENT_WATT' || datiSingolaRiga.targetType === 'ZONE_W') ? zonaWatt : ''} /></td>
+                            <td><input type="text" min="0" value={(datiSingolaRiga.targetType === 'PERCENT_HR' || datiSingolaRiga.targetType === 'ZONE_HR') ? zonaFc : ''} /></td>
                             <td><input type="number" min="0" value={datiSingolaRiga.serie} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td>
                             <td><input type="number" min="0" value={datiSingolaRiga.ripetizioni} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, ripetizioni: e.target.value})}} /></td>
                             {/* <td><input type="time" value={datiSingolaRiga.durata} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} /></td> */}

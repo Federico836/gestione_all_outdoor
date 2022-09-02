@@ -44,14 +44,14 @@
     border-bottom: 1px solid black;
 }
 .tabella th:first-child {
-    width: 5%
+    width: 8%
 }
 .tabella th:last-child {
     border-right: 0;
-    width: 26%
+    width: 15%
 }
 
-.tabella tbody tr td input {
+.tabella tbody tr td input {    
     display: block;
     width: 80%;
     height: 2.5vh;
@@ -69,6 +69,6 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    border: none;
+    border: 0px;
     outline: none;
 }
