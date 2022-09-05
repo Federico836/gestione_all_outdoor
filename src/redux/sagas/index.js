@@ -4,6 +4,7 @@ import { setListaFrameworks, getListaFrameworks } from '../actions/FrameworkActi
 import { getListaEventi, setListaEventi } from '../actions/EventActions'
 import { getListaTemplate, setListaTemplate } from '../actions/TemplateActions'
 import { getSoglia, setSoglia } from '../actions/SogliaActions' 
+import {getMDFrameworks, setMDFrameworks} from '../actions/MDFrameworksActions'
 import * as selectors from './selectors'
 import {select} from 'redux-saga/effects'
 import i18n from 'i18next'
@@ -191,6 +192,18 @@ export function* eliminaSoglia(action) {
     yield put(getSoglia(payload.user_id))
 }
 
+
+export function* getListaMDFrameworks(action) {
+
+    const response = yield call(api.getMDFrameworks, null)
+    const { data } = response
+
+    const filteredFrameworks = data.scheletri.filter(el => (el.matrice !== "1" && el.deleted !== "1")).filter( el => Number(el.id_creatore) === Number(window.md.logged_user.ID))
+
+    yield put(setMDFrameworks(filteredFrameworks))
+
+}
+
 function* rootSaga() {
     yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
     yield takeLatest('ADD_FRAMEWORK', postFramework)
@@ -211,6 +224,8 @@ function* rootSaga() {
     yield takeLatest('ADD_SOGLIA', addSoglia)
     yield takeLatest('REPLACE_SOGLIA', updateSoglia)
     yield takeLatest('ELIMINA_SOGLIA', eliminaSoglia)
+
+    yield takeLatest('GET_MD_FRAMEWORKS',getListaMDFrameworks)
 }
 
 export default rootSaga

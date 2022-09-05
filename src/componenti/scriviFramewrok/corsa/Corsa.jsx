@@ -20,7 +20,7 @@ const Corsa = () => {
 
     const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
-        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: ""})
+        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passoMin: "", passoMax: "", note: "",durationType: "TIME", intensity: "WARMUP", targetType: "PERCENT_HR", calorie: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)

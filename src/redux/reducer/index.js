@@ -6,6 +6,7 @@ import eventi from './EventReducer'
 import pdf from './PdfReducer'
 import riferimenti from './RiferimentiReducer'
 import soglia from './SogliaReducer'
+import mdFrameworks from './MDFrameworksReducer'
 
 const reducers = {
     workouts,
@@ -14,7 +15,9 @@ const reducers = {
     eventi,
     pdf,
     riferimenti,
-    soglia
+    soglia,
+    mdFrameworks
+
 }
 
 export default combineReducers(reducers)

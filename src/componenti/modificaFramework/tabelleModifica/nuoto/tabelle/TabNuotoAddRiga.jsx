@@ -31,6 +31,7 @@ const TabNuotoAddRiga = (props) => {
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:ripetizioni')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:distanza')} m/yrd</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:recupero')}</th>
+                        <th style={{textAlign: 'center'}}>Calorie</th>
                         <th style={{textAlign: 'center'}}>Note</th>
                     </thead>
                     <tbody>
@@ -89,6 +90,7 @@ const TabNuotoAddRiga = (props) => {
                             <td><input type="number" min="0" value={datiSingolaRiga.ripetizioni} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, ripetizioni: e.target.value})}} /></td>
                             <td><input type="number" min="0" value={datiSingolaRiga.distanza} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, distanza: e.target.value})}} /></td>
                             <td><input type="text" onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, recupero: e.target.value})}} onBlur={onBlurRecupero} value={datiSingolaRiga.recupero} /></td>
+                            <td><input type="number" min="0" value={datiSingolaRiga.calorie} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, calorie: e.target.value})}} /></td>
                             <td><input type="text" value={datiSingolaRiga.note} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, note: e.target.value})}} /></td>
                         </tr>
                     </tbody>
