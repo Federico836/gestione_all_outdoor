@@ -4,11 +4,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addTemplate, eliminaTemplate } from "../../../redux/actions/TemplateActions"
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
-
 import { Draggable } from '@fullcalendar/interaction'
 import { Button } from "@mui/material"
-
 import styles from './TabListaTemplate.module.css'
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
+import AbcIcon from '@mui/icons-material/Abc';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import Stack from '@mui/material/Stack';
+import SaveIcon from '@mui/icons-material/Save';
 
 const TabListaTemplate = props => {
     const { setTipoEventi, rangeDateSelect, listaEventi, aggiungiTemplateCal } = props
@@ -107,13 +112,18 @@ const TabListaTemplate = props => {
     return (
         <div className={styles.container}>
             <div className={styles.containerCerca}>
-                <div>
-                    <Button variant="contained" style={{fontSize: "10px", padding: "0.6%"}}
-                        onClick={() => setTipoEventi("framework")}>Template</Button>
+                
+                <div style={{width: '100%'}}>
+                    <TextField fullWidth id="outlined-start-adornment" size="small" onChange={e => setRicercaNome(e.target.value)} label={t('modifica-framework:cerca')}
+                            sx={{ m: 0}}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
+                                }}
+                            />
                 </div>
-                <div className={styles.cerca}>
+                {/* <div className={styles.cerca}>
                     {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
-                </div>
+                </div> */}
             </div>
             <div className={styles.containerIntestTab}>
                 <table className={styles.intestazioneTab}>
@@ -142,8 +152,16 @@ const TabListaTemplate = props => {
                 </table>
             </div>
             <div className={styles.containerSalvaTemplate}>
-                {t('modifica-framework:nome-template')}: <input type="text" onChange={e => setNomeTemplate(e.target.value)} />
-                <Button variant="contained" onClick={aggiungiTemplate}>{t('esporta:salva')}</Button>
+            <Stack spacing={2} direction="row">
+                <TextField fullWidth id="outlined-start-adornment" size="small" onChange={e => setNomeTemplate(e.target.value)} label={t('modifica-framework:nome-template')}
+                        sx={{ m: 0}}
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start"><DriveFileRenameOutlineIcon/></InputAdornment>,
+                            }}
+                        />
+                <Button variant="contained" onClick={aggiungiTemplate} endIcon={<SaveIcon/>}>{t('esporta:salva')}</Button>
+            </Stack>
+                {/* {t('modifica-framework:nome-template')}: <input type="text" onChange={e => setNomeTemplate(e.target.value)} /> */}
             </div>
         </div>
     )

@@ -5,9 +5,12 @@ import { getListaEventi, setListaEventi } from '../actions/EventActions'
 import { getListaTemplate, setListaTemplate } from '../actions/TemplateActions'
 import { getSoglia, setSoglia } from '../actions/SogliaActions' 
 import {getMDFrameworks, setMDFrameworks} from '../actions/MDFrameworksActions'
+import {getMDWorkouts, setMDWorkouts} from '../actions/MDWorkoutsActions'
 import * as selectors from './selectors'
 import {select} from 'redux-saga/effects'
 import i18n from 'i18next'
+import convertWorkoutInGarminFormat from '../../utilsGarmin/index'
+import {workoutSportType} from '../../utilsGarmin/const'
 
 // FRAMEWORK
 
@@ -198,9 +201,59 @@ export function* getListaMDFrameworks(action) {
     const response = yield call(api.getMDFrameworks, null)
     const { data } = response
 
-    const filteredFrameworks = data.scheletri.filter(el => (el.matrice !== "1" && el.deleted !== "1")).filter( el => Number(el.id_creatore) === Number(window.md.logged_user.ID))
+    const filteredFrameworks = data.scheletri.filter(el => (el.matrice !== "1" && el.deleted !== "1"))
+                                             .filter( el => Number(el.id_creatore) === Number(window.md.logged_user.ID))
+                                             .filter(el => el.licenza === 'FIT')
 
     yield put(setMDFrameworks(filteredFrameworks))
+
+}
+export function* getListaMDWorkouts(action) {
+
+
+    const {payload} = action
+
+    if(!payload) return
+
+    const response = yield call(api.getMDWorkouts, payload)
+    const { data } = response
+
+    const filteredWorkouts = data.allenamenti.filter(el => Number(el.deleted) === 0)
+
+    yield put(setMDWorkouts(filteredWorkouts))
+
+}
+
+
+export function* uploadToGarmin(action) {
+
+    if(!action || !action.payload) return
+
+    const {payload: events} = action
+
+    const lista = yield select(selectors.frameworks)
+    const workout = null
+
+    try {
+        events.forEach(ev => {
+
+            if(ev.extendedProps.mdType === 'ciclismo') {
+                const frame = lista.find(el => el.id === ev.extendedProps.mdId)
+                const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,frame)
+                console.log({ev,frame,workout})
+            }
+
+        })
+    } catch (error) {
+        return
+    }
+
+    return;
+
+    /* const response = yield call(api.uploadToGarmin, workout)
+    const { data } = response */
+
+
 
 }
 
@@ -226,6 +279,9 @@ function* rootSaga() {
     yield takeLatest('ELIMINA_SOGLIA', eliminaSoglia)
 
     yield takeLatest('GET_MD_FRAMEWORKS',getListaMDFrameworks)
+    yield takeLatest('GET_MD_WORKOUTS',getListaMDWorkouts)
+
+    yield takeLatest('UPLOAD_TO_GARMIN', uploadToGarmin)
 }
 
 export default rootSaga

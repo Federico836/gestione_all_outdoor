@@ -5,6 +5,7 @@
 .containerCerca {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .containerTab {
@@ -60,7 +61,7 @@
 }
 .tabListaFramework tr td:last-child {
     border-right: 0px;
-    width: 8vw;
+    width: 9.6vw;
 }
 .tabListaFramework tr td:last-child:hover {
     cursor: pointer;
@@ -84,7 +85,7 @@
     border-bottom: 0px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2)/* , 0 -6px 20px 0 rgba(0, 0, 0, 0.19) */;
+    box-shadow: 0 -2px 8px 0 rgba(0, 0, 0, 0.2)/* , 0 -6px 20px 0 rgba(0, 0, 0, 0.19) */;
     /* min-width: fit-content; */
 }
 .intestazioneTab {
@@ -109,5 +110,5 @@
     border-right: 1px solid black;
 }
 .intestazioneTab tr th:last-child {
-    width: 8.77vw;
+    width: 10vw;
 }

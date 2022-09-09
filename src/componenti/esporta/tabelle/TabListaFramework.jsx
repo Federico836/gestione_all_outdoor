@@ -5,11 +5,16 @@ import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
-
 import { Draggable } from '@fullcalendar/interaction'
 import { Button } from "@mui/material"
-
 import styles from './TabListaFramework.module.css'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 
 const TabListaFramework = props => {
     const { setTipoEventi } = props
@@ -114,6 +119,7 @@ const TabListaFramework = props => {
                     sourceId: eventEl.getAttribute('sourceId'),
                 /*  start: 'T10:30:00', */
                     mdId: eventEl.getAttribute('sourceId'),
+                    mdType: eventEl.getAttribute('tipoSport'),
                     id: uuidv4()
                 }
             }
@@ -123,24 +129,43 @@ const TabListaFramework = props => {
     return (
         <div className={styles.container}>
             <div className={styles.containerCerca}>
-                <div>
-                    <nobr>
-                        <Button variant="contained" style={{fontSize: "10px", padding: "0.6%"}}
+                <div style={{marginBottom: '10px', width: '40%'}}>
+                    
+                        {/* <Button variant="contained" style={{marginRight: '10px'}}
                             onClick={() => setTipoEventi("template")}>Framework</Button>
-                        <select className={styles.selectSport} onChange={e => setTipoSport(e.target.value)}>
-                            <option value="ciclismo">{t('scrivi-framework:ciclismo:ciclismo')}</option>
-                            <option value="corsa">{t('scrivi-framework:corsa:corsa')}</option>
-                            <option value="nuoto">{t('scrivi-framework:nuoto:nuoto')}</option>
-                            <option value="palestra">{t('scrivi-framework:palestra:palestra')}</option>
-                            <option value="combinati_tri">{t('scrivi-framework:combinati-tri:combinati-tri')}</option>
-                            <option value="altri">{t('scrivi-framework:sport:altri')}</option>
-                            <option value="tutti">{t('modifica-framework:tutti')}</option>
-                        </select>
-                    </nobr>
+                        <Button variant="contained" onClick={() => setTipoEventi("fit")} style={{marginRight: '10px'}}>FIT</Button> */}
+                        <FormControl size="small" fullWidth>
+                            <InputLabel id="demo-simple-select-label">Sport</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={tipoSport}
+                            label="Sport"
+                            onChange={e => setTipoSport(e.target.value)}
+                            fullWidth
+                            >
+                                <MenuItem value="ciclismo">{t('scrivi-framework:ciclismo:ciclismo')}</MenuItem>
+                                <MenuItem value="corsa">{t('scrivi-framework:corsa:corsa')}</MenuItem>
+                                <MenuItem value="nuoto">{t('scrivi-framework:nuoto:nuoto')}</MenuItem>
+                                <MenuItem value="palestra">{t('scrivi-framework:palestra:palestra')}</MenuItem>
+                                <MenuItem value="combinati_tri">{t('scrivi-framework:combinati-tri:combinati-tri')}</MenuItem>
+                                <MenuItem value="altri">{t('scrivi-framework:sport:altri')}</MenuItem>
+                                <MenuItem value="tutti">{t('modifica-framework:tutti')}</MenuItem>
+                            </Select>
+                        </FormControl>
+                    
                 </div>
-                <div className={styles.cerca}>
+                <div>
+                    <TextField id="outlined-start-adornment" size="small" onChange={e => setRicercaNome(e.target.value)} label={t('modifica-framework:cerca')}
+                            sx={{ m: 0, width: '25ch' }}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
+                                }}
+                            />
+                </div>
+                {/* <div className={styles.cerca}>
                     {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
-                </div>
+                </div> */}
             </div>
             <div className={styles.containerIntestTab}>
                 <table className={styles.intestazioneTab}>

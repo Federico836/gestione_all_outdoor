@@ -5,17 +5,15 @@ import { Button, Checkbox } from "@mui/material"
 import { uploadFiles } from '../../../utils/funzioni'
 
 const IgnoraData = props => {
-    const { testo } = props
+    const { testo,handleClickOnButtonFitExport} = props
 
     const { t, i18n } = useTranslation()
 
     return (
         <div>
-            <input accept=".pdf" style={{ display: 'none' }} id="raised-button-file" multiple type="file"
-            onChange={e => uploadFiles(e.target.files)}/>
-            <label htmlFor="raised-button-file">
-                <Button variant="contained" component="span" style={{height: "100%"}}>{t('esporta:carica')} {testo}</Button>
-            </label>
+            <Button variant="contained" component="span" style={{height: "100%"}} onClick={() => {handleClickOnButtonFitExport()}}>
+                {t('esporta:carica')} {testo}
+            </Button>
             <Checkbox />{t('esporta:ignora-data')}
         </div>
     )

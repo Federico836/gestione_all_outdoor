@@ -17,7 +17,7 @@ const Palestra = () => {
     const dispatch = useDispatch()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({esercizio: "", serie: "", ripetizioni: "", peso: "", recupero: "0:00", tut: "", note: "" })
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({esercizio: "", serie: "", ripetizioni: "", peso: "", recupero: "0:00", tut: "", note: "",durationType: "TIME", intensity: "WARMUP", })
     const [modificaRiga, setModificaRiga] = useState(null)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")

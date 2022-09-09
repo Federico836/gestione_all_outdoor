@@ -233,7 +233,7 @@ const Report = props => {
             recTotNuoto={(week.nuoto) ? week.nuoto.recTot : null}
             distTotNuoto={(week.nuoto) ? week.nuoto.distTot : null}
             tempoZoneNuoto={(week.nuoto) ? week.nuoto.tempoZone : null}
-            velMedia={(week.nuoto) ? week.nuoto.velMedia : null}
+            velMediaNuoto={(week.nuoto) ? week.nuoto.velMedia : null}
             passoMedioNuoto={(week.nuoto) ? week.nuoto.passoMedioNuoto : null}
             densitaNuoto={(week.nuoto) ? week.nuoto.densitaNuoto : null}
             tempoTotNuotoConRec={(week.nuoto) ? week.nuoto.tempoTotNuotoConRec : null} 
@@ -348,7 +348,7 @@ const Report = props => {
         recTotNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.recTot : null}
         distTotNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.distTot : null}
         tempoZoneNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.tempoZone : null}
-        velMedia={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.velMedia : null}
+        velMediaNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.velMedia : null}
         passoMedioNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.passoMedioNuoto : null}
         densitaNuoto={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.densitaNuoto : null}
         tempoTotNuotoConRec={(nuoto.totaliNuoto) ? nuoto.totaliNuoto.tempoTotNuotoConRec : null} 

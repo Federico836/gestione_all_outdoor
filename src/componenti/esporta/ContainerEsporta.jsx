@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Calendario from './tabelle/Calendario'
 import TabListaFramework from './tabelle/TabListaFramework'
 import TabListaTemplate from './tabelle/TabListaTemplate'
+import TabListaFrameworksMD from './tabelle/TabListaFrameworksMd'
+import TabListaWorkoutsMD from './tabelle/TabListaWorkoutsMd'
 import TabValori from './tabelle/TabValori'
 import Report from './tabelle/Report'
 import BtnCaricaFile from './btnCaricaFile/BtnCaricaFile'
@@ -15,6 +17,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { Button, Checkbox } from "@mui/material"
 import styles from './ContainerEsporta.module.css'
+import SelectTipoEventi from './SelectTipoEventi'
 
 const ContainerEsporta = props => {
     const { setPagina, utente, idUtente, ruoloLoggedUser } = props
@@ -83,6 +86,7 @@ const ContainerEsporta = props => {
     const eventiSelezionati = listaEventi ? listaEventi.filter(evento => evento.start.getTime()>=rangeDateSelect.start.getTime() &&
     evento.start.getTime() < rangeDateSelect.end.getTime()).sort((a, b) => a.start.getTime()-b.start.getTime()) : []
     const listaFramework = useSelector(state => state.frameworks.lista)
+    const listaFrameworksMD = useSelector(state => state.mdFrameworks.lista)
 
     const controlloEventiSelected = () => {
         const frameworkSelezionati = []
@@ -137,6 +141,28 @@ const ContainerEsporta = props => {
         })
     }
 
+    const estraiFitDaEventiSelezionati = (eventiSelezionati,listaFramework) => {
+
+        const fitEvents = eventiSelezionati.filter(ev => ev.extendedProps.mdType === "FIT").map(el => {
+
+            const id = el.extendedProps.mdId
+            const framework = listaFrameworksMD.find(el => el.id === id)
+
+            return {data: el.start, id: el.extendedProps.mdId, framework}
+        })
+
+        return fitEvents
+
+    }
+
+    const handleClickOnButtonFitExport = () => {
+
+        //console.log({eventiSelezionati})
+
+        dispatch({type: 'UPLOAD_TO_GARMIN', payload: eventiSelezionati})
+        //console.log(estraiFitDaEventiSelezionati(eventiSelezionati))
+    }
+
     return (
         <div className={styles.container}>
             {report ? 
@@ -149,7 +175,7 @@ const ContainerEsporta = props => {
                     {/* <Button variant="contained" onClick={() => setPagina("menu_princ")}>{t('main-container:indietro')}</Button> */}
                     {utente ? <BtnCaricaFile testo={"PDF"} /> : null}
                     {!utente ? <Button variant="contained" onClick={eliminaEventiSelected}>{t('esporta:pulisci')}</Button> : null}
-                    {utente ? <IgnoraData testo={"FIT"} /> : null}
+                    {utente ? <IgnoraData testo={"FIT"} handleClickOnButtonFitExport={handleClickOnButtonFitExport}/> : null}
                     {utente ? <div>{utente.nome+" "+utente.cognome}</div> : null}
                 </div> : <div style={{marginTop: "3vh"}}></div>}
 
@@ -160,9 +186,17 @@ const ContainerEsporta = props => {
                     </div>
                     {ruoloLoggedUser==="allenatore" ? 
                     <div style={{position: "relative"}}>
-                        {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> :
-                        <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
+                        <SelectTipoEventi tipoEventi={tipoEventi} setTipoEventi={setTipoEventi}/>
+                        {tipoEventi==="framework" && <TabListaFramework setTipoEventi={setTipoEventi} />}
+                        {tipoEventi === "fit" && <TabListaFrameworksMD setTipoEventi={setTipoEventi} />}
+                        {tipoEventi === "workouts" && <TabListaWorkoutsMD setTipoEventi={setTipoEventi} />}
+                        {tipoEventi === "template" && <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
                         listaEventi={listaEventi ? listaEventi : []} aggiungiTemplateCal={aggiungiTemplateCal} />}
+
+
+                        {/* {tipoEventi==="framework" ? <TabListaFramework setTipoEventi={setTipoEventi} /> : (tipoEventi === "fit") ? <TabListaFrameworksMD setTipoEventi={setTipoEventi} /> :
+                        <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
+                        listaEventi={listaEventi ? listaEventi : []} aggiungiTemplateCal={aggiungiTemplateCal} />} */}
                     </div> : null}
                 </div>
 

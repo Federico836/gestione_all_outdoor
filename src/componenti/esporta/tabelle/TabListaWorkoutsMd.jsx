@@ -5,21 +5,22 @@ import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 import { Draggable } from '@fullcalendar/interaction'
 import { Button } from "@mui/material"
-import styles from './TabListaFrameworkMD.module.css'
+import styles from './TabListaWorkoutsMD.module.css'
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 
-const TabListaFrameworksMD = (props) => {
+const TabListaWorkoutsMD = (props) => {
 
-    const listaFrameworks = useSelector(state => state.mdFrameworks.lista)
+    const listaFrameworks = useSelector(state => state.mdWorkouts.lista)
     const { setTipoEventi } = props
     const { t, i18n } = useTranslation()
     const [ricercaNome, setRicercaNome] = useState("")
-    const listaFrameworksFiltrata = (ricercaNome.length < 1) ? listaFrameworks : listaFrameworks.filter(el => el.nome.toLowerCase().includes(ricercaNome.toLowerCase()))
+    
 
     const lista = []
-    for(let c=0;c<listaFrameworksFiltrata.length;c++) {
+    const listaFrameworksFiltrata = (ricercaNome.length < 1) ? listaFrameworks : listaFrameworks.filter(el => el.nome.toLowerCase().includes(ricercaNome.toLowerCase()))
+    for(let c=0;c<listaFrameworksFiltrata.length;c++) { 
         let coloreRiga = (c%2===0) ? "white" : "lightgray"
         
         lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
@@ -44,7 +45,7 @@ const TabListaFrameworksMD = (props) => {
                     create: true,
                     sourceId: eventEl.getAttribute('sourceId'),
                     mdId: eventEl.getAttribute('sourceId'),
-                    mdType: 'FIT',
+                    mdType: 'W_FIT',
                     id: uuidv4()
                 }
             }
@@ -54,14 +55,20 @@ const TabListaFrameworksMD = (props) => {
     return (
         <div className={styles.container}>
                     <div className={styles.containerCerca}>
-                    <div style={{width: '100%'}}>
+                        <div style={{width: '100%'}}>
                             <TextField fullWidth id="outlined-start-adornment" size="small" onChange={e => setRicercaNome(e.target.value)} label={t('modifica-framework:cerca')}
                                 sx={{ m: 0}}
                                     InputProps={{
                                         startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
                                     }}
                                 />
-                    </div>
+                        </div>
+                {/* <div style={{marginBottom: '10px'}}>
+                    <nobr>
+                        <Button variant="contained" style={{marginRight: '10px'}} onClick={() => setTipoEventi("template")}>Templates</Button>
+                        <Button variant="contained" style={{marginRight: '10px'}} onClick={() => setTipoEventi("framework")}>Frameworks</Button>
+                    </nobr>
+                </div> */}
             </div>
             <div className={styles.containerIntestTab}>
                 <table className={styles.intestazioneTab}>
@@ -81,10 +88,6 @@ const TabListaFrameworksMD = (props) => {
             </div>
         </div>
     )
-
-
-
-
 }
 
-export default TabListaFrameworksMD
+export default TabListaWorkoutsMD

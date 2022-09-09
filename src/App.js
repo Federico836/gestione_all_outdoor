@@ -6,6 +6,7 @@ import { getListaFrameworks } from './redux/actions/FrameworkActions'
 import { getListaEventi } from './redux/actions/EventActions'
 import { getListaTemplate } from './redux/actions/TemplateActions'
 import {getMDFrameworks} from './redux/actions/MDFrameworksActions'
+import { getMDWorkouts} from './redux/actions/MDWorkoutsActions'
 import {useEffect} from 'react'
 import i18n from 'i18next'
 
@@ -25,6 +26,7 @@ function App() {
     dispatch(getListaEventi(idUtente))
     dispatch(getListaTemplate(coach_id))
     dispatch(getMDFrameworks())
+    dispatch(getMDWorkouts(idUtente))
   }, [])
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import pdf from './PdfReducer'
 import riferimenti from './RiferimentiReducer'
 import soglia from './SogliaReducer'
 import mdFrameworks from './MDFrameworksReducer'
+import mdWorkouts from './MDWorkoutsReducer'
 
 const reducers = {
     workouts,
@@ -16,7 +17,8 @@ const reducers = {
     pdf,
     riferimenti,
     soglia,
-    mdFrameworks
+    mdFrameworks,
+    mdWorkouts
 
 }
 
