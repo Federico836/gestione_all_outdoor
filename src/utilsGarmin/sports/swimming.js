@@ -18,6 +18,9 @@ const {convertToGarminBaseWorkout} = require('../baseWorkout')
 
 const getSwimmingSteps = (workout) => {
 
+
+    
+
     let steps = []
 
 

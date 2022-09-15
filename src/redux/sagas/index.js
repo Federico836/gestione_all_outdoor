@@ -1,5 +1,6 @@
 import { call, put, takeEvery, takeLatest, all, actionChannel } from 'redux-saga/effects'
 import api from '../../api'
+import garmin from '../../api/garmin'
 import { setListaFrameworks, getListaFrameworks } from '../actions/FrameworkActions'
 import { getListaEventi, setListaEventi } from '../actions/EventActions'
 import { getListaTemplate, setListaTemplate } from '../actions/TemplateActions'
@@ -11,6 +12,7 @@ import {select} from 'redux-saga/effects'
 import i18n from 'i18next'
 import convertWorkoutInGarminFormat from '../../utilsGarmin/index'
 import {workoutSportType} from '../../utilsGarmin/const'
+import transform from '../../mdwifi/services/Transforms'
 
 // FRAMEWORK
 
@@ -225,37 +227,150 @@ export function* getListaMDWorkouts(action) {
 }
 
 
+export function* uploadFrameworkToGarmin(action) {
+
+    if(!action || !action.payload) return
+
+    const {payload} = action
+    const {framework, user_id,date} = payload
+
+    if(!framework || !user_id) return
+
+    let workout = null
+
+   
+    if(framework.tipoPerSelect === 'ciclismo') workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,framework)
+    if(framework.tipoPerSelect === 'corsa') workout = convertWorkoutInGarminFormat(workoutSportType.RUNNING,framework)
+    if(framework.tipoPerSelect === 'nuoto') workout = convertWorkoutInGarminFormat(workoutSportType.LAP_SWIMMING,framework)
+
+    const response =  yield call(garmin.upload,user_id,workout)
+    const uploaded_workout = response.data
+
+    if(date && uploaded_workout.workoutId) {
+        const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)
+        console.log(schedule_response.data)
+    }
+    
+}
 export function* uploadToGarmin(action) {
 
     if(!action || !action.payload) return
 
-    const {payload: events} = action
+    const {payload} = action
+    const {events, user_id} = payload
+
+    if(!events || !user_id) return
 
     const lista = yield select(selectors.frameworks)
-    const workout = null
+    const listaFit = yield select(selectors.fit_frameworks)
 
-    try {
-        events.forEach(ev => {
+    
+    
+    events.forEach((ev,index) => { 
+        
+        
+        const frame = (ev.extendedProps.mdType === 'FIT') 
+        ? listaFit.find(el => el.id === ev.extendedProps.mdId)
+        : lista.find(el => el.id === ev.extendedProps.mdId)
+        
+        
+        if(!frame) return
 
-            if(ev.extendedProps.mdType === 'ciclismo') {
-                const frame = lista.find(el => el.id === ev.extendedProps.mdId)
-                const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,frame)
-                console.log({ev,frame,workout})
-            }
+         if(ev.extendedProps.mdType === 'FIT') {
+            setTimeout(() => {
+                console.log({FIT: frame})
+                put({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(ev.start).toISOString()}})
+            },100) 
+         }
+         else {
+            setTimeout(() => {
+                console.log({WKT: frame})
+                put({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(ev.start).toISOString()}})
+            },100)
+         }
 
-        })
-    } catch (error) {
-        return
+
+    })
+
+
+    
+    /* const cycling_event = events.find(ev => ev.extendedProps.mdType === 'ciclismo')
+    const running_event = events.find(ev => ev.extendedProps.mdType === 'corsa')
+    const swimming_event = events.find(ev => ev.extendedProps.mdType === 'nuoto')
+    const fit_event = events.find(ev => ev.extendedProps.mdType === 'FIT') */
+    
+    
+    /* if(cycling_event) {
+
+        const frame = lista.find(el => el.id === cycling_event.extendedProps.mdId)
+        if(!frame) return
+        yield put({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(cycling_event.start).toISOString()}})
+
+        
     }
 
-    return;
+    if(running_event) {
 
-    /* const response = yield call(api.uploadToGarmin, workout)
-    const { data } = response */
+        return
 
+        const frame = lista.find(el => el.id === running_event.extendedProps.mdId)
+        if(!frame) return
+        yield put({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id,date}})
+
+        
+
+    }
+    if(swimming_event) {
+
+        return
+
+        const frame = lista.find(el => el.id === swimming_event.extendedProps.mdId)  
+        if(!frame) return
+        yield put({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id,date}})
+        
+
+    }
+
+
+    if(fit_event) {
+        const frame = listaFit.find(el => el.id === fit_event.extendedProps.mdId)
+        if(!frame) return
+        yield put({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(fit_event.start).toISOString()}})
+    } */
 
 
 }
+
+export function* uploadFitToGarmin(action) {
+
+    if(!action || !action.payload) return
+
+    const {payload} = action
+    const {framework,user_id,date} = payload
+    const {id} = framework
+
+    const resp = yield call(api.getMDFrameworkByID,id)
+
+    const {data} = resp
+    const {scheletro,dati} = data
+    const nome = scheletro[0].nome
+
+    
+    const w = transform.transformCsvArrToWorkout(dati)
+    const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,{...w,nome},true)
+    const response =  yield call(garmin.upload,user_id,workout)
+    const uploaded_workout = response.data
+
+    console.log({uploaded_workout,framework})
+
+    if(date && uploaded_workout.workoutId) {
+        const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)
+        console.log(schedule_response.data)
+    }
+
+}
+
+
 
 function* rootSaga() {
     yield takeLatest('GET_LISTA_FRAMEWORKS', getFrameworks)
@@ -282,6 +397,8 @@ function* rootSaga() {
     yield takeLatest('GET_MD_WORKOUTS',getListaMDWorkouts)
 
     yield takeLatest('UPLOAD_TO_GARMIN', uploadToGarmin)
+    yield takeEvery('UPLOAD_FRAMEWORK_TO_GARMIN', uploadFrameworkToGarmin)
+    yield takeEvery('UPLOAD_FIT_TO_GARMIN', uploadFitToGarmin)
 }
 
 export default rootSaga

@@ -13,16 +13,18 @@ import Intestazione from "./tabelle/Intestazione.jsx"
 import { Button } from "@mui/material"
 import styles from './Ciclismo.module.css'
 
+import AddRow from '../../ScritturaModifica/componenti/AddRow'
+
 const Ciclismo = props => {
 
     const dispatch = useDispatch()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, percZona: "", serie: "", ripetizioni: "", recupero: "0:00",
-    rpm: "", note: "", durata: "0:00", wattPerc: "", fcPerc: "", durationType: "TIME", intensity: "WARMUP", targetType: "PERCENT_HR", distanza: "", calorie: ""})
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: 1, percZona: "", serie: "1", ripetizioni: "1", recupero: "1:00",
+    rpm: "", note: "", durata: "1:00", wattPerc: "", fcPerc: "", durationType: "TIME", intensity: "WARMUP", targetType: "PERCENT_HR", distanza: "", calorie: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
-    const [ftp, setFtp] = useState(0)
-    const [fc, setFc] = useState(0)
+    const [ftp, setFtp] = useState(250)
+    const [fc, setFc] = useState(180)
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
     const [noteAll, setNoteAll] = useState("")
@@ -94,6 +96,9 @@ const Ciclismo = props => {
 
             <TabCiclismoAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} />
+
+            {/* <AddRow aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
+            setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} /> */}
 
             <TabCiclismoDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
             setModificaRiga={setModificaRiga} />

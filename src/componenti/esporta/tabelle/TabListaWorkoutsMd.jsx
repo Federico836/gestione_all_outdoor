@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 import { Draggable } from '@fullcalendar/interaction'
@@ -9,12 +9,16 @@ import styles from './TabListaWorkoutsMD.module.css'
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import IconButton from '@mui/material/IconButton';
 
 const TabListaWorkoutsMD = (props) => {
 
     const listaFrameworks = useSelector(state => state.mdWorkouts.lista)
     const { setTipoEventi } = props
     const { t, i18n } = useTranslation()
+    const dispatch = useDispatch()
+
     const [ricercaNome, setRicercaNome] = useState("")
     
 

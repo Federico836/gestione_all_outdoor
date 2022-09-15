@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,9 +15,11 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import IconButton from '@mui/material/IconButton';
 
 const TabListaFramework = props => {
-    const { setTipoEventi } = props
+    const { setTipoEventi,idUtente } = props
 
     const [tipoSport, setTipoSport] = useState("tutti")
     const [ricercaNome, setRicercaNome] = useState("")
@@ -25,6 +27,7 @@ const TabListaFramework = props => {
     const [secClickOrd, setSecClickOrd] = useState(false)
 
     const { t, i18n } = useTranslation()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setSecClickOrd(false)
@@ -67,12 +70,15 @@ const TabListaFramework = props => {
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
             <td>{listaFiltrataNome[c].dataDaFare}</td>
+            <td>{(listaFiltrataNome[c].tipoPerSelect === "ciclismo" || listaFiltrataNome[c].tipoPerSelect === "corsa") && 
+            <IconButton onClick={() => dispatch({type: "UPLOAD_FRAMEWORK_TO_GARMIN", payload: {framework: listaFiltrataNome[c], user_id: idUtente}})}><UploadFileIcon/></IconButton>}</td>
         </tr>)
     }
 
     lista.unshift(<tr style={{backgroundColor: "lightgray"}} className="rigaDrag" title="MagneticDays"
     tipoSport="rullo" sourceId={999}>
         <td>{"MagneticDays"}</td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -183,6 +189,7 @@ const TabListaFramework = props => {
                                 "↑ "+t('modifica-framework:data-salvataggio') : t('modifica-framework:data-salvataggio')}</th>
                                 
                             <th>{t('modifica-framework:data-da-fare')}</th>
+                            <th>Upload</th>
                         </tr>
                     </thead>
                 </table>

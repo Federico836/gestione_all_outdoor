@@ -12,6 +12,17 @@ const api_workouts = create({
 
 
 
-const upload = (user_id,workout) => {return api_workouts.post('/garmin/endpoints/training.php',qs.stringify({user_id,workout: JSON.stringify(workout)}))}
+const upload = (user_id,workout) => { 
+    console.log({user_id,workout}); 
+    
+    return api_workouts.post('/garmin/endpoints/training.php',qs.stringify({user_id,workout: JSON.stringify(workout)}))
+  
+}
 
-export default {upload}
+const schedule = (user_id,workout_id,date) => {
+
+  return api_workouts.post('/garmin/endpoints/workout_schedule.php?user_id=' + user_id + '&workout_id=' + workout_id + '&date=' + date)
+
+}
+
+export default {upload, schedule}

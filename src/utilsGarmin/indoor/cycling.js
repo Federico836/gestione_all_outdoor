@@ -104,7 +104,7 @@ const workout = {
     steps
 }
 
-const preparaSteps = (steps) => {
+const preparaSteps = (steps,ftp = (window.md.logged_user.ftp || 200)) => {
 
     let new_steps = []
 
@@ -115,8 +115,8 @@ const preparaSteps = (steps) => {
         }
         else if(el.data && el.data.type === "PROG. W") {
 
-            const {progressionStartWatt,
-            progressionEndWatt,
+            const {progressionStartWatt: startWatt,
+            progressionEndWatt: endWatt,
             progressionStepWatt,
             progressionStepWattTime,
             description = '',
@@ -126,6 +126,10 @@ const preparaSteps = (steps) => {
 
             let currWatt = 0
 
+            const progressionStartWatt = null//(progressionStartWattPercent && Number(progressionStartWattPercent) > 0) ? (progressionStartWattPercent / 100)*ftp : startWatt
+            const progressionEndWatt = null//(progressionEndWattPercent && Number(progressionEndWattPercent) > 0) ? (progressionEndWattPercent / 100)*ftp : endWatt
+
+
             if(progressionStartWatt && progressionEndWatt) {
 
                 const wDiff = Number(progressionStartWatt) - Number(progressionEndWatt)
@@ -134,6 +138,7 @@ const preparaSteps = (steps) => {
                     new_steps.push({
                         data: {
                             watt: Number(progressionStartWatt),
+                            percent: Number(Math.round((progressionStartWatt/ftp)*100)),
                             description: description,
                             duration: Number(progressionStepWattTime),
                             type: 'AUTO'
@@ -150,6 +155,7 @@ const preparaSteps = (steps) => {
                         new_steps.push({
                             data: {
                                 watt: Number(currWatt),
+                                percent: Number(Math.round((currWatt/ftp)*100)),
                                 description: description,
                                 duration: Number(progressionStepWattTime),
                                 type: 'AUTO'
@@ -167,6 +173,7 @@ const preparaSteps = (steps) => {
                         new_steps.push({
                             data: {
                                 watt: Number(currWatt),
+                                percent: Number(Math.round((currWatt/ftp)*100)),
                                 description: description,
                                 duration: Number(progressionStepWattTime),
                                 type: 'AUTO'
@@ -274,7 +281,9 @@ const stepSlope = (step,i) => {
 const getCyclingSteps = (workout) => {
 
 
-    const steps = preparaSteps(workout.steps)
+    const steps = preparaSteps(workout.steps.map(el => {return {data: el}}))
+
+    console.log({steps})
 
    return steps.map((step,index) => {
 
@@ -298,9 +307,10 @@ const getCyclingSteps = (workout) => {
 
 const convertToIndoorCyclingWorkout = (workout) => {
 
+
     return {
         sport: workoutSportType.CYCLING,
-        ...convertToGarminBaseWorkout({nomeFramework: workout.name}),
+        ...convertToGarminBaseWorkout({nomeFramework: workout.nome}),
         steps: getCyclingSteps(workout)
     }
 }

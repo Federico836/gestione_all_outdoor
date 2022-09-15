@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 import { Draggable } from '@fullcalendar/interaction'
@@ -9,12 +9,16 @@ import styles from './TabListaFrameworkMD.module.css'
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import IconButton from '@mui/material/IconButton';
 
 const TabListaFrameworksMD = (props) => {
 
     const listaFrameworks = useSelector(state => state.mdFrameworks.lista)
-    const { setTipoEventi } = props
+    const { setTipoEventi,idUtente } = props
     const { t, i18n } = useTranslation()
+    const dispatch = useDispatch()
+
     const [ricercaNome, setRicercaNome] = useState("")
     const listaFrameworksFiltrata = (ricercaNome.length < 1) ? listaFrameworks : listaFrameworks.filter(el => el.nome.toLowerCase().includes(ricercaNome.toLowerCase()))
 
@@ -25,6 +29,7 @@ const TabListaFrameworksMD = (props) => {
         lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
         tipoSport={"ciclismo"} sourceId={listaFrameworksFiltrata[c].id}>
             <td>{listaFrameworksFiltrata[c].nome}</td>
+            <td><IconButton onClick={() => dispatch({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente}})}><UploadFileIcon/></IconButton></td>
         </tr>)
     }
 
@@ -68,6 +73,7 @@ const TabListaFrameworksMD = (props) => {
                     <thead>
                         <tr>
                             <th>Nome</th>
+                            <th>Upload</th>
                         </tr>
                     </thead>
                 </table>

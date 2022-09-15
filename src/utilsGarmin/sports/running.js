@@ -25,8 +25,32 @@ const getRunningSteps = (workout) => {
     let index = 0;
     listaRighe.forEach(step => {
 
-        const {zona: ZONA,serie: ser,ripetizioni: rip,distanza,recupero,tempo,passoMin,passoMax,note,passoMedia} = step 
+        const {zona: ZONA,serie,ripetizioni,distanza,recupero,tempo,passoMin,passoMax,note,passoMedia, intensity,durationType,targetType} = step 
         const {zona,descrizione,min,max} = ZONA
+
+        const rip = Number(ripetizioni) || 1
+        const ser = Number(serie) || 1
+        const description = note || ''
+
+        /* const getStepDurationValue = (durationType) => {
+
+          if(durationType === stepDurationType.TIME) return Number(convertStringToSeconds(durata))
+          else if(durationType === stepDurationType.DISTANCE) return Number(convertStringToSeconds(distanza))
+          else if(durationType === stepDurationType.CALORIES) return Number(convertStringToSeconds(calorie))
+          else if(durationType === stepDurationType.HR_LESS_THAN) return Number(convertStringToSeconds(percZona))
+          return null
+      }
+
+      const getStepTargetTypeAndValue = (targetType) => {
+
+          if(targetType === 'PERCENT_HR') return {type: stepTargetType.HEART_RATE, value: Number(percZona), valueType: 'PERCENT'}
+          if(targetType === 'PERCENT_WATT') return {type: stepTargetType.POWER, value: Number(percZona), valueType: 'PERCENT'}
+          if(targetType === 'ZONE_HR') return {type: stepTargetType.HEART_RATE, value: Number(zona),valueType: null}
+          if(targetType === 'ZONE_W') return {type: stepTargetType.POWER, value: Number(zona),valueType: null}
+          if(targetType === 'CADENCE') return {type: stepTargetType.CADENCE, value: Number(rpm),valueType: null}
+
+      } */
+
         for(let i = 0; i < rip*ser; i++) {
             steps.push({
                 type: workoutStepType.WorkoutStep,

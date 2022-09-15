@@ -10203,6 +10203,11 @@ react-transition-group@^4.4.2:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-use-window-sessionstorage@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/react-use-window-sessionstorage/-/react-use-window-sessionstorage-1.0.10.tgz#485782ee19c3b3520eebc1721f0d7f0eb9c191da"
+  integrity sha512-udCGKGNqWzeUdcVI+UbXECoYZ0DDTnseF9d+K/vz/QhxdlyoF6a0/sRBR2EnMZuFmy98Q0Pkk3SUE4Hm04Tz7A==
+
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"

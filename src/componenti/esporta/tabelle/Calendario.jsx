@@ -96,7 +96,7 @@ const Calendario = props => {
             // selezione e modifica eventi
             droppable={true} events={events} editable={true} eventClick={eventClick}
             selectable={true} select={selectionInfo => setRangeDateSelect(selectionInfo)}
-            eventChange={rimpiazzaEvento} firstDay={1} />
+            eventChange={rimpiazzaEvento} firstDay={1} timeZone="UTC" />
         </div>
     )
 }

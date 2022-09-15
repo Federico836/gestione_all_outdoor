@@ -11,6 +11,7 @@ const axios_instance = axios.create({
 
 const getMDFrameworks = () => {return axios.get('https://www.magneticdays.com/api/md/get_elenco_scheletri/?auth_cookie=' + window.md.cookie)}
 const getMDWorkouts = (user_id) => {return axios.get('https://www.magneticdays.com/api/md/get_elenco_allenamenti_da_eseguire/?id_utente=' + user_id)}
+const getMDFrameworkByID = (id) => {return axios.get('https://www.magneticdays.com/api/md/get_scheletro/?id_scheletro='+ id + '&auth_cookie=' + window.md.cookie)}
 
 const getFrameworks = (coach_id) => {if(coach_id) {return axios_instance.get('frameworks/' + coach_id) } else {return axios_instance.get('frameworks')}}
 const postFramework = framework => {return axios_instance.post('frameworks', {dati: JSON.stringify({...framework}), coach_id: window.md.logged_user.ID})}
@@ -40,12 +41,12 @@ const postTest = payload => { const {test, user_id} = payload; return axios_inst
 const deleteTest = dbid => {return axios_instance.delete('tests/' + dbid)}
 const updateTest = payload => { const {test, user_id, testId} = payload; return axios_instance.put('/tests/' + testId, {dati: JSON.stringify({...test}), coach_id: window.md.logged_user.ID, user_id})}
 
-const uploadToGarmin = payload => { }
+
 
 
 export default { getFrameworks, postFramework, deleteFramework, updateFramework,
     getEvents, postEvent, deleteEvent, updateEvent,
     getTemplates, postTemplate, deleteTemplate, updateTemplate,
     getSoglia, postSoglia, deleteSoglia, updateSoglia, getTests, postTest, deleteTest, updateTest,getMDFrameworks,getMDWorkouts,
-    uploadToGarmin
+    getMDFrameworkByID
 }

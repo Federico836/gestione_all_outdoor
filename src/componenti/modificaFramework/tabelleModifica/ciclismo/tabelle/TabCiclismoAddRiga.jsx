@@ -47,7 +47,7 @@ const TabCiclismoAddRiga = (props) => {
                         <th style={{textAlign: 'center'}}>%</th>
                         <th style={{textAlign: 'center'}}>Watt</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:fc')}</th>
-                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:serie')}</th>
+                        {/* <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:serie')}</th> */}
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:ripetizioni')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:tempo')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:ciclismo:recupero')}</th>
@@ -100,7 +100,7 @@ const TabCiclismoAddRiga = (props) => {
                             <td><input disabled={(datiSingolaRiga.targetType !== "PERCENT_HR" && datiSingolaRiga.targetType !== "PERCENT_WATT")} type="number" min="0" value={datiSingolaRiga.percZona} onChange={e => setDatiSingolaRiga({...datiSingolaRiga, percZona: e.target.value})} /></td>
                             <td><input type="text" min="0" value={(datiSingolaRiga.targetType === 'PERCENT_WATT' || datiSingolaRiga.targetType === 'ZONE_W') ? zonaWatt : ''} /></td>
                             <td><input type="text" min="0" value={(datiSingolaRiga.targetType === 'PERCENT_HR' || datiSingolaRiga.targetType === 'ZONE_HR') ? zonaFc : ''} /></td>
-                            <td><input type="number" min="0" value={datiSingolaRiga.serie} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td>
+                            {/* <td><input type="number" min="0" value={datiSingolaRiga.serie} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td> */}
                             <td><input type="number" min="0" value={datiSingolaRiga.ripetizioni} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, ripetizioni: e.target.value})}} /></td>
                             {/* <td><input type="time" value={datiSingolaRiga.durata} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} /></td> */}
                             <td><input type="text" onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, durata: e.target.value})}} onBlur={onBlurDurata} value={datiSingolaRiga.durata} /></td>

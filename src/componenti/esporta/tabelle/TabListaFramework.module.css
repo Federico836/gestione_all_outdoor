@@ -58,6 +58,9 @@
 .tabListaFramework tr td:nth-child(3) {
     width: 10vw;
 }
+.tabListaFramework tr td:nth-child(4) {
+    width: 10vw;
+}
 .tabListaFramework tr td:last-child {
     border-right: 0px;
     width: 8vw;
@@ -105,6 +108,10 @@
     border-right: 1px solid black;
 }
 .intestazioneTab tr th:nth-child(3) {
+    width: 10vw;
+    border-right: 1px solid black;
+}
+.intestazioneTab tr th:nth-child(4) {
     width: 10vw;
     border-right: 1px solid black;
 }

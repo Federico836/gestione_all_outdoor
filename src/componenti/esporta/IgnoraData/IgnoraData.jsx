@@ -14,7 +14,7 @@ const IgnoraData = props => {
             <Button variant="contained" component="span" style={{height: "100%"}} onClick={() => {handleClickOnButtonFitExport()}}>
                 {t('esporta:carica')} {testo}
             </Button>
-            <Checkbox />{t('esporta:ignora-data')}
+            {/* <Checkbox />{t('esporta:ignora-data')} */}
         </div>
     )
 }

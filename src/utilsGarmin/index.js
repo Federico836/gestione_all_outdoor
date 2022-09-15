@@ -9,7 +9,7 @@ import {workoutSportType} from './const'
 
 const convertWorkout = (type,workout, indoor = false) => {
 
-    if(!type || !workout || !workout.listaRighe) return null
+    if(!type || !workout || (!indoor && !workout.listaRighe)) return null
 
     if(indoor) return convertToIndoorCyclingWorkout(workout)
 

@@ -157,9 +157,41 @@ const ContainerEsporta = props => {
 
     const handleClickOnButtonFitExport = () => {
 
-        //console.log({eventiSelezionati})
+       
 
-        dispatch({type: 'UPLOAD_TO_GARMIN', payload: eventiSelezionati})
+        eventiSelezionati.forEach((ev,index) => { 
+        
+        
+            const frame = (ev.extendedProps.mdType === 'FIT') 
+            ? listaFrameworksMD.find(el => el.id === ev.extendedProps.mdId)
+            : listaFramework.find(el => el.id === ev.extendedProps.mdId)
+            
+            
+            if(!frame) return
+    
+             if(ev.extendedProps.mdType === 'FIT') {
+                setTimeout(() => {
+                    console.log({FIT: frame})
+                    dispatch({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id: idUtente,date: new Date(ev.start).toISOString()}})
+                },250 + 100*index) 
+             }
+             else {
+                setTimeout(() => {
+                    console.log({WKT: frame})
+                    dispatch({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id: idUtente,date: new Date(ev.start).toISOString()}})
+                },250 + 150*index)
+             }
+    
+    
+        })
+
+
+
+
+
+
+
+        //dispatch({type: 'UPLOAD_TO_GARMIN', payload: {events: eventiSelezionati,user_id: idUtente}})
         //console.log(estraiFitDaEventiSelezionati(eventiSelezionati))
     }
 
@@ -187,9 +219,9 @@ const ContainerEsporta = props => {
                     {ruoloLoggedUser==="allenatore" ? 
                     <div style={{position: "relative"}}>
                         <SelectTipoEventi tipoEventi={tipoEventi} setTipoEventi={setTipoEventi}/>
-                        {tipoEventi==="framework" && <TabListaFramework setTipoEventi={setTipoEventi} />}
-                        {tipoEventi === "fit" && <TabListaFrameworksMD setTipoEventi={setTipoEventi} />}
-                        {tipoEventi === "workouts" && <TabListaWorkoutsMD setTipoEventi={setTipoEventi} />}
+                        {tipoEventi==="framework" && <TabListaFramework idUtente={idUtente} setTipoEventi={setTipoEventi} />}
+                        {tipoEventi === "fit" && <TabListaFrameworksMD idUtente={idUtente} setTipoEventi={setTipoEventi} />}
+                        {tipoEventi === "workouts" && <TabListaWorkoutsMD idUtente={idUtente} setTipoEventi={setTipoEventi} />}
                         {tipoEventi === "template" && <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
                         listaEventi={listaEventi ? listaEventi : []} aggiungiTemplateCal={aggiungiTemplateCal} />}
 
