@@ -19,4 +19,4 @@ const convertStringToSeconds = (time_string) => {
 
 }
 
-module.exports = {convertStringToSeconds}
+export {convertStringToSeconds}

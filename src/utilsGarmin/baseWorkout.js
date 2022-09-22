@@ -1,4 +1,4 @@
-const {workoutProvider} = require('./const')
+import {workoutProvider} from './const'
 
 const convertToGarminBaseWorkout = (workout) => {
 
@@ -15,4 +15,4 @@ const convertToGarminBaseWorkout = (workout) => {
     return garminWorkout
 }
 
-module.exports = {convertToGarminBaseWorkout}
+export {convertToGarminBaseWorkout}

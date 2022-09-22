@@ -1,17 +1,13 @@
-const {
-    workoutProvider,
+import {
     workoutSportType,
     workoutStepType,
-    stepRepeatType,
-    stepIntensityType,
     stepDurationType,
-    stepTargetType,
-    stepTargetValueType,
-} = require('../const')
+    stepTargetType
+} from '../const'
 
-const {convertToGarminBaseWorkout} = require('../baseWorkout')
-const {convertStringToSeconds} = require('../utils')
-const { BorderVertical } = require('@mui/icons-material')
+import {convertToGarminBaseWorkout} from '../baseWorkout'
+import {convertStringToSeconds} from '../utils'
+
 
 const getCyclingSteps = (workout) => {
 
@@ -31,9 +27,9 @@ const getCyclingSteps = (workout) => {
         const getStepDurationValue = (durationType) => {
 
             if(durationType === stepDurationType.TIME) return Number(convertStringToSeconds(durata))
-            else if(durationType === stepDurationType.DISTANCE) return Number(convertStringToSeconds(distanza))
-            else if(durationType === stepDurationType.CALORIES) return Number(convertStringToSeconds(calorie))
-            else if(durationType === stepDurationType.HR_LESS_THAN) return Number(convertStringToSeconds(percZona))
+            else if(durationType === stepDurationType.DISTANCE) return Number(distanza)
+            else if(durationType === stepDurationType.CALORIES) return Number(calorie)
+            else if(durationType === stepDurationType.HR_LESS_THAN) return Number(percZona)
             return null
         }
 
@@ -44,6 +40,7 @@ const getCyclingSteps = (workout) => {
             if(targetType === 'ZONE_HR') return {type: stepTargetType.HEART_RATE, value: Number(zona),valueType: null}
             if(targetType === 'ZONE_W') return {type: stepTargetType.POWER, value: Number(zona),valueType: null}
             if(targetType === 'CADENCE') return {type: stepTargetType.CADENCE, value: Number(rpm),valueType: null}
+            if(targetType === 'OPEN') return {type: stepTargetType.OPEN, value: Number(rpm),valueType: null}
 
         }
 
@@ -84,6 +81,6 @@ const convertToCyclingWorkout = (workout) => {
     }
 }
 
-module.exports = {
+export {
     convertToCyclingWorkout
 }

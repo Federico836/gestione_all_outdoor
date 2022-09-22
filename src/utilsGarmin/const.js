@@ -144,7 +144,7 @@ const stepWeightDisplayUnit = {
     POUND: 'POUND'
 }
 
-module.exports = {
+export {
     workoutProvider,
     workoutSportType,
     workoutStepType,

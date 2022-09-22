@@ -246,6 +246,10 @@ export function* uploadFrameworkToGarmin(action) {
     const response =  yield call(garmin.upload,user_id,workout)
     const uploaded_workout = response.data
 
+    console.log({uploaded_workout,workout})
+    
+    if(uploaded_workout.workoutId) yield put({type: 'FRAMEWORK_UPLOADED', payload: {id: framework.id}})
+
     if(date && uploaded_workout.workoutId) {
         const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)
         console.log(schedule_response.data)
@@ -361,7 +365,8 @@ export function* uploadFitToGarmin(action) {
     const response =  yield call(garmin.upload,user_id,workout)
     const uploaded_workout = response.data
 
-    console.log({uploaded_workout,framework})
+    console.log({uploaded_workout,workout})
+    if(uploaded_workout.workoutId) yield put({type: 'FIT_UPLOADED', payload: {id: framework.id}})
 
     if(date && uploaded_workout.workoutId) {
         const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)

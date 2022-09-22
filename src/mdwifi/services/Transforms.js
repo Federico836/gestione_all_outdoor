@@ -225,14 +225,16 @@ const transformToStepAutoWatt = (
   if (baseStep.duration === 0) {
     return null;
   }
-  const watt: number =
-    parseInt(stepArray[appConst.step.csvIndex.WATT], 10) || 0;
+  const watt = parseInt(stepArray[appConst.step.csvIndex.WATT], 10) || 0;
+  const zona = Number(stepArray[15])
+  
   return {
     ...baseStep,
     type: appConst.step.types.AUTO_WATT,
     activityType: appConst.step.activityTypes.AUTO_WATT,
     watt: watt,
     offsetAllowed: !baseStep.offsetTableUse,
+    zona
   };
 };
 const transformToStepZone = (
@@ -854,6 +856,8 @@ const transformToStepBPM = (
 ): ?WorkoutStepBPM => {
   const bpmTmp = stepArray[appConst.step.csvIndex.BPM];
   const bpmReference = Number(bpmTmp) || 0;
+  const zona = Number(stepArray[15])
+  const bpmPercent = Number(stepArray[16])
   return {
     ...transformToStepBase(stepArray),
     type: appConst.step.types.BPM,
@@ -866,6 +870,9 @@ const transformToStepBPM = (
     nextStepsDuration: heart.nextStepsDuration,
     coefficient: heart.coefficient,
     halve: heart.halve,
+    zona,
+    bpmPercent
+    
   };
 };
 const transformToStepTestPI = (

@@ -26,7 +26,7 @@ const TabListaFrameworksMD = (props) => {
     for(let c=0;c<listaFrameworksFiltrata.length;c++) {
         let coloreRiga = (c%2===0) ? "white" : "lightgray"
         
-        lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
+        lista.push(<tr style={{backgroundColor: (listaFrameworksFiltrata[c].uploaded) ? '#00c291' : coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
         tipoSport={"ciclismo"} sourceId={listaFrameworksFiltrata[c].id}>
             <td>{listaFrameworksFiltrata[c].nome}</td>
             <td><IconButton onClick={() => dispatch({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente}})}><UploadFileIcon/></IconButton></td>

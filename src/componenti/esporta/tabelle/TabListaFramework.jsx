@@ -17,6 +17,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import IconButton from '@mui/material/IconButton';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 const TabListaFramework = props => {
     const { setTipoEventi,idUtente } = props
@@ -25,6 +31,7 @@ const TabListaFramework = props => {
     const [ricercaNome, setRicercaNome] = useState("")
     const [tipoOrd, setTipoOrd] = useState("tipo")
     const [secClickOrd, setSecClickOrd] = useState(false)
+    const [uploadConfirmOpen,setUploadConfirmOpen] = useState(false)
 
     const { t, i18n } = useTranslation()
     const dispatch = useDispatch()
@@ -33,9 +40,20 @@ const TabListaFramework = props => {
         setSecClickOrd(false)
     }, [tipoOrd])
 
+    
+
     const listaFramework = useSelector(state => state.frameworks.lista)
     const listaFiltrataTipo = tipoSport==="tutti" ? listaFramework : listaFramework.filter(frame => frame.tipoPerSelect===tipoSport)
     const listaFiltrataNome = ricercaNome ==="" ? listaFiltrataTipo : listaFiltrataTipo.filter(frame => frame.nomeFramework.includes(ricercaNome))
+
+
+    /* useEffect(() => {
+        if(listaFramework.filter(el => el.uploaded).length > 0) {
+            setUploadConfirmOpen(true)
+        }
+    },[listaFramework]) */
+
+    
 
     if(tipoOrd === "tipo") {
         if(secClickOrd) {
@@ -49,6 +67,7 @@ const TabListaFramework = props => {
         } else {
             listaFiltrataNome.sort((a, b) => b.nomeFramework.localeCompare(a.nomeFramework))
         }
+
     } else if(tipoOrd === "data") {
         if(secClickOrd) {
             listaFiltrataNome.sort((a, b) => a.dataCreazione - b.dataCreazione)
@@ -64,14 +83,14 @@ const TabListaFramework = props => {
             coloreRiga = "white"
         }
 
-        lista.push(<tr style={{backgroundColor: coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
+        lista.push(<tr style={{backgroundColor: (listaFiltrataNome[c].uploaded) ? '#00c291' : coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
         tipoSport={listaFiltrataNome[c].tipoPerSelect} sourceId={listaFiltrataNome[c].id}>
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>
             <td>{new Date(listaFiltrataNome[c].dataCreazione).toISOString().slice(0, 10)}</td>
             <td>{listaFiltrataNome[c].dataDaFare}</td>
             <td>{(listaFiltrataNome[c].tipoPerSelect === "ciclismo" || listaFiltrataNome[c].tipoPerSelect === "corsa") && 
-            <IconButton onClick={() => dispatch({type: "UPLOAD_FRAMEWORK_TO_GARMIN", payload: {framework: listaFiltrataNome[c], user_id: idUtente}})}><UploadFileIcon/></IconButton>}</td>
+            <IconButton disabled={listaFiltrataNome[c].uploaded} onClick={() => dispatch({type: "UPLOAD_FRAMEWORK_TO_GARMIN", payload: {framework: listaFiltrataNome[c], user_id: idUtente}})}><UploadFileIcon/></IconButton>}</td>
         </tr>)
     }
 
@@ -133,75 +152,78 @@ const TabListaFramework = props => {
     }, [])
 
     return (
-        <div className={styles.container}>
-            <div className={styles.containerCerca}>
-                <div style={{marginBottom: '10px', width: '40%'}}>
-                    
-                        {/* <Button variant="contained" style={{marginRight: '10px'}}
-                            onClick={() => setTipoEventi("template")}>Framework</Button>
-                        <Button variant="contained" onClick={() => setTipoEventi("fit")} style={{marginRight: '10px'}}>FIT</Button> */}
-                        <FormControl size="small" fullWidth>
-                            <InputLabel id="demo-simple-select-label">Sport</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={tipoSport}
-                            label="Sport"
-                            onChange={e => setTipoSport(e.target.value)}
-                            fullWidth
-                            >
-                                <MenuItem value="ciclismo">{t('scrivi-framework:ciclismo:ciclismo')}</MenuItem>
-                                <MenuItem value="corsa">{t('scrivi-framework:corsa:corsa')}</MenuItem>
-                                <MenuItem value="nuoto">{t('scrivi-framework:nuoto:nuoto')}</MenuItem>
-                                <MenuItem value="palestra">{t('scrivi-framework:palestra:palestra')}</MenuItem>
-                                <MenuItem value="combinati_tri">{t('scrivi-framework:combinati-tri:combinati-tri')}</MenuItem>
-                                <MenuItem value="altri">{t('scrivi-framework:sport:altri')}</MenuItem>
-                                <MenuItem value="tutti">{t('modifica-framework:tutti')}</MenuItem>
-                            </Select>
-                        </FormControl>
-                    
+        <>
+            <div className={styles.container}>
+                <div className={styles.containerCerca}>
+                    <div style={{marginBottom: '10px', width: '40%'}}>
+                        
+                            {/* <Button variant="contained" style={{marginRight: '10px'}}
+                                onClick={() => setTipoEventi("template")}>Framework</Button>
+                            <Button variant="contained" onClick={() => setTipoEventi("fit")} style={{marginRight: '10px'}}>FIT</Button> */}
+                            <FormControl size="small" fullWidth>
+                                <InputLabel id="demo-simple-select-label">Sport</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={tipoSport}
+                                label="Sport"
+                                onChange={e => setTipoSport(e.target.value)}
+                                fullWidth
+                                >
+                                    <MenuItem value="ciclismo">{t('scrivi-framework:ciclismo:ciclismo')}</MenuItem>
+                                    <MenuItem value="corsa">{t('scrivi-framework:corsa:corsa')}</MenuItem>
+                                    <MenuItem value="nuoto">{t('scrivi-framework:nuoto:nuoto')}</MenuItem>
+                                    <MenuItem value="palestra">{t('scrivi-framework:palestra:palestra')}</MenuItem>
+                                    <MenuItem value="combinati_tri">{t('scrivi-framework:combinati-tri:combinati-tri')}</MenuItem>
+                                    <MenuItem value="altri">{t('scrivi-framework:sport:altri')}</MenuItem>
+                                    <MenuItem value="tutti">{t('modifica-framework:tutti')}</MenuItem>
+                                </Select>
+                            </FormControl>
+                        
+                    </div>
+                    <div>
+                        <TextField id="outlined-start-adornment" size="small" onChange={e => setRicercaNome(e.target.value)} label={t('modifica-framework:cerca')}
+                                sx={{ m: 0, width: '25ch' }}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
+                                    }}
+                                />
+                    </div>
+                    {/* <div className={styles.cerca}>
+                        {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
+                    </div> */}
                 </div>
-                <div>
-                    <TextField id="outlined-start-adornment" size="small" onChange={e => setRicercaNome(e.target.value)} label={t('modifica-framework:cerca')}
-                            sx={{ m: 0, width: '25ch' }}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
-                                }}
-                            />
+                <div className={styles.containerIntestTab}>
+                    <table className={styles.intestazioneTab}>
+                        <thead>
+                            <tr>
+                                <th onClick={() => {setTipoOrd("tipo"); setSecClickOrd(!secClickOrd)}}>
+                                    {tipoOrd==="tipo" ? secClickOrd ? "↓ Sport" : "↑ Sport" : "Sport"}</th>
+
+                                <th onClick={() => {setTipoOrd("nome"); setSecClickOrd(!secClickOrd)}}>
+                                    {tipoOrd==="nome" ? secClickOrd ? "↓ "+t('modifica-framework:nome-framework') :
+                                    "↑ "+t('modifica-framework:nome-framework') : t('modifica-framework:nome-framework')}</th>
+
+                                <th onClick={() => {setTipoOrd("data"); setSecClickOrd(!secClickOrd)}}>
+                                    {tipoOrd==="data" ? secClickOrd ? "↓ "+t('modifica-framework:data-salvataggio') :
+                                    "↑ "+t('modifica-framework:data-salvataggio') : t('modifica-framework:data-salvataggio')}</th>
+                                    
+                                <th>{t('modifica-framework:data-da-fare')}</th>
+                                <th>Upload</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
-                {/* <div className={styles.cerca}>
-                    {t('modifica-framework:cerca')}: <input type="text" onChange={e => setRicercaNome(e.target.value)} />
-                </div> */}
+                <div className={styles.containerTab}>
+                    <table className={styles.tabListaFramework}>
+                        <tbody id="tabDrag">
+                            {lista}
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
-            <div className={styles.containerIntestTab}>
-                <table className={styles.intestazioneTab}>
-                    <thead>
-                        <tr>
-                            <th onClick={() => {setTipoOrd("tipo"); setSecClickOrd(!secClickOrd)}}>
-                                {tipoOrd==="tipo" ? secClickOrd ? "↓ Sport" : "↑ Sport" : "Sport"}</th>
-
-                            <th onClick={() => {setTipoOrd("nome"); setSecClickOrd(!secClickOrd)}}>
-                                {tipoOrd==="nome" ? secClickOrd ? "↓ "+t('modifica-framework:nome-framework') :
-                                "↑ "+t('modifica-framework:nome-framework') : t('modifica-framework:nome-framework')}</th>
-
-                            <th onClick={() => {setTipoOrd("data"); setSecClickOrd(!secClickOrd)}}>
-                                {tipoOrd==="data" ? secClickOrd ? "↓ "+t('modifica-framework:data-salvataggio') :
-                                "↑ "+t('modifica-framework:data-salvataggio') : t('modifica-framework:data-salvataggio')}</th>
-                                
-                            <th>{t('modifica-framework:data-da-fare')}</th>
-                            <th>Upload</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <div className={styles.containerTab}>
-                <table className={styles.tabListaFramework}>
-                    <tbody id="tabDrag">
-                        {lista}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </>
     )
 }
 

@@ -1,4 +1,4 @@
-const {
+import {
     workoutProvider,
     workoutSportType,
     workoutStepType,
@@ -8,101 +8,9 @@ const {
     stepTargetType,
     stepTargetValueType,
     stepDurationValueType,
-} = require('../const')
+} from '../const'
 
-const {convertToGarminBaseWorkout} = require('../baseWorkout')
-const {convertStringToSeconds} = require('../utils')
-
-let step_index = 0;
-
-const steps = [
-      {
-        uuid: '6b08930d-7e69-453c-a9a5-4b090e7a2dba',
-        selected: false,
-        data: {
-          brakePosition: 5,
-          rpm: '85',
-          description: '',
-          duration: '30',
-          uuid: '',
-          type: 'BRAKE_POSITION'
-        }
-      },
-      {
-        uuid: '62b45687-1860-4a54-a6a5-48769c921838',
-        selected: false,
-        data: {
-          watt: '',
-          rpm: '',
-          description: '',
-          duration: '30',
-          uuid: '',
-          wattPercent: 55,
-          rpmOffset: '',
-          type: 'AUTO'
-        }
-      },
-      {
-        uuid: '1bf52f93-9a28-499c-9844-a3bd72cf5815',
-        selected: false,
-        data: {
-          progressionStartWatt: '',
-          progressionEndWatt: '',
-          progressionStartRpm: '',
-          progressionEndRpm: '',
-          progressionStepWatt: 1,
-          progressionStepRpm: '',
-          progressionStepWattTime: 3,
-          description: '',
-          duration: 0,
-          uuid: '',
-          progressionStartWattPercent: 55,
-          progressionEndWattPercent: 75,
-          progressionStartRpmOffset: '',
-          progressionEndRpmOffset: '',
-          progressionStepRpmTime: 0,
-          type: 'PROG. W'
-        }
-      },
-      {
-        uuid: '4f72ce1d-b1d2-484b-b5c9-16baebbbc06d',
-        selected: false,
-        data: {
-          subSteps: [
-            {
-              index: 0,
-              distance: 5,
-              distanceOffset: 0,
-              distanceDone: 0,
-              slope: 12,
-              alt: 595.7261030921533,
-              altOffset: 0,
-              x: 5,
-              y: 595.7
-            },
-            {
-              index: 1,
-              distance: 1,
-              distanceOffset: 5,
-              distanceDone: 0,
-              slope: 3,
-              alt: 29.986509105671004,
-              altOffset: 595.7261030921533,
-              x: 6,
-              y: 625.7
-            }
-          ],
-          description: '',
-          uuid: '',
-          type: 'Slope'
-        }
-      }
-    ]
-
-const workout = {
-    name: 'Prova',
-    steps
-}
+import {convertToGarminBaseWorkout} from '../baseWorkout'
 
 const preparaSteps = (steps,ftp = (window.md.logged_user.ftp || 200)) => {
 
@@ -234,14 +142,66 @@ const stepBrakePosition = (step,i) => {
         durationType: stepDurationType.TIME,
         durationValue: Number(duration),
         targetType: stepTargetType.RESISTANCE,
-        targetValue: Math.round((Number(brakePosition) / 30)*100),
+        targetValue: 9,
     }
+
+}
+
+
+const stepBpm = (step,i) => {
+
+    const {description = '', duration, bpmPercent, zona} = step
+
+    if(bpmPercent && !isNaN(Number(bpmPercent)) && Number(bpmPercent) > 0) {
+        return {
+            type: workoutStepType.WorkoutStep,
+            stepOrder: i +1,
+            intensity: stepIntensityType.INTERVAL,
+            description: description,
+            durationType: stepDurationType.TIME,
+            durationValue: Number(duration),
+            targetType: stepTargetType.HEART_RATE,
+            targetValueLow: Number(bpmPercent) - 1,
+            targetValueHigh: Number(bpmPercent) + 1,
+            targetValueType: stepTargetValueType.PERCENT
+        }
+    }
+
+    return {
+        type: workoutStepType.WorkoutStep,
+        stepOrder: i +1,
+        intensity: stepIntensityType.INTERVAL,
+        description: description,
+        durationType: stepDurationType.TIME,
+        durationValue: Number(duration),
+        targetType: stepTargetType.HEART_RATE,
+        targetValue: (zona) ? Number(zona) : 1
+        /* targetValueType: (wattPercent && !isNaN(Number(wattPercent))) ? stepTargetValueType.PERCENT : null */
+    }
+
 
 }
 
 const stepAutoWatt = (step,i) => {
     
-    const {watt,description = '',duration,wattPercent} = step
+    const {description = '',duration,wattPercent, zona} = step
+
+
+    if(wattPercent && !isNaN(Number(wattPercent)) && Number(wattPercent) > 0) {
+        return {
+            type: workoutStepType.WorkoutStep,
+            stepOrder: i +1,
+            intensity: stepIntensityType.INTERVAL,
+            description: description,
+            durationType: stepDurationType.TIME,
+            durationValue: Number(duration),
+            targetType: stepTargetType.POWER,
+            targetValueLow: Number(wattPercent) - 1,
+            targetValueHigh: Number(wattPercent) + 1,
+            targetValueType: stepTargetValueType.PERCENT
+            /* targetValueType: (wattPercent && !isNaN(Number(wattPercent))) ? stepTargetValueType.PERCENT : null */
+        }
+    }
 
     return {
         type: workoutStepType.WorkoutStep,
@@ -251,8 +211,7 @@ const stepAutoWatt = (step,i) => {
         durationType: stepDurationType.TIME,
         durationValue: Number(duration),
         targetType: stepTargetType.POWER,
-        targetValue: (wattPercent && !isNaN(Number(wattPercent))) ? Number(wattPercent) : Number(watt),
-        targetValueType: (wattPercent && !isNaN(Number(wattPercent))) ? stepTargetValueType.PERCENT : null
+        targetValue: (zona) ? Number(zona) : 1
     }
 
 }
@@ -273,7 +232,8 @@ const stepSlope = (step,i) => {
         durationValue: Number(distance),
         durationValueType: stepDurationValueType.KILOMETER,
         targetType: stepTargetType.GRADE,
-        targetValue: Number(slope),
+        targetValue: 8,
+        
     }
 
 }
@@ -291,6 +251,8 @@ const getCyclingSteps = (workout) => {
         const {type} = data
 
         switch (type) {
+            case 'BPM': 
+                return stepBpm(data,index)
             case 'BRAKE_POSITION':
                 return stepBrakePosition(data,index)               
             case 'AUTO':

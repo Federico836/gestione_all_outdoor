@@ -14,10 +14,15 @@ import { useTranslation } from 'react-i18next'
 import { addEvento, eliminaEvento } from '../../redux/actions/EventActions'
 import { addSoglia } from '../../redux/actions/SogliaActions'
 import { v4 as uuidv4 } from 'uuid'
-
 import { Button, Checkbox } from "@mui/material"
 import styles from './ContainerEsporta.module.css'
 import SelectTipoEventi from './SelectTipoEventi'
+
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 const ContainerEsporta = props => {
     const { setPagina, utente, idUtente, ruoloLoggedUser } = props
@@ -35,10 +40,19 @@ const ContainerEsporta = props => {
     const [tipoEventi, setTipoEventi] = useState("framework")
     const [calendarApi, setCalendarApi] = useState(null)
 
+
+
     const { t, i18n } = useTranslation()
 
     const listaEventiStore = useSelector(state => state.eventi.lista)
-    console.log(listaEventiStore)
+    //console.log(listaEventiStore)
+
+    const handleCloseAlertUpload = () => {
+
+        dispatch({type: 'RESET_UPLOADED_FRAMEWORKS', payload: {}})
+        dispatch({type: 'RESET_UPLOADED_FIT', payload: {}})
+    }
+
 
     useEffect(function()  {
         setListaEventi(listaEventiStore)
@@ -218,6 +232,11 @@ const ContainerEsporta = props => {
                     </div>
                     {ruoloLoggedUser==="allenatore" ? 
                     <div style={{position: "relative"}}>
+                    {(listaFramework.filter(el => el.uploaded).length > 0 || listaFrameworksMD.filter(el => el.uploaded).length > 0) && 
+                        <Alert severity="success" sx={{ width: '100%' }} onClose={handleCloseAlertUpload}>
+                            Uploaded # {listaFramework.filter(el => el.uploaded).length + listaFrameworksMD.filter(el => el.uploaded).length} FIT
+                        </Alert>}
+                       
                         <SelectTipoEventi tipoEventi={tipoEventi} setTipoEventi={setTipoEventi}/>
                         {tipoEventi==="framework" && <TabListaFramework idUtente={idUtente} setTipoEventi={setTipoEventi} />}
                         {tipoEventi === "fit" && <TabListaFrameworksMD idUtente={idUtente} setTipoEventi={setTipoEventi} />}

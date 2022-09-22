@@ -1,30 +1,9 @@
-const {
-    workoutProvider,
-    workoutSportType,
-    workoutStepType,
-    stepRepeatType,
-    stepIntensityType,
-    stepDurationType,
-    stepTargetType,
-    stepTargetValueType,
-    stepStrokeType,
-    stepEquipmentType,
-    exerciseCategory,
-    stepWeightDisplayUnit
-} = require('../const')
-
-
-const {convertToGarminBaseWorkout} = require('../baseWorkout')
+import {workoutSportType} from '../const'
+import {convertToGarminBaseWorkout} from '../baseWorkout'
 
 const getSwimmingSteps = (workout) => {
 
-
-    
-
     let steps = []
-
-
-
     return steps
 }
 
@@ -37,6 +16,6 @@ const convertToSwimmingWorkout = (workout) => {
     }
 }
 
-module.exports = {
+export {
     convertToSwimmingWorkout
 }
