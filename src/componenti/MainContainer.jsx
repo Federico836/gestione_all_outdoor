@@ -44,7 +44,7 @@ const MainContainer = props => {
     }, [utente])
 
     const listaEventi = useSelector(state => state.eventi.lista)
-    console.log(listaEventi)
+    
 
     useEffect(function impostaPaginaURL() {
         if(listaEventi!==null && eventiScaricati===false) {

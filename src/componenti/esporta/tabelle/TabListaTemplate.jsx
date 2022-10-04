@@ -32,7 +32,7 @@ const TabListaTemplate = props => {
     }, [tipoOrd])
 
     const listaTemplate = useSelector(state => state.templates.lista)
-    console.log(listaTemplate)
+    //console.log(listaTemplate)
     const listaFiltrataNome = ricercaNome ==="" ? listaTemplate : listaTemplate.filter(template => template.nome.includes(ricercaNome))
 
     if(tipoOrd === "nome") {

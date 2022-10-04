@@ -7,11 +7,11 @@ import {convertToIndoorCyclingWorkout} from './indoor/cycling'
 import {workoutSportType} from './const'
 
 
-const convertWorkout = (type,workout, indoor = false) => {
+const convertWorkout = (type,workout, indoor = false, ftp,hr) => {
 
     if(!type || !workout || (!indoor && !workout.listaRighe)) return null
 
-    if(indoor) return convertToIndoorCyclingWorkout(workout)
+    if(indoor) return convertToIndoorCyclingWorkout(workout,ftp,hr)
 
     switch (type) {
         case workoutSportType.CYCLING:

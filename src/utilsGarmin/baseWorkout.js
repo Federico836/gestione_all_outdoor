@@ -2,8 +2,9 @@ import {workoutProvider} from './const'
 
 const convertToGarminBaseWorkout = (workout) => {
 
-    const {nomeFramework,description = ''} = workout
+    const {nomeFramework,noteAll = ''} = workout
 
+    const description = noteAll
 
     const garminWorkout = {
         workoutName: nomeFramework || '',

@@ -66,7 +66,7 @@ const Report = props => {
     }
 
     function dataConOSenzaOrario(evento) { 
-        console.log(evento.end)
+        //console.log(evento.end)
         if(evento.allDay) {
             return evento.start.toLocaleDateString()
         } else {
@@ -97,7 +97,7 @@ const Report = props => {
         for(let c=0;c<eventiSelezionati.length;c++) {
             //const framework = listaFramework.find(frame => frame.id===eventiSelezionati[c]._def.sourceId)
 
-            console.log(rangeDateSelect)
+            //console.log(rangeDateSelect)
     
             let framework = listaFramework.find(frame => frame.id===eventiSelezionati[c].extendedProps.mdId)
             /* if(!framework) continue; */

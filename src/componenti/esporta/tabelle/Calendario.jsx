@@ -24,7 +24,7 @@ const Calendario = props => {
     useEffect(() => {
         if(!events /* && listaEventi.length>0 */) {
             setEvents(listaEventi)
-            console.log(listaEventi)
+            //console.log(listaEventi)
         }
     }, [listaEventi])
 
@@ -69,8 +69,8 @@ const Calendario = props => {
     }
 
     const rimpiazzaEvento = eventChange => {
-        console.log(eventChange)
-        console.log(listaEventi)
+        //console.log(eventChange)
+        //console.log(listaEventi)
         /* setListaEventi([...listaEventi.map(evento => {
             if(eventChange.oldEvent.id!==evento.id) {
                 return {...evento}
@@ -79,7 +79,7 @@ const Calendario = props => {
             }
         })]) */
         let end = !eventChange.event.end ? eventChange.event.start.getTime()+3600000 : eventChange.event.end
-        console.log({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid})
+        //console.log({...getEventPropsFromCalendarEvent(eventChange.event), dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid})
         dispatch(replaceEvento({...getEventPropsFromCalendarEvent(eventChange.event), end, dbid: listaEventi.find(evento => evento.id==eventChange.oldEvent.id).dbid}, idUtente))
     }
 

@@ -8,7 +8,7 @@ const CiclTempoZone = props => {
 
     const { t, i18n } = useTranslation()
 
-    console.log(tempoZone)
+    //console.log(tempoZone)
 
     const listaZoneGrafico = ["Z1", "Z2", "Z3", "Z4", "Z5", "Z6", "Z7"].map((zona, indexZona) => {
         const el = {zona}

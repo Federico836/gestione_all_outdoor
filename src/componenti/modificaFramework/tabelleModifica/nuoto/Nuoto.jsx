@@ -26,7 +26,7 @@ const Nuoto = props => {
     const [listaRigheCopia, setListaRigheCopia] = useState([])
     const [listaRighe, setListaRighe] = useState([])
     const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: "1", descrizione: "A1", min: 0, max: 0},
-        serie: "", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passo: "", note: "",durationType: "TIME", intensity: "WARMUP",strokeType: "FREESTYLE",equipmentType: "NONE",calorie: ""})
+        serie: "1", ripetizioni: "", distanza: "", recupero: "0:00", tempo: "0:00", passo: "", note: "",durationType: "TIME", intensity: "WARMUP",strokeType: "FREESTYLE",equipmentType: "NONE",calorie: ""})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)

@@ -61,7 +61,7 @@ const ContainerEsporta = props => {
     const sogliaUtente = useSelector(state => state.soglia.soglia)
     useEffect(function() {
         if(utente && sogliaUtente.hasOwnProperty("ftp")) {
-            console.log(sogliaUtente.passonuoto)
+            //console.log(sogliaUtente.passonuoto)
             setFtp(sogliaUtente.ftp)
             setFc(sogliaUtente.fc)
             setPassoCorsa(sogliaUtente.passocorsa)
@@ -185,13 +185,13 @@ const ContainerEsporta = props => {
     
              if(ev.extendedProps.mdType === 'FIT') {
                 setTimeout(() => {
-                    console.log({FIT: frame})
-                    dispatch({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id: idUtente,date: new Date(ev.start).toISOString()}})
+                    //console.log({FIT: frame})
+                    dispatch({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id: idUtente,date: new Date(ev.start).toISOString(),ftp,hr: fc}})
                 },250 + 100*index) 
              }
              else {
                 setTimeout(() => {
-                    console.log({WKT: frame})
+                    //console.log({WKT: frame})
                     dispatch({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id: idUtente,date: new Date(ev.start).toISOString()}})
                 },250 + 150*index)
              }
@@ -239,7 +239,7 @@ const ContainerEsporta = props => {
                        
                         <SelectTipoEventi tipoEventi={tipoEventi} setTipoEventi={setTipoEventi}/>
                         {tipoEventi==="framework" && <TabListaFramework idUtente={idUtente} setTipoEventi={setTipoEventi} />}
-                        {tipoEventi === "fit" && <TabListaFrameworksMD idUtente={idUtente} setTipoEventi={setTipoEventi} />}
+                        {tipoEventi === "fit" && <TabListaFrameworksMD idUtente={idUtente} setTipoEventi={setTipoEventi} ftp={ftp} hr={fc} />}
                         {tipoEventi === "workouts" && <TabListaWorkoutsMD idUtente={idUtente} setTipoEventi={setTipoEventi} />}
                         {tipoEventi === "template" && <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
                         listaEventi={listaEventi ? listaEventi : []} aggiungiTemplateCal={aggiungiTemplateCal} />}

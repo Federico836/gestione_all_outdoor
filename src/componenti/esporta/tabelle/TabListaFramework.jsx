@@ -108,7 +108,7 @@ const TabListaFramework = props => {
             itemSelector: '.rigaDrag',
             eventData: function(eventEl) {
 
-                console.log(eventEl.innerText)
+                //console.log(eventEl.innerText)
                 let titolo = ""
                 let colore = ""
                 if(eventEl.getAttribute('tipoSport')==="ciclismo") {

@@ -64,7 +64,7 @@ const TabCiclismoAddRiga = (props) => {
                                     <option value="DISTANCE">Distanza</option>
                                     <option value="CALORIES">Calorie</option>
                                     <option value="HR_LESS_THAN">Freq. Cardiaca</option>
-                                    <option value="OPEN">Altro</option>
+                                    <option value="OPEN">LAP BUTTON</option>
                                 </select>
                             </td>
                             <td>

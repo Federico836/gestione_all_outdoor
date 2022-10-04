@@ -23,7 +23,7 @@ const ContainerComparaTest = props => {
 
     useEffect(async function richiediTestEseguiti() {
         const res = await api.getTests(utente.id_utente)
-        console.log(res)
+        //console.log(res)
         setListaTest(res.data.map(test => ({id: test.id, ...JSON.parse(test.dati)})))
     }, [])
 

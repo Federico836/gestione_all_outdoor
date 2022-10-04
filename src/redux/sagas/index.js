@@ -232,16 +232,22 @@ export function* uploadFrameworkToGarmin(action) {
     if(!action || !action.payload) return
 
     const {payload} = action
-    const {framework, user_id,date} = payload
+    const {framework, user_id,date, ftp} = payload
 
     if(!framework || !user_id) return
 
     let workout = null
 
    
-    if(framework.tipoPerSelect === 'ciclismo') workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,framework)
+    if(framework.tipoPerSelect === 'ciclismo') workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,framework,ftp)
     if(framework.tipoPerSelect === 'corsa') workout = convertWorkoutInGarminFormat(workoutSportType.RUNNING,framework)
     if(framework.tipoPerSelect === 'nuoto') workout = convertWorkoutInGarminFormat(workoutSportType.LAP_SWIMMING,framework)
+
+    if(framework.tipoPerSelect === 'corsa') {
+
+        console.log({framework,workout})
+        return;
+    }
 
     const response =  yield call(garmin.upload,user_id,workout)
     const uploaded_workout = response.data
@@ -261,7 +267,7 @@ export function* uploadToGarmin(action) {
     if(!action || !action.payload) return
 
     const {payload} = action
-    const {events, user_id} = payload
+    const {events, user_id,ftp} = payload
 
     if(!events || !user_id) return
 
@@ -283,7 +289,7 @@ export function* uploadToGarmin(action) {
          if(ev.extendedProps.mdType === 'FIT') {
             setTimeout(() => {
                 console.log({FIT: frame})
-                put({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(ev.start).toISOString()}})
+                put({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(ev.start).toISOString(),ftp}})
             },100) 
          }
          else {
@@ -296,53 +302,6 @@ export function* uploadToGarmin(action) {
 
     })
 
-
-    
-    /* const cycling_event = events.find(ev => ev.extendedProps.mdType === 'ciclismo')
-    const running_event = events.find(ev => ev.extendedProps.mdType === 'corsa')
-    const swimming_event = events.find(ev => ev.extendedProps.mdType === 'nuoto')
-    const fit_event = events.find(ev => ev.extendedProps.mdType === 'FIT') */
-    
-    
-    /* if(cycling_event) {
-
-        const frame = lista.find(el => el.id === cycling_event.extendedProps.mdId)
-        if(!frame) return
-        yield put({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(cycling_event.start).toISOString()}})
-
-        
-    }
-
-    if(running_event) {
-
-        return
-
-        const frame = lista.find(el => el.id === running_event.extendedProps.mdId)
-        if(!frame) return
-        yield put({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id,date}})
-
-        
-
-    }
-    if(swimming_event) {
-
-        return
-
-        const frame = lista.find(el => el.id === swimming_event.extendedProps.mdId)  
-        if(!frame) return
-        yield put({type: 'UPLOAD_FRAMEWORK_TO_GARMIN', payload: {framework: frame,user_id,date}})
-        
-
-    }
-
-
-    if(fit_event) {
-        const frame = listaFit.find(el => el.id === fit_event.extendedProps.mdId)
-        if(!frame) return
-        yield put({type: 'UPLOAD_FIT_TO_GARMIN', payload: {framework: frame,user_id,date: new Date(fit_event.start).toISOString()}})
-    } */
-
-
 }
 
 export function* uploadFitToGarmin(action) {
@@ -350,7 +309,7 @@ export function* uploadFitToGarmin(action) {
     if(!action || !action.payload) return
 
     const {payload} = action
-    const {framework,user_id,date} = payload
+    const {framework,user_id,date,ftp,hr} = payload
     const {id} = framework
 
     const resp = yield call(api.getMDFrameworkByID,id)
@@ -361,7 +320,7 @@ export function* uploadFitToGarmin(action) {
 
     
     const w = transform.transformCsvArrToWorkout(dati)
-    const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,{...w,nome},true)
+    const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,{...w,nome},true,ftp,hr)
     const response =  yield call(garmin.upload,user_id,workout)
     const uploaded_workout = response.data
 

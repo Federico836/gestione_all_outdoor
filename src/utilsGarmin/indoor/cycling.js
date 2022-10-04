@@ -148,11 +148,31 @@ const stepBrakePosition = (step,i) => {
 }
 
 
-const stepBpm = (step,i) => {
+const stepBpm = (step,i,hr_) => {
 
     const {description = '', duration, bpmPercent, zona} = step
+    const hr = (hr_) ? hr_ : 0
 
     if(bpmPercent && !isNaN(Number(bpmPercent)) && Number(bpmPercent) > 0) {
+
+        const getHr = (perce,rif) => { return Math.round(((Number(perce)/100)*Number(rif)))}
+
+        if(hr && !isNaN(Number(hr)) && Number(hr) > 0) {
+
+            return {
+                type: workoutStepType.WorkoutStep,
+                stepOrder: i +1,
+                intensity: stepIntensityType.INTERVAL,
+                description: description,
+                durationType: stepDurationType.TIME,
+                durationValue: Number(duration),
+                targetType: stepTargetType.HEART_RATE,
+                targetValueLow: getHr(Number(bpmPercent) - 2,hr),
+                targetValueHigh: getHr(Number(bpmPercent) + 2,hr),
+            }
+        }
+
+
         return {
             type: workoutStepType.WorkoutStep,
             stepOrder: i +1,
@@ -182,12 +202,33 @@ const stepBpm = (step,i) => {
 
 }
 
-const stepAutoWatt = (step,i) => {
+const stepAutoWatt = (step,i,ftp_) => {
     
-    const {description = '',duration,wattPercent, zona} = step
+    const {description = '',duration,wattPercent, zona, watt} = step
 
-
+    const ftp = (ftp_) ? ftp_ : (wattPercent) ? Number(watt) * (100/Number(wattPercent)) : 0
+    
     if(wattPercent && !isNaN(Number(wattPercent)) && Number(wattPercent) > 0) {
+
+        if(ftp && !isNaN(Number(ftp)) && Number(ftp) > 0) {
+
+
+            const getWatt = (perce,rif) => { return Math.round(((Number(perce)/100)*Number(rif)))} 
+
+            return {
+                type: workoutStepType.WorkoutStep,
+                stepOrder: i +1,
+                intensity: stepIntensityType.INTERVAL,
+                description: description,
+                durationType: stepDurationType.TIME,
+                durationValue: Number(duration),
+                targetType: stepTargetType.POWER,
+                targetValueLow: getWatt(Number(wattPercent) - 2,ftp),
+                targetValueHigh: getWatt(Number(wattPercent) + 2,ftp),
+            }
+
+        }
+        
         return {
             type: workoutStepType.WorkoutStep,
             stepOrder: i +1,
@@ -238,12 +279,12 @@ const stepSlope = (step,i) => {
 
 }
 
-const getCyclingSteps = (workout) => {
+const getCyclingSteps = (workout,ftp,hr) => {
 
 
     const steps = preparaSteps(workout.steps.map(el => {return {data: el}}))
 
-    console.log({steps})
+    //console.log({steps})
 
    return steps.map((step,index) => {
 
@@ -252,11 +293,11 @@ const getCyclingSteps = (workout) => {
 
         switch (type) {
             case 'BPM': 
-                return stepBpm(data,index)
+                return stepBpm(data,index,hr)
             case 'BRAKE_POSITION':
                 return stepBrakePosition(data,index)               
             case 'AUTO':
-                return stepAutoWatt(data,index)
+                return stepAutoWatt(data,index,ftp)
             case 'Slope':
                 return stepSlope(data,index)
         
@@ -267,13 +308,13 @@ const getCyclingSteps = (workout) => {
     })
 }
 
-const convertToIndoorCyclingWorkout = (workout) => {
+const convertToIndoorCyclingWorkout = (workout,ftp,hr) => {
 
 
     return {
         sport: workoutSportType.CYCLING,
         ...convertToGarminBaseWorkout({nomeFramework: workout.nome}),
-        steps: getCyclingSteps(workout)
+        steps: getCyclingSteps(workout,ftp,hr)
     }
 }
 

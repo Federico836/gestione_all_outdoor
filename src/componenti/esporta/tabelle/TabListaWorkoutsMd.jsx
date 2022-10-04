@@ -39,7 +39,7 @@ const TabListaWorkoutsMD = (props) => {
             itemSelector: '.rigaDrag',
             eventData: function(eventEl) {
 
-                console.log(eventEl.innerText)
+                //console.log(eventEl.innerText)
                 let titolo = eventEl.getAttribute('title')
                 let colore = "red"
                 

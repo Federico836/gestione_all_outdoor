@@ -15,7 +15,7 @@ import IconButton from '@mui/material/IconButton';
 const TabListaFrameworksMD = (props) => {
 
     const listaFrameworks = useSelector(state => state.mdFrameworks.lista)
-    const { setTipoEventi,idUtente } = props
+    const { setTipoEventi,idUtente,ftp,hr } = props
     const { t, i18n } = useTranslation()
     const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ const TabListaFrameworksMD = (props) => {
         lista.push(<tr style={{backgroundColor: (listaFrameworksFiltrata[c].uploaded) ? '#00c291' : coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
         tipoSport={"ciclismo"} sourceId={listaFrameworksFiltrata[c].id}>
             <td>{listaFrameworksFiltrata[c].nome}</td>
-            <td><IconButton onClick={() => dispatch({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente}})}><UploadFileIcon/></IconButton></td>
+            <td><IconButton onClick={() => dispatch({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente, ftp,hr}})}><UploadFileIcon/></IconButton></td>
         </tr>)
     }
 
@@ -39,7 +39,7 @@ const TabListaFrameworksMD = (props) => {
             itemSelector: '.rigaDrag',
             eventData: function(eventEl) {
 
-                console.log(eventEl.innerText)
+                //console.log(eventEl.innerText)
                 let titolo = eventEl.getAttribute('title')
                 let colore = "red"
                 

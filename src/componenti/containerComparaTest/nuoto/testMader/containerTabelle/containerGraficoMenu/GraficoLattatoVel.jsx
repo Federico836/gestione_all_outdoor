@@ -7,7 +7,7 @@ const GraficoLattatoVel = props => {
 
     const { t, i18n } = useTranslation()
 
-    console.log(puntiSelectedMader)
+    //console.log(puntiSelectedMader)
 
     const listaPuntiSelected = puntiSelectedMader.map(test => test.puntiSelected)
     const listaVel = [].concat(...listaPuntiSelected).map(punto => punto.velMs)
@@ -21,7 +21,7 @@ const GraficoLattatoVel = props => {
         })
     })
 
-    console.log(datiGrafico)
+    //console.log(datiGrafico)
 
     const listaColori = ["blue", "LightCoral", "red", "cyan", "Chocolate", "DarkMagenta", "green", "LightGray"]
 

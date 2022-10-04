@@ -27,16 +27,122 @@ const Row = props => {
         zonaFc = (riga.zona>1 && riga.zona<5) ? (riga.fcMin+"-"+riga.fcMax) : riga.fcMax
     }
 
+    const getStringByPropAndValue = (prop,value) => {
+
+        if(!prop) return value
+
+        let string = ""
+
+        switch (prop) {
+            case 'durationType':
+
+                //TIME, DISTANCE(in KM), HR_LESS_THAN, HR_GREATER_THAN, CALORIES, OPEN,
+
+                switch (value) {
+                    case 'TIME':
+                        string = "Tempo"
+                        break;
+                    case 'DISTANCE':
+                        string = "Distanza"
+                        break;
+                    case 'HR_LESS_THAN':
+                        string = "Freq. Cardiaca"
+                        break;
+                    case 'CALORIES':
+                        string = "Calorie"
+                        break;
+                    case 'OPEN':
+                        string = "Altro"
+                        break;
+                
+                    default:
+                        break;
+                }
+                
+                break;
+            case 'intensity':
+
+                //REST, WARMUP, COOLDOWN, RECOVERY, INTERVAL
+
+                switch (value) {
+                    case 'REST':
+                        string = "Rec. passivo"
+                        break;
+                    case 'WARMUP':
+                        string = "Risc."
+                        break;
+                    case 'COOLDOWN':
+                        string = "Defat."
+                        break;
+                    case 'RECOVERY':
+                        string = "Recupero"
+                        break;
+                    case 'INTERVAL':
+                        string = "Intervallo"
+                        break;
+                
+                    default:
+                        break;
+                }
+                
+                break;
+            case 'targetType':
+
+                /* PERCENT_HR">%
+                    PERCENT_WATT"
+                    ZONE_HR">ZONA
+                    ZONE_W">ZONA 
+                    CADENCE">CADE
+                    OPEN">LIBERO< */
+
+                    switch (value) {
+                        case 'PERCENT_HR':
+                            string = "% HR"
+                            break;
+                        case 'PERCENT_WATT':
+                            string = "% W"
+                            break;
+                        case 'ZONE_HR':
+                            string = "Zona HR"
+                            break;
+                        case 'ZONE_W':
+                            string = "Zona W"
+                            break;
+                        case 'CADENCE':
+                            string = "RPM"
+                            break;
+                        case 'OPEN':
+                            string = "Libero"
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                
+                break;
+        
+            default:
+                break;
+        }
+
+        return string
+    }
+
     return (
-        <div className={'containerTab'} style={{backgroundColor: coloreRiga}}>    
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.zona}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.percZona}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{zonaWatt}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{zonaFc}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.serie}</span></div>
+        <div className={'containerTab'} style={{backgroundColor: coloreRiga}}>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{getStringByPropAndValue('durationType',riga.durationType)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{getStringByPropAndValue('intensity',riga.intensity)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{getStringByPropAndValue('targetType',riga.targetType)}</span></div>    
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.targetType === 'ZONE_W' || riga.targetType === 'ZONE_HR') ? riga.zona : ''}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.targetType === 'PERCENT_WATT' || riga.targetType === 'PERCENT_HR') ? riga.percZona : ''}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.targetType === 'PERCENT_WATT' || riga.targetType === 'ZONE_W') ? zonaWatt : ''}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.targetType === 'PERCENT_HR' || riga.targetType === 'ZONE_HR') ? zonaFc : ''}</span></div>
+            {/* <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.serie}</span></div> */}
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.durata}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.recupero}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.distanza}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.calorie}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.rpm}</span></div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.note}</span></div>
         </div>
@@ -73,20 +179,29 @@ const Lista = props => {
 
     return (
       <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
-        <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center', backgroundColor: "#bee5b0"}}> 
+        <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center', backgroundColor: "#bee5b0"}}>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Goal</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Work</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Int</div> 
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:zona')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>%</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Watt</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:fc')}</div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:serie')}</div>
+            {/* <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:serie')}</div> */}
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:ripetizioni')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:tempo')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>{t('scrivi-framework:ciclismo:recupero')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Dist.</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Cal.</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Rpm</div>
             <div style={{border: '1px solid gray', width: '30%', textAlign: 'center'}}>Note</div>
         </div>
         <SortableList items={items} pressDelay={100} axis="y" lockAxis="y" />
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
