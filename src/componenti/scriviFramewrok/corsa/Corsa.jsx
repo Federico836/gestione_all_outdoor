@@ -7,7 +7,7 @@ import { addFramework } from '../../../redux/actions/FrameworkActions.js'
 
 import TabCorsaAddRiga from './tabelle/TabCorsaAddRiga.jsx'
 import TabCorsaDragNDrop from './tabelle/TabCorsaDragNDrop.jsx'
-import { calcolaZoneCorsa } from '../../../utils/funzioni'
+import { calcolaZoneCorsa,calcolaZoneCorsaAgg } from '../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
@@ -19,12 +19,12 @@ const Corsa = () => {
     const { t, i18n } = useTranslation()
 
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: 1, descrizione: t('scrivi-framework:corsa:zone-2:fondo-lento-recupero'), min: 0, max: 0},
         serie: "1", ripetizioni: "", distanza: "", 
         recupero: "0:00", tempo: "0:00", passoMin: "", 
         passoMax: "", note: "",
         durationType: "TIME", intensity: "WARMUP", targetType: "PERCENT_HR", 
-        calorie: "", perce_vp: "", vp: "", perce_fc: "",fc: ""})
+        calorie: "", perce_vp: "", vp: "", perce_fc: "",fc: "",zonaHR: 1})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)
@@ -32,50 +32,35 @@ const Corsa = () => {
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
     const [noteAll, setNoteAll] = useState("")
+    const [hr,setHr] = useState(0)
 
     const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
     
-   /*  useEffect(() => {
+   /* 
+   
+    t('scrivi-framework:corsa:zone-2:fondo-lento-recupero')
+    t('scrivi-framework:corsa:zone-2:fondo-lento')
+    t('scrivi-framework:corsa:zone-2:fondo-medio')
+    t('scrivi-framework:corsa:zone-2:ritmo-gara')
+    t('scrivi-framework:corsa:zone-2:fondo-veloce')
+    t('scrivi-framework:corsa:zone-2:soglia')
+    t("scrivi-framework:corsa:zone-2:vo2")
+    t("scrivi-framework:corsa:zone-2:sprint")
+    t("scrivi-framework:corsa:zone-2:recupero-passivo")
+   
+   */
 
-        const v = Number(distanza)/tempo
-        const p = 1000/v
-
-        if(distanza > 0 && tempo > 0) {
-            setTempoPer1000m(p)
-            setVelocita(v)
-        }
-
-    },[distanza, tempo]) */
-
-   /*  useEffect(() => {
-        if(distanza!=="" && tempo!=="0:00") {
-
-            const t = getSecondsFromHHMMSS(tempo)
-            const v = Number(distanza)/getSecondsFromHHMMSS(tempo)
-            const p = 1000/velocita
-            const pHHMMSS = toHHMMSS(p)
-
-            console.log({t,v,p,distanza,velocita})
-
-            setVelocita(v)
-            setTempoPer1000m(pHHMMSS)
-        }
-    }, [distanza, tempo])
-
-    useEffect(() => {
-        if(tempoPer1000m && distanza==="" && (tempo==="0:00" || tempo==="")) {
-            setVelocita(1000/getSecondsFromHHMMSS(tempoPer1000m))
-        }
-    }, [tempoPer1000m]) */
-
-    const zoneCalcolate = calcolaZoneCorsa(velocita)
-    zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone:recupero-attivo')
-    zoneCalcolate[1].descrizione = t('scrivi-framework:corsa:zone:fondo-lungo')
-    zoneCalcolate[2].descrizione = t('scrivi-framework:corsa:zone:fondo-medio')
-    zoneCalcolate[3].descrizione = t('scrivi-framework:corsa:zone:fondo-veloce')
-    zoneCalcolate[4].descrizione = t('scrivi-framework:corsa:zone:soglia')
-    zoneCalcolate[5].descrizione = "VO2MAX"
+    const zoneCalcolate = calcolaZoneCorsaAgg(velocita)
+    zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone-2:fondo-lento-recupero')
+    zoneCalcolate[1].descrizione = t('scrivi-framework:corsa:zone-2:fondo-lento')
+    zoneCalcolate[2].descrizione = t('scrivi-framework:corsa:zone-2:fondo-medio')
+    zoneCalcolate[3].descrizione = t('scrivi-framework:corsa:zone-2:ritmo-gara')
+    zoneCalcolate[4].descrizione = t('scrivi-framework:corsa:zone-2:fondo-veloce')
+    zoneCalcolate[5].descrizione = t('scrivi-framework:corsa:zone-2:soglia')
+    zoneCalcolate[6].descrizione = t("scrivi-framework:corsa:zone-2:vo2")
+    zoneCalcolate[7].descrizione = t("scrivi-framework:corsa:zone-2:sprint")
+    zoneCalcolate[8].descrizione = t("scrivi-framework:corsa:zone-2:recupero-passivo")
 
     const aggiungiRiga = riga => {
         if(modificaRiga) {
@@ -106,9 +91,10 @@ const Corsa = () => {
     }, [modificaRiga])
 
     const cambiaSingolaRigaDistTempo = () => {
+        
         setDatiSingolaRiga({...datiSingolaRiga, passoMin: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].min,
             passoMax: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].max,
-            passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media})
+            passoMedia: 1000/zoneCalcolate[datiSingolaRiga.zona.zona-1].media,vp: Number(tempoPer1000m) + Number(tempoPer1000m)*(1 - Number(datiSingolaRiga.perce_vp)/100)})
     }
 
     useEffect(() => {
@@ -116,9 +102,20 @@ const Corsa = () => {
             setListaRighe(listaRighe.map(riga => {
                 return {...riga, passoMin: 1000/zoneCalcolate[riga.zona.zona-1].min,
                     passoMax: 1000/zoneCalcolate[riga.zona.zona-1].max,
-                    passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media}
+                    passoMedia: 1000/zoneCalcolate[riga.zona.zona-1].media,vp: (1000/(Number(riga.perce_vp)/100)*velocita)}
         }))
     }, [tempoPer1000m])
+
+    useEffect(() => {
+            cambiaSingolaRigaDistTempo()
+            setListaRighe(listaRighe.map(riga => {
+
+                if(riga.targetType === "PERCENT_HR") {
+                    return {...riga, fc: Math.round((Number(riga.perce_fc)/100)*Number(hr))}
+                }
+                
+        }))
+    }, [hr])
 
     useEffect(() => {
         cambiaSingolaRigaDistTempo()
@@ -135,7 +132,7 @@ const Corsa = () => {
 
             <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData}
             setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh} tempoPer1000m={tempoPer1000m}
-            setTempoPer1000m={setTempoPer1000m} />
+            setTempoPer1000m={setTempoPer1000m} hr={hr} setHr={setHr}/>
 
             <TabCorsaAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />

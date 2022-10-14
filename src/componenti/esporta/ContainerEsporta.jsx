@@ -47,6 +47,7 @@ const ContainerEsporta = props => {
     const [tabellone, setTabellone] = useState(true)
     const [tipoEventi, setTipoEventi] = useState("framework")
     const [calendarApi, setCalendarApi] = useState(null)
+    
 
     const getEventiPerGrafici = (eventiSelezionati,listaFramework,ftp,fc,passoCorsa,passoNuoto) => {
 
@@ -444,7 +445,7 @@ const ContainerEsporta = props => {
                        
                         <SelectTipoEventi tipoEventi={tipoEventi} setTipoEventi={setTipoEventi}/>
                         {tipoEventi==="framework" && <TabListaFramework idUtente={idUtente} setTipoEventi={setTipoEventi} />}
-                        {tipoEventi === "fit" && <TabListaFrameworksMD idUtente={idUtente} setTipoEventi={setTipoEventi} ftp={ftp} hr={fc} />}
+                        {tipoEventi === "fit" && <TabListaFrameworksMD utente={utente} idUtente={idUtente} setTipoEventi={setTipoEventi} ftp={ftp} hr={fc} />}
                         {tipoEventi === "workouts" && <TabListaWorkoutsMD idUtente={idUtente} setTipoEventi={setTipoEventi} />}
                         {tipoEventi === "template" && <TabListaTemplate setTipoEventi={setTipoEventi} rangeDateSelect={rangeDateSelect}
                         listaEventi={listaEventi ? listaEventi : []} aggiungiTemplateCal={aggiungiTemplateCal} />}

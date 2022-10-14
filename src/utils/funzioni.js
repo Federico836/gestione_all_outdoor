@@ -1,6 +1,7 @@
 import modello7zone from './modelli/modello7zone.json'
 import modelloCorsa from './modelli/modelloCorsa.json'
 import modelloNuoto from './modelli/modelloNuoto.json'
+import modelloCorsaAgg from './modelli/modelloCorsaAGGIORNATO.json'
 
 const axios = require('axios')
 
@@ -35,6 +36,23 @@ const calcolaZoneCorsa = velocita => {
       media: zona.perce.media*velocita,
     }
   })
+}
+
+const calcolaZoneCorsaAgg = velocita => {
+
+  return modelloCorsaAgg.map(zona => {
+
+    return {
+      zona: zona.zona,
+      min: zona.perce.min*velocita,
+      max: zona.perce.max*velocita,
+      media: zona.perce.media*velocita,
+    }
+
+
+  })
+
+
 }
 
 const calcolaZoneNuoto = velocita => {
@@ -167,5 +185,5 @@ const calcVarPerc = (primo, secondo) => {
   return {diff, percent: ((diff/primo)*100).toFixed(window.md.numDopoVirgola)}
 }
 
-export { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto, getSecondsFromHHMMSS, getSecondsFromMMSS,
+export { calcola7Zone, calcolaZoneCorsa, calcolaZoneCorsaAgg, calcolaZoneNuoto, getSecondsFromHHMMSS, getSecondsFromMMSS,
   toHHMMSS, toMMSS, uploadFiles, calcVarPerc }

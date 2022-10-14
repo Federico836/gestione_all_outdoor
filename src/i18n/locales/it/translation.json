@@ -50,7 +50,19 @@
       "velocita": "Velocità",
       "tempo-medio": "Tempo Medio",
       "scritta-rac": "I tempi forniti sono indicativi, fornire i tempi esatti all'atleta,<br />\nil calcolo del tempo totale è in funzione ad un calcolo sul passo medio della zona selezionata.",
-      "riferimento": "Riferimento"
+      "riferimento": "Riferimento",
+      "zone-2": {
+        "fondo-lento-recupero": "Fondo lento recupero",
+        "fondo-lento": "Fondo lento",
+        "fondo-medio": "Fondo medio",
+        "ritmo-gara": "Ritmo Gara",
+        "fondo-veloce": "Fondo veloce",
+        "soglia": "Soglia",
+        "sprint": "Sprint",
+        "recupero-passivo": "Recupero passivo",
+        "vo2": "VO2"
+      },
+      "zona-hr": "Zona HR"
     },
     "reset-framework": "Sei sicuro di eliminare questo framework?",
     "calcola": "CALCOLA",

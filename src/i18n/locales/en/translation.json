@@ -50,7 +50,19 @@
       "velocita": "Speed",
       "tempo-medio": "Avg. Time",
       "scritta-rac": "The given times are only indicative, give the correct times to the athlete,<br />\nthe calculation of the total time is based on a calculation on the average pace of the selected zone.",
-      "riferimento": "Reference"
+      "riferimento": "Reference",
+      "zone-2": {
+        "fondo-lento-recupero": "Fondo lento recupero",
+        "fondo-lento": "Fondo lento",
+        "fondo-medio": "Fondo medio",
+        "ritmo-gara": "Ritmo Gara",
+        "fondo-veloce": "Fondo veloce",
+        "soglia": "Soglia",
+        "sprint": "Sprint",
+        "recupero-passivo": "Recupero passivo",
+        "vo2": "VO2"
+      },
+      "zona-hr": "HR Zone"
     },
     "reset-framework": "Are you sure to delete this framework?",
     "calcola": "COMPUTE",

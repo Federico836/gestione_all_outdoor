@@ -26,9 +26,10 @@ const TabCorsaAddRiga = (props) => {
                         <th style={{textAlign: 'center'}}>Fase di lavoro</th>
                         <th style={{textAlign: 'center'}}>Intensità</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:zona')}</th>
+                        <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:zona')}</th>
                         {/* <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:serie')}</th> */}
-                        <th style={{textAlign: 'center'}}>% velocità/passo</th>
-                        <th style={{textAlign: 'center'}}>% FC</th>
+                        {/* <th style={{textAlign: 'center'}}>% velocità/passo</th> */}
+                        <th style={{textAlign: 'center'}}>% HR</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:ripetizioni')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:tempo')}</th>
                         <th style={{textAlign: 'center'}}>{t('scrivi-framework:corsa:distanza')} Km/Mi</th>
@@ -66,16 +67,28 @@ const TabCorsaAddRiga = (props) => {
                             </td>
                             <td>
                                 <select value={datiSingolaRiga.zona.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: zoneCalcolate[e.target.value-1]})}}>
-                                    <option value="1">{t('scrivi-framework:corsa:zone:recupero-attivo')}</option>
-                                    <option value="2">{t('scrivi-framework:corsa:zone:fondo-lungo')}</option>
-                                    <option value="3">{t('scrivi-framework:corsa:zone:fondo-medio')}</option>
-                                    <option value="4">{t('scrivi-framework:corsa:zone:fondo-veloce')}</option>
-                                    <option value="5">{t('scrivi-framework:corsa:zone:soglia')}</option>
-                                    <option value="6">{"VO2MAX"}</option>
+                                    <option value="1">{t('scrivi-framework:corsa:zone-2:fondo-lento-recupero')}</option>
+                                    <option value="2">{t('scrivi-framework:corsa:zone-2:fondo-lento')}</option>
+                                    <option value="3">{t('scrivi-framework:corsa:zone-2:fondo-medio')}</option>
+                                    <option value="4">{t('scrivi-framework:corsa:zone-2:ritmo-gara')}</option>
+                                    <option value="5">{t('scrivi-framework:corsa:zone-2:fondo-veloce')}</option>
+                                    <option value="6">{t('scrivi-framework:corsa:zone-2:soglia')}</option>
+                                    <option value="7">{t("scrivi-framework:corsa:zone-2:vo2")}</option>
+                                    <option value="8">{t("scrivi-framework:corsa:zone-2:sprint")}</option>
+                                    <option value="9">{t("scrivi-framework:corsa:zone-2:recupero-passivo")}</option>
                                 </select>
                             </td>
+                            <td>
+                                <select disabled={(datiSingolaRiga.targetType !== "ZONE_HR" && datiSingolaRiga.targetType !== "ZONE_W")} value={datiSingolaRiga.zonaHR} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zonaHR: e.target.value})}}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>           
+                                </select>{/* <input type="number" min="1" max="7" value={datiSingolaRiga.zona} onChange={(e) => {setDatiSingolaRiga({...datiSingolaRiga, zona: e.target.value})}} /> */}
+                            </td>
                             {/* <td><input type="number" min="0" value={datiSingolaRiga.serie} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, serie: e.target.value})}} /></td> */}
-                            <td><input type="number" min="0" value={datiSingolaRiga.perce_vp} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, perce_vp: e.target.value})}} /></td>
+                            {/* <td><input type="number" min="0" value={datiSingolaRiga.perce_vp} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, perce_vp: e.target.value})}} /></td> */}
                             <td><input type="number" min="0" value={datiSingolaRiga.perce_fc} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, perce_fc: e.target.value})}} /></td>
                             <td><input type="number" min="0" value={datiSingolaRiga.ripetizioni} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, ripetizioni: e.target.value})}} /></td>
                             <td><input type="text" min="0" value={datiSingolaRiga.tempo} onChange={e => {setDatiSingolaRiga({...datiSingolaRiga, tempo: e.target.value})}} /></td>

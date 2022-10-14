@@ -13,7 +13,7 @@ import i18n from 'i18next'
 import convertWorkoutInGarminFormat from '../../utilsGarmin/index'
 import {workoutSportType} from '../../utilsGarmin/const'
 import transform from '../../mdwifi/services/Transforms'
-
+import { saveAs } from 'file-saver';
 // FRAMEWORK
 
 export function* getFrameworks(action) {
@@ -304,6 +304,35 @@ export function* uploadToGarmin(action) {
 
 }
 
+export function* downloadFitInCsv(action) {
+    if(!action || !action.payload) return
+
+    const {payload} = action
+    const {framework,user_id,date,ftp,hr} = payload
+    const {id} = framework
+
+    const resp = yield call(api.getMDFrameworkByID,id)
+
+    const {data} = resp
+    const {scheletro,dati} = data
+    const nome = scheletro[0].nome
+    const w = transform.transformCsvArrToWorkout(dati)
+
+    console.log({w: w.steps})
+
+    var blob = new Blob([[...w.steps.map((el, index) => {
+
+        const {watt,rpm,brakePosition,duration,wattPercent,rpmOffset} = el
+
+        return ["Step #: " + (index + 1) + " Durata: " + new Date(duration * 1000).toISOString().substr(11, 8) + " Watt: " + watt + " Rpm: " + rpm]
+
+
+
+    })].join("\r\n")], {type: "text/csv"});
+    
+    saveAs(blob,nome + '.csv');
+}
+
 export function* uploadFitToGarmin(action) {
 
     if(!action || !action.payload) return
@@ -363,6 +392,7 @@ function* rootSaga() {
     yield takeLatest('UPLOAD_TO_GARMIN', uploadToGarmin)
     yield takeEvery('UPLOAD_FRAMEWORK_TO_GARMIN', uploadFrameworkToGarmin)
     yield takeEvery('UPLOAD_FIT_TO_GARMIN', uploadFitToGarmin)
+    yield takeEvery('DOWNLOAD_FIT_IN_CSV', downloadFitInCsv)
 }
 
 export default rootSaga

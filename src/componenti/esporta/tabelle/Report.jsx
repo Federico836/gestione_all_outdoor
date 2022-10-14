@@ -12,7 +12,7 @@ import TabSportDragNDrop from './tabSport/TabSportDragNDrop'
 
 import TabDatiWeek from './tabDatiWeek/TabDatiWeek'
 
-import { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto } from '../../../utils/funzioni'
+import { calcola7Zone, calcolaZoneCorsa, calcolaZoneNuoto, calcolaZoneCorsaAgg } from '../../../utils/funzioni'
 
 import * as funzioniCicl from './tabSport/funzioniTotaliCicl'
 import * as funzioniCorsa from './tabSport/funzioniTotaliCorsa'

@@ -7,7 +7,7 @@ import { addFramework, replaceFramework } from '../../../../redux/actions/Framew
 
 import TabCorsaAddRiga from './tabelle/TabCorsaAddRiga.jsx'
 import TabCorsaDragNDrop from './tabelle/TabCorsaDragNDrop.jsx'
-import { calcolaZoneCorsa } from '../../../../utils/funzioni'
+import { calcolaZoneCorsa, calcolaZoneCorsaAgg } from '../../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
@@ -25,10 +25,10 @@ const Corsa = props => {
 
     const [listaRigheCopia, setListaRigheCopia] = useState([])
     const [listaRighe, setListaRighe] = useState([])
-    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: "1", descrizione: t('scrivi-framework:corsa:zone:recupero-attivo'), min: 0, max: 0},
+    const [datiSingolaRiga, setDatiSingolaRiga] = useState({zona: {zona: "1", descrizione: t('scrivi-framework:corsa:zone-2:fondo-lento-recupero'), min: 0, max: 0},
         serie: "", ripetizioni: "", distanza: "", recupero: "0:00", 
         tempo: "0:00", passoMin: "", passoMax: "", note: "",durationType: "TIME", intensity: "WARMUP", targetType: "PERCENT_HR", 
-        calorie: "", perce_vp: "", vp: "", perce_fc: "",fc: ""})
+        calorie: "", perce_vp: "", vp: "", perce_fc: "",fc: "",zonaHR: 1})
     const [modificaRiga, setModificaRiga] = useState(null)
     const [distanza, setDistanza] = useState(0)
     const [tempo, setTempo] = useState(0)
@@ -36,6 +36,7 @@ const Corsa = props => {
     const [data, setData] = useState("")
     const [nomeFramework, setNomeFramework] = useState("")
     const [noteAll, setNoteAll] = useState("")
+    const [hr,setHr] = useState(0)
 
     useEffect(() => {
 
@@ -55,13 +56,16 @@ const Corsa = props => {
     const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
 
-    const zoneCalcolate = calcolaZoneCorsa(velocita)
-    zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone:recupero-attivo')
-    zoneCalcolate[1].descrizione = t('scrivi-framework:corsa:zone:fondo-lungo')
-    zoneCalcolate[2].descrizione = t('scrivi-framework:corsa:zone:fondo-medio')
-    zoneCalcolate[3].descrizione = t('scrivi-framework:corsa:zone:fondo-veloce')
-    zoneCalcolate[4].descrizione = t('scrivi-framework:corsa:zone:soglia')
-    zoneCalcolate[5].descrizione = "VO2MAX"
+    const zoneCalcolate = calcolaZoneCorsaAgg(velocita)
+    zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone-2:fondo-lento-recupero')
+    zoneCalcolate[1].descrizione = t('scrivi-framework:corsa:zone-2:fondo-lento')
+    zoneCalcolate[2].descrizione = t('scrivi-framework:corsa:zone-2:fondo-medio')
+    zoneCalcolate[3].descrizione = t('scrivi-framework:corsa:zone-2:ritmo-gara')
+    zoneCalcolate[4].descrizione = t('scrivi-framework:corsa:zone-2:fondo-veloce')
+    zoneCalcolate[5].descrizione = t('scrivi-framework:corsa:zone-2:soglia')
+    zoneCalcolate[6].descrizione = t("scrivi-framework:corsa:zone-2:vo2")
+    zoneCalcolate[7].descrizione = t("scrivi-framework:corsa:zone-2:sprint")
+    zoneCalcolate[8].descrizione = t("scrivi-framework:corsa:zone-2:recupero-passivo")
 
     const aggiungiRiga = riga => {
         if(modificaRiga) {
@@ -152,6 +156,17 @@ const Corsa = props => {
         }
     }, [tempoPer1000m])
 
+    useEffect(() => {
+            cambiaSingolaRigaDistTempo()
+            setListaRighe(listaRighe.map(riga => {
+
+                if(riga.targetType === "PERCENT_HR") {
+                    return {...riga, fc: Math.round((Number(riga.perce_fc)/100)*Number(hr))}
+                }
+                
+        }))
+    }, [hr])
+
     return (
         <div className={styles.container}>
             <div className={styles.containerBottoniTop}>
@@ -161,7 +176,7 @@ const Corsa = props => {
 
             <Intestazione distanza={distanza} setDistanza={setDistanza} tempo={tempo} setTempo={setTempo} setData={setData}
             nomeFramework={nomeFramework} setNomeFramework={setNomeFramework} velocitaKmh={velocitaKmh}
-            tempoPer1000m={tempoPer1000m} setTempoPer1000m={setTempoPer1000m} />
+            tempoPer1000m={tempoPer1000m} setTempoPer1000m={setTempoPer1000m} hr={hr} setHr={setHr}/>
 
             <TabCorsaAddRiga aggiungiRiga={aggiungiRiga} datiSingolaRiga={datiSingolaRiga}
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />
