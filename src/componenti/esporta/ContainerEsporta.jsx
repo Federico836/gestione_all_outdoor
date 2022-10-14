@@ -41,6 +41,8 @@ const ContainerEsporta = props => {
     const [rangeDateSelect, setRangeDateSelect] = useState({start: new Date(), end: new Date()})
     const [ftp, setFtp] = useState("")
     const [fc, setFc] = useState("")
+    const [fc_corsa, setFc_corsa] = useState(0)
+    const [fc_nuoto, setFc_nuoto] = useState(0)
     const [passoCorsa, setPassoCorsa] = useState(0)
     const [passoNuoto, setPassoNuoto] = useState(0)
     const [report, setReport] = useState(false)
@@ -418,7 +420,7 @@ const ContainerEsporta = props => {
     return (
         <div className={styles.container}>
             {report ? 
-            <Report rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa}
+            <Report rangeDateSelect={rangeDateSelect} ftp={ftp} fc={fc} passoCorsa={passoCorsa} fc_corsa={fc_corsa} fc_nuoto={fc_nuoto}
             passoNuoto={passoNuoto} report={report} setReport={setReport} tabellone={tabellone} utente={utente}
             eventiSelezionati={eventiSelezionati} /> :
             <>
@@ -461,7 +463,7 @@ const ContainerEsporta = props => {
                 {utente ?
                 <>
                     <div className={ruoloLoggedUser!=="allenatore" ? styles.tabValori : null}>
-                        <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
+                        <TabValori ftp={ftp} setFtp={setFtp} fc={fc} setFc={setFc} fc_corsa={fc_corsa} setFc_corsa={setFc_corsa} fc_nuoto={fc_nuoto} setFc_nuoto={setFc_nuoto} passoNuoto={passoNuoto} setPassoNuoto={setPassoNuoto}
                         passoCorsa={passoCorsa} setPassoCorsa={setPassoCorsa} ruoloLoggedUser={ruoloLoggedUser} />
 
                         <div className={styles.containerBottoniBottom}>

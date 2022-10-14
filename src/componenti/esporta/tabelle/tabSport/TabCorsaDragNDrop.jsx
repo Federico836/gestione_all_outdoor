@@ -17,9 +17,110 @@ const Row = props => {
         coloreRiga = "#d3d3d3"
     }
 
+    const getStringByPropAndValue = (prop,value) => {
+
+        if(!prop) return value
+
+        let string = ""
+
+        switch (prop) {
+            case 'durationType':
+
+                //TIME, DISTANCE(in KM), HR_LESS_THAN, HR_GREATER_THAN, CALORIES, OPEN,
+
+                switch (value) {
+                    case 'TIME':
+                        string = "Tempo"
+                        break;
+                    case 'DISTANCE':
+                        string = "Distanza"
+                        break;
+                    case 'HR_LESS_THAN':
+                        string = "Freq. Cardiaca"
+                        break;
+                    case 'CALORIES':
+                        string = "Calorie"
+                        break;
+                    case 'OPEN':
+                        string = "Altro"
+                        break;
+                
+                    default:
+                        break;
+                }
+                
+                break;
+            case 'intensity':
+
+                //REST, WARMUP, COOLDOWN, RECOVERY, INTERVAL
+
+                switch (value) {
+                    case 'REST':
+                        string = "Rec. passivo"
+                        break;
+                    case 'WARMUP':
+                        string = "Risc."
+                        break;
+                    case 'COOLDOWN':
+                        string = "Defat."
+                        break;
+                    case 'RECOVERY':
+                        string = "Recupero"
+                        break;
+                    case 'INTERVAL':
+                        string = "Intervallo"
+                        break;
+                
+                    default:
+                        break;
+                }
+                
+                break;
+            case 'targetType':
+
+                /* PERCENT_HR">%
+                    PERCENT_WATT"
+                    ZONE_HR">ZONA
+                    ZONE_W">ZONA 
+                    CADENCE">CADE
+                    OPEN">LIBERO< */
+
+                    switch (value) {
+                        case 'PERCENT_HR':
+                            string = "% HR"
+                            break;
+                        case 'PERCENT_WATT':
+                            string = "% W"
+                            break;
+                        case 'ZONE_HR':
+                            string = "Zona HR"
+                            break;
+                        case 'ZONE_W':
+                            string = "Zona W"
+                            break;
+                        case 'CADENCE':
+                            string = "RPM"
+                            break;
+                        case 'OPEN':
+                            string = "Libero"
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                
+                break;
+        
+            default:
+                break;
+        }
+
+        return string
+    }
+
     return (
         <div className="containerTab" style={{backgroundColor: coloreRiga}}>    
-            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.zona.descrizione}</span></div>
+            {/* <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.zona.descrizione}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.serie}</span></div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
@@ -28,6 +129,24 @@ const Row = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}>
                 <span>{riga.zona.zona>1 && riga.zona.zona<6 ? toHHMMSS(riga.passoMin)+"-"+toHHMMSS(riga.passoMax) : toHHMMSS(riga.passoMax)}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{calcolaDistanzaTot(riga).toFixed(3)}</span></div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.note}</span></div> */}
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{getStringByPropAndValue('durationType',riga.durationType)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{getStringByPropAndValue('intensity',riga.intensity)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{getStringByPropAndValue('targetType',riga.targetType)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.zona.descrizione}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.targetType === 'ZONE_HR') ? riga.zonaHR : '-'}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.perce_fc}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.fc}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.ripetizioni}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.tempo}</span></div>
+            <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.recupero}</span></div>
+            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{calcTempoRiga(riga)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}>
+                <span>{(riga.zona.zona === 1 || riga.zona.zona === 7) ? toHHMMSS(riga.passoMax) : riga.zona.zona>1 && riga.zona.zona< 7 ? toHHMMSS(riga.passoMin)+"-"+toHHMMSS(riga.passoMax) : riga.zona.zona === 8 ? 'MAX' : '-' }</span>
+            </div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{calcolaDistanzaTot(riga).toFixed(3)}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.calorie}</span></div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.note}</span></div>
         </div>
     )
@@ -68,7 +187,7 @@ const Lista = props => {
     return (
       <div style={{border: '1px solid gray', display: 'flex', flexDirection: 'column', width: '100%'}}>
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center', backgroundColor: "#ffcccb"}}> 
-            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:zona')}</div>
+            {/* <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:zona')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:serie')}</div>
             <div style={{border: '1px solid gray', width: '8%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:ripetizioni')}</div>
             <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:distanza')} Km/Mi</div>
@@ -76,18 +195,41 @@ const Lista = props => {
             <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:tempo-medio')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:passo')}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Tot {t('scrivi-framework:corsa:distanza')}</div>
+            <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Note</div> */}
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Goal</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Work</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Int</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:zona')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:zona-hr')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>% HR</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>HR</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:ripetizioni')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:tempo')}</div>
+            <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:distanza')} Km/Mi</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:recupero')}</div>
+            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:tempo-medio')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{t('scrivi-framework:corsa:passo')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Tot {t('scrivi-framework:corsa:distanza')}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Calorie</div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Note</div>
         </div>
         <SortableList items={items} pressDelay={100} axis="y" lockAxis="y" />
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
-            <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
-            <div style={{border: '1px solid gray', width: '8%', textAlign: 'center'}}></div>
+        <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '15%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {toHHMMSS(totRecupero)}</div>
             <div style={{border: '1px solid gray', width: '12%', textAlign: 'center'}}>Tot: {toHHMMSS(totTempo)}</div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}>Tot: {totDistanza.toFixed(3)}</div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center'}}></div>
         </div>
       </div>

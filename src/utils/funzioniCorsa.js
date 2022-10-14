@@ -22,7 +22,7 @@ const sommaValoriZone = (arr) => {
 
 }
 
-const calcolaDatiCorsa = (rows, passoCorsa ) => {
+const calcolaDatiCorsa = (rows, passoCorsa, hr ) => {
     const speed = (passoCorsa) ? 1000/passoCorsa : 0
     console.log({rows})
     const zoneCalcCorsa = calcolaZoneCorsa(speed)
@@ -31,7 +31,8 @@ const calcolaDatiCorsa = (rows, passoCorsa ) => {
          return {...riga, 
                     passoMin: 1000/zoneCalcCorsa[riga.zona.zona-1].min,
                     passoMax: 1000/zoneCalcCorsa[riga.zona.zona-1].max,
-                    passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media
+                    passoMedia: 1000/zoneCalcCorsa[riga.zona.zona-1].media,
+                    fc: Math.round((Number(riga.perce_fc)/100)*Number(hr))
                 }
     })
 

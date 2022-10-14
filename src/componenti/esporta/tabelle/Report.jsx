@@ -36,7 +36,7 @@ import * as GraficoWeek from './grafici/settimana/GraficoWeek'
 import * as GraficoTot from './grafici/totali/GraficoTot'
 
 const Report = props => {
-    const { rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone, utente, eventiSelezionati } = props
+    const { rangeDateSelect, ftp, fc, passoCorsa, passoNuoto, report, setReport, tabellone, utente, eventiSelezionati, fc_corsa, fc_nuoto } = props
 
     const { t, i18n } = useTranslation()
 
@@ -124,7 +124,7 @@ const Report = props => {
     
             } else if(framework.tipoPerSelect==="corsa") {
 
-                const datiCorsa = corsa.calcolaDatiCorsa(listaRigheFrame, passoCorsa)
+                const datiCorsa = corsa.calcolaDatiCorsa(listaRigheFrame, passoCorsa,fc_corsa)
                 listaRigheFrameCalc = datiCorsa.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:corsa:corsa')}</h4>)
                 tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
@@ -132,7 +132,7 @@ const Report = props => {
             
             } else if(framework.tipoPerSelect==="nuoto") {
 
-                const datiNuoto = nuoto.calcolaDatiNuoto(listaRigheFrame, passoNuoto)
+                const datiNuoto = nuoto.calcolaDatiNuoto(listaRigheFrame, passoNuoto, fc_nuoto)
                 listaRigheFrameCalc = datiNuoto.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:nuoto:nuoto')}</h4>)
                 tabDaAggiungere.push(<TabNuotoDragNDrop listaRighe={listaRigheFrameCalc} />)

@@ -157,14 +157,21 @@ const Corsa = props => {
     }, [tempoPer1000m])
 
     useEffect(() => {
+        if(listaRighe.length > 0) {
+
             cambiaSingolaRigaDistTempo()
             setListaRighe(listaRighe.map(riga => {
 
                 if(riga.targetType === "PERCENT_HR") {
                     return {...riga, fc: Math.round((Number(riga.perce_fc)/100)*Number(hr))}
                 }
+
+                return {...riga}
                 
-        }))
+            }))
+
+        }
+            
     }, [hr])
 
     return (

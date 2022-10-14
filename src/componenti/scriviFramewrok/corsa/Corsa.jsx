@@ -113,6 +113,8 @@ const Corsa = () => {
                 if(riga.targetType === "PERCENT_HR") {
                     return {...riga, fc: Math.round((Number(riga.perce_fc)/100)*Number(hr))}
                 }
+
+                return {...riga}
                 
         }))
     }, [hr])

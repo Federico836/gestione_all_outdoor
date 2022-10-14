@@ -23,7 +23,7 @@ const sommaValoriZone = (arr) => {
 
 }
 
-const calcolaDatiNuoto= (rows, passoNuoto ) => {
+const calcolaDatiNuoto= (rows, passoNuoto, fc ) => {
     const speed = (passoNuoto) ? 100/passoNuoto : 0
     console.log({rows})
     const zoneCalcNuoto = calcolaZoneNuoto(speed)

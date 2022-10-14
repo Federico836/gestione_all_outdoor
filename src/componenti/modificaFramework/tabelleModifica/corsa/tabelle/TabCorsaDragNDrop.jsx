@@ -9,6 +9,8 @@ import { calcolaDistanzaTot, calcTempoRiga, calcRecuperoRiga } from './funzioniC
 const Row = (props) => {
 
     const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice } = props
+
+    console.warn({riga})
     
     const { t, i18n } = useTranslation()
 
@@ -168,6 +170,8 @@ const Lista = (props) => {
 
     const { listaRighe, setListaRighe, aggiungiRiga, setModificaRiga } = props
     const { t, i18n } = useTranslation()
+
+    console.warn({listaRighe})
 
     const items = listaRighe
    
