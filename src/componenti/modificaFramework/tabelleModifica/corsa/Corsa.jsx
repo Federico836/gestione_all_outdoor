@@ -12,6 +12,8 @@ import Intestazione from "./tabelle/Intestazione.jsx"
 
 import { Button } from "@mui/material"
 import styles from './Corsa.module.css'
+import { calcola7Zone } from '../../../../utils/funzioni'
+
 
 const Corsa = props => {
     const { modificaFrame, setModificaFrame, utente } = props
@@ -56,7 +58,9 @@ const Corsa = props => {
     const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
 
+    const zoneCalcolateHR = calcola7Zone(100, hr || 0)
     const zoneCalcolate = calcolaZoneCorsaAgg(velocita)
+    
     zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone-2:fondo-lento-recupero')
     zoneCalcolate[1].descrizione = t('scrivi-framework:corsa:zone-2:fondo-lento')
     zoneCalcolate[2].descrizione = t('scrivi-framework:corsa:zone-2:fondo-medio')
@@ -189,7 +193,7 @@ const Corsa = props => {
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />
 
             <TabCorsaDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
-            setModificaRiga={setModificaRiga} />
+            setModificaRiga={setModificaRiga} zoneCalcolateHR={zoneCalcolateHR} />
 
             <div className={styles.scrittaRac} dangerouslySetInnerHTML={{ __html: t('scrivi-framework:corsa:scritta-rac') }}></div>
 

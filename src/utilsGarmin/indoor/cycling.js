@@ -243,6 +243,22 @@ const stepAutoWatt = (step,i,ftp_) => {
             /* targetValueType: (wattPercent && !isNaN(Number(wattPercent))) ? stepTargetValueType.PERCENT : null */
         }
     }
+    else if(watt && !isNaN(Number(watt)) && Number(watt) > 0) {
+
+        return {
+            type: workoutStepType.WorkoutStep,
+            stepOrder: i +1,
+            intensity: stepIntensityType.INTERVAL,
+            description: description,
+            durationType: stepDurationType.TIME,
+            durationValue: Number(duration),
+            targetType: stepTargetType.POWER,
+            targetValueLow: Number(watt) - 1,
+            targetValueHigh: Number(watt) + 1
+            /* targetValueType: (wattPercent && !isNaN(Number(wattPercent))) ? stepTargetValueType.PERCENT : null */
+        }
+
+    }
 
     return {
         type: workoutStepType.WorkoutStep,

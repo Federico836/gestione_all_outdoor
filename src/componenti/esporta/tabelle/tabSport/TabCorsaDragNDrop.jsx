@@ -8,7 +8,7 @@ import { calcolaDistanzaTot, calcTempoRiga, calcRecuperoRiga } from '../../../sc
 
 const Row = props => {
 
-    const { riga, indice } = props
+    const { riga, indice,fc_min, fc_max } = props
     
     const { t, i18n } = useTranslation()
 
@@ -136,7 +136,9 @@ const Row = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.zona.descrizione}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.targetType === 'ZONE_HR') ? riga.zonaHR : '-'}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.perce_fc}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.fc}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}>
+            <span>{ (riga.targetType === 'ZONE_HR') ? fc_min + ' - ' + fc_max : riga.fc}</span>
+            </div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{riga.tempo}</span></div>
             <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center"}} contentEditable={true}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
@@ -152,22 +154,27 @@ const Row = props => {
     )
 }
 
-const SortableItem = SortableElement(({riga, indice}) => <Row riga={riga} indice={indice} />)
+const SortableItem = SortableElement(({riga, indice, fc_min, fc_max}) => <Row riga={riga} indice={indice} fc_min={fc_min} fc_max={fc_max} />)
 
-const SortableList = SortableContainer(({items}) => {
+const SortableList = SortableContainer(({items, zoneCalcolateHR}) => {
 
     return (
         <div>
-            {useMemo(() => items.map((riga, index) => (
-                <SortableItem key={`item-${index}`} index={index} indice={index} riga={riga} />
-            )), [items]) }
+            {useMemo(() => items.map((riga, index) => {
+
+                const zonaHR = zoneCalcolateHR.find(el => el.zona === Number(riga.zonaHR))
+                const fc_min = (zonaHR) ? zonaHR.fc_min : 0
+                const fc_max = (zonaHR) ? zonaHR.fc_max : 0
+            
+                return (<SortableItem key={`item-${index}`} index={index} indice={index} riga={riga} fc_min={fc_min} fc_max={fc_max}/>)
+            }), [items]) }
         </div>
     )
 })
 
 const Lista = props => {
 
-    const { listaRighe } = props
+    const { listaRighe, zoneCalcolateHR } = props
     const { t, i18n } = useTranslation()
 
     const items = listaRighe
@@ -213,7 +220,7 @@ const Lista = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Calorie</div>
             <div style={{border: '1px solid gray', width: '25%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>Note</div>
         </div>
-        <SortableList items={items} pressDelay={100} axis="y" lockAxis="y" />
+        <SortableList items={items} pressDelay={100} axis="y" lockAxis="y" zoneCalcolateHR={zoneCalcolateHR}/>
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
         <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>

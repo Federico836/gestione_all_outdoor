@@ -83,7 +83,7 @@ const TabListaFramework = props => {
             coloreRiga = "white"
         }
 
-        lista.push(<tr style={{backgroundColor: (listaFiltrataNome[c].uploaded) ? '#00c291' : coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
+        lista.push(<tr style={{backgroundColor: (listaFiltrataNome[c].uploaded) ? '#00c291' : listaFiltrataNome[c].upload_error ? '#e63702' : coloreRiga}} className="rigaDrag" title={listaFiltrataNome[c].nomeFramework}
         tipoSport={listaFiltrataNome[c].tipoPerSelect} sourceId={listaFiltrataNome[c].id}>
             <td>{listaFiltrataNome[c].tipo}</td>
             <td>{listaFiltrataNome[c].nomeFramework}</td>

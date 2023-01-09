@@ -243,23 +243,32 @@ export function* uploadFrameworkToGarmin(action) {
     if(framework.tipoPerSelect === 'corsa') workout = convertWorkoutInGarminFormat(workoutSportType.RUNNING,framework)
     if(framework.tipoPerSelect === 'nuoto') workout = convertWorkoutInGarminFormat(workoutSportType.LAP_SWIMMING,framework)
 
-    if(framework.tipoPerSelect === 'corsa') {
+    /* if(framework.tipoPerSelect === 'corsa') {
 
         console.log({framework,workout})
         return;
+    } */
+
+    try {
+
+        const response =  yield call(garmin.upload,user_id,workout)
+        const uploaded_workout = response.data
+
+        console.log({uploaded_workout,workout})
+        
+        if(uploaded_workout.workoutId) yield put({type: 'FRAMEWORK_UPLOADED', payload: {id: framework.id}})
+        else yield put({type: 'FRAMEWORK_UPLOAD_ERROR', payload: {id: framework.id, error: uploaded_workout}})
+
+        if(date && uploaded_workout.workoutId) {
+            const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)
+            console.log(schedule_response.data)
+        }
+        
+    } catch (error) {
+        yield put({type: 'FRAMEWORK_UPLOAD_ERROR', payload: {error,id: framework.id}})
     }
 
-    const response =  yield call(garmin.upload,user_id,workout)
-    const uploaded_workout = response.data
-
-    console.log({uploaded_workout,workout})
     
-    if(uploaded_workout.workoutId) yield put({type: 'FRAMEWORK_UPLOADED', payload: {id: framework.id}})
-
-    if(date && uploaded_workout.workoutId) {
-        const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)
-        console.log(schedule_response.data)
-    }
     
 }
 export function* uploadToGarmin(action) {
@@ -347,19 +356,27 @@ export function* uploadFitToGarmin(action) {
     const {scheletro,dati} = data
     const nome = scheletro[0].nome
 
-    
-    const w = transform.transformCsvArrToWorkout(dati)
-    const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,{...w,nome},true,ftp,hr)
-    const response =  yield call(garmin.upload,user_id,workout)
-    const uploaded_workout = response.data
+    try {
 
-    console.log({uploaded_workout,workout})
-    if(uploaded_workout.workoutId) yield put({type: 'FIT_UPLOADED', payload: {id: framework.id}})
+        const w = transform.transformCsvArrToWorkout(dati)
+        const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,{...w,nome},true,ftp,hr)
+        const response =  yield call(garmin.upload,user_id,workout)
+        const uploaded_workout = response.data
 
-    if(date && uploaded_workout.workoutId) {
-        const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)
-        console.log(schedule_response.data)
+        console.log({uploaded_workout,workout})
+        if(uploaded_workout.workoutId) yield put({type: 'FIT_UPLOADED', payload: {id: framework.id}})
+        else yield put({type: 'FIT_UPLOAD_ERROR', payload: {id: framework.id, error: uploaded_workout}})
+
+        if(date && uploaded_workout.workoutId) {
+            const schedule_response = yield call(garmin.schedule,user_id,uploaded_workout.workoutId,date)
+            console.log(schedule_response.data)
+        }
+   
+    } catch (error) {
+         yield put({type: 'FIT_UPLOAD_ERROR', payload: {id: framework.id,error}})
     }
+    
+    
 
 }
 

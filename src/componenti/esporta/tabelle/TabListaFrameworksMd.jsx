@@ -50,14 +50,15 @@ const TabListaFrameworksMD = (props) => {
     for(let c=0;c<listaFrameworksFiltrata.length;c++) {
         let coloreRiga = (c%2===0) ? "white" : "lightgray"
         
-        lista.push(<tr style={{backgroundColor: (listaFrameworksFiltrata[c].uploaded) ? '#00c291' : coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
+        lista.push(<tr style={{backgroundColor: (listaFrameworksFiltrata[c].uploaded) ? '#00c291' :  listaFrameworksFiltrata[c].upload_error ? '#e63702' : coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
         tipoSport={"ciclismo"} sourceId={listaFrameworksFiltrata[c].id}>
             <td>{listaFrameworksFiltrata[c].nome}</td>
             <td><IconButton onClick={() => dispatch({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente, ftp,hr}})}><UploadFileIcon/></IconButton></td>
             {(window.md.logged_user.ID === 345 || window.md.logged_user.ID === 108 || window.md.logged_user.ID === 957) && <td>
             <PDFDownloadLink document={<PDFTable id={listaFrameworksFiltrata[c].id} 
                                                  rif={{watt,rpm,accaerre}}/>} 
-                                                 fileName={utente.nome + "_" + utente.cognome + "_FIT_" + new Date().toLocaleDateString().replace('/','-').replace('/','-') + '.pdf'}>
+                                                 fileName={(utente) ? utente.nome || '' + "_" + utente.cognome || '' + "_FIT_" + new Date().toLocaleDateString().replace('/','-').replace('/','-') + '.pdf'
+                                                 : "FIT_" + new Date().toLocaleDateString().replace('/','-').replace('/','-') + '.pdf'}>
       
       
       {({ blob, url, loading, error }) =>

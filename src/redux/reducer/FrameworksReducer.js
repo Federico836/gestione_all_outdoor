@@ -43,10 +43,26 @@ function frameworksReducer(state = { lista: []}, action) {
 
       })}
     }
+    case 'FRAMEWORK_UPLOAD_ERROR': {
+      return {...state, lista: state.lista.map(el => {
+
+        if(el.id === payload.id) {
+          return {...el, upload_error: payload.error}
+        }
+
+        return {...el}
+
+
+      })}
+    }
 
 
     case 'RESET_UPLOADED_FRAMEWORKS': {
       return {...state, lista: state.lista.map(el => { return {...el, uploaded: false}})}
+    }
+
+    case 'RESET_ERROR_UPLOADED_FRAMEWORKS': {
+      return {...state, lista: state.lista.map(el => { return {...el, upload_error: false}})}
     }
     
     default:

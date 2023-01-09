@@ -50,7 +50,7 @@ const Report = props => {
     const zoneCalcCiclismo = calcola7Zone(ftp, fc)
     const zoneCalcCorsa = calcolaZoneCorsa(1000/passoCorsa)
     const zoneCalcNuoto = calcolaZoneNuoto(100/passoNuoto)
-
+    const zoneCalcolateHR = calcola7Zone(100, fc_corsa || 0)
 
     const getWeeks = (arr, criteria = "settimana") => {
 
@@ -127,7 +127,7 @@ const Report = props => {
                 const datiCorsa = corsa.calcolaDatiCorsa(listaRigheFrame, passoCorsa,fc_corsa)
                 listaRigheFrameCalc = datiCorsa.rowsCalc
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:corsa:corsa')}</h4>)
-                tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} />)
+                tabDaAggiungere.push(<TabCorsaDragNDrop listaRighe={listaRigheFrameCalc} zoneCalcolateHR={zoneCalcolateHR} />)
                 if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
             
             } else if(framework.tipoPerSelect==="nuoto") {

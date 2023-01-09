@@ -32,7 +32,7 @@ const TableRow = (props) => {
 
   const rows = steps.map((step,index) => {
 
-    const {duration, watt, rpm, bpm, description = 'N/D'} = step
+    const {duration, watt, rpm, bpm, description = 'N/D',rpmString = '-'} = step
     const tempo = new Date(duration * 1000).toISOString().substr(11, 8)
     
 
@@ -41,7 +41,7 @@ const TableRow = (props) => {
         <View style={styles.row} key={index}>
           <Text style={styles.cell}>{tempo}</Text>
           <Text style={styles.cell}>{Number(watt) > 0 ? Number(watt).toFixed(0) : '-'}</Text>
-          <Text style={styles.cell}>{Number(rpm) > 0 ? Number(rpm).toFixed(0) : '-'}</Text>
+          <Text style={styles.cell}>{Number(rpm) > 0 ? Number(rpm).toFixed(0) : rpmString}</Text>
           <Text style={styles.cell}>{Number(bpm) > 0 ? Number(bpm).toFixed(0) : '-'}</Text>
           <Text style={styles.desc}>{description}</Text>
         </View>

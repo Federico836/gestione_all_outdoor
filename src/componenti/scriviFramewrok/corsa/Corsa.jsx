@@ -4,14 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { addFramework } from '../../../redux/actions/FrameworkActions.js'
-
 import TabCorsaAddRiga from './tabelle/TabCorsaAddRiga.jsx'
 import TabCorsaDragNDrop from './tabelle/TabCorsaDragNDrop.jsx'
 import { calcolaZoneCorsa,calcolaZoneCorsaAgg } from '../../../utils/funzioni'
 import Intestazione from "./tabelle/Intestazione.jsx"
-
 import { Button } from "@mui/material"
 import styles from './Corsa.module.css'
+import { calcola7Zone } from '../../../utils/funzioni'
 
 const Corsa = () => {
 
@@ -37,19 +36,7 @@ const Corsa = () => {
     const velocita = 1000/tempoPer1000m
     let velocitaKmh = velocita*3.6
     
-   /* 
-   
-    t('scrivi-framework:corsa:zone-2:fondo-lento-recupero')
-    t('scrivi-framework:corsa:zone-2:fondo-lento')
-    t('scrivi-framework:corsa:zone-2:fondo-medio')
-    t('scrivi-framework:corsa:zone-2:ritmo-gara')
-    t('scrivi-framework:corsa:zone-2:fondo-veloce')
-    t('scrivi-framework:corsa:zone-2:soglia')
-    t("scrivi-framework:corsa:zone-2:vo2")
-    t("scrivi-framework:corsa:zone-2:sprint")
-    t("scrivi-framework:corsa:zone-2:recupero-passivo")
-   
-   */
+    const zoneCalcolateHR = calcola7Zone(100, hr || 0)
 
     const zoneCalcolate = calcolaZoneCorsaAgg(velocita)
     zoneCalcolate[0].descrizione = t('scrivi-framework:corsa:zone-2:fondo-lento-recupero')
@@ -140,7 +127,7 @@ const Corsa = () => {
             setDatiSingolaRiga={setDatiSingolaRiga} modificaRiga={modificaRiga} zoneCalcolate={zoneCalcolate} />
 
             <TabCorsaDragNDrop listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga}
-            setModificaRiga={setModificaRiga} />
+            setModificaRiga={setModificaRiga} zoneCalcolateHR={zoneCalcolateHR}/>
 
             <div className={styles.scrittaRac} dangerouslySetInnerHTML={{ __html: t('scrivi-framework:corsa:scritta-rac') }}></div>
 

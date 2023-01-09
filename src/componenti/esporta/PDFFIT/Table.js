@@ -51,7 +51,7 @@ const Table = (props) => {
         const bpmCalcolati = (perceBpm > 0 && rif.accaerre && Number(rif.accaerre) > 0) ? (perceBpm/100)*Number(rif.accaerre) : bpm
         
 
-        return {duration,watt: wattCalcolati,rpm: rpmCalcolati, bpm: bpmCalcolati,description}
+        return {duration,watt: wattCalcolati,rpm: rpmCalcolati, bpm: bpmCalcolati,description, rpmString: split[5]}
 
         })
 

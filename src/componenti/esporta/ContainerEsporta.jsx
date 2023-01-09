@@ -98,6 +98,12 @@ const ContainerEsporta = props => {
         dispatch({type: 'RESET_UPLOADED_FIT', payload: {}})
     }
 
+    const handleCloseAlertUploadError = () => {
+
+        dispatch({type: 'RESET_ERROR_UPLOADED_FRAMEWORKS', payload: {}})
+        dispatch({type: 'RESET_ERROR_UPLOADED_FIT', payload: {}})
+    }
+
 
     useEffect(function()  {
         setListaEventi(listaEventiStore)
@@ -443,6 +449,10 @@ const ContainerEsporta = props => {
                     {(listaFramework.filter(el => el.uploaded).length > 0 || listaFrameworksMD.filter(el => el.uploaded).length > 0) && 
                         <Alert severity="success" sx={{ width: '100%' }} onClose={handleCloseAlertUpload}>
                             Uploaded # {listaFramework.filter(el => el.uploaded).length + listaFrameworksMD.filter(el => el.uploaded).length} FIT
+                        </Alert>}
+                    {(listaFramework.filter(el => el.upload_error).length > 0 || listaFrameworksMD.filter(el => el.upload_error).length > 0) && 
+                        <Alert severity="error" sx={{ width: '100%' }} onClose={handleCloseAlertUploadError}>
+                            Upload error on # {listaFramework.filter(el => el.upload_error).length + listaFrameworksMD.filter(el => el.upload_error).length} FIT
                         </Alert>}
                        
                         <SelectTipoEventi tipoEventi={tipoEventi} setTipoEventi={setTipoEventi}/>

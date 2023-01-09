@@ -8,9 +8,11 @@ import { calcolaDistanzaTot, calcTempoRiga, calcRecuperoRiga } from './funzioniC
 
 const Row = props => {
 
-    const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice } = props
+    const { riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice, fc_min, fc_max } = props
     
     const { t, i18n } = useTranslation()
+
+    console.warn({riga})
 
     let coloreRiga = "white"
     if(indice%2 !== 0) {
@@ -126,7 +128,9 @@ const Row = props => {
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.zona.descrizione}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.targetType === 'ZONE_HR') ? riga.zonaHR : '-'}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.perce_fc}</span></div>
-            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.fc}</span></div>
+            <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{ (riga.targetType === 'ZONE_HR') ?  
+            fc_min + ' - ' + fc_max 
+            : riga.fc}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.ripetizioni}</span></div>
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{riga.tempo}</span></div>
             <div style={{border: '1px solid gray', width: '15%', textAlign: 'center', display: "flex", alignItems: "center"}}><span>{(riga.distanza/1000).toFixed(3)}</span></div>
@@ -148,24 +152,30 @@ const Row = props => {
     )
 }
 
-const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice}) => <Row riga={riga} listaRighe={listaRighe}
-    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} indice={indice} />)
+const SortableItem = SortableElement(({riga, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, indice, fc_min, fc_max}) => <Row riga={riga} listaRighe={listaRighe}
+    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} indice={indice} fc_min={fc_min} fc_max={fc_max} />)
 
-const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga}) => {
+const SortableList = SortableContainer(({items, listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, zoneCalcolateHR}) => {
 
     return (
         <div>
-            {useMemo(() => items.map((riga, index) => (
-                <SortableItem key={`item-${index}`} index={index} indice={index} riga={riga} listaRighe={listaRighe}
-                    setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />
-            )), [items]) }
+            {useMemo(() => items.map((riga, index) => {
+
+                const zonaHR = zoneCalcolateHR.find(el => el.zona === Number(riga.zonaHR))
+                const fc_min = (zonaHR) ? zonaHR.fc_min : 0
+                const fc_max = (zonaHR) ? zonaHR.fc_max : 0
+
+                return (<SortableItem key={`item-${index}`} index={index} indice={index} riga={riga} listaRighe={listaRighe} 
+                                      setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} fc_min={fc_min} fc_max={fc_max}/>)
+
+            }), [items]) }
         </div>
     )
 })
 
 const Lista = (props) => {
 
-    const { listaRighe, setListaRighe, aggiungiRiga, setModificaRiga } = props
+    const { listaRighe, setListaRighe, aggiungiRiga, setModificaRiga, zoneCalcolateHR } = props
     const { t, i18n } = useTranslation()
 
     const items = listaRighe
@@ -211,7 +221,7 @@ const Lista = (props) => {
             <div style={{border: '1px solid gray', width: '6%', textAlign: 'center', display: "flex", alignItems: "center", justifyContent: "center"}}>{/* {t('scrivi-framework:corsa:elimina')} */}</div>
         </div>
         <SortableList items={items} onSortEnd={onSortEnd} pressDelay={100} axis="y" lockAxis="y"
-        listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} />
+        listaRighe={listaRighe} setListaRighe={setListaRighe} aggiungiRiga={aggiungiRiga} setModificaRiga={setModificaRiga} zoneCalcolateHR={zoneCalcolateHR}/>
         <div style={{display: 'flex', flexDirection: 'row', textAlign: 'center'}}>
             {/* <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div> */}
             <div style={{border: '1px solid gray', width: '10%', textAlign: 'center'}}></div>
