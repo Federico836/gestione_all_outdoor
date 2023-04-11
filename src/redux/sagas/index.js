@@ -347,7 +347,7 @@ export function* uploadFitToGarmin(action) {
     if(!action || !action.payload) return
 
     const {payload} = action
-    const {framework,user_id,date,ftp,hr} = payload
+    const {framework,user_id,date,ftp = 250,hr} = payload
     const {id} = framework
 
     const resp = yield call(api.getMDFrameworkByID,id)
@@ -359,7 +359,19 @@ export function* uploadFitToGarmin(action) {
     try {
 
         const w = transform.transformCsvArrToWorkout(dati)
-        const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,{...w,nome},true,ftp,hr)
+        const neW = {...w, steps: w.steps.map(step => {
+
+            const {watt,wattPercent} = step
+
+            if(watt > 0) return {...step, wattPercent: null}
+            else if(wattPercent > 0) return {...step, watt: Math.round((wattPercent/100)*ftp), wattPercent: null}
+
+
+        })}
+
+
+
+        const workout = convertWorkoutInGarminFormat(workoutSportType.CYCLING,{...neW,nome},true,ftp,hr)
         const response =  yield call(garmin.upload,user_id,workout)
         const uploaded_workout = response.data
 

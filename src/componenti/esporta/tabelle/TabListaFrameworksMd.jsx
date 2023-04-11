@@ -22,7 +22,7 @@ import PDFTable from '../PDFFIT/Table'
 const TabListaFrameworksMD = (props) => {
 
     const listaFrameworks = useSelector(state => state.mdFrameworks.lista)
-    const { setTipoEventi,idUtente,ftp,hr,utente } = props
+    const { setTipoEventi,idUtente,utente } = props
     const { t, i18n } = useTranslation()
     const dispatch = useDispatch()
 
@@ -53,7 +53,14 @@ const TabListaFrameworksMD = (props) => {
         lista.push(<tr style={{backgroundColor: (listaFrameworksFiltrata[c].uploaded) ? '#00c291' :  listaFrameworksFiltrata[c].upload_error ? '#e63702' : coloreRiga}} className="rigaDrag" title={listaFrameworksFiltrata[c].nome}
         tipoSport={"ciclismo"} sourceId={listaFrameworksFiltrata[c].id}>
             <td>{listaFrameworksFiltrata[c].nome}</td>
-            <td><IconButton onClick={() => dispatch({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente, ftp,hr}})}><UploadFileIcon/></IconButton></td>
+            <td><IconButton disabled={false} onClick={() => 
+            
+            {
+                console.warn({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente, ftp: watt,hr: accaerre}})
+                dispatch({type: "UPLOAD_FIT_TO_GARMIN", payload: {framework: listaFrameworksFiltrata[c], user_id: idUtente, ftp: watt,hr: accaerre}})
+            }
+            
+            }><UploadFileIcon/></IconButton></td>
             {(window.md.logged_user.ID === 345 || window.md.logged_user.ID === 108 || window.md.logged_user.ID === 957) && <td>
             <PDFDownloadLink document={<PDFTable id={listaFrameworksFiltrata[c].id} 
                                                  rif={{watt,rpm,accaerre}}/>} 

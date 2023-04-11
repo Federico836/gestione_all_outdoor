@@ -77,6 +77,8 @@ const Report = props => {
 
     const stampaTabelleReport = () => {
 
+        console.log({eventiSelezionati})
+
         const listaStampaWorkouts = []
        
         const weeks = getWeeks(eventiSelezionati)
@@ -104,9 +106,15 @@ const Report = props => {
             if(!framework) {
                 if(eventiSelezionati[c].extendedProps.mdId==999) {
                     framework = {tipoPerSelect: "MagneticDays", listaRighe: []}
-                } else {
+                }
+                else if(eventiSelezionati[c].extendedProps.mdType.includes('FIT')) {
+                    framework = {tipoPerSelect: "fit", listaRighe: [], nome: eventiSelezionati[c].title}
+                } 
+                else {
                     continue
                 }
+
+                
             }
             
             const listaRigheFrame = framework.listaRighe.map(riga => {return {...riga}})
@@ -151,8 +159,12 @@ const Report = props => {
                 tabDaAggiungere.push(<TabSportDragNDrop listaRighe={listaRigheFrame} />)
                 if(framework.noteAll && framework.noteAll.length>0) tabDaAggiungere.push(<p style={{wordWrap: "break-word", whiteSpace: "pre-wrap"}}>{framework.noteAll}</p>)
             } else if(framework.tipoPerSelect==="MagneticDays") {
-                tabDaAggiungere.push(<h4>Magnetic Days</h4>)
-            } else if(framework.tipoPerSelect==="gara") {
+                tabDaAggiungere.push(<div style={{textAlign: 'center'}}><h3>Magnetic Days</h3></div>)
+            }
+            else if(framework.tipoPerSelect==="fit") {
+                tabDaAggiungere.push(<div style={{textAlign: 'center'}}><h3 style={{color: 'red'}}>{framework.nome}</h3></div>)
+            } 
+            else if(framework.tipoPerSelect==="gara") {
                 tabDaAggiungere.push(<h4>{t('scrivi-framework:gara:gara')}</h4>)
                 tabDaAggiungere.push(<div style={{whiteSpace: "pre-wrap"}}>{framework.testo}</div>)
             }
@@ -165,20 +177,20 @@ const Report = props => {
             if(c>0) {
                 if(eventiSelezionati[c-1].start.getDay()!==eventiSelezionati[c].start.getDay()
                 || eventiSelezionati[c-1].start.getWeek()!==eventiSelezionati[c].start.getWeek()) {
-                    listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
-                        <h3>{dataConOSenzaOrario(eventiSelezionati[c])}</h3>
+                    listaStampaWorkouts.push(<div style={{breakInside: "avoid", textAlign: 'center'}}>
+                        <h2>{dataConOSenzaOrario(eventiSelezionati[c])}</h2>
                         {tabDaAggiungere}
                     </div>)
                 } else {
-                    listaStampaWorkouts.push(<div style={{marginTop: "3vh", breakInside: "avoid"}}>
-                        {!eventiSelezionati[c].allDay ? <h3>{t('esporta:report:prima-pagina:dalle')+" "+eventiSelezionati[c].start.toLocaleTimeString()
-                            +" "+t('esporta:report:prima-pagina:alle')+" "+eventiSelezionati[c].end.toLocaleTimeString()}</h3> : null}
+                    listaStampaWorkouts.push(<div style={{marginTop: "3vh", breakInside: "avoid", textAlign: 'center'}}>
+                        {!eventiSelezionati[c].allDay ? <h2>{t('esporta:report:prima-pagina:dalle')+" "+eventiSelezionati[c].start.toLocaleTimeString()
+                            +" "+t('esporta:report:prima-pagina:alle')+" "+eventiSelezionati[c].end.toLocaleTimeString()}</h2> : null}
                         {tabDaAggiungere}
                     </div>)
                 }
             } else {
-                listaStampaWorkouts.push(<div style={{breakInside: "avoid"}}>
-                    <h3>{dataConOSenzaOrario(eventiSelezionati[c])}</h3>
+                listaStampaWorkouts.push(<div style={{breakInside: "avoid", textAlign: 'center'}}>
+                    <h2>{dataConOSenzaOrario(eventiSelezionati[c])}</h2>
                     {tabDaAggiungere}
                 </div>)
             }

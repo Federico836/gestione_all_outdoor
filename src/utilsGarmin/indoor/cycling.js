@@ -240,7 +240,7 @@ const stepAutoWatt = (step,i,ftp_) => {
             targetValueLow: Number(wattPercent) - 1,
             targetValueHigh: Number(wattPercent) + 1,
             targetValueType: stepTargetValueType.PERCENT
-            /* targetValueType: (wattPercent && !isNaN(Number(wattPercent))) ? stepTargetValueType.PERCENT : null */
+            // targetValueType: (wattPercent && !isNaN(Number(wattPercent))) ? stepTargetValueType.PERCENT : null
         }
     }
     else if(watt && !isNaN(Number(watt)) && Number(watt) > 0) {

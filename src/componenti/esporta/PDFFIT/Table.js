@@ -20,6 +20,7 @@ const Table = (props) => {
     const {id, rif} = props
 
     const [steps,setSteps] = useState([])
+    const [nome,setNome] = useState('')
 
     useEffect(() => {
 
@@ -27,8 +28,9 @@ const Table = (props) => {
         .then((response) => response.json())
         .then((data) => {
 
-        const {dati} = data
+        const {dati,scheletro} = data
         
+        const nome_scheletro = (scheletro && scheletro.length > 0) ? scheletro[0].nome : ''
         const dati_filtrati = dati.filter(el => Number(el.split(';')[3]) > 0).filter(el => el.split(';').length > 20)
         const dati_mappati = dati_filtrati.map(el => {
 
@@ -56,7 +58,8 @@ const Table = (props) => {
         })
 
     setSteps(dati_mappati)
-
+    
+    if(nome_scheletro && nome_scheletro.length > 1) setNome(nome_scheletro)
 
     });
 
@@ -68,7 +71,7 @@ const Table = (props) => {
     return (
         <Document>
           <Page size="A4" style={styles.page}>
-            {(steps && steps.length > 0) && <ItemsTable steps={steps} />}
+            {(steps && steps.length > 0) && <ItemsTable steps={steps} nome={nome} />}
           </Page>
         </Document>
       )
